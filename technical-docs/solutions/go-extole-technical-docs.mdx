@@ -1,0 +1,88 @@
+---
+title: "Go Extole Field Team App"
+description: "Mobile app where users share QR codes and links to refer and earn rewards"
+---
+
+## Overview
+
+The Go Extole mobile app allows an Extole campaign to be easily used for in-person referrals. The app supports personalized QR code and link sharing options for referrals.
+
+<img src="https://files.readme.io/8dc20f867506db53a3bf40697713e9b3df8511e2f9a59b356d35d7186e5d727b-c0ff4db2412299bb41f6246f39e0dc6abd3a6c3f0cbd2bc6c00e8e10741aabf3-Screenshot_2025-07-17_at_5.50.25_PM.png" alt="" />
+
+### Availability
+
+Go Extole is available for both iOS and Android devices
+
+<div style={{ textAlign: "center" }}>
+  &lt;style>
+    \{`.app-badges .lightbox \{
+      pointer-events: none !important;
+      cursor: default !important;
+    \}
+    .app-badges a \{
+      pointer-events: all !important;
+      cursor: pointer !important;
+    \}`\}
+  &lt;/style>
+  <div className="app-badges">
+    <a href="https://apps.apple.com/us/app/go-extole/id6744177625?platform=iphone" style={{ display: "inline-block" }}>
+      <img src="https://toolbox.marketingtools.apple.com/api/v2/badges/download-on-the-app-store/black/en-us?releaseDate=1748908800"
+           alt="Download on the App Store" 
+           style={{ width: "200px", height: "70px", verticalAlign: "middle", objectFit: "contain", padding: "20px" }} />
+    </a>
+    &nbsp;&nbsp;
+    <a href="https://play.google.com/store/apps/details?id=com.extole.go&hl=en_US" style={{ display: "inline-block" }}>
+      <img src="https://files.readme.io/04b1ca049ee3fdf9893c9d46ad6e9ea51f88e4d7069215cc1665014174576230-GetItOnGooglePlay_Badge_Web_color_English.png" 
+           alt="Get it on Google Play" 
+           style={{ width: "220px", height: "73px", verticalAlign: "middle", objectFit: "contain", padding: "20px" }} />
+    </a>
+  </div>
+</div>
+
+## Setup
+
+### Audience
+
+To set up Go Extole access for your audience members, open the Extole platform, create an audience, and add or upload your audience members.
+
+<img src="https://files.readme.io/0debe04c1394b21b44e2cf966d498e0db2d697809e9511e730cd72aa88dd4c5b-f189f062d75b89695c673e77285c5a6c955ef6200ccc5f7c677430c12b21ae9a-Screenshot_2025-07-02_at_6.24.09_PM.png" alt="" />
+
+You can add or remove members individually, in bulk, or based on rules through the Extole UI, Extole's [People API](https://docs.extole.com/reference/people-endpoints), [file uploads](https://docs.extole.com/docs/general-file-uploads), or [automated SFTP workflows](https://docs.extole.com/docs/files). Access can also be granted to specific email domains, if you'd like all employees to log in with their company email address.
+
+### Extole Program
+
+Go Extole utilizes a new or existing Refer a Friend Extole program for its configuration. Create or select the program you would like to use with Go Extole, and we will make it available. Once it is available, go to your desired Extole campaign, select "Edit Creatives", under "Go Extole" select the "App Page", and in the right column under "Eligibility Validation":
+
+* Select the audience that contains your Go Extole eligible members. Then, in the Eligible Members Audience three dots menu, indicate that that audience is the default audience for Go Extole and confirm you'd like to overwrite the existing default audience.
+
+<img src="https://files.readme.io/fca7504982df4c36610cc13f4feddb150bcbeb23986ee996c17c76900cbeae86-83534e5d646ef526c86f096de669b44d4fcc061c6b0eb2756c972b9352558f70-Screenshot_2025-07-11_at_4.48.58_PM.png" alt="" />
+
+* Ensure that "Enable Advocate Eligibility Validation" is enabled, overwrite the default, and "Update Go Extole Default Value".
+
+<img src="https://files.readme.io/2778b0fb63668ce605cbaf21827975f10cc4808818d5382b1d0d5290ea6f05c2-bc27a042228516b935e648b8638ad209284704ad5d46fba6c005f65e8ee9dd85-Screenshot_2025-07-11_at_4.52.53_PM.png" alt="" />
+
+Finally, to access Go Extole, your employees will enter your company name and their email address on the mobile app login screen. Let us know what your company name should be on this screen, and we will finish the configuration so that your audience has access.
+
+### Creatives
+
+The required creatives for a Go Extole referral program are the authentication email, the app homepage, and the stats dashboard. To edit those creatives, find your desired Go Extole campaign, select "Edit Creatives", and find the desired asset you'd like to edit.
+
+<img src="https://files.readme.io/6bd38c7181ddb869d494cadbb35994f0262f439435f9b71d50af143b1a040f1a-28ef7b2d946330001526698c08596eee0efa7911150957d110532e106a3e7004-Screenshot_2025-07-02_at_6.34.41_PM.png" alt="" />
+
+### Branding
+
+The authentication email, app homepage, and the stats dashboard can match your brand's experience. Some elements, including the login screen, verification email instructions, app name, and app icon, have a general "Go Extole" experience. If you'd like a fully-branded version of Go Extole, please reach out to your CSM.
+
+You can send Go Extole emails from your company's domain. For more information on setting up this branded email domain, please see our [Javascript SDK](https://docs.extole.com/docs/javascript-sdk).
+
+### Stats
+
+Go Extole users can see their own referral metrics in-app. Users can see their reward earnings, who they referred, the date of referral, and which key steps each referral has progressed through. You can customize what referral information and which steps are shown here.
+
+<img src="https://files.readme.io/835b3503f87c04656f5e7cf328c0d3b3e7f44571bfc9d76f64f6d506e91aae65-9e7da042ce789084527aa98ee925c2d06a2b0e8c178fff2f5be47973547fcab9-Screenshot_2025-07-11_at_5.13.24_PM.png" alt="" />
+
+Extole platform users can see campaign-wide statistics through their Extole performance dashboard.
+
+### Rewards
+
+For reward redemption, Extole can automatically send rewards to your users as defined in your Extole campaign rules, or users can use [Reward Bank](https://docs.extole.com/docs/reward-bank) to select their own rewards. If you'd like to use Reward Bank with Go Extole, please reach out to your CSM.

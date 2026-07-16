@@ -1,0 +1,25 @@
+---
+title: "Okta Single Sign-On to My Extole"
+description: "My Extole supports a wide range of services for SSO. In order to connect Okta to My Extole, you'll use an OpenID Connect (OIDC) identity provider using the following steps."
+---
+
+My Extole supports a wide range of services for SSO. In order to connect Okta to My Extole, you'll use an OpenID Connect (OIDC) identity provider using the following steps.
+
+# Register Okta application
+
+## Obtain client ID and client secret
+
+1. On the **General** page of your app and scroll to the **Client Credentials** section.
+2. Note the **Client ID** and **Client Secret** to be used by Extole.
+
+Provide the following settings to Extole:
+
+```
+```
+
+| Settings | Description |
+| --- | --- |
+| Client ID | from the Client Credentials Okta Page |
+| Client Secret | From the Client Credentials Okta Page |
+| Okta Authorization URL | ``` https://{okta-account}/oauth2/v1/authorizeusing Okta account DNS name |
+| Okta Token URL | ``` https://\{octa-account\}/oauth2/v1/tokenusing the Okta account DNS name |

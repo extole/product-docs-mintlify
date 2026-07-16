@@ -1,0 +1,356 @@
+---
+title: "Optimove"
+description: "[Optimove](https://www.optimove.com/) is a CRM marketing platform that empowers marketers to drive measurable growth by planning, orchestrating, and optimizing marketing programs that start with the customer instead of a campaign or product.."
+---
+
+## Overview
+
+Extole's integration with Optimove enables marketers to create a personalized and relevant customer experience across all touchpoints. With Optimove, brands can leverage real-time data from Extole to trigger personalized campaigns across multiple channels for their referral and engagement programs. This integration ensures that businesses can reach their customers with the right message, at the right time, and through the right channel.
+
+## Prerequisites
+
+The table below lists the prerequisites you need to complete this integration.
+
+| Requirement                    | Description                                                                                                                      |
+| :----------------------------- | :------------------------------------------------------------------------------------------------------------------------------- |
+| Optimove Account               | An Optimove account is required in order to take advantage of this partnership.                                                  |
+| Optimove CID                   | You must use `email address` as CID (customer identifying data) in your Optimove account, or have a mapping solution in place.   |
+| Optimove Tenant ID             | Contact your Optimove CSM to obtain your Tenant ID.                                                                              |
+| Optimove Track & Trigger Token | Contact your Optimove CSM to obtain a Track\&Trigger (T\&T) token.                                                               |
+| Optimove Server-side URL       | Contact your Optimove CSM to obtain an HTTP endpoint in the following format: `https://server-xxx.optimove.net/v2/reportServer`. |
+
+## Use Cases
+
+1. Make your referral and engagement programs more effective with the addition of cross-channel messaging
+2. Grow your marketing list by automatically subscribing any advocates, referred friends, and participants who opt-in to marketing to your newsletter 
+3. Automatically generate share links for new customers and include them in your Optimove campaigns
+
+## Integration
+
+### Collect Information from your Optimove Account
+
+Contact your Optimove Customer Success Manager (CSM) to obtain an HTTP endpoint and Track\&Trigger (T\&T) token. The endpoint URL will be in the format: `https://server-xxx.optimove.net/v2/reportServer`.
+
+### Create a Key in Extole
+
+In your My Extole account, go to the [Security Center](https://my.extole.com/security-center) and complete the following steps.
+
+1. Create a new key by clicking the + New Key button. 
+2. Provide the necessary information for the key:
+   1. Key Name = Optimove
+   2. Key Type = Webhook
+   3. Partner Key ID = Your T\&T token
+   4. Algorithm = HS256
+   5. Key = Your T\&T token
+3. Save the key.
+
+### Set up an Extole Outbound Webhook
+
+Work with your Extole CSM to configure a new outbound webhook. To do so, you will need the following information:
+
+* Your Optimove Tenant ID
+* Your Optimove Server-side URL
+* Your Optimove Track\&Trigger token
+* The Optimove headers to include in each request sent with a Webhook:
+  * Content-Type = application/json
+  * X-Optimove-Signature-Version = 1
+  * X-Optimove-Signature-Content = HMAC-SHA256 of the body
+* A list of events and event structures that you want to report to Optimove. Refer to the common use cases and event structures below.
+* The Extole programs you want to report events to Optimove.
+
+### Use Case #1: Make Your Referral and Engagement Programs More Effective with the Addition of Multi-channel Campaigns
+
+<Info>
+**Important Note**
+
+
+Any program-related emails (such as reward notifications) are sent by Extole by default. Leverage this integration feature if you would like to trigger program-related SMS, push, or in-app messages for your Extole-powered programs through Optimove.
+</Info>
+
+Any events from the table below can be used to create a new target group and/or trigger a multi-channel campaign in Optimove. 
+
+For example, if you'd like to re-target friends who have signed-up (`extole_friend_signed_up`) to receive their referral discount but haven't converted yet (`extole_friend_converted`), you can have them automatically entered into a target group and then re-target them through Optimove's CRM or advertising channels. 
+
+Additionally, if you'd like to trigger a push notification when an advocate earns their referral reward, Extole can send `extole_advocate_reward_earned`events to Optimove to trigger a push notification campaign.
+
+An example request body for an `extole_advocate_reward_earned` event will look something like the following:
+
+`email address`
+
+#### Additional Events
+
+<table>
+  <thead>
+    <tr>
+      <th>
+        Event Name
+      </th>
+
+      <th>
+        Parameters
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        `extole_advocate_shared`
+      </td>
+
+      <td>
+        `customer` - the advocate's email address (**required**)\
+        `first_name` - the advocate's first name\
+        `last_name` - the advocate's last name\
+        `extole_share_link` - the advocate's unique share link\
+        `extole_advocate` - a boolean that indicates whether the person is an advocate (e.g true)
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `extole_friend_signed_up`
+      </td>
+
+      <td>
+        `customer` - the friend's email address (**required**)\
+        `first_name` - the friend's first name\
+        `last_name` - the friend's last name\
+        `extole_friend` - a boolean that indicates whether the person is a friend (e.g true)
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `extole_friend_converted`
+      </td>
+
+      <td>
+        `customer` - the friend's email address (**required**)\
+        `first_name` - the friend's first name\
+        `last_name` - the friend's last name\
+        `extole_friend` - a boolean that indicates whether the person is a friend (e.g true)
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `extole_advocate_reward_earned`
+      </td>
+
+      <td>
+        `customer` - the advocate's email address (**required**)\
+        `first_name` - the advocate's first name\
+        `last_name` - the advocate's last name\
+        `extole_advocate` - a boolean that indicates whether the person is an advocate (e.g true)\
+        `extole_coupon_code` - the coupon code that the advocate earned\
+        `extole_reward_face_value` - the value of the reward the advocate earned (e.g 50)\
+        `extole_reward_face_value_type` - the type of the reward value (e.g Percent Off)
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `extole_friend_reward_earned`
+      </td>
+
+      <td>
+        `customer` - the friend's email address (**required**)\
+        `first_name` - the friend's first name\
+        `last_name` - the friend's last name\
+        `extole_friend` - a boolean that indicates whether the person is a friend (e.g true)\
+        `extole_coupon_code` -  the coupon code that the friend earned\
+        `extole_reward_face_value` - the value of the reward the friend earned (e.g 50)\
+        `extole_reward_face_value_type` - the type of the reward value (e.g Percent Off)
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+### Use Case #2: Automatically Subscribe Advocates, Referred Friends, and Participants to your Optimove Marketing Newsletter
+
+Every time a participant signs up for your marketing newsletter through an Extole-powered experience, Extole will send an`extole_newsletter_sign_up`event to Optimove. From there you can set up a campaign in Optimove to automatically enter participants into a bespoke Welcome series. 
+
+#### Event Structure
+
+<table>
+  <thead>
+    <tr>
+      <th>
+        Parameter
+      </th>
+
+      <th>
+        Description
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        `customer`
+        (**required**)
+      </td>
+
+      <td>
+        The participant's email address.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `first_name`
+      </td>
+
+      <td>
+        The participant's first name.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `last_name`
+      </td>
+
+      <td>
+        The participant's last name.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `extole_share_link` 
+      </td>
+
+      <td>
+        The participant's share link, if available.\
+        Example:`share.company.com/jdoe`
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `extole_advocate` 
+      </td>
+
+      <td>
+        A boolean that indicates whether or not the participant is an advocate. In this case the value could be **true** or **false**.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `extole_friend` 
+      </td>
+
+      <td>
+         A boolean that indicates whether or not the participant is a friend. In this case the value could be **true** or **false**.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `opt_in` (**required**)
+      </td>
+
+      <td>
+        A boolean that indicates whether or not the person has opted in to communications. In this case the value will be **true**.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+An example request will look something like the following:
+
+`https://server-xxx.optimove.net/v2/reportServer`
+
+### Use Case #3: Automatically Generate Share Links for New Customers and Include Them in Your Optimove Campaigns
+
+Extole will automatically generate unique share links for all new customers and send `extole_share_link_created` events to Optimove. From there you can set up a campaign in Optimove to automatically trigger a message with the customers unique share link so that they can begin referring their friends.
+
+#### Event Structure
+
+<table>
+  <thead>
+    <tr>
+      <th>
+        Parameter
+      </th>
+
+      <th>
+        Description
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        `customer`
+        (**required**)
+      </td>
+
+      <td>
+        The participant's email address.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `first_name`
+      </td>
+
+      <td>
+        The participant's first name.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `last_name`
+      </td>
+
+      <td>
+        The participant's last name.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `extole_share_link` 
+      </td>
+
+      <td>
+        The participant's share link.\
+        Example:`share.company.com/jdoe`
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+An example request will look something like the following:
+
+`https://server-xxx.optimove.net/v2/reportServer`
+
+## Using this Integration
+
+Once you enable your Webhooks in Extole and configure your desired events in Optimove, events will start streaming to Optimove. You can view these events in Optimove's Event Log and utilize them within your Optimove campaigns.
+
+## FAQs
+
+### What are my options for CID (customer identifying data)?
+
+The CID in Optimove must be the users email address or you must have a mapping solution in place.
+
+### How do I modify event structures in Extole?
+
+Currently, you need to submit a request through your Extole CSM to add, update, or delete event structures you report to Optimove. 
+
+### Do I need to be an Optimove Track & Trigger customer to use this integration?
+
+Yes, the integration is currently available only for Track & Trigger customers.
+
+### If I already have Track & Trigger implemented through a different setup, can I use this integration in parallel?
+
+Yes, you can set up the Extole integration in addition to your existing setup.

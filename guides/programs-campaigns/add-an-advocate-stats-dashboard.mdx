@@ -1,0 +1,84 @@
+---
+title: "Add an Advocate Stats Dashboard"
+description: "Keep your advocates motivated by providing them with real-time insights into their referral activity and rewards. An Advocate Stats Dashboard helps advocates:"
+---
+
+# Overview:
+
+Keep your advocates motivated by providing them with real-time insights into their referral activity and rewards. An Advocate Stats Dashboard helps advocates:
+
+- Track their progress and rewards.
+- Understand the value they’ve earned from referrals.
+- Drive more sharing by increasing transparency.
+
+This guide explains how to add and customize an Advocate Stats Dashboard using Extole’s tools.
+
+# Default Advocate Dashboard Options
+
+You can display the Advocate Stats Dashboard in several ways:
+
+1. On your sharing microsite (out-of-the-box UI)
+2. Embedded behind login on your own website
+3. Powered by Extole APIs (for headless or custom implementations)
+
+Here’s an example of the out-of-the-box dashboard on the sharing microsite:
+
+ ![](https://downloads.intercomcdn.com/i/o/syy27wia/1564976489/6da9b6352e4850062c004bf39be2/AD_4nXd7L8AYODc5X5oC1KbNnPb5VnZjHlVIfkXqCfB0QTduwpNLadu01ArPFxB_JkbGGsytD7TLdUujz6NPEYwRqGPQHLYimhPkfNDduHhoBgpdepfGZipqxMRpnwL-ARrMkjm4y6Omqg?expires=1778306400&signature=aebe60b12ca3984f31205ff9ec78c4005e6e544efe412db5f8ae07186d87f818&req=dSUhEsB5m4VXUPMW3nq%2BgUEuPPg3z9dmRgCELKQP35TGFoThzndaxP%2Fqkmob%0AEngdYtC1CY4983kSq6zKajoFfhY%3D%0A)
+
+## **Default Dashboard Sections**
+
+- **Your Stats**  
+Summarizes the advocate’s activity and rewards.
+- **Your Rewards**  
+Lists individual rewards earned, such as coupon codes or credits.
+- **Your Activity**  
+Displays recent referral actions (e.g., email shares, social shares).
+
+## **Default Metrics Explained**
+
+- **Referrals**  
+The number of explicit shares (e.g., using the share link, email, or social share buttons).
+- **Earned Rewards**  
+The total number of rewards received for successful referrals.
+- **Earned Value**  
+The cumulative value of rewards earned (e.g., total credits or coupons).
+
+# **Implementation Steps**
+
+## **Stats on your Microsite**
+
+1. In the Campaign Editor, navigate to the microsite section and toggle Display Embedded Stats
+2. If you don’t see this option, contact your Customer Success Manager to upgrade your campaign to the latest version.
+
+## **Embedding Stats Behind Login**
+
+1. Reach out to Extole support team to enabled the advocate_stats_embedded zone with a JWT
+2. Configure the JWT key in My.Extole. Guide -> [https://docs.extole.com/docs/verifying-consumers#using-json-web-tokens-jwts](https://docs.extole.com/docs/verifying-consumers#using-json-web-tokens-jwts)
+3. Navigate to Tech Center → Tag Generator.
+4. Copy the JavaScript tag for the advocate_stats_embedded zone.
+5. Add this tag to your desired page behind your login to ensure user security and enable the JWT.
+
+## **Extole API**
+
+Extole offers an All-In-One endpoint that can power your entire referral experience and provide user stats. If you want to ensure that all stats are available at any time, a JWT can be passed in the API request to authenticate the user and allow access to any private user information stored in Extole.
+
+1. Contact Extole support to add the default fields in the mobile_experience zone.
+2. Configure the JWT key in My.Extole. Guide -> [https://docs.extole.com/docs/verifying-consumers#using-json-web-tokens-jwts](https://docs.extole.com/docs/verifying-consumers#using-json-web-tokens-jwts)
+3. Build the User Experience in your platform using data fields in mobile_experience
+
+>
+
+> Note: Extole supports consumer API and server to server versions of this. Work with your team to determine which works best for you.
+
+>
+
+## **Dashboard Customization**
+
+> Want to further customize your stats dashboard? Extole supports extensions such as:
+
+- Additional custom events or data points in “Your Stats”
+- Visual or branding updates
+
+> To discuss customization, reach out to your Extole Customer Success Manager.
+
+>

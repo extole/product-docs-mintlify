@@ -1,0 +1,40 @@
+---
+title: "Data Erasure Requests"
+description: "Make data erasure requests and understand what these requests mean at Extole."
+---
+
+## Overview
+
+[//]: # "How does Extole handle data erasure requests?"
+
+You can make erasure requests to Extole either via email to the Support Team at [support@extole.com](mailto:support@extole.com) or via API. 
+
+Once a request is made, Extole will irreversibly psuedoanonymize the profile of the individual so that the profile is no longer connected to the individual through the program. If the individual re-engages with the program, a new profile is created, unrelated to the previous profile. Making another erasure request will successfully delete this new profile.
+
+<Warning>
+**Important Note**
+
+
+Storage of the original, un-anonymized profile may exist on cold backup systems until the standard backup retention policy deletes the backups.
+</Warning>
+
+Below is an example POST to programmatically submit a request for erasure. Note that the processing of the request may take up to 7 days.
+
+```http
+POST https://api.extole.io/v4/erasures
+{
+  "email":"EMAIL_TO_ERASE@example.com",
+  "note":"Additional context like a tracking id in your own system"
+}
+```
+```http Response
+Sample Response:
+{
+  "id": "8620b00dea6d786780a3bb0d9",
+  "status": "COMPLETED",
+  "note": "Your custom context",
+  "created_date": "2019-09-03T20:38:01.755Z"
+}
+```
+
+[//]: ___

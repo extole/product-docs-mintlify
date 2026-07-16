@@ -1,0 +1,84 @@
+---
+title: "REST APIs"
+description: "Extole has three REST-style APIs. Server to Extole, Consumer to Extole, and Management"
+---
+
+**Server to Extole** and **Management** are server-to-Extole APIs for secure, backend interactions, while **Consumer to Extole** is for direct end-user-to-Extole interactions from a browser or app.
+
+## Overview
+
+Extole exposes three public REST APIs, grouped by where the calling code runs and what it does:
+
+- **Integration: Server to Extole** — your backend submits events, looks up people, and reads reward state. Server-to-server, authenticated with a bearer token.
+- **Integration: Consumer to Extole** — your website or app calls Extole directly on behalf of an end user, to fire consumer events, render zones, and read the consumer's own profile. Backs the Extole SDKs.
+- **Management** — configure programs the way you would in My Extole: campaigns, audiences, reward suppliers, reporting, and webhooks. Server-to-server, authenticated with a bearer token.
+
+## Integration: Server to Extole
+
+The Server to Extole API is a collection of REST-style endpoints your backend uses to send program-related events, look up person information, and read reward state. Typical operations include submitting events (`POST /v6/events` synchronously, or `POST /v6/async-events` for high-volume pipelines), retrieving a person (`GET /v5/persons/{person_id}`), and listing rewards (`GET /v2/rewards`).
+
+### Host and Authentication
+
+Server to Extole calls go to `https://api.extole.io` and authenticate server-to-server with the standard `Authorization: Bearer <token>` header. Learn more in the [Authentication Overview.](authentication-overview)
+
+### Key Management
+
+Your access tokens are managed through My Extole in the [Security Center](https://my.extole.com/security-center).
+
+## Management
+
+The Management API configures the platform programmatically — most operations available in My Extole are reachable here as well. Use it to manage campaigns (`GET /v2/campaigns`), audiences (`GET /v1/audiences`), and reward suppliers (`GET /v6/reward-suppliers`), to run reporting asynchronously (`POST /v4/reports`, then poll the returned report ID), and to configure webhooks.
+
+### Host and Authentication
+
+Management calls go to `https://api.extole.io` and authenticate server-to-server with the standard `Authorization: Bearer <token>` header. Tokens are managed in the [Security Center](https://my.extole.com/security-center).
+
+## Integration: Consumer to Extole
+
+The Consumer to Extole API employs REST-style endpoints that use an access token specific to a single user to make all calls. It is designed to operate publicly on the internet between an end-user's browser or app and Extole — not behind a login or a secure server-to-server connection — and there is no login call.
+
+Consumer requests use the standard GET, PUT, POST, and DELETE methods. All PUT/POST requests should include the headers `Content-Type: application/json` and `Accept: application/json`.
+
+<Info>
+**Important Note**
+
+
+Extole's JavaScript library (`core.js`) and the mobile SDKs are the most common way to build web and app experiences, and they manage the consumer token lifecycle for you. Most clients never need to call the Consumer API directly.
+</Info>
+
+### How to Call the Consumer API
+
+<Warning>
+**Update the URL**
+
+
+Whenever you call the Consumer API, you must use your program domain.
+</Warning>
+
+Consumer calls go to your **program domain**, not the shared `api.extole.io` host. For example, the Create Token endpoint is `https://{brand}.extole.io/api/v5/token`. Replace `{brand}` with your program domain — if Test Company called this endpoint, they would use `https://testcompany.extole.io/api/v5/token`.
+
+You can find your program domain in the [Tech Center](https://my.extole.com/tech-center) of My Extole.
+
+### Access Tokens
+
+Access tokens are the primary method for identifying the user calling into the Consumer API. There are three ways to pass one:
+
+- As a URL parameter named `access_token`
+- In an `Authorization: Bearer <token>` header
+- In a cookie named `access_token`
+
+The first time a user makes a request, an access token is created and stored in a cookie. The token is a randomly generated value tied to a device profile (such as a browser or mobile device). The initially granted token is **anonymous**, meaning it is not tied to a profile containing PII.
+
+Access tokens have three levels of identity:
+
+- **Anonymous** — a device token that records a journey history of activity but is not tied to an identified profile.
+- **Identified** — a token becomes identified when an email address or `partner_user_id` is passed on an API request, connecting the device token to an identity profile in the program. Identified tokens may add journey information to the profile, but they cannot change profile properties and have no access to private profile data (name, friend information, reward information).
+- **Verified** — a token may be verified through email verification or a backend server-to-server verification. A verified token has full access to the profile, including the ability to update profile properties.
+
+### Polling Pattern
+
+The Consumer API returns every request in under 100ms (typically faster); there is never a blocking operation at Extole. Any request whose logic may take longer than 100ms instead returns a polling ID, with a related method to poll using that identifier until the operation completes.
+
+### Debugging
+
+Extole accepts the `X-Extole-Debug` header to set the debug level of a call, from one to three.

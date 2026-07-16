@@ -1,0 +1,159 @@
+---
+title: "Referral Program QA Guide for Marketers"
+description: "This guide walks you through how to QA your referral program end-to-end. You will simulate the experience both as the advocate and friend."
+---
+
+## **Before You Begin**
+
+- Have your **user flow (Figma)** on hand - this is your journey map.
+- Prepare **two email addresses**:
+
+  - One for the **advocate** (referrer)
+  - One for the **friend** (referee)
+
+- If your program has eligibility requirements (like being a member to refer), make sure your **test emails have been added to the correct audience** before proceeding.  
+​
+
+## **Step-by-Step QA Instructions**
+
+## **1. Review Your Journey Map**
+
+- Open your **Figma user flow** and use it as your testing checklist.
+- Your QA journey should align directly with the mapped flow created with your Implementation Team.
+
+## **2. Start the Advocate Journey**
+
+- Navigate to the **Share Experience** (e.g., promotion link or CTA in your staging environment).
+
+  - Confirm the **CTAs are correct and functional**.
+  - If you have a **microsite**, ensure it **links properly to your webpage**.
+
+## **3. Generate a Share Link**
+
+- Enter your **advocate email** in the share experience to generate a share link.
+- Test each **share channel tile** (email, Facebook, Messenger, X, etc.) to ensure they function correctly.
+
+## **4. Test the Referral Flow**
+
+- Open a **new incognito window**.
+- Wait **30 seconds** after copying the share link to avoid being marked as a **self-referral**.
+- Paste and visit the share link.
+
+## **5. Complete the Friend Journey**
+
+## Standard Retail Friend Journey
+
+This can have 2 paths based on if you are utilizing the Email Capture feature within the Friend Landing Experience:
+
+- 
+- 
+- 
+- 
+-
+
+| **Email Capture Enabled** | **Email Capture Not Enabled** |
+| --- | --- |
+| On the **Friend Landing Experience**, enter your **friend email** (must be different from the advocate email).Check that email for the friend reward.Copy code if utilizing promo codes. | Land on the **Friend Landing Experience** via the share link. Copy Code if utilizing promo codes. |
+
+## Standard Credit Union Friend Journey
+
+This can have 2 paths based on if you are utilizing the Email Capture feature within the Friend Landing Experience:
+
+- 
+- 
+-
+
+| **Email Capture Enabled** | **Email Capture Not Enabled** |
+| --- | --- |
+| On the **Friend Landing Experience**, enter your **friend email** (must be different from the advocate email).Check that email for the friend reward instructions. | Land on the **Friend Landing Experience** via the share link. |
+
+## Standard Services Friend Journey
+
+This can have 2 paths based on if you are utilizing the Email Capture feature within the Friend Landing Experience:
+
+ 
+- 
+- 
+- 
+- 
+-
+
+| **Email Capture Enabled** | **Email Capture Not Enabled** |
+| --- | --- |
+| On the **Friend Landing Experience**, enter your **friend email** (must be different from the advocate email).Check that email for the friend reward.Copy code if utilizing promo codes. | Land on the **Friend Landing Experience** via the share link. Copy Code if utilizing promo codes. |
+
+## **6. Click Through and Complete Program Actions**
+
+- From the success message or the friend reward email or on the friend microsite, click **“Get Started.”**
+- Confirm the **“Get Started” button leads to the correct landing page**.
+- Complete the **required actions** (purchase, signup, etc.) for your program.
+
+## **7. Verify Rewards**
+
+- After completion, both the **advocate** and **friend** should receive their **reward emails**.
+- Check that these emails:
+
+  - Arrive in the correct inbox
+  - Display the correct content and links
+
+# **Additional QA Items**
+
+## **Link Verification**
+
+Click and verify the following links throughout the experience:
+
+- How it works
+- Terms
+- Contact Us
+- Privacy Policy
+
+Ensure they all:
+
+- Lead to the correct pages
+- Open in the correct format (new tab, modal, etc.)
+
+## **Email Checks**
+
+Make sure **all applicable emails** are sent as expected, based on the Figma Journey Map.
+
+## **Default Advocate Emails**
+
+- Welcome Email
+- Stats Email
+- Pending Reward Email
+- Reward Email
+
+## **Default Friend Emails**
+
+- Share Email (if sent via email channel)
+- Pending Reward Email
+- Reward Email
+
+Confirm:
+
+- Subject lines are correct
+- Content matches the journey
+- CTAs in the emails work correctly
+
+## **Copy & Creative QA**
+
+Extole’s QA does **not cover creative or copy**, so you are responsible for checking:
+
+- Text accuracy and tone
+- Fonts, sizes, and colors
+- Brand alignment (logos, imagery, etc.)
+
+## **Final Checklist Before Sign-Off**
+
+- Two unique emails were used
+- Journey matched Figma flow
+- All emails were received as expected
+- All buttons and CTAs worked
+- No broken or misdirected links
+- All visual and copy elements were reviewed and approved
+
+## **What do I do if things aren't working!?**
+
+- Double check your Program within the Extole Platform to confirm that everything matches your user flow.
+- Connect with your tech team to ensure that the tags or links have been added correctly to your page.
+- Reach out to your Implementation Team for assistance!

@@ -1,0 +1,65 @@
+---
+title: "Manually Uploading Events to Extole"
+description: "Upload events directly into Extole for testing or resending past events"
+---
+
+# Overview
+
+Manually uploading events allows you to trigger actions in Extole without relying on real-time integrations. This is useful for one-off or bulk actions where events were not automatically captured especially or during testing.
+
+# Why Would You Manually Upload Events?
+
+You may want to manually upload events if you need to:
+
+- Send emails to a large group of participants at once
+- QA the flow of your campaign
+- Backfill events that were missed or failed to be sent to Extole automatically
+
+# What You’ll Need
+
+Before getting started, make sure you have the following:  
+​
+
+### **CSV File Requirements**
+
+At a minimum, your CSV file must include the following headers:
+
+- email
+- event_name
+
+Each row should represent a single event tied to a participant’s email address.
+
+>
+
+> **Important:**
+
+> Depending on the event or flow you are triggering, additional headers may be required (such as reward identifiers, timestamps, or custom properties). Be sure to confirm the required fields for your specific program or flow before uploading.
+
+# How to Upload Events Manually
+
+> Follow these steps to upload your CSV file into Extole:
+
+1. Log in to your Extole program.
+2. Navigate to **Tech Center -> Batch Jobs**.
+3. Select + **New Batch Job**.
+4. Upload your prepared CSV file.
+5. Configure the batch job settings based on the event you are uploading.
+
+  1. For most event files, Source Type should be New File and the Batch Jobs Type should be Event.
+
+6. Submit the batch job to begin processing.
+
+# After Uploading
+
+> Once submitted:
+
+- The batch job will process each row in your CSV as an individual event.
+- You can monitor the status of the upload from the **Batch Jobs** page.
+- Once completed, you can search for that user or event on the **User Support** page to ensure it fired as expected.
+- If errors occur, review the error logs to identify missing or incorrectly formatted fields.
+
+# Best Practices
+
+- Always test with a small CSV file before uploading a large batch.
+- Double-check event names to ensure they exactly match the expected values in Extole.
+- Confirm required headers for the specific flow to avoid processing errors.

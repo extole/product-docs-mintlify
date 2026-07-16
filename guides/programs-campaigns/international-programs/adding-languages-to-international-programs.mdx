@@ -1,0 +1,39 @@
+---
+title: "Adding Languages to International Programs"
+description: "If you're running an international program, we strongly encourage you to support as many native languages as possible. Doing so ensures that your customers can easily connect with your brand and advocate on your behalf. This article offers…"
+---
+
+# Overview
+
+If you're running an international program, we strongly encourage you to support as many native languages as possible. Doing so ensures that your customers can easily connect with your brand and advocate on your behalf. This article offers step-by-step instructions for adding languages to any Extole program.
+
+Curious about getting data for international programs? Check out our article on[Reports Based on Locale and Country.](/guides/dashboards-and-reporting/report-types/audience-reports/reports-based-on-locale-and-country)
+
+# How to Add New Languages
+
+1. Find the campaign to which you'd like to add a language and open its History.  
+​![Screen Shot 2023-10-27 at 11.28.04 AM.png](https://extole-5ef307a0e5b1.intercom-attachments-7.com/i/o/syy27wia/1421734625/71b8deed4e63de86c9b3b6201284/22272872743827?expires=1778306400&signature=947552f21d5f31ef68a76979c1b4220f634fa875c371204db3a243c992040c0c&req=dSQlF859mYddXPMW3nq%2BgZH%2BBXEz%2BlaP6sH5mH6RhDPiid1DySESjob7fGOl%0AtG%2BYLes99BVYuJCPeIatS6mqbqM%3D%0A)
+2. Once on the History page, select the option to Download Translation Copy from the right-hand menu of the latest published version.  
+​
+
+  - This file has one column for each language supported by your campaign.
+  - Simply add another column and provide translated copy for each of the rows.
+  - Make sure to maintain any special formatting, like ###\{\{ dynamic values \}\} and any HTML or CSS.  
+​
+
+3. Once you’ve finished adding your new language to the file, open the Campaign Editor for your campaign and select Upload Translation Copy from the menu in the top-right corner of the page.  
+​
+4. Upon a successful upload, we will automatically apply your changes to all copy and you’ll see a new dropdown for selecting the language at the top of the editor.  
+​
+5. At this point, the new language isn’t enabled, but you can preview how the copy looks in each creative template. You’ll also be able to make changes to the copy for each template in the righthand sidebar of the Editor.  
+​
+6. When you’re ready to enable your new language, go to the Overview tab and find the Enabled Locales setting. Simply enter the new language abbreviation and save your changes.  
+​
+7. Once the campaign is published, Extole will begin detecting browser settings to determine which language to display.
+8. Since you likely allow customers to change the language on your site, we recommend passing the locale from your website in your Extole tags so that your program experiences match the selected language regardless of the initially detected browser locale.
+
+  - You can do this by updating the data element of your marketing tags. Simply include locale and pass in your site’s dynamic value for that locale.
+  - If you’re using Google Tag Manager, update the data element of your tags by passing in the locale and the variable that holds the locale from the data layer.
+  - Learn more in our [Advanced Tagging](https://docs.extole.com/docs/advanced-concepts#displaying-the-right-language) article.
+
+9. Now when you switch languages on your site and pass locale to Extole, your program experience will display in the same language.

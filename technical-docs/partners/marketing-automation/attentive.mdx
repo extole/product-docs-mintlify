@@ -1,0 +1,211 @@
+---
+title: "Attentive"
+description: "Set up a connection between your Extole programs and Attentive's SMS marketing platform."
+---
+
+## Overview
+
+[//]: # "Does Extole integrate with Attentive?"
+
+Attentive is the most comprehensive text message marketing solution, driving 18.5% of total online revenue for businesses by creating thoughtful SMS experiences. Using real-time behavioral data, Attentive automatically sends engaging text messages to each subscriber at every step of the customer lifecycle. Integrating Extole and Attentive allows you to send and receive events such as subscriptions (i.e., opt-ins) and reward events to enable swift communication with customers via SMS.
+
+## Prerequisites
+
+[//]: # "What are the requirements for integrating Extole with Attentive?"
+
+<table>
+  <thead>
+    <tr>
+      <th>
+        Requirement
+      </th>
+
+      <th>
+        Description
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        Attentive Account
+      </td>
+
+      <td>
+        An Attentive account is required in order to take advantage of this partnership.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Sign Up Source ID
+      </td>
+
+      <td>
+        An Attentive Sign Up Source ID can be created within your Attentive account on the Sign-Up Units page. Find your Signup Source ID for Extole in the ID column under the Sign-up Units for an API sign-up method.  
+
+        If an ID has not been created for Extole yet, please work with your Attentive Customer Success Manager to generate a new one.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+[//]: ___
+
+## Use Cases
+
+[//]: # "How can I leverage the Extole integration with Attentive?"
+
+When a customer, advocate, or referred friend joins your Extole-powered engagement programs, opted-in phone numbers are automatically sent to Attentive along with email addresses, earned coupon rewards, and personal share links.
+
+Drive new customer acquisition by having your best customers refer others who are just like them. Combine the Attentive platform with Extole insights to send personalized refer-a-friend offers to your top performing advocates or to referred friends who recently made their first purchase.
+
+With Extole insights available in the Attentive platform, such as who’s sharing their favorite products with friends, who’s experiencing your brand for the first time, and who has influence, you’ll have an increased ability to personalize your SMS communications and increase your conversion rates.
+
+[//]: ___
+
+## Integration
+
+[//]: # "How do I set up the Extole integration with Attentive?"
+
+### Connect Your Extole and Attentive Accounts
+
+Log in to your My Extole account and navigate to the [Partners](https://my.extole.com/partners) page. From here, select the Attentive tile and click the Connect button to initiate the integration process. 
+
+Extole will guide you through a few simple steps, one of which will prompt you to give Extole permission to connect with your Attentive account. Depending on when you last logged in to Extole, you may need to reverify your identity. This is normal.
+
+![](https://files.readme.io/72003fcc331930315d412718ed4afbb4baef6028f2c4ffd1cab67aa9e481c6d8-3332ed2-Screen_Shot_2022-10-17_at_12.12.21_PM.png "Screen Shot 2022-10-17 at 12.12.21 PM.png")
+
+### Select Your Campaigns
+
+To get your integration up and running, you’ll need to choose the campaigns for which you would like the Attentive integration enabled. You must select at least one campaign, and the campaigns you select must be up-to-date. Once you’ve completed your integration, work with your Customer Success Manager to properly configure the creatives and variables for each campaign you’ve selected.
+
+![](https://files.readme.io/15bbf5a39c1509a8f821abd4f875ffe1cd34a8d78b1448b1baacce56079eb380-ed16540-Screen_Shot_2022-10-17_at_12.00.50_PM.png "Screen Shot 2022-10-17 at 12.00.50 PM.png")
+
+Campaigns that do not have the updated phone number capture variable necessary for the integration will appear grayed out, with the following message: 
+
+<img src="https://files.readme.io/6bd357f3432adeb510f9c564ddc393dfd5cf4d7c29e2d13c72ca646806ea61b9-fd9ad07-Screen_Shot_2022-10-17_at_12.01.45_PM.png" alt="Screen Shot 2022-10-17 at 12.01.45 PM.png" />
+
+Getting a campaign updated is a quick process. Just reach out to your Extole Customer Success Manager and they will be happy to help you enable the required variable for your campaigns.
+
+### Finish Your Configuration
+
+Once you’ve selected your campaigns for the integration, proceed to the Configurations tab. Here you will need to enter the Extole Sign Up Source ID that you collected from your Attentive account. The custom events webhook and subscriptions webhook are automatically created and do not require any configuration on your end.
+
+<img src="https://files.readme.io/598b11b42ccbee9128534277a683d05e31dbbc79510d02ea40d86b5dc6eb0e58-05f9a59-unnamed_43.png" alt="unnamed (43).png" />
+
+[//]: ___
+
+## Using this Integration
+
+[//]: # "How do I use the Extole integration with Attentive?"
+
+### Send Referral Messages Using Custom Journeys
+
+After the integration is connected, you can return to your Attentive account to create your journeys. By default, this integration includes journeys for Advocate Reward Earned and Friend Reward Earned custom events, which will trigger text messages with coupon codes to advocates and friends as they earn rewards through the referral program. If you’d like additional events or event properties, please work with your Extole customer success manager to configure in your Extole account.
+
+To set up your journeys, select the `Extole - Advocate Rewarded` and `Extole - Friend Rewarded` journeys in the Extole integration app.
+
+<img src="https://files.readme.io/0bd300ee7dadef5cea4fe59ecdc06927158323207a49247fd5d461cb6f99e989-09ee871-small-Screen_Shot_2023-05-04_at_5.49.16_PM.png" alt="Configuring the Extole + Attentive integration within the Attentive platform" width="60%" />
+
+The Extole journeys are templated and in line with Extole's and Attentive's best practices, however it's recommended to review all journeys before pushing live.
+
+<img src="https://files.readme.io/70715f7f5ae4e995d7c8ffc566b1bc28ef3629b65aae369702f991764ccdb7a0-b1a0af3-small-Screen_Shot_2023-05-04_at_5.51.43_PM.png" alt="Event flow diagram involving Extole within the Attentive platform" width="30%" />
+
+Once you've reviewed and approved your journeys, you're ready to push live!
+
+<table>
+  <thead>
+    <tr>
+      <th>
+        Custom Event Name
+      </th>
+
+      <th>
+        Properties
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        Advocate Earned Reward
+      </td>
+
+      <td>
+        Funnel (e.g advocate)\
+        Coupon Code\
+        Reward Value\
+        Share Link\
+        Program (e.g refer a friend)\
+        Share Link (e.g share.dundermifflin/jsmith)\
+        Phone Number\
+        Email\
+        First Name
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Friend Earned Reward
+      </td>
+
+      <td>
+        Funnel (e.g friend)\
+        Coupon Code\
+        Reward Value\
+        Program (e.g refer a friend)\
+        Phone Number\
+        Email\
+        First Name
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+### Increase Conversion Rates by Sending Personalized Messages to Extole Segments
+
+You can also [create a dynamic segment](https://help.attentivemobile.com/hc/en-us/articles/360051937411) in your Attentive account using the custom events from Extole. 
+
+For example, if you’d like to create a dynamic segment of top advocates, you can filter by subscriber activity and identify any advocates who have driven more than 3 referrals. 
+
+<img src="https://files.readme.io/08e745193de91163c97815287021bdb37e683e5662ad354769a185e049cee055-3746c1c-unnamed_44.png" alt="Adding subscribings to a dynamic segment in Attentive" width="60%" />
+
+[//]: ___
+
+## Example Customer Journey
+
+<img src="https://files.readme.io/d26633197e78b7e11b2b5e060cce7e54d48a6f25287b206bfd3ead26e637c2e9-cedb99a2e20ea5be90e7e4065160156e3e5af7c60895950fd54e99388635490f-Screenshot_2025-07-09_at_3.45.55_PM.png" alt="" />
+
+<img src="https://files.readme.io/645bd3aaad8bdc271c7a95cf42347b5bf9241f26272a49d708f8b4a255b7817f-717ab4d00ad807f1fcb03a6399d8be5b6328f0e731ab63655355d60bfeb49d17-Screenshot_2025-07-09_at_3.46.11_PM.png" alt="" />
+
+## Customization
+
+[//]: # "Can I customize the Extole integration with Attentive?"
+
+While not required, Extole highly recommends creating a personalized welcome journey for any new subscribers that are captured through your referral program. In your Extole API Sign-Up Unit, select Re-assign > Create New to create.
+
+![Creating a new Extole API Sign-Up Unit in the Attentive platform](https://files.readme.io/dadbd4cb3021f38faa8c2be0193409ee5abbb69174c2a6979becca2b6e351ca4-21de371-small-Screen_Shot_2023-05-04_at_6.16.27_PM.png)
+
+[//]: ___
+
+## Disconnecting the Integration
+
+[//]: # "How do I disconnect the Extole integration with Attentive?"
+
+If for whatever reason you need to disconnect your Attentive integration, you will need to make sure that the integration is not in use. In the Campaigns tab of the Attentive integration page, deselect any campaigns and be sure to publish your changes. Once there are no campaigns actively using the integration, you should be able to hit the Disconnect button.
+
+<Warning>
+**Please Note**
+
+
+Be sure that you want to disconnect the integration. If you want to reconnect in the future, you will need to restart the integration process.
+</Warning>
+
+## Questions?
+
+If you have any questions about your integration with Attentive, please reach out to Extole Support at [support@extole.com](mailto:support@extole.com).
+
+[//]: ___

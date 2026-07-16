@@ -1,0 +1,277 @@
+---
+title: "Integrating with Extole"
+description: "Get an introduction to our various integration methods for both web and mobile."
+---
+
+## Overview
+
+[//]: # "What does integrating with Extole entail?"
+
+Integrating with Extole means connecting your business to Extole’s platform to launch referral marketing and engagement programs, track business events, extract customer insights, and drive customer acquisition. Our integration methods are flexible and can be tailored to your business and goals. We offer quick and easy options that require minimal tech resources to set up as well as more robust and connected options that return more value and provide more functionality in the long run.
+
+[//]: ___
+
+![](https://files.readme.io/5ca4947ad75d8458a29e355925776403b30364e58dd077e09b23ce3091cbc5cb-2950c3d-06eeb17-Screen_Shot_2022-06-28_at_10.20.30_AM.png "06eeb17-Screen_Shot_2022-06-28_at_10.20.30_AM.png")
+
+## Web Integrations
+
+[//]: # "What types of integrations does Extole offer?"
+
+### JavaScript SDK
+
+Our JavaScript SDK is our most common integration. It allows Extole content and events to be woven directly into your website. The SDK is comprised of lightweight JS tags that act as a layer between your website and our APIs. The integration process involves adding the Extole Core JavaScript Library in the header of your website, as well as marketing tags to serve promotions, and event-tracking tags to capture key events that occur in your program. 
+
+The JS library enables all Extole functionality, such as CTA delivery, share experience display, and event tracking. The library is housed in your program’s branded domain (share.companyname.com) and can be added to your pages with a simple script tag.
+
+All of your marketing and event-tracking tags can be implemented to pass a variety of data including verified or signed data in the form of JSON web tokens. We can use this data to improve your programs by offering personalized creative experiences and by targeting segments of your customers to specific rewards.
+
+[Learn more about the JavaScript SDK](https://docs.extole.com/docs/javascript-sdk).
+
+### REST API
+
+In tandem with using the JavaScript SDK, it’s common for our clients to set up a direct connection to our Admin API to send certain events. Our Admin API is a RESTful API for secure server-to-server communication. Through this integration, you can send secure or offline events to Extole, such as order shipments or financial account openings. 
+
+You can also integrate with our Customer API, which is an end-user-to-server RESTful API. A connection with the Customer API can be used to build custom landing pages and experiences for your programs.
+
+[Learn more about our RESTful APIs](https://docs.extole.com/docs/rest-apis).
+
+### Files
+
+If your business operates online, as well as over the phone or in person, then it may make sense for you to integrate with Extole by sending event files. Any and all types of events you want to track can be sent to Extole. You can send bulk event files manually or automatically by either uploading them directly to My Extole or through our SFTP server.
+
+[Learn more about files and SFTP connections](/files).
+
+[//]: ___
+
+## Mobile Integrations
+
+[//]: # "How do I integrate Extole will my mobile app?"
+
+### Promotion Links
+
+A promotion link is a simple link embedded in your app that launches a mobile web page when tapped. Requiring very little dev work, this is the lowest lift option available to you. All of our web experiences are fully designed with mobile browsers in mind, and by adding promotion links to your app you can easily direct users to the mobile experiences you've created in your My Extole account.
+
+**Key features**:
+
+* Requires minimal dev work
+* Drives app downloads or other actions (e.g., referrals)
+* Launch experiences either on your website or on Extole-hosted pages
+
+### In-App Web View
+
+An in-app web view provides a way of displaying an HTML page in your mobile app. This in-app option is a quick approach for providing great, on-brand sharing experiences for mobile app users.
+
+**Key features**:
+
+* Provides static CTAs in app
+* Requires additional code to use native sharing (Android, specifically)
+
+### RESTful API
+
+Extole’s public REST APIs can be used to power custom in-app experiences and to support mobile app downloads, in-app purchases, and any other customer events you want to track. An API integration gives you complete control and support for added functionality. This option is powerful and provides immense flexibility, but it often requires the most work to implement. 
+
+**Key features:**
+
+* Pulls program content from Extole
+* Dynamically shows CTAs that launch a web view of the microsite
+* Allows for a fully native implementation if desired
+
+### iOS, Android & React Native SDKs
+
+Extole’s lightweight SDKs provide native Cotlin and Swift SDK wrappers around our APIs and offer a more dynamic native integration. The SDKs have minimal dependencies and conveniently handle all authentication of users and impression tracking on CTAs. Once your tech resource completes the initial setup, powering additional programs through the SDKs requires no additional dev work.
+
+**Key features**:
+
+* Pulls all program content from Extole
+* Leverages automated processes, such as user authentication and impression tracking
+* Can launch new programs without any code changes
+* Always uses the most up-to-date API endpoints
+* Supports deep link integrations
+
+## Comparing Mobile Integrations
+
+<table>
+  <thead>
+    <tr>
+      <th>
+
+      </th>
+
+      <th>
+        Promotion Link
+      </th>
+
+      <th>
+        Web View
+      </th>
+
+      <th>
+        API
+      </th>
+
+      <th>
+        SDK
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        **Dev Work**
+      </td>
+
+      <td>
+        Minimal
+      </td>
+
+      <td>
+        Low
+      </td>
+
+      <td>
+        Medium-High
+      </td>
+
+      <td>
+        Medium
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        **CTA Display**
+      </td>
+
+      <td>
+        Static, hard-coded
+      </td>
+
+      <td>
+        Static
+      </td>
+
+      <td>
+        Dynamic
+      </td>
+
+      <td>
+        Dynamic
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        * \*Experience Location\
+          (i.e., where customers are directed)\*\*
+      </td>
+
+      <td>
+        Mobile web
+      </td>
+
+      <td>
+        In-app
+      </td>
+
+      <td>
+        In-app
+      </td>
+
+      <td>
+        In-app
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        **A/B Testing**
+      </td>
+
+      <td>
+        Managed on your end
+      </td>
+
+      <td>
+        Managed in My Extole
+      </td>
+
+      <td>
+        Managed in My Extole
+      </td>
+
+      <td>
+        Managed in My Extole
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        * \*Event Tracking\
+          (e.g., impressions, conversions, etc.)\*\*
+      </td>
+
+      <td>
+        Managed manually on your end
+      </td>
+
+      <td>
+        Managed manually on your end
+      </td>
+
+      <td>
+        Managed manually on your end
+      </td>
+
+      <td>
+        Managed automatically by Extole
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        **Creative Experiences**
+      </td>
+
+      <td>
+        Controlled in My Extole
+      </td>
+
+      <td>
+        Controlled in My Extole
+      </td>
+
+      <td>
+        Controlled in My Extole or customized on your end
+      </td>
+
+      <td>
+        Controlled in My Extole
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        **Additional Notes**
+      </td>
+
+      <td>
+        NA
+      </td>
+
+      <td>
+        Requires additional code to use native sharing (Android, specifically)
+      </td>
+
+      <td>
+        NA
+      </td>
+
+      <td>
+        No dev work for additional programs, supports deep linking, endpoints always up-to-date
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+[//]: ___

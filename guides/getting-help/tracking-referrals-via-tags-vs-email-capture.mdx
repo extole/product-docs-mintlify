@@ -1,0 +1,56 @@
+---
+title: "Tracking Referrals via Tags vs. Email Capture"
+description: "Use this guide to decide whether to tag your website to track referrals or use an email capture form for the referred friends."
+---
+
+# Overview
+
+Extole tracks referrals back to their advocates in a variety of ways, and based on your preferred implementation, will affect the experience the referred friend has after clicking a share link. Tagging your onsite experience is the preferred method, but can also be done with email capture. This guide will help you understand the considerations for these two implementation types to make your decision.
+
+## Scenario 1: Track Referrals using Javascript Tags
+
+This is the preferred journey designed to maximize conversions. Extole’s cookie tracking will ensure that any purchases are tied back to the expected advocate and requires you to add Javascript tags to your purchase flow. This is ideal for events that happen onsite like registering for an account or making an online purchase. Here is the user experience:
+
+**Friend Journey**:
+
+1. Friend clicks the referral link.
+2. They land on a Friend Landing Experience — a branded page or modal.
+3. They see their coupon code and a message like:  
+ *“Your reward is ready. Redeem your gift!”*
+4. User closes the pop up and makes their purchase onsite
+
+  1. Referral tracking and reward attribution happen via Extole’s tags, no email is required from the Friend.
+
+**Considerations:**
+
+1. Your dev team will need to add tags to your registration or purchase flow
+2. While not required, emails can be captured on the Friend Landing Experience for your marketing list and to enhance the referral tracking.
+
+>
+
+> For more on implementing our tags, check out **[Marketing Tags for Marketers](/guides/getting-help/implementing-your-referral-program/creating-ctas/marketing-tags-for-marketers)** and **[Javascript SDK](https://docs.extole.com/docs/javascript-sdk)**.
+
+>
+
+## Scenario 2: Track Referrals based on Email Matchback
+
+> In this scenario, brands require Friends to provide their email before redeeming the offer. This enables tracking and eligibility verification without relying on tagging, but can lead to drop off as it adds an additional step.
+
+>
+
+> **Friend Journey**:
+
+1. Friend clicks the referral link.
+2. They land on a branded page or modal.
+3. They are asked to **enter their email address** before continuing.
+4. After submitting their email, they see their reward (promo code or redeem button).
+5. The CTA redirects them to your site to complete sign-up or purchase.
+
+> **Considerations**
+
+1. This will require the friend to enter their email address, which extends the user journey.
+2. If your events happen offline (like sales-led flows, in-home installations, etc), you may need to rely on this method.
+3. If a user enters an email that does not match the one entered here, their referral may not be correctly tracked. 
+4. If your team cannot support any tagging, you will need to use the friend landing experience microsite to capture this data.
+
+> Either way you move forward, Extole will be able to process your data and make sure friends and advocates are getting their rewards!

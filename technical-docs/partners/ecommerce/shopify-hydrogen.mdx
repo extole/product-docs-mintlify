@@ -1,0 +1,183 @@
+---
+title: "Shopify Hydrogen"
+description: "Hydrogen is Shopify’s official development framework for building headless storefronts."
+---
+
+## Overview
+
+Launch dynamic programs like Refer A Friend and Drop a Hint with the Extole and Shopify integration. By following this guide, you can promote referrals at checkout, track customer activity in real-time, and reward customers using Shopify Discounts on your Hydrogen storefront(s).
+
+## Prerequisites
+
+| Requirement                | Description                                                                                                                                                                                                                                                                                                            |
+| :------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Shopify App                | You can install Extole's Shopify app on [https://apps.shopify.com/extole](https://apps.shopify.com/extole)                                                                                                                                |
+| Extole Access Token        | You'll need to generate a long-lived access token in order for Shopify to use Extole's authenticated RESTful APIs. Generate your token within the [Security Center](https://my.extole.com/security-center) of your Extole account.                        |
+| Branded Program Domain     | You must create a branded Program Domain in your Extole account. More information about [Program Domains](https://docs.extole.com/docs/program-domain-setup#automatically2).                                                 |
+| Whitelisted Shopify Domain | Make sure you have `extensions.shopifycdn.com` as an allowed site under the `Production Sites Extole Should Support Requests From`in your Branded Program Domain [https://my.extole.com/tech-center](https://my.extole.com/tech-center) |
+
+<br />
+
+### Step 1: Configure Extole Program Domain & Access Token
+
+First, configure your core settings to begin adding Extole tags to your Shopify storefront.
+
+#### Branded Program Domain
+
+Find your Branded Program Domain in the [Tech Center](https://my.extole.com/tech-center) of your Extole account under Program Domains. It's usually in the format of `share.brand.com`.
+
+<img src="https://files.readme.io/b434c43ae8abac2b7776f7ffef2cde0f8a71470bd70ec4b67f4c2bb9587efd2d-873f59d9986fc39e0f8d2de3c238c2d36d7c4f347246bd325c123f35f75155c4-Screenshot_2024-12-04_at_12.00.28.png" alt="Copy your branded program domain in the Extole Tech Center" />
+
+#### Extole Access Token
+
+To generate your Extole Access Token, go to the [Security Center](https://my.extole.com/security-center) and follow the instructions to create a new token. Copy and save the access token in a safe place, as you won’t be able to access it beyond this point.
+
+<img src="https://files.readme.io/972f1447bbda75d982bafc913e91312219260314062ea0fc83d5bc63dcb83768-0c7aad40c902f4acc5baf45eba042c79cabd0f9cb52f7e4074c1ce591adf5cb9-Screenshot_2024-12-04_at_12.01.40.png" alt="Click + New Access Token in the Extole Security Center" />
+
+#### Add Domain & Token to Shopify
+
+Once you've gathered your Branded Program Domain and Extole Access Token, log in to your Shopify account and go to the Extole app. In Step 1 of the app configuration process, paste in your domain and token and hit Save.
+
+<img src="https://files.readme.io/538bb887ee3db1f6386dde0bdb6f87e11e63c00a9e53ff6d8b1c074855b6a575-7fbc4eccc54da9063b1b030471684e656e9182094ba2e0376bb408a1b4701f42-Screenshot_2024-11-26_at_4.52.01_PM.png" alt="Paste your Extole branded program domain and access token into the Extole app in Shopify" width="60%" />
+
+### Step 2: Enable Core Settings
+
+Enable your Core Settings to add Extole's Core Javascript tag to your Shopify pages.
+
+<img src="https://files.readme.io/73980d6de9b1423d444ddc0def3a6a77c169c75e7ea93a4f8b79d00fe5a70ae5-72586932c400198e9cedc429ed0bc300acb9d8bfbb5a20fbb7a2c693edcf8ff1-Screenshot_2024-11-26_at_4.52.08_PM.png" alt="Make sure Core JS is enabled in the Extole app in Shopify" width="60%" />
+
+### Step 3: Add CTA's via Extole's Javascript SDK
+
+&lt;Callout icon="🚧" theme="warn">
+  Since Hydrogen storefronts don't use Liquid templates, you'll need to add CTA's to your website and product detail pages using [Extole's Javascript SDK](https://docs.extole.com/docs/javascript-sdk).
+&lt;/Callout>
+
+### Step 4: Configure Checkout Extension (Shopify Plus only)
+
+<Info>
+**Checkout Extensibility Requirement**
+
+
+In order to use Extole's Checkout Extension on your Shopify store, you must migrate your Thank You and Order Status pages to Shopify Plus' Checkout Extensibility UI.
+</Info>
+
+Use the Checkout Extension to add a Referral CTA to your Thank You and Order Status pages.
+
+<img src="https://files.readme.io/384198837baada21269b0c9a3729b63a52aab0e8bdf3413954db51c4471b7f84-fbdec535dbbe35c828e43000d24f3c680c20ffaf9b656eb3ee9d61fba8578f41-image.png" alt="" />
+
+#### Configuration
+
+1. First, add the Shopify Checkout Extension to your Extole campaign by selecting the `Promotion Clicked` event in Flow Builder. From there, select `New Content`and click on the filter icon to select the `Shopify Components` option. From there, add the `Shopify Checkout Extension`and apply changes to your campaign.
+
+![](https://files.readme.io/2f5c324d168b3b6d1e14640d8bd59624a19f046db9a78487e4a438af27476a20-8e6e887f26c3ea19807c81d9ccff79ac5bf5348c71a444fcf136f40feda55943-Screenshot_2026-02-09_at_12.00.05PM.png)
+
+![](https://files.readme.io/3949aaaeac0acafa7c71664a81946a95f57a69549e02029979f9e4c8fd97e4d2-f036fc12a905f3bca2ff5d0d363dd89897b556888bcd6f188179ff0b6537a2c4-Screenshot_2026-02-09_at_11.59.35AM.png)
+
+2. Navigate to the Extole App admin in Shopify and enable the Checkout Extension.
+
+   <img src="https://files.readme.io/9e3a77c8ae7aee75d4bee4803a0073d3f29aacdeff69e825e17ee0e91924cb65-7d4d28db37ac20a2b4eee051c4e97e09395c55376c19f54ba1eb88f245317bb5-Screenshot_2024-12-13_at_11.02.14.png" alt="" />
+
+   <br />
+3. Then, to place the Checkout Extension on your Thank You and Order Status pages, navigate to the Theme Editor.
+4. From the dropdown menu in the Theme Editor, select the "Thank You" or "Order Status" section.
+
+   <img src="https://files.readme.io/d94c73008dcbb7ad52a0d37d993973b536ea264a7b2331390fd6dd4d14c1c9c2-51f2252b1988456c19ae57b2d342171c6ecaf5eef98eea37171ca672b0861f76-Screenshot_2024-08-30_at_10.44.12_AM.png" alt="" />
+5. Click "+ Add app block" in the Sections area.
+6. Select the "Extole Checkout Extension" from the list. Once selected, the extension will be added to the page.
+
+Repeat these steps for both the Thank You and Order Status pages.
+
+You can then edit the Checkout Extension image and styling in the Extole Flow Campaign Editor.
+
+### Conversion Pixel
+
+By default, when you install the Extole app, a conversion pixel will be automatically added to your Thank You page to send Extole a conversion event. There is no action required to add the pixel to your page.
+
+### Step 5: Configure Rewards
+
+Follow the instructions below to automatically create Shopify discount rewards for your various programs.
+
+#### Create a Shopify Discount(s):
+
+1. Go to the Discounts section in your Shopify admin panel.
+2. Generate a random discount code as a placeholder for the rewards that will automatically dispensed by Extole. We recommend setting a minimum purchase amount and restricting the discount code to a single (1) use per customer.
+
+<img src="https://files.readme.io/77f57edb253aad3025e5db7379c9466c1bbf8174b92d8658e1f938dbc447f0f5-d73230c-Screenshot_2024-04-30_at_2.35.43_PM.png" alt="" />
+
+<Info>
+**Important Note**
+
+
+If you are using these discount codes for your referral program, Extole recommends creating separate Discounts for advocates and friends.
+</Info>
+
+#### Configure your Reward(s) in Extole:
+
+1. Log into your Extole account to verify that the Shopify integration was successfully installed on the Partners page.
+2. Navigate to the [Rewards](https://my.extole.com/account-rewards) section.
+3. Select the Shopify Coupons from the Reward Supplier and make sure to indicate a Name for the reward and the Price Rule ID for the Discount you created in Shopify. The Price Rule ID is the unique code that you can find in the discount code details on your Shopify admin panel or embedded within the URL when you edit a specific discount code.
+
+<img src="https://files.readme.io/4a43aeaf27cc77f0ba59fc8c6d62f8eb0f8570f44253dacd003f3349a4575439-af7f7ef-Screenshot_2024-04-30_at_2.38.06_PM.png" alt="" />
+
+<img src="https://files.readme.io/32fd90946fc2379b88e9a2b1e8658bdc090777a4d9cb0d25b827a281f28fbf7b-7160ffc-Screenshot_2024-04-30_at_2.38.41_PM.png" alt="" />
+
+4. Save the reward, add it to your Extole campaign, and you’re all set! The integration will automatically generate and issue a new random code each time a participant earns a reward on the configured campaign (see below for an example).
+
+<img src="https://files.readme.io/b3adab1d2602f40f146d9f447b80f47d5355f1267faab4767ac1013c708e5d9c-499c226-image_20.png" alt="" />
+
+## Advanced Configuration
+
+After configuring your core settings, marketing tags, and rewards, you can **optionally** adjust the notification events that are sent to Extole every time an order is created, fulfilled, and canceled in Shopify. These events enable functionality like tracking, attribution, rewarding, reporting, and segmentation in the Extole platform, so its recommended to stay with the defaults and keep all notification events enabled.
+
+### Pixel
+
+In the latest version of this integration, there is no configuration needed for Pixel. When you install the integration, Pixel is automatically added to the checkout page.
+
+### Notification Events
+
+Real-time notifications allow you to track key events in your program, such as when an order is created, fulfilled, or canceled.
+
+<img src="https://files.readme.io/91ec188d72f61cd4b9c3842557cce06512afff6328f85d4135fa8dfa4b8b6de1-9b111f4c77a323bcb43ad54b42da346285e25ae36f55df95d84bcddc86281fdb-Screenshot_2025-05-16_at_09.08.28.png" alt="" />
+
+* **Enable Order Created Notification**: This required notification triggers an event via a pixel and a webhook when a customer places an online order.
+* **Enable Order Fulfilled Notification**: This notification triggers an event whenever an order has shipped. This is particularly useful if you want to trigger rewards in Extole once an order has actually shipped.
+* **Enable Order Fulfilled Update Notification**: This notification triggers an event whenever an offline order's shipping or fulfillment status is updated.
+* **Enable Order Canceled Notification**: This notification triggers an event whenever an order is canceled. For example, in the Extole platform, you can use this event to create a rule that rewards customers 5 days after they have placed their order, as long as they haven’t canceled their order yet.
+
+### Webhook Notifications
+
+To send additional notification events, follow [Shopify's documentation for creating webhooks](https://help.shopify.com/en/manual/fulfillment/setup/notifications/webhooks)
+
+* Create an Access Token in [Extole's Security Center](https://my.extole.com/security-center). Copy the access token and save it in a secure place.
+* Select `JSON` as the webhook format when creating your webhook in Shopify
+* Enter `https://api.extole.io/v5/events/{{event_name}}?access_token=XXXXXXXXXXXXXX`
+  * Replace `{{event_name}}` with the name of the event you want to create in the Extole platform when sending this webhook - e.g `order_canceled` or `list_optin`
+  * Replace `XXXXXXXXXXXXXX` with the Access Token you created in the Extole Security Center
+
+### Data Parameters for Online Purchases
+
+When an online purchase is completed, you can specify which data parameters are sent to Extole. These data parameters enable essential tracking and reporting in the Extole platform.
+
+<img src="https://files.readme.io/8d90bb8f202c6d18cf52cf9041e7d3e9e79bc056a9c8c4436612a5ef39cbeade-c5bf9845dffcd55f633248639b8b42507de6bcdc0290cc81291c7c37e4fa8e8e-Screenshot_2025-05-16_at_09.11.46.png" alt="" />
+
+* `partner_conversion_id`: This parameter is essential for tracking. It's selected by default and cannot be deselected. It typically represents the order number or a unique identifier for the transaction.
+* Additional data parameters are included by default, such as `email`, `partner_user_id`, `first name`, `last name`, `locale`, and `coupon_code`: These parameters provide more context about the customer and the transaction, which can be useful for segmenting and analyzing your data.
+
+#### Custom Event Data
+
+If you want to track additional data that is specific to your business, you can indicate custom key-value pairs. For example, you might want to track the product category of the purchased items or the marketing channel that led to the referral.
+
+<img src="https://files.readme.io/9ac06fde251e18590e6f56cfea2217399f39764ef546eab00065e0b3173c1138-eff880b4fca59f4f0f0d308d1a37c7b1705dde8dd3788deba540fe4d9e6ab0b6-Screenshot_2025-05-16_at_09.13.08.png" alt="" />
+
+### Multiple Shopify Stores
+
+We support multiple Shopify stores in a single Extole account. For example, if you have US Shopify and UK Shopify stores, you should take the following steps.
+
+* On the partners page, install the Shopify partner integration and rename it "Shopify US". Then, install another Shopify partner integration and rename it "Shopify UK".
+* On the programs page, create two programs. One program will be targeted to your US users, and the other will be targeted to your UK users. If you have existing programs, you can modify those instead.
+* On the rewards page, set up two new reward suppliers. Click "+ New Reward", "Shopify Discounts", and complete the information on the following page. For the first reward supplier, select that it will be used with the "Shopify US" integration, and select "Shopify UK" for the other reward supplier.
+* Finally, navigate to each specific campaign, and in the "Promotion Clicked" business event, select "+ New Content", and add "Shopify Checkout Extension". Fill out the required fields for the Shopify Checkout Extension, and those values will be sent to Shopify to create the post-purchase referral promotion.
+
+## Preview and Publish Your Changes
+
+Once you've configured the app, preview your Shopify site and your Extole campaign and publish your changes to apply them to your live site.

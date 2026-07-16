@@ -1,0 +1,44 @@
+---
+title: "Person vs. Related Person Columns in Reports"
+description: "Learn how Extole reports determine the “Person” and “Related Person” in your referral program data."
+---
+
+# Overview
+
+Many Extole reports (like the [Events Report](/guides/dashboards-and-reporting/report-types/recommended-reports/events-report)) show who participated in your program’s activities. In referral programs, when someone shares a referral and someone else joins or buys, you’ll often see two key fields: Person and Related Person. Who appears in each field depends on the event you’re reporting.
+
+This guide clarifies what data is populated in each column based on the event selected.
+
+# **Key Definitions**
+
+**Person:**
+
+The “Person” fields (e.g. email, partner user id, first name, last name) identify **the user who performed the event or activity** you’re reporting on.
+
+**Related Person:**
+
+The “Related Person” fields hold info for **the other participant associated with the event.**
+
+# **Use Cases & Event Scenarios**
+
+- A Friend Converts (converted event):
+
+  - Person: The Friend who made a purchase
+  - Related Person: The Advocate who made the referral
+
+- An Advocate Shares (shared event):
+
+  - Person: The Advocate who sent the referral
+  - Related Person: The Friend (if shared via email; otherwise will be blank).
+
+Most commonly: You’ll be running a report where the primary event is performed by the Friend (e.g. they converted, opened an account, etc). In this case, “Related Person” will show the Advocate who referred them.
+
+Less commonly: If you run a report on the “share” event (performed by the Advocate), then the “Related Person” (when known) is the Friend the share was sent to.
+
+# **Why This Matters: Data Feeds & Analysis**
+
+If you’re sending event data from Extole to another data platform, it’s vital to understand this distinction.
+
+- To get every event, run separate reports for both Advocate and Friend actions. If you run only one report, the “Related Person” might sometimes be the Advocate, other times the Friend, leading to inconsistent data.
+
+See more about exporting and analyzing event data [here](https://docs.extole.com/docs/data-analysis-visualization).

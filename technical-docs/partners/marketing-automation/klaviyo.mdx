@@ -1,0 +1,231 @@
+---
+title: "Klaviyo"
+description: "Set up a connection between your Extole programs and Klaviyo's marketing automation platform."
+---
+
+## Overview
+
+[//]: # "Does Extole integrate with Klaviyo?"
+
+Klaviyo is a global technology company that provides a marketing automation platform, used primarily for email and SMS marketing. The Extole integration with Klaviyo allows you to send key profile data collected through Extole programs into Klaviyo lists to create more engaging and targeted marketing campaigns.
+
+[//]: ___
+
+## Prerequisites
+
+[//]: # "What are the requirements for the Extole integration with Klaviyo?"
+
+<table>
+  <thead>
+    <tr>
+      <th>
+        Requirement
+      </th>
+
+      <th>
+        Description
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        Klaviyo Account
+      </td>
+
+      <td>
+        A Klaviyo account is required to take advantage of this partnership.  
+
+        *You must have an Owner, Admin, or Manager role on the account.*
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Klaviyo List ID
+      </td>
+
+      <td>
+        The unique ID for the list to which you’d like to send Extole data.  
+
+        *If you have not yet created a list, you can create one within your Klaviyo account under Lists & Segments.*
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Klaviyo API Key
+      </td>
+
+      <td>
+        The private key needed to authenticate with Klaviyo via API.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+[//]: ___
+
+## Use Cases
+
+[//]: # "How can I leverage the Extole integration with Klaviyo?"
+
+The following use cases exemplify just a few of the ways you can leverage Extole's integration with Klaviyo. Work with your implementation and customer success managers to develop an option that fits your company's specific needs.
+
+* Update your marketing lists in Klaviyo by sending customer opt-in statuses from your Extole programs.
+* Send registration events from your Extole programs to Klaviyo to identify new audiences to promote to and engage with.
+* When an advocate shares, send the event and the specific product shared from your Extole programs into Klaviyo to create more personalized marketing campaigns.
+* When a friend makes a purchase, send the conversion and product details from your Extole programs to Klaviyo to better target your marketing campaigns and encourage repeat behavior.
+
+[//]: ___
+
+## Integration
+
+[//]: # "How do I set up the Extole integration with Klaviyo?"
+
+### Define User Attributes (Optional)
+
+Whether you're sending shares, conversions, opt-ins, or registrations to Klaviyo, you'll need to consider the data attributes you want included the requests. Below are several examples of common user profile attributes you may want to send from Extole to Klaviyo. Please work with your client success or implementation manager at Extole to select the proper user attributes and discuss any attributes not listed here.
+
+<table>
+  <thead>
+    <tr>
+      <th>
+        Attribute
+      </th>
+
+      <th>
+        Value
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        `email`
+      </td>
+
+      <td>
+        The customer's email address\
+        E.g., `jsmith@yourcompany.com`
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `phone_number`
+      </td>
+
+      <td>
+        The customer's phone number, including country code\
+        E.g., `+15555555555`
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `share_link`
+      </td>
+
+      <td>
+        The customer’s personal share link\
+        E.g., `refer.yourcompany.com/jsmith`
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `first_name`
+      </td>
+
+      <td>
+        The customer's first name\
+        E.g., `John`
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `last_name`
+      </td>
+
+      <td>
+        The customer's last name\
+        E.g., `Smith`
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `funnel`
+      </td>
+
+      <td>
+        The correct funnel type for the customer\
+        E.g., `friend` and/or `advocate`
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+### Retrieve Your List ID in Klaviyo
+
+If you **do not have a list** set up for Extole, complete the following steps.
+
+1. Log in to your Klaviyo account and navigate to the Lists & Segments tab.
+2. Click on Create List / Segment. Then click on the List box.
+3. Name the list.
+4. Click Create List.
+
+If you **do have a list** set up for Extole, find the list ID by completing the following steps.
+
+1. Log in to your Klaviyo account and navigate to the Lists & Segments tab of your account.
+2. Click on a particular list.
+3. Click into the Settings tab.
+4. Find your list ID near the top of the page and copy it for later use.
+
+<img src="https://files.readme.io/f185f3f030418deac648e3f0d415156f41191a59d893e66ebdccac87a0e903cb-b2d509f-klaviyo-list-id.jpeg" alt="" width="80%" />
+
+### Generate an API Key in Klaviyo
+
+Klaviyo uses public and private API keys to authenticate API requests. You can obtain and make changes to your API keys from your Klaviyo account Settings page under the API Keys tab. 
+
+To create a private API key for your Extole integration, complete the following steps.
+
+1. Log in to your Klaviyo account and navigate to the API Keys tab.
+2. In the Private API Keys section, click the Create Private API Key button.
+3. Fill out the necessary fields and generate the key.
+4. Be sure to save the key in a safe location for later use.
+
+![](https://files.readme.io/bf48f115ad6f9fca81fbf24ca27ec1ff2cf20d52bc0e60a9ef40a9e3d5b3c607-8d3c6d8-klavio-api-key.jpeg)
+
+### Create Your Integration in Extole
+
+Once you have obtained your Klaviyo list ID and API key, you’re ready to set up the integration from the Extole side.
+
+1. Log in to your Extole account and navigate to the [Tech Center > Outbound Webhooks](https://my.extole.com/tech-center/outbound-webhooks).
+2. Click on the + New Integration button.
+3. Name your key (e.g., Klaviyo API Key).
+4. Select Password from the Algorithm dropdown menu.
+5. Paste the private API key you generated in your Klaviyo account into the key field.
+6. Click the Create Key button.
+
+![](https://files.readme.io/e726715240236631872d134770ea1667a332eb8610d639a33ef3e20faa933c51-caa32ae-Screen_Shot_2023-02-10_at_12.51.01_PM.png)
+
+### Send Data from Extole to Klaviyo
+
+To finalize the connection between your Extole and Klaviyo accounts, reach out to your Extole client success or implementation manager. Your team will help you create and configure a new outbound webhook in your My Extole account.
+
+As an example, if you are sending opt-ins to Klaviyo, Extole will set up the webhook to point to [Klaviyo’s Subscribe Person endpoint](https://developers.klaviyo.com/en/reference/subscribe_profiles). Meanwhile, if you’re sending Extole profiles, the webhook would point to [Klaviyo's Add Person to List endpoint](https://developers.klaviyo.com/en/reference/create_list_relationships).
+
+[//]: ___
+
+## Using this integration
+
+[//]: # "How do I use the Extole integration with Klaviyo?"
+
+After connecting your accounts, events will automatically begin flowing from Extole to Klaviyo without any further action needed on your part. A live view of events being sent to Klaviyo can be found in Extole’s Outbound Webhook Center for troubleshooting.
+
+[//]: ___

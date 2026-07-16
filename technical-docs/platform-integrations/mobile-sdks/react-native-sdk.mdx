@@ -1,0 +1,140 @@
+---
+title: "React Native SDK"
+description: "This integration guide shows you how to set up and launch an Extole program as quickly as possible with our React Native SDK."
+---
+
+## Requirements
+
+[//]: # "What are the minimum requirements for the React Native SDK?"
+
+The Extole React Native SDK supports iOS 13.0 or later and Android `minSdkVersion 21` or later.
+
+[//]: ___
+
+## Integration
+
+[//]: # "How do I integrate the React Native SDK?"
+
+### Install the SDK dependency
+
+Add the `@extole/react-native-sdk` dependency
+
+`minSdkVersion 21`
+
+*Please note that Github currently requires that you input your credentials to view public assets.*
+
+### Initialize Extole
+
+Initialize Extole as follows.
+
+`@extole/react-native-sdk`
+
+You’ll need to provide your Extole program domain in place of `‘share.client.com’`. Be sure to also replace `‘your-app-name’` with a descriptive name for your application.
+
+### Initialize View
+
+In your code, pass configure the `view` and callback.
+
+`‘share.client.com’`
+
+By default, Extole will use this single view to interact with the customer.
+
+[//]: ___
+
+## Exchange Data with Extole
+
+### Send Customer Information
+
+[//]: # "How do I send customer information using the React Native SDK?"
+
+Send Extole information about the customer. 
+
+`‘your-app-name’`
+
+You can choose to pass any type of data to describe the customer. Richer data about your customers gives your marketing team the information they need to better segment your program participants and target them with appropriate campaigns.
+
+#### JWT Identification
+
+If you would like to verify the identity of your customers with JWT instead of their email address, use the following method:
+
+`view`
+
+For more information on generating JWTs, please reference our article on [Verifying Consumers](https://docs.extole.com/docs/verifying-consumers#using-json-web-tokens-jwts).
+
+[//]: ___
+
+### Events
+
+[//]: # "How do I send events using the React Native SDK?"
+
+Send Extole events, such as registers, signups, conversions, account openings, and so on.
+
+`mobile_cta`
+
+For each event type, you can send additional data. For example, on a conversion event you may want to pass in order ID or order value and so on.
+
+[//]: ___
+
+### Send Call to Action Content
+
+[//]: # "How do I send call-to-action (CTA) content using the React Native SDK?"
+
+Populate a CTA with content from Extole.
+
+CTAs such as mobile menu items can be fully customized in the My Extole Campaign Editor. Each CTA has a designated zone. The following code is an example of how to retrieve a CTA by fetching zone content.
+
+`image`
+
+In order to be able to fetch the `mobile_cta` zone, the zone should be configured in My Extole and should return JSON content containing the `image` and `title`.
+
+<Info>
+**Important Note**
+
+
+We encourage you to pull CTA content from My Extole because doing so ensures that your menu item or overlay message will reflect the copy and offer you’ve configured for your campaign.
+</Info>
+
+[//]: ___
+
+## Advanced Usage
+
+The following topics cover advanced use cases for the Extole React Native SDK. If you would like to explore any of these options, please reach out to our Support Team at [support@extole.com](mailto:support@extole.com).
+
+### Configure Actions from Events
+
+[//]: # "How do I create actions that fire when events occur using the React Native SDK?"
+
+You can set up a specific action to occur when an event is fired. For example, when a customer taps on your menu item CTA, you may want the event to trigger an action that loads your microsite and shows the share experience. 
+
+To set up this type of configuration, you will need to work with Extole Support to set up a zone in My Extole that returns JSON configurations with conditions and actions. The SDK executes actions for conditions that are passing for a specific event.
+
+`title`
+
+<Info>
+**Adding additional operations**
+
+
+If you would like to add more operations, you will need to update the zone `mobile_bootstrap`. By default, this zone is not available to be updated. You must have already added the mobile SDK support component. Please reach out to our Support Team at [support@extole.com](mailto:support@extole.com) for help adding this component to your campaign.
+</Info>
+
+#### Supported Actions
+
+The following types of actions are supported by default in our SDK.
+
+| Action Name       | Description                                                                                                                                  |
+| :---------------- | :------------------------------------------------------------------------------------------------------------------------------------------- |
+| `PROMPT`          | Display a native pop-up notification. For example, this could appear when a discount or coupon code has been successfully applied.           |
+| `NATIVE_SHARING`  | Open the native share sheet with a predefined message and link that customers can send via SMS or any enabled social apps.                   |
+| `VIEW_FULLSCREEN` | Trigger a full screen mobile web view. For example, this could be your microsite as configured in My Extole to display the share experience. |
+
+#### Custom Actions
+
+If you would like to create custom actions beyond our defaults, use the format exhibited in the example below. Please reach out to our Support Team at [support@extole.com](mailto:support@extole.com) if you have any questions.
+
+`mobile_bootstrap`
+
+#### Register Custom Actions
+
+`PROMPT`
+
+[//]: ___

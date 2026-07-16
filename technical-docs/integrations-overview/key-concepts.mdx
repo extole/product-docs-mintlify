@@ -1,0 +1,224 @@
+---
+title: "Key Concepts"
+description: "Understand Extole from the bottom up by reading about our platform's core elements."
+---
+
+## Overview
+
+[//]: # "How does Extole work from a technical perspective?"
+
+Extole has an event-based architecture. In order to understand how the architecture works as a whole, we need to understand its building blocks, which include people, events, actions, content, rewards, and rules. When these building blocks are stacked together, they constitute larger concepts like programs, audiences, and data. Let’s take a look at each of the building blocks and key concepts in more depth.
+
+## Building Blocks
+
+### People
+
+Every person is assigned a profile as soon as they are encountered, whether through your website, mobile app, or API, regardless of whether or not they interact with a campaign. Profiles at Extole give us the ability to determine the participant eligibility in programs, track relationships and issue rewards.
+
+In a person's profile, we store the following information:
+
+* Basic user info, such as email, names, phone number.
+* Event history and data
+* Relationships among participants
+* User Keys and Access control information
+* Audiences, such as "ambassador" or "employee"
+* Reward history and redemption status
+* Other custom data
+
+#### Profile Data
+
+The data collected for a person falls into one of three scopes: Public, Private, and Client. Several profile attributes are set to public by default, while all other attributes default to private. All private attributes can be configured to fall in either the public or client categories.
+
+<table>
+  <thead>
+    <tr>
+      <th>
+        Scope
+      </th>
+
+      <th>
+        Description
+      </th>
+
+      <th>
+        API Access
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        Public
+      </td>
+
+      <td>
+        Profile data that is public can be seen by anyone. Public profile data can be edited by the person at any time. By default, public attributes include the following:
+
+        * First name
+        * Social media handles
+        * Preferred locale
+        * Recent activity (events that are configured as public)
+      </td>
+
+      <td>
+        Customer and Admin API
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Private
+      </td>
+
+      <td>
+        Profile data that is visible only to the verified person and your company. Private profile data can be updated by the person through their interactions with a program. Generally speaking, profile attributes are private by default. Private profile data often includes information like the following:
+
+        * Address
+        * Mobile phone number
+        * Opt in/out preference
+      </td>
+
+      <td>
+        Admin API
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Client
+      </td>
+
+      <td>
+        Profile data that is only visible to your company. Client data typically includes information that even the verified person cannot edit and/or that your company may not want the person to be able to see. Client data attributes may include the following:
+
+        * Blocked status
+        * Event quality
+        * Reward tier
+      </td>
+
+      <td>
+        Admin API
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+### Content
+
+Campaigns contain pages, emails, and promotions, which can be customized in the My Extole Campaign Editor. Each piece of content has a set of variables that allows you to configure its appearance and behavior. There are also global or overview-level variables that cover the more ubiquitous aspects of your campaign, such as branded colors, terms and conditions copy, and logos.
+
+#### Zones
+
+Zones are predefined regions on your website or mobile app that request content from Extole. The content that is returned from a zone request can be configured in the Campaign Editor of your My Extole account. Zones are most often called using lightweight JavaScript tags on your website and via mobile SDKs. For example, a marketing tag, such as `global_header`, correlates to promotional content in the header region of your website or in your app.
+
+### Events
+
+Extole is an event-based system, meaning all program designs and customer journeys boil down to events. Every web interaction, bulk upload, or third-party system integration gets transformed into a common event model. Based on these events, we can implement rules and actions that fit the goals of your program.
+
+Let’s consider an account opening event. In this case, a user creates an account, which fires an event to Extole. This event must meet certain conditions or [rules](###Rules). For example, it may be required that the account be the user’s first account. If the conditions are met, then subsequent [actions](###Actions) may occur, such as sending a reward via email.
+
+<Info>
+**Required Events**
+
+
+We **strongly recommend** sending all rewardable events—conversions, account openings, subscriptions, and so on—to Extole. Our objective is to maximize the number of participants in your program and their activity levels. Selectively passing these events to Extole has been demonstrated to lead to significant underrecognition of participation and requires more work on your part to set up.
+</Info>
+
+#### Event Data
+
+All events can contain data. Let's take another look at the account opening event. This event can include data such as first and last name, email address, account ID, and so on.
+
+Event data falls into one of the following three scopes: Public, Private, and Client. By default, all events and data have their scopes set to private. During the program design process, Extole Support will assist you in defining your data scopes according to our best practices.
+
+<table>
+  <thead>
+    <tr>
+      <th>
+        Scope
+      </th>
+
+      <th>
+        Description
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        Public
+      </td>
+
+      <td>
+        Event data that is visible to everyone. Examples include:
+
+        * Review comment
+        * Public nomination
+        * Blog post
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Private
+      </td>
+
+      <td>
+        Event data that is visible to the person who performed the event and your company. Examples include:
+
+        * Order ID
+        * Account number
+        * Cart value
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Client
+      </td>
+
+      <td>
+        Event data that is visible only to your company. Examples include:
+
+        * Event quality
+        * Blocked user flag
+        * Order margin
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+### Rules
+
+Rules are used to made decisions about how events take action. In general when an event occurs, Extole applies rules to determine if the event meets all of the terms of the campaign. Extole marks an event as suspicious if any rule fails and marks an event passing if all rules succeed. There are also rules that must be configured when you add a reward to an event to define the conditions that must be met in order for a reward to be issued.
+
+### Actions
+
+Actions are tied to events. When an event fires and its rules are met a subsequent action may occur, like delivering a reward email, sending a webhook to third-party system, scheduling a future action, or displaying content. Actions can also be taken in cases where conditions are not met.
+
+### Rewards
+
+Each campaign has its own rewards configured to incentivize your customers to share, refer, create an account, and so on. Extole supports a variety of reward types, including coupon codes, account credits, gift cards, charitable donations, and more. We can easily support reward tiers and have options for delivering rewards to customers participating in international programs.
+
+## Key Concepts
+
+### Programs & Campaigns
+
+Our advocation and engagement programs are the heart of our product. Beyond Refer A Friend, we offer a variety of other program types including Influencer, Friends & Family, Drop A Hint, Nomination, Sweepstakes, and more. Within a program, you will have one or multiple campaigns. For example, you may want to test two different rewards in your Refer A Friend program or run seasonal campaigns for a limited time period before resuming your typical offer.
+
+Every campaign is comprised of the people, content, events, rules, actions, and rewards described above.
+
+The journey starts when a person views the content of a campaign, whether it's an on-site or in-app CTA or a promotional email. That interaction and all subsequent interactions fire events into Extole. Certain events, like a purchase, trigger actions like displaying an overlay on the order confirmation page encouraging the person to share. Other events, like opening and funding a checking account, have rules and rewards applied to them in addition to actions. In this case, a rule may ensure that only accounts created by new customers are rewarded. Events that pass these rules then trigger actions, such as sending a reward email to the customer or a webhook to the bank notifying them that a reward should be deposited into the account.
+
+### Audiences
+
+Extole Audiences are groups of your potential and/or existing customers that can be segmented based on similar behaviors, user data, and so on. All Extole programs and campaigns are targeted toward Audiences, making them an essential part of our system. These groups of participants are useful for creating more effective programs and incentives, as well as for increasing outbound marketing via email promotion and ad platform audience buying.
+
+While Extole does create and maintain audiences of people who have participated in a program, you’re also welcome to upload your own audiences or segments and market to them, even if—or maybe especially if—they haven’t yet participated in a program.
+
+### Data
+
+In addition to the robust program and campaign-level dashboards found in your My Extole account, all of the data collected through your Extole programs—including the person and event data described above—can be accessed through My Extole Reports. We offer standard report templates to assess performance, audiences, customer activities, and rewards. You can also create custom reports and save them as templates for later use. All reports can be run once or on a configurable schedule and can be downloaded manually or delivered directly to you via API or SFTP.
+
+[//]: ___

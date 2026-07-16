@@ -1,0 +1,237 @@
+---
+title: "Create Share Link on an Event"
+description: "Make sharing as easy as possible by precreating share links for every customer using the Extole extension or API"
+---
+
+## Overview
+
+Share Links for Everyone is a strategy for pre-generating a unique referral share link for every customer in your database and pushing that link back into your existing systems — your CRM, ESP, or banking platform — so it can be included in any outbound communication without requiring Extole to be in the loop for every email or touchpoint.
+
+The result: every customer already has a share link waiting for them before they ever visit your referral program. You can embed it in welcome sequences, transactional emails, app notifications, and outbound campaigns without any manual intervention.
+
+This article covers the two main implementation options and when to use each.
+
+## Why do this?
+
+Most referral programs are reactive — a customer visits the site, lands on the share experience, and only then gets a link to share. Share Links for All flips this model. By the time you reach out to a customer, their personal share link already exists and can be dropped into any message.
+
+Common use cases include:
+
+* Including a referral link in every email in your post-signup welcome sequence
+* Adding a share link (or QR code) to transactional emails such as order confirmations or account statements
+* Embedding a referral link in your app's "my account" screen without requiring a separate page load
+* Giving field employees or contractors their own personal share link to use in conversations and emails
+
+## Option 1: Create Share Links and Send to your CRM / CDP
+
+This is the recommended approach for most programs. Extole automatically generates a share link when a specified event occurs (typically converted) and pushes it to your external system via an outbound webhook.
+
+### How it works
+
+When a customer triggers the chosen event, Extole creates a share link for them and fires a webhook payload — containing the share link, email, and any other configured fields — to the endpoint you specify. Your system stores the link and makes it available for future communications.
+
+### Setup
+
+**Step 1 — Decide on Configuration Options**
+
+1. Confirm which event should trigger a new share link to be created. Examples include: Conversion, Account Opened, or Addition to the Eligible Advocate Audience.
+2. Confirm which program you'd like share links created for like Refer a Friend or Refer a Friend Employee.
+3. Determine how you plan to map this data within your internal CRM / CDP.
+4. Send this info to your Extole team to configure the Create Share Link on an Event extension.
+
+**Step 2 — Create an API Key**
+
+You'll need to create a credential in their destination system (e.g., a HubSpot private app token, a Salesforce connected app key, or a Klaviyo API key). This is the token Extole will use to authenticate when posting to their endpoint.
+
+**Step 3 — Add the Credential in Extole**
+
+1. Go to Tech Center > Security Center.
+2. Click + New Key and select Webhook as the key type.
+3. Choose the appropriate algorithm:
+   1. Password — sends the key as Authorization: Bearer `<key>`
+   2. HTTP Basic — sends as Authorization: Basic `<base64EncodedKey>`
+   3. HS256 — signs the request body and sends as X-Extole-Signature: `<signed_value>`
+4. Paste the your API key or bearer token and save.
+
+**Step 4 — Set up the Extole Webhook**
+
+Reach out to the Extole team to set up the webhook. To complete this step, you must provide:
+
+| Required                  | Description                                                                                                                                                  |
+| ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Endpoint URL              | The destination URL Extole will POST to (e.g., your CRM's contacts API endpoint)                                                                             |
+| Authentication Credential | The API key or token created in Step 3                                                                                                                       |
+| Desired Payload Fields    | Which fields to include — at minimum: `email` and `share_link`. Additional fields such as `share_code` and `event_time` can be added by Extole's support team. |
+
+Note: Firing a webhook off of a `advocate_code_created` event is handled by Extole. Provide the above details to Extole to complete configuration.
+
+**Example webhook payload**
+
+`<key>`
+
+**Webhook retry behavior**
+
+If Extole receives a non-200 response, it will retry 5 times on this schedule: 1 second, 1 hour, 3 hours, 12 hours, 12 hours. After that, the event is placed in a dead-letter queue for 7 days. Your Solutions Architect can access the Webhook Events Report or replay events using the `/v6/webhooks/events/send` endpoint if needed.
+
+## Option 2: Create Share Link via API
+
+Use the Create Share Link API when your system needs to generate or retrieve a share link on demand — for example, when your backend is building a personalized email at send time, or when you need fine-grained control over the share link's code or label.
+
+**Endpoint**
+
+`<base64EncodedKey>`
+
+**Example request**
+
+`<signed_value>`
+
+**Response Data Fields**
+
+| Parameter     | Required | Description                                                                                                                                                          |
+| :------------ | :------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `person_id`   | Yes      | Extole's unique identifier for the customer                                                                                                                          |
+| `label`       | Yes      | The program label configured in Extole (e.g., `refer-a-friend`)                                                                                                      |
+| `code`        | No       | A custom code for the share link                                                                                                                                     |
+| `key`         | No       | A shareable key. This is useful when requesting a share link. If the customer makes a request for a key, where they already have a link, the same link is returned.  |
+| `content`     | No       | Content to embed in the link (e.g., `partner_content_id`, `title`, `image_url`)                                                                                      |
+| `program-url` | No       | Your Extole program domain (branded or unbranded)                                                                                                                    |
+
+## Backfilling existing customers
+
+Before launch, you should generate share links for your existing customer base — not just net-new customers going forward. The standard process is:
+
+1. Provide Extole with your existing customer list (email and/or partner_user_id).
+2. Your Extole team will help create share links for all customers in bulk.
+3. Extole delivers the links back to you via a file or webhook for import into your system.
+
+Once the backfill is complete and your Extension + Webhook is live, new customers will have share links created automatically as they convert, keeping your system of record continuously up to date.
+
+## Choosing the right approach
+
+| Scenario                                                                                              | Recommended approach                                                           |
+| :---------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------- |
+| Automatically generate a share link when a customer converts and push it to a CRM or ESP              | **Extension + Outbound Webhook**                                               |
+| Integrate with a system like Iterable or Klaviyo where new customer events flow through automatically | **Extension + Outbound Webhook**                                               |
+| Bulk backfill share links for existing customers before launch                                        | Contact your Solutions Architect — this uses a batch job process               |
+| Your backend needs to create or retrieve share links programmatically at send time                    | **API**                                                                        |
+| You need a custom share link code (e.g., structured from employee name or ID)                         | **API**                                                                        |
+| One-off link creation for a specific person                                                           | **API** or **My Extole UI** (User Support > person profile > + New Share Link) |
+
+## Setting up your ESP or CRM to use the share link
+
+Once Extole is pushing share links to your system via the outbound webhook, you need two things on the receiving end: somewhere to store the link per contact, and a way to insert it into emails. The setup varies by platform.
+
+### HubSpot
+
+<Accordion title="Implementation Details" icon="rotate-right">
+  **Step 1 — Create a custom contact property**
+
+  The webhook payload lands in HubSpot and needs to be written to a contact property. Create a dedicated property to hold the share link:
+
+  1. In HubSpot, go to Settings > Properties.
+  2. Click Create property and select Contact as the object type.
+  3. Set the Field type to URL (this makes the value clickable in the contact record and validates the format).
+  4. Name it something like Extole Share Link and save.
+
+  The Extole webhook should be configured to write share\_link to this property, matched on email or partner\_user\_id. Confirm the field mapping with your Solutions Architect.
+
+  **Step 2 — Use the share link in email**
+
+  In any HubSpot marketing email or automated email, insert the link as a personalization token:
+
+  Place your cursor in the email body where the link should appear.
+  Click Personalize in the rich text toolbar.
+  Select Contact as the token type, then search for your Extole Share Link property.
+  Set a fallback value (e.g., your main referral program URL) in case the property is empty for some contacts.
+
+  The token will resolve to that contact's personal share link at send time. This works in subject lines, body copy, and button URLs.
+
+  Note: HubSpot requires a Marketing Hub Professional or Enterprise subscription to use personalization tokens in automated emails.
+</Accordion>
+
+### Salesforce Marketing Cloud (SFMC)
+
+<Accordion title="Implementation Details" icon="rotate-right">
+  **Step 1 — Add a share link column to your Data Extension**
+
+  SFMC personalizes emails from Data Extensions. The share link needs to be a column in the Data Extension you send from:
+
+  1. In Email Studio or Contact Builder, open the Data Extension you use for customer sends.
+  2. Add a new column: name it `extole_share_link`, type `Text`, length `500`.
+  3. Ensure the column is populated with share link values before sends — Extole pushes these via the outbound webhook, which should be configured to update this field.
+
+  **Step 2 — Personalize with a personalization string or AMPscript**
+
+  The simplest approach uses a personalization string directly in the email body:
+
+  `email`
+
+  For more control — such as showing a fallback URL if the field is empty — use AMPscript:
+
+  `share_link`
+
+  `share_code`
+
+  This renders each recipient's share link at send time, falling back to the program's main URL if the field isn't populated.
+</Accordion>
+
+### Klaviyo
+
+<Accordion title="Implementation Details" icon="rotate-right">
+  **Step 1 — Receive the share link as a custom profile property**
+
+  Klaviyo stores per-contact data as profile properties. Because Klaviyo uses a schema-less database, you do not need to pre-define the property before Extole writes to it — the first webhook payload that includes the field will create it automatically on the matching profile.
+
+  The Extole outbound webhook should be configured to POST to Klaviyo's Update Profile endpoint, writing the share link as a custom property (e.g., `extole_share_link`) matched on email. Confirm the endpoint URL and field name with your Solutions Architect.
+
+  **Step 2 — Use the share link in email via the lookup filter**
+
+  In any Klaviyo email or flow template, reference the custom property using Klaviyo's variable syntax with the lookup filter:
+
+  `event_time`
+
+  The `default` filter provides a fallback URL for any profile where the property hasn't been populated yet. This works in email body copy, subject lines, and button URLs.
+
+  Note: Custom property names are case-sensitive in Klaviyo. The name used in the template must exactly match the field name set by the webhook — for example, `extole_share_link` and `Extole Share Link` are treated as different properties. Agree on a naming convention with your Solutions Architect before going live.
+</Accordion>
+
+### Iterable
+
+Extole has a native integration guide for Iterable. The setup below reflects that documented pattern.
+
+<Accordion title="Implementation Details" icon="rotate-right">
+  **Step 1 — Create an Iterable API key**
+
+  1. In Iterable, go to **Integrations > API Keys**.
+  2. Click **New API Key**, enter a name, and click **Create API Key**.
+  3. Save the key — you'll paste it into My Extole in the next step.
+
+  **Step 2 — Add the API key to My Extole**
+
+  1. In My Extole, go to **Tech Center > Security Center**.
+  2. Click **+ New Key** and select **Webhook** as the key type.
+  3. Set the algorithm to **Password**.
+  4. Paste your Iterable REST API key and save.
+
+  **Step 3 — Configure the Extole outbound webhook**
+
+  The Extole webhook should `POST` to Iterable's Update User endpoint:
+
+  `advocate_code_created`
+
+  If using Iterable's EU data center, use `https://api.eu.iterable.com/api/users/update` instead.
+
+  The webhook payload writes the share link directly to the user's profile as a `dataFields` value:
+
+  `/v6/webhooks/events/send`
+
+  **Step 4 — Use the share link in email templates**
+
+  In any Iterable message template, reference the user profile field using a Handlebars merge tag:
+
+  `person_id`
+
+  At send time, Iterable replaces the merge tag with the value from the user's profile. You can use this in email body copy, button URLs, or subject lines.
+
+  Note: Iterable has a project-level setting called **Drop Unrecognized User Fields** that, if enabled, will silently ignore fields it doesn't recognize. If the `share_link` field isn't appearing on user profiles, check **Settings > Data Schema Management** to confirm the field is allowed or use an API override to add it.
+</Accordion>

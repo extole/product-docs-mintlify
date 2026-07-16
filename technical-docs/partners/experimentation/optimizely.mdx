@@ -1,0 +1,250 @@
+---
+title: "Optimizely"
+description: "Set up easy A/B testing for your Extole programs using Optimizely."
+---
+
+## Overview
+
+[//]: # "Does Extole integrate with Optimizely?"
+
+Extole partners with Optimizely to deliver easy-to-launch A/B testing for your referral program. A/B testing uses two versions of the Extole advocate-to-friend conversion funnel: the control group and the test group. Live traffic will be divided between these two groups to determine which is the more effective variation. While additional testing capabilities (such as multivariate testing) are available through Optimizely, this document only covers A/B testing.
+
+[//]: ___
+
+## Prerequisites
+
+[//]: # "What are the requirements for integrating Extole with Shopify?"
+
+<table>
+  <thead>
+    <tr>
+      <th>
+        Requirement
+      </th>
+
+      <th>
+        Description
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        Optimizely Account
+      </td>
+
+      <td>
+        Access to and familiarity with Optimizely’s A/B testing platform. Optimizely Gold (or higher), which offers the ability to link together variations of different pages, is recommended for multi-page testing. For example, visitors who saw the original version of page one will also see the original version of page two, visitors who saw variation one of page one will also see variation one of page two, and so on. This is particularly helpful for funnel testing. Optimizely\
+        setup can be viewed below.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Source Code Access
+      </td>
+
+      <td>
+        Access to the source code of your web pages, and knowledge of HTML and JavaScript development.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+[//]: ___
+
+## Advantages of A/B testing
+
+[//]: # "What benefits do I get from the Extole and Optimizely integration?"
+
+Running A/B tests allows you to rapidly optimize campaigns and quickly transform them into\
+effective marketing channels. Implementing an optimization test plan ahead of time will facilitate\
+optimal testing speeds.
+
+Both Extole and Optimizely have data that measures the number of visitors who viewed each group\
+variation and completed the referral funnel. The referral funnel is made up of many different metrics\
+and key ratios that reflect the performance of the program, including:
+
+* Call-to-Action (CTA) Clicks / CTA Impressions
+* Advocates (those who share) / CTA Clicks
+* Shares / Advocates
+* Friend clicks / Advocate Shares
+* Conversions / Friend Clicks
+
+Each test should optimize towards a key performance indicator (KPI) or ratio. Your goals are\
+to increase the volume of your chosen metric or ratio, as well as the effectiveness of each step\
+throughout the referral funnel.
+
+Upon completion of the test, a “winner,” or more efficient channel, will be declared and used\
+moving forward. Further testing can be done on the same element of the referral program (using\
+the new winner), or different elements of the referral funnel. All campaign changes will be managed\
+through the Extole platform. There is no need to update site code (either Optimizely’s or Extole’s)\
+once you have set up your site to use A/B test campaigns.
+
+[//]: ___
+
+## Integration
+
+[//]: # "How do I integrate Extole with Optimizely?"
+
+### Set up your Extole Campaign
+
+To run an A/B test on two campaigns, you will need to set up on the Extole platform with only one\
+variant between your campaigns.
+
+Example: Campaign A’s CTA says “Refer Friends and Earn,” while Campaign B’s CTA says “Click\
+Here to Share and Get $5.” The campaigns are identical otherwise.
+
+### Set up your Optimizely Project
+
+Each Optimizely project has a unique Project Code snippet that must be included on every page\
+that is running experiments or tests.
+
+1. Create an Extole project within Optimizely (if one hasn’t been created, you will need to make\
+   sure the project code is placed), or use an existing project.
+2. Create a new experiment (e.g., “Extole A/B Test”) using your website domain as the URL (you\
+   can add other URLs later).
+3. Copy and paste the project code immediately after your opening `<head>` tag.
+
+#### Optimizely Project Tag Example
+
+You will find the tag for your project in the Optimizely dashboard.
+
+1. Tap on your current project.
+2. Tap on `<Project Code>` in the top right. The tag will look similar to the following:
+
+`<head>`
+
+3. Copy and paste this code immediately after your opening `<head>` tag.
+
+### Configure Extole Marketing Tags
+
+Within Optimizely, the only Extole tags that require any changes are the Marketing Tags. No changes are required in Extole’s JS library or conversion tags.
+
+Your Extole referral campaign comes with standard marketing tags, which you can enable or disable in the Campaign Editor of your My Extole account.
+
+A few marketing tag examples are:
+
+* `global_header`
+* `global_footer`
+* `confirmation`
+* `overlay`
+
+Optimizely is used to place the Extole Marketing tags into your site and split traffic between your control and test variations. Instead of directly placing the Extole Marketing tags into the page, you will use Optimizely to select the A/B variant and then place the appropriate tag.
+
+Without Optimizely, you would place an Extole Marketing Tag on your page, such as the global header:
+
+`<Project Code>`
+
+With Optimizely, you will not place Marketing tags directly on your page. Instead, Optimizely will insert the tags.  The `name` of the placement in the Marketing Tag for your first variant should be appended with “\_a” and names for your second variant should be appended with “\_b” to differentiate them.
+
+`<head>`
+
+`global_header`
+
+The above tags are examples of what gets placed in each variation of the experiment. Their location\
+will match the real estate where they should be displayed as part of the Optimizely experiment.\
+To place the “A” and “B” snippets from the dashboard:
+
+1. Use the Optimizely editor to create two variations of the page.
+2. Use the Optimizely editor to insert each Extole tags into the proper location as HTML.
+
+[//]: ___
+
+## Multi-Testing
+
+[//]: # "How do I test multiple variations using the Extole and Optimizely integration?"
+
+With two variations, you want all of the “A” zones to be delivered with the first variation, and all the\
+“B” zones to be delivered with the second. This divides traffic between the control and test groups,\
+enabling you to test any element within your referral program.
+
+* To run an experiment on multiple URLs, leverage the Optimizely targeting solution (tap Options\
+  → Targeting). The Extole and Optimizely tags will need to reside on all of these pages.
+* To create a multi-page experiment, or an experiment that still uses the A/B test (but can serve\
+  “A” content on one page in a different location from the “A” content on other pages), tap\
+  Experiment Type → Multi-page Test.
+
+[//]: ___
+
+## Test Result Example
+
+[//]: # "What results can I get from the Extole integration with Optimizely?"
+
+After running an A/B test on a site’s CTA (Campaign A’s CTA says “Refer Friends and Earn,”\
+Campaign B’s CTA says “Click Here to Share and Get $5”), Optimizely’s data indicated that\
+Campaign B resulted in higher advocacy. Based on the test’s outcome, you would apply the higher\
+performing CTA message across your campaigns.
+
+[//]: ___
+
+## Extole Testing Best Practices
+
+[//]: # "What are best practices for testing with the Extole and Optimizely integration?"
+
+The best way to start testing is with an end goal in mind (e.g., conversions or purchases for\
+e-commerce, leads for business-to-business, etc.). Consider the various stages of the Extole referral\
+funnel: where do you believe your program has the biggest opportunity for improved performance?
+
+[//]: ___
+
+## Increasing Advocacy
+
+[//]: # "How do I increase impressions, CTA clicks, advocates, shares, and associated rates using the Extole integration with Optimizely?"
+
+Increasing advocacy means getting more of your customers to begin sharing, to share more often,\
+and to share more times over the life of the program.
+
+Key Extole metrics that are used to measure the various aspects of advocacy are impressions, CTA clicks, advocates, shares, and the rates between those metrics (CTA impressions/CTA clicks, shares/ advocate). Look to maximize these metrics in your testing efforts.
+
+Common advocacy testing scenarios include:
+
+* CTA Location
+* CTA Creative
+* Advocate Share Experience Version and Creative
+* Landing Page Creative
+* Advocate Incentive Offer
+* Friend Incentive Offer
+
+[//]: ___
+
+## Increase Referral Conversion
+
+[//]: # "How do I increase referral conversions using the Extole integration with Optimizely?"
+
+Increasing referral conversions involves the stages of the Extole funnel that call for a referred\
+friend to become a new customer. The objective is to maximize the conversions at every step,\
+starting when a friend receives a share message and continuing to when that friend completes the\
+conversion.
+
+Key Extole metrics that are used to measure the various aspects of referral conversion are shares,\
+friend clicks, conversions, and the rates between those metrics (clicks/share, conversion/click). Look\
+to maximize these metrics in your testing efforts.
+
+Common referral conversion testing scenarios include:
+
+* Share Message Subject Line
+* Share Message Creative and Default Copy
+* Friend Landing Experience
+* Friend Conversion Funnel (these steps are typically not part of the Extole served content)
+* Friend Incentive Offer
+
+Using the A/B split configuration, you can change any component of the campaign flow in order to\
+isolate the variable you want to test.
+
+## Referral Conversion Test Example
+
+Take the test result from the example above. As a next step, you may want to test the share\
+message click-through-rate to see if a change in messaging will increase your conversion rate. Start\
+your test by using the “A” and “B” campaign variant structure you used in the first test.
+
+1. Make sure that the variants are identical.
+2. Change the email share subject lines in each campaign. In campaign variant “A,” change the line\
+   to “I thought you would like this.” In campaign variant “B,” change the line to “Check out this\
+   great deal!”.
+3. Execute the test using Optimizely. The better performing email share subject line will show\
+   higher rates as measured by the clicks and clicks/share metrics.\
+   Now you have used your “A” and “B” campaigns to first run a test to increase advocacy, and then followed it with a test to increase referral conversions.
+
+[//]: ___

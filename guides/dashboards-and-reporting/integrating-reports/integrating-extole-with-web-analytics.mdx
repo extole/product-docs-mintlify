@@ -1,0 +1,66 @@
+---
+title: "Integrating Extole with Web Analytics"
+description: "You can set up Extole to send web tracking information to various web and email analytics tools through the use of URL parameters, such as UTMs."
+---
+
+# Overview
+
+You can set up Extole to send web tracking information to various web and email analytics tools through the use of URL parameters, such as UTMs.
+
+URL parameters for Google Analytics, Adobe Analytics, etc. can typically be added directly by your marketing or IT team within Extole's Campaign Editor.
+
+# Adding URL Parameters to Your Campaigns
+
+Within Campaign Edit, there are two configurable URLs—one for the Advocate and one for the Friend—that can be used: the Promote Destination and the Share Destination.
+
+## Promotion Links
+
+By default, promotion links are used in the Advocate Welcome Email, Advocate Earned Reward Email, Advocate Stats Email, and the Friend Earned Reward Email. To control the behavior of your promotion links, go to the Promote Destination under the Advocate tab in Campaign Edit.
+
+When advocates click a promotion link, you can choose to send them to:
+
+- An Extole-hosted zone (such as the advocate Microsite)
+- An external URL that you host
+
+In the Advanced settings, you can edit the UTM parameters that are automatically included in the URL.
+
+| **Parameter** | **Type** | **Description** | **Default Value** |
+| --- | --- | --- | --- |
+| utm_campaign | dynamic | Specific marketing campaign | The label of your Extole program.Example: refer-a-friend |
+| utm_medium | dynamic | Type of traffic | WEB unless the source of the promotion click is a zone that ends with email, and then it will be EMAIL. |
+| utm_source | static | Where the traffic is coming from | extole_advocate |
+| utm_content | dynamic | Specific promotion | The name of the on-site or email promotion that sourced the click.Example: advocate_earned_reward_email |
+
+## Share Links
+
+By default, share links power the CTA button on the Friend Share Email. To control the behavior of your Share Links, go to the Share Destination under the Friend tab in Campaign Edit.
+
+When friends click a share link, you can choose to send them to:
+
+- An Extole-hosted zone (such as the Friend Landing Experience Microsite)
+- An external URL that you host.
+
+In the Advanced settings, you can edit the UTM parameters that are automatically included in the URL.
+
+| **Parameter** | **Type** | **Description** | **Default Value** |
+| --- | --- | --- | --- |
+| utm_campaign | dynamic | Specific marketing campaign | The label of your Extole program.Example: refer-a-friend |
+| utm_medium | dynamic | Type of traffic | The share channel usedExamples: EMAIL, SHARE_LINK, FACEBOOK |
+| utm_source | static | Where the traffic is coming from | extole_friend |
+| utm_content | dynamic | Type of product | The product ID |
+
+# Adding URL Parameters to Legacy Campaigns
+
+For older Extole campaigns, the Share and Promote Destinations in Campaign Edit do not have specific settings for defining your UTM parameters. For these campaigns, you can still add and configure the same parameters for your Share and Promotion Links but the process is more manual.
+
+## Promotion Links
+
+To add UTM parameters to your Promotion Links, go to the Promote Destination under the Advocate tab in Campaign Edit. This customization will add tracking parameters to the promote links used in the Advocate Welcome Email, Advocate Earned Reward Email, Advocate Stats Email, and the Friend Earned Reward Email.
+
+Go to the Promote URL setting and add your new string at the end of the default value. Every new parameter declaration must have the follow structure (no quotes): &parameter_name=parameter_value
+
+## Share Links
+
+To add UTM parameters to your Share Links, go to the Share Destination under the Friend tab in Campaign Edit. This customization will add tracking parameters to the share link CTA button on the Friend Share Email.
+
+Go to the Query String setting and add your new string value at the end of the default value. Every new parameter declaration must have the following structure (no quotes): &parameter_name=parameter_value

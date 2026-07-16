@@ -1,0 +1,112 @@
+---
+title: "Extole to Salesforce CRM"
+description: "Learn how to send Extole real-time referrals, rewards, and customer engagement data to Salesforce through outbound webhooks."
+---
+
+## Overview
+
+Extole integrates with Salesforce Sales Cloud by sending real-time referral, reward, and customer engagement data through outbound webhooks. This server-to-server connection allows Salesforce to ingest and act on Extole events, ensuring accurate attribution, automated follow-ups, and streamlined customer lifecycle management.
+
+This document outlines the ways data can flow from Extole into Salesforce.
+
+## Why Send Data to Salesforce?
+
+Salesforce often serves as the system of record for customer and lead activity. Integrating Extole with Salesforce allows:
+
+* Referral and advocate activity to be tracked within existing CRM records.
+* Reward events to trigger internal workflows and updates.
+* Automated processes (e.g. marketing journeys, sales alerts) to run without manual intervention.
+* Full-cycle attribution between marketing campaigns and sales outcomes.
+
+## Salesforce OAuth Authentication
+
+All Extole to Salesforce integrations make use of Salesforce OAuth 2.0 client credentials flows to acquire an access token, which is included in outbound webhook requests. Salesforce documentation on this method is available [here](https://help.salesforce.com/s/articleView?id=xcloud.remoteaccess_oauth_client_credentials_flow.htm\&type=5).
+
+### OAuth Client Registration in Salesforce
+
+Create a Connected App in Salesforce:
+
+* OAuth Scopes: Access and manage your data (API)
+* Enable Client Credentials (JWT or OAuth 2.0).
+* Note down the Client ID and Client Secret.
+
+Before sending the webhook, Extole will exchange credentials for an access token.
+
+### OAuth Key Creation in Extole
+
+To create the key within Extole, create a new Integration from within the [Outbound Webhooks](https://my.extole.com/tech-center/outbound-webhooks) menu. Configure the key with the following options:
+
+| Field             | Example Value                                                 |
+| :---------------- | :------------------------------------------------------------ |
+| Key Name          | SFDC &lt;environment&gt; Client Credentials Key                     |
+| Partner Key ID    | *Not Required*                                                |
+| Algorithm         | OAUTH\_SFDC                                                   |
+| Key               | The Client Secret from the previous step                      |
+| Authorization URL | https\://*yourdomain*.my.salesforce.com/services/oauth2/token |
+| OAUTH Client ID   | The Client ID from the previous step                          |
+| Scope             | *Not Required*                                                |
+| Description       | A useful description of where this key will be used           |
+
+## Option 1: APEX Rest Endpoint for Extole to Salesforce
+
+Extole uses outbound webhooks to POST JSON-formatted events to a configured Salesforce Apex REST endpoint.
+
+### Webhook Configuration Example
+
+| Field           | Example Value                                                                         |
+| :-------------- | :------------------------------------------------------------------------------------ |
+| Webhook Name    | Salesforce Production – Share Links                                                   |
+| Webhook Type    | Generic                                                                               |
+| HTTP Method     | POST                                                                                  |
+| URL             | https\://*yourdomain*.my.salesforce.com/services/apexrest/contacts/referralExtoleInfo |
+| Request Builder | `javascript@runtime:context.createRequestBuilderWithDefaults().build();`              |
+| Authentication  | SFDC Client Credentials Key                                                           |
+
+### Event Payload Delivery
+
+Event delivery from Extole to Salesforce using an [Apex REST Endpoint](https://www.google.com/url?q=https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/intro_rest.htm\&sa=D\&source=docs\&ust=1752867437998720\&usg=AOvVaw3jIkZSqFNLJZ4S7NvaYjaM) is customizable. See example Extole webhook bodies below:
+
+`javascript@runtime:context.createRequestBuilderWithDefaults().build();`
+
+`referralId`
+
+### Salesforce Ingestion
+
+A custom Apex REST endpoint receives and parses the JSON body, performing logic such as:
+
+* Creating or updating Contact, Lead, Referral, or custom objects
+* Validating payload format
+* Preventing duplicates using external IDs (e.g. `referralId`)
+
+Salesforce Apex Endpoint example:
+
+`salesforce_id`
+
+The Apex class should include error handling, JSON parsing, and record matching logic (using fields like `salesforce_id` for idem-potency). Salesforce provides documentation [here](https://dash.readme.com/project/extole-documentation/v2.0/docs/%3Chttps://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_rest_code_samples.htm).
+
+## Option 2: Utilizing sObject Endpoints
+
+Extole uses outbound webhooks to POST JSON-formatted data to modify existing sObjects with data from the Extole system. Documentation on this method is available [here](https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/resources_sobject_retrieve_patch.htm). 
+
+### Webhook Configuration Example
+
+| Field           | Example Value                                                                                                                                                                                                                                                                                                                                     |
+| :-------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Webhook Name    | Salesforce Production – Contact Update                                                                                                                                                                                                                                                                                                            |
+| Webhook Type    | Generic                                                                                                                                                                                                                                                                                                                                           |
+| HTTP Method     | POST                                                                                                                                                                                                                                                                                                                                              |
+| URL             | https\://*yourdomain*.my.salesforce.com/services/data/vXX.X/sobjects/sObject/\{id\}                                                                                                                                                                                                                                                                |
+| Request Builder | `javascript@runtime: function(){   var requestBuilder = context.createRequestBuilderWithDefaults();   var data = context.getData();   var body = context.globalServices.getJsonService().toJsonString(data['body']);    return requestBuilder     .addUrlTemplateParameter('id', data['salesforce_id'])     .withBody(body)     .build(); }();  ` |
+| Authentication  | SFDC Client Credentials Key                                                                                                                                                                                                                                                                                                                       |
+
+### Event Payload Delivery
+
+Example requests would look like:
+
+`javascript@runtime: function(){   var requestBuilder = context.createRequestBuilderWithDefaults();   var data = context.getData();   var body = context.globalServices.getJsonService().toJsonString(data['body']);    return requestBuilder     .addUrlTemplateParameter('id', data['salesforce_id'])     .withBody(body)     .build(); }();  `
+
+```json
+{
+    "RewardsEarned__c":3
+}
+```

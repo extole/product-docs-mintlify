@@ -1,0 +1,63 @@
+---
+title: "Uploading an Eligibility Audience File via SFTP"
+description: "If you want to limit program eligibility to a defined list of users, Extole can process that list as an audience file. This allows you to control which users are eligible to participate in your referral program as an Advocate."
+---
+
+If you want to limit program eligibility to a defined list of users, Extole can process that list as an audience file. This allows you to control which users are eligible to participate in your referral program as an Advocate.
+
+## File Structure
+
+Upload a CSV file to your Extole SFTP server with a structure similar to the example below:
+
+first_name| last_name| email| member_id  
+---|---|---|---  
+John| Jones| jjones@example.com| 200728  
+Test| User| test@example.com| 123456  
+  
+**Required fields may vary by implementation.** If you want extra fields available in Extole reporting, chat with the Extole team about adding more columns. 
+
+## SFTP Upload Location
+
+Files should be uploaded to:
+    
+    
+    clientname@sftp.extole.com:/audiences/\{audience_id\}/replace
+
+Use the `/replace` directory if you are uploading a full file each day. This is the recommended approach for maintaining an up-to-date eligibility list. Extole also supports `r/add` and `/remove`.
+
+Your actual `{audience_id}` will be provided during implementation.
+
+## SFTP Configuration
+
+To configure your Extole SFTP server, follow the documentation here:  
+**&lt;https://docs.extole.com/docs/extoles-sftp-server>**
+
+When connecting to the SFTP server, use the following credentials:
+
+  * Host: sftp.extole.io
+
+  * Port: 22
+
+  * User: clientname
+
+  * Authentication: Passkey file generated in Extole or securely shared by your Solutions Engineer
+
+
+
+
+## Formatting Requirements
+
+  * Ensure proper formatting, including ISO_8601 for any `event_time` fields.
+
+  * If you are using WS_FTP, notify your Solutions Engineer, as setup instructions differ.
+
+
+
+
+## Best Practices
+
+  * Upload files on a consistent cadence, typically daily.
+
+  * Use the `/replace` directory to ensure outdated users are removed from eligibility.
+
+  * Validate file formatting before upload to avoid processing delays.

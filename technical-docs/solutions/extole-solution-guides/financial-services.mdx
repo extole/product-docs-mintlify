@@ -1,0 +1,627 @@
+---
+title: "Financial Services"
+description: "Quickly build an effective referral program to turn account holders and influencers into advocates who turn their passion for you into new account holders."
+---
+
+## Overview
+
+This guide covers the necessary steps for setting up a successful referral program with Extole.
+
+* Tag your Website
+* Connect Account Opening System
+* Brand your Links
+* Design your Experience (done by your creative team)
+* Reward your Customers (done by your marketing team)
+
+<img src="https://files.readme.io/428dda8ea0353d7f9e8b38f14e4e0d510c80f4fd069024c0f97a10589983c18a-ee7d647-Screenshot_2023-03-07_at_2.20.49_PM.png" alt="Financial Services Referral Steps" width="100%" />
+  Financial Services Referral Steps
+&lt;/Image>
+
+## Brand your Program
+
+### Create a CNAME for your Domain
+
+<Info>
+**Task Duration**
+
+
+This task will typically take an IT/Ops engineering team 10–15 minutes to complete.
+</Info>
+
+You'll want to create a CNAME for your domain so that you can create branded Promotion Links and Share Links.
+
+To set up your CNAME, please complete the steps outlined in [Extole DNS Requirements](/technical-docs/operational-tasks/account-configuration/extole-dns-requirements).
+
+### Send from Your Branded Email
+
+&lt;ImproveOpenRatesCallout />
+
+The referral program will send program emails from you to your customers:
+
+* Welcome Email
+* Advocate Stats Email
+* Earned Reward Email
+
+The from address for this will typically be something similar to `do-not-reply@mycompany.com`. Once this email has been identified, Extole can check if it is configured to allow Extole to send emails from this address.
+
+For details on how to update your SPF DNS records and install Extole DKIM keys, please reference [Extole DNS Requirements](/technical-docs/operational-tasks/account-configuration/extole-dns-requirements).
+
+<Info>
+**Related Content**
+
+
+* [Find your domain in the settings page of My Extole](https://my.extole.com/settings)
+* [How to set up your program domain](https://docs.extole.com/docs/program-domain-setup)
+</Info>
+
+## Add CTAs to your Website with Marketing Tags
+
+Extole displays CTAs that promote the program directly. Marketing tags tell Extole where to serve CTAs on your website. They also enable tracking, so that you can monitor which marketing placements are driving participation in the program.
+
+**The standard set of marketing tags includes**:
+
+* `global_header`
+* `global_footer`
+* `product`
+* `confirmation`
+* `overlay`
+
+Extole is happy to create other tags as needed.
+
+For inline CTAs, there is a `span` tag to locate it on the page:
+
+`do-not-reply@mycompany.com`
+
+Which is accompanied by a `script` tag to load in the content from Extole:
+
+`global_header`
+
+<Info>
+**Pass in customer-specific information**
+
+
+Marketing tags can contain information about the advocate to pre-fill the sharing experience. When you have information about a customer, if they are logged-in, you should pass that information into the tag to make sharing easier.
+</Info>
+
+<table>
+  <thead>
+    <tr>
+      <th>
+        Field
+      </th>
+
+      <th>
+        Value
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        `first_name`
+        *recommended* 
+      </td>
+
+      <td>
+        This should be passed to a marketing tag if the advocate is logged in and their first name is known.  
+
+        E.g. April
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `last_name`\
+        *recommended* 
+      </td>
+
+      <td>
+        This should be passed to a marketing tag if the advocate is logged in and their last name is known.  
+
+        E.g. Advocate
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `email`\
+        *recommended* 
+      </td>
+
+      <td>
+        This should be passed to a marketing tag if the advocate is logged in and their email is known.  
+
+        E.g. [april@advocate.com](mailto:april@advocate.com)
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `partner_user_id`\
+        *recommended* 
+      </td>
+
+      <td>
+        This should be passed to a marketing tag if the advocate is logged in. This is your unique identifier for this person such as an account ID or member ID.  
+
+        E.g. 00O40000004SA1AA
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th>
+        Marketing Tag Field
+      </th>
+
+      <th>
+        Description
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        `first_name`
+        ***recommended***
+      </td>
+
+      <td>
+        This should be passed to a marketing tag if the advocate is logged in and their first name is known.  
+
+        E.g. April
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `last_name`\
+        ***recommended***
+      </td>
+
+      <td>
+        This should be passed to a marketing tag if the advocate is logged in and their last name is known.  
+
+        E.g. Advocate
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `email`\
+        ***recommended***
+      </td>
+
+      <td>
+        This should be passed to a marketing tag if the advocate is logged in and their email is known.  
+
+        E.g. [april@advocate.com](mailto:april@advocate.com)
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `partner_user_id`\
+        ***recommended***
+      </td>
+
+      <td>
+        This should be passed to a marketing tag if the advocate is logged in. This is your unique identifier for this person such as an account ID or member ID.  
+
+        E.g. 00O40000004SA1AA
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<Info>
+**More about CTAs**
+
+
+1. Use Extole marketing tags to place on-site CTAs. This allows you to keep your customers on your site while taking advantage of Extole segmentation and testing for the content of the CTA.
+
+2. Place CTAs in your secure online banking site and pass your emails and user ids into the program so that your customers won’t have to. This also enables the integration where you can directly credit your customers’ accounts instead of crediting through gift cards.
+</Info>
+
+### Consider your Promotion Audience
+
+#### Reward Everyone or Reward Members/Customers
+
+Most banking referrals programs are focused on only allowing customers or members to participate as advocates in the referral program.
+
+**There are three approaches for this**:
+
+**Option 1**\
+Promote and market to existing customers without any technical restrictions. This is the most common setup and is straightforward. You will have some non-customers sharing and earning rewards, but they will still be bringing in net new customers. Extole will enforce reward limits so there are no tax implications for the process.
+
+**Option 2**\
+Use Extole tags so that the experience is behind login. This process works well and is the preferred process, but requires more technical work to include the experience behind login.
+
+**Option 3**\
+Have a process for uploading a list of existing customer emails to Extole. Users who attempt to share but do not have a matching email will be provided an error message. This process will require you to upload new member emails each day.
+
+#### Connect Friends
+
+When a friend follows an advocate’s share link from an email message, SMS, or social media post, they will be taken to a landing experience hosted through your Extole program, reinforcing they are part of a referral experience, providing any disclosures, and asking them to provide the email address they will use as part of opening their new account.
+
+## Send Events to Extole via Tags
+
+In order to reward advocates when a friend opens an account, you need to communicate when a friend applies for an account, when the account is opened, and when the event meets any additional criteria. You can send events to Extole through a combination of on-site tags and API calls.
+
+### Track Account Applications with Registration Tags
+
+Applications are tracked by adding the **registration tag** to your online application page.
+
+The registration tag passes information about the new customer to allow Extole to attribute the account to a referral when possible, run quality rules, and run reward rules. This helps successful tracking when the lead goes on to complete the account opening process.
+
+<Warning>
+**Important Note**
+
+
+Make certain that you fire the Extole tag for **all account openings** so Extole will correctly attribute referrals and manage the fraud and business rules. Extole ignores account applications that are not attributed to a referral after processing rules.
+</Warning>
+
+`global_footer`
+
+<table>
+  <thead>
+    <tr>
+      <th>
+        Registration Tag Field
+      </th>
+
+      <th>
+        Description
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        `first_name`
+        *recommended*
+      </td>
+
+      <td>
+        Indicates the first name of the person applying for the account.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `last_name`\
+        *recommended*
+      </td>
+
+      <td>
+        Indicates the last name of the person applying for the account.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `email`\
+        **required**
+      </td>
+
+      <td>
+        Indicates the email address of the person applying for the account.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `partner_user_id`\
+        *recommended*
+      </td>
+
+      <td>
+        Your unique identifier for this person person applying for the account such as an opportunity ID or a lead ID.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `advocate_code`\
+        *optional*
+      </td>
+
+      <td>
+        Ideally your application form should include the option for a person to enter a referral code.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+### Track Instant Account Approvals with Conversion Tags
+
+When accounts are instantly confirmed after the online application, you can use a **conversion tag** on the page to instantly send the successful account opening to Extole.
+
+`product`
+
+<table>
+  <thead>
+    <tr>
+      <th>
+        Conversion Tag Field
+      </th>
+
+      <th>
+        Description
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        `first_name`
+        *recommended*
+      </td>
+
+      <td>
+        Indicates the first name of the person who opened the account.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `last_name`\
+        *recommended*
+      </td>
+
+      <td>
+        Indicates the last name of the person who opened the account.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `email`\
+        **required**
+      </td>
+
+      <td>
+        Indicates the email address of the person who opened the account.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `partner_user_id`\
+        *recommended*
+      </td>
+
+      <td>
+        Your unique identifier for this person who opened the account such as an account ID or member ID.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `partner_conversion_id`\
+        **required**
+      </td>
+
+      <td>
+        Your account identifier that uniquely identifies this account. Extole recommends not to use the actual account number, which is sensitive, but an internal account ID
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+## Send Events to Extole via APIs
+
+### Track Account Openings with Conversion API
+
+All accounts that are successfully opened should call the Extole Conversion API.  This should happen for all accounts, even ones that were instantly opened and may have fired a conversion tag on the web. Extole handles attributing referrals, removing duplicates, and discarding data that doesn't apply.
+
+`confirmation`
+
+<table>
+  <thead>
+    <tr>
+      <th>
+        Input Field
+      </th>
+
+      <th>
+        Value
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        `event_name`
+        *required*
+      </td>
+
+      <td>
+        *String*\
+        Identifies the step at Extole to create.  This will be: `conversion`
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `data.email`\
+        *required*
+      </td>
+
+      <td>
+        *String*\
+        The email address of the opportunity being closed.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `data.first_name`\
+        *recommended*
+      </td>
+
+      <td>
+        *String*\
+        The first name of the opportunity being closed.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `data.last_name`\
+        *recommended*
+      </td>
+
+      <td>
+        *String*\
+        The last name of the opportunity being closed.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `data.partner_user_id`\
+        *recommended*
+      </td>
+
+      <td>
+        *String*\
+        The unique opportunity or lead identifier on your side.  This should match the value when passed at the time of a registration.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `data.partner_conversion_id`\
+        *required*
+      </td>
+
+      <td>
+        *String*\
+        This is the unique identifier for the account that was opened.  It is recommended this is not the account number, but an opaque identifier for the account - which could be a SHA-1 or MD5 hash of the account number.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+### Track Reward Approval with Approval API
+
+If there are additional requirements for an advocate and friend to earn reward beyond a simple account opening, such as a minimum balance or initial transactions, then it is important to send Extole a reward approval when a new account meets these requirements.  Extole would be configured to automatically decline rewards for accounts that haven't met the criteria within a timeframe, typically 90-days.
+
+The initial approval can be sent for all newly opened accounts meeting to criteria, Extole handles attributing referrals, removing duplicates, and discarding data that doesn't apply.
+
+The approval should include a `partner_conversion_id` that matches the identifier provided in the conversion call.
+
+`overlay`
+
+<table>
+  <thead>
+    <tr>
+      <th>
+        Input Field
+      </th>
+
+      <th>
+        Value
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        `partner_conversion_id`
+        *required*
+      </td>
+
+      <td>
+        *String*\
+        This is the unique identifier for the account that was opened.  It is recommended this is not the account number, but an opaque identifier for the account - which could be a SHA-1 or MD5 hash of the account number.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `event_status`\
+        *required*
+      </td>
+
+      <td>
+        *String*\
+        `approve` is used to mark the transaction as approved.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `note`\
+        *optional*
+      </td>
+
+      <td>
+        *String*\
+        An additional note about the approval that will appear in My Extole Customer Support.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+## Design your Experience
+
+Your entire referral consumer experience can be configured in the My Extole Campaign Editor. This part of setting up the solution can be done entirely by your marketing and creative team and doesn't require technical involvement. Each template is a comprehensive guide for your designer or marketer to customize for both mobiles and desktop experiences.
+
+![](https://files.readme.io/6d13598f2e378f629ecabbf99782c7ea52a7998481ce9a4dbd92d4504b103499-6841990-Screen_Shot_2022-07-28_at_10.32.12_AM.png "Screen Shot 2022-07-28 at 10.32.12 AM.png")
+
+## Reward your Customers
+
+After a conversion is complete, Extole will reward the advocate and friend by emailing them a digital gift card.
+
+Your business team is in charge of setting up the gift cards in My Extole and providing funding to Extole for the cost of the gift cards.
+
+<Info>
+**Alternative Rewards**
+
+
+If you’d like to reward your customers by crediting their accounts (instead of giving a gift card), you can do the following:
+
+1. Use marketing tags to pass your customer identifier into the sharing experience.
+2. Use the Extole Account Credit Webhook, API, or files to credit and fulfill your customer’s accounts.
+</Info>
+
+## Recommended Additional Steps
+
+<details>
+<summary><strong>Embedding a Share Experience Directly onto a Page</strong></summary>
+<br />
+If you want to embed a sharing experience on a dedicated referral page or account page, the tag looks exactly same—you would just call the zone “**referral_page**” or “**account_page**”.
+</details>
+
+## Uncommon Additional Steps
+
+<details>
+<summary><strong>Use your opt-out list</strong></summary>
+<br />
+All mails sent by Extole are CAN-SPAM compliant and honor the customer preferences.  Referral programs are typically treated as their own segment of emails unique from the normal marketing opt-out list, making this step optional. Each email sent to an advocate or friend will include an unsubscribe link, managed by Extole, that will opt the customer out of the referral program.
+
+If you need to do a more complex opt-out synchronization, Extole can check your opt-out list with a webhook API or you can upload a list of opt-outs to Extole's SFTP server.
+
+1. Extole Opt-out Check Webhook: [http://developer.extole.com/docs/email-do-not-email-check](http://developer.extole.com/docs/email-do-not-email-check) 
+2. File-based Opt-Out List Management: [http://developer.extole.com/docs/opt-out-list-management](http://developer.extole.com/docs/opt-out-list-management) 
+</details>
+
+<details>
+<summary><strong>Upload an SSL Certificate for your Branded Domain</strong></summary>
+<br />
+When you create your branded domain at Extole, Extole will automatically procure a certificate from Let's Encrypt for your domain.
+
+If you have a corporate policy of managing your own certificates, it is possible to upload your own. More information is available here: [http://developer.extole.com/docs/extole-dns-requirements](http://developer.extole.com/docs/extole-dns-requirements).
+
+</details>

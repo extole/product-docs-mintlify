@@ -1,0 +1,72 @@
+---
+title: "Login Troubleshooting Tips"
+description: "If you are experiencing errors when logging into your Extole dashboard, below are some tips to help you resolve this issue."
+---
+
+# Overview
+
+If you are experiencing errors when logging into your Extole dashboard, below are some tips to help you resolve this issue.
+
+# Problem: Expired Link
+
+If you received an email invite or password reset link and are seeing the error message below:
+
+![singly-loading_token_error_message.png](https://extole-5ef307a0e5b1.intercom-attachments-1.com/i/o/syy27wia/1421733122/08b2560e6f34cdb62328564eaba1/singly-loading_token_error_message.png?expires=1778306400&signature=35d843d9958f4517dbca38ebe648efd9ec6bddecf9ac95274746b1ee59817901&req=dSQlF859noBdW%2FMW3nq%2Bgfnp6l9alXhxSK2MvgP0bRa%2FFVpdnwOtyAQKuKA7%0AmeLWvHlWFMQAebO6HcbDlHtynGk%3D%0A)
+
+This could mean the password reset link has expired. For security reasons, password reset links expire within the hour. Password reset links expire under the following scenarios.
+
+1. The link was generated over an hour ago. The embedded token has expired and is no longer valid.
+2. The link was clicked within the hour, but the process was not successfully completed on the first attempt. The embedded token is single-use and expires once loaded onto the browser. If you went back to your inbox and followed the link again, the token will no longer be valid and you will see the message above.
+
+## Solution
+
+In both of the above cases, the solution is to request a new password reset email and try again. To request this email, please see the section [Requesting a Password Reset Email.](#requesting-a-password-reset-email)
+
+# Problem: Blank Page
+
+Upon following the password reset link, you land on a blank page where nothing is loaded. Extole's password reset process relies on cookies in order to perform a successful password reset. The issue is due to the fact your browser has cookies disabled.
+
+ ![cookies_disabled.png](https://extole-5ef307a0e5b1.intercom-attachments-1.com/i/o/syy27wia/1421733121/acc64ed3465a818d0f104b070fa9/cookies_disabled.png?expires=1778306400&signature=eb294388ab2b69ed37bb6908cd2ced6d714d4c6801cb95f8f74d82b9e2dcb638&req=dSQlF859noBdWPMW3nq%2Bgf9G5HYCHop6te2nMLdieBUuyKt86JkwNqR7D1Am%0Aso%2FsyJYlkDDbz7KKUqi7gmqBbBA%3D%0A)
+
+## Solution
+
+This can be corrected by allowing Extole to set cookies on your browser. To enable cookies on your browser, please follow the link that corresponds to your browser.
+
+- [Google Chrome](https://support.google.com/chrome/answer/95647?co=GENIE.Platform%3DDesktop&hl=en)
+- [Firefox](https://support.mozilla.org/en-US/kb/websites-say-cookies-are-blocked-unblock-them)
+- [Internet Explorer](https://support.microsoft.com/en-us/help/17442/windows-internet-explorer-delete-manage-cookies)
+- [Safari](https://support.apple.com/guide/safari/manage-cookies-and-website-data-sfri11471/mac)
+- [Opera](https://help.opera.com/en/latest/web-preferences#cookies)
+
+Since the process was not successfully completed on the first attempt, a new password reset email will be required. To request this email, please see the section [Requesting a Password Reset Email.](#requesting-a-password-reset-email)
+
+# Problem: Plugin Interference
+
+It is possible for a plugin to interfere with the login process. For example, Ad-blockers may disable cookies as part of their function to keep your browsing anonymous.
+
+Other plugins such as password managers also interfere with the password reset process. In some cases, by providing stale login credentials, such is the case when requesting a new password while still storing the previous password.
+
+## Solution
+
+This can be corrected by disabling the offending plugin during the password reset process and trying again by [Requesting a Password Reset Email.](/guides/notifications-troubleshooting/platform-admin/login-troubleshooting-tips) Please consult your plugin's help page for instructions on how to disable your plugin.
+
+# Requesting a Password Reset Email
+
+The password reset request is a self-serve process that can be accomplished by following the following instructions.
+
+1. Start by navigating to [https://my.extole.com](https://my.extole.com/)
+2. At the login prompt, enter the email address to which the invite was originally sent. Click the **Continue** button.  
+​
+3. Next, click the **Forgot Password** link.  
+​
+4. Next, click the **Send** button and check your inbox for the password reset email.
+
+# Frequently Asked Questions
+
+## I requested a password reset email but I did not receive it. Why is that?
+
+If you are having difficulty receiving password reset emails after requesting them from my.extole.com, these may be getting caught by your corporate firewall. The solution, in this case, is for your IT team to whitelist Extole's server to allow these emails to be delivered.
+
+Another possible reason for not receiving the emails may be due to incorrect email. Check the **Team** section found in the [settings page of your dashboard](https://my.extole.com/settings) and ensure the email was entered correctly.
+
+If you continue to experience this issue, you can request a manual password reset by reaching out to [support@extole.com](mailto:support@extole.com).

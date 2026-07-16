@@ -1,0 +1,258 @@
+---
+title: "How to Set Up a Reward for Action Offer Program"
+description: "Learn how to set up a simple reward for action program to reward participants for completing a survey, signing up for e-statements and more."
+---
+
+# Overview
+
+This guide walks through how to configure a **Reward for Action Program** that issues a reward to a group of users - for example, a $25 Amazon.com gift card to participants who complete a survey.
+
+This setup assumes the survey is hosted outside of Extole and events are sent in via batch upload or the Create Event page.
+
+# Configuration Steps
+
+## Step 1: Add the Offers Program
+
+  1. On the programs page, click + New Program
+
+  2. Choose the Reward for Action program (talk to your CSM if it’s not available)
+
+  3. Choose to add it as a new program or add to an existing program and give it a name.
+
+
+
+
+It’s recommended to create a new program for each campaign audience.
+
+* * *
+
+## Step 2: Update the Outcome Event Name and Trigger Rule
+
+Configure the default Outcome event so it listens for the correct incoming event.  
+​
+
+### **Update the event name**
+
+  1. In the **Flow** tab, select the **Outcome** event.
+
+  2. Update the **Event Name** to match the event that will be sent into Extole.
+
+     * This event name will be used in a **batch file upload** , API request, or the **Create Event** page
+
+
+
+
+### **Using a Different Incoming Event Name (Advanced)**
+
+By default, event will be triggered based on that event name (ex. **Survey Reward** event name is triggered by the input event of the same name "survey_reward"). 
+
+If the incoming input event name should **be different than** the Event Name:
+
+  1. Click into **Triggered on Input Event**.
+
+     1. If Trigger Rules are not visible, enable **Advanced** and/or **Expert** filters.
+
+  2. Navigate to **Trigger Event Names**.
+
+  3. Click **Edit**.
+
+  4. In **Values** :
+
+     * Remove the default value (for example, survey_reward).
+
+     * Add a **New Value** with the desired incoming event name.
+
+  5. Click **Apply**.
+
+  6. To avoid confusion, rename the Triggered on Input Event rule to clearly indicate the input event name it is triggered by. 
+
+
+
+
+Example:
+
+  * Outcome Event Name: Survey Reward
+
+  * Trigger Rule: Triggered on Input Event - changed to Input Event send_reward
+
+  * Incoming Event that Triggers Event: `send_reward`
+
+
+
+
+* * *
+
+## Step 3: Update the Reward Name & Rules
+
+### **Update the Reward**
+
+  1. Select the **Participant** **Reward** in the Flow.
+
+  2. Update the **Reward Name** and description to clearly describe the incentive.
+
+  3. Update the reward to either a test reward, or your PROD reward. Rewards can be created by following these steps: 
+
+     1. **[Gift Card Rewards](https://docs.extole.com/docs/how-to-reward-with-tango-gift-cards)**
+
+     2. **[Coupon Rewards](https://docs.extole.com/docs/how-to-reward-with-coupons)**
+
+     3. **[Account Credit Rewards](https://docs.extole.com/docs/how-to-reward-with-account-credits)**
+
+
+
+
+### **Configure the Reward Rules Behavior**
+
+  1. Review **Reward Rules** and keep only those required for a simple survey or welcome offer. Default Rules you _may not_ need:
+
+     1. Business Event Quality if there are no other rules on the event itself
+
+     2. Reward Limit
+
+     3. Has Not Been Rewarded  
+​
+
+  2. Review **Reward Behavior** to choose when to reward a user
+
+     1. **First Action (most common)  
+​**Reward is issued only the first time the event occurs.
+
+     2. **Every Action  
+​**Reward is issued every time the event occurs.
+
+     3. **Every Unique Action  
+​**Reward is issued once per unique value of a specified data parameter.
+
+
+
+
+* * *
+
+## Step 4: Configure the Reward Email
+
+  1. Follow these instructions to configure the **[Tango Reward Email](https://docs.extole.com/docs/how-to-set-up-a-tango-gift-card-reward)**
+
+  2. Follow these instructions to configure a **Tremendous Reward Email (coming soon).**
+
+
+
+
+## Step 5: Test Using a CSV Event Upload
+
+### **Create the CSV file**
+
+Create a CSV with the following column headers:
+
+  * event_name
+
+  * email
+
+  * required_labels
+
+
+
+
+### **Populate values**
+
+  * **event_name** : The incoming event name (for example, survey_reward)
+
+  * **email** : Recipient’s email address
+
+  * **required_labels** : Program label
+
+
+
+
+Find the program label by clicking the view button on the Programs Page. 
+
+![](https://files.readme.io/f80e5593065ee8d6245d1e1c8ff069f4f0c66198322e6877ee2a813a72cf10bd-8b0c3804_f6dee104-13cd-4350-b67a-dd903df2f0ca.png)
+
+![](https://files.readme.io/cffc68737a6a5836b499e1f52c0762e23c6276c6b3bfd683a9a96416f31ca75b-5f082bec_79f741af-a29c-4a0e-95de-c82c4bcf72c2.png)
+
+* * *
+
+## Step 6: Test, Validate, and Launch the Offer
+
+### **Test the program**
+
+  1. Set the **campaign to Live**.
+
+  2. Navigate to **Tech Center → Batch Jobs**.
+
+  3. Upload the CSV file using the format above with a test email address and click Save
+
+  4. After the events have processed:
+
+     * Go to User Support and search for the user.
+
+     * Confirm the **test reward** is sent as expected and that you received the reward email. 
+
+     * Verify reward behavior (for example, only rewarded once)
+
+
+
+
+### **Move to production**
+
+  1. Replace the test reward with the **PROD reward**.
+
+  2. Save and apply changes.
+
+  3. **Publish the campaign**.
+
+
+
+
+### **Send production rewards**
+
+  * Use the **same CSV format**
+
+  * Upload the recipient list through **Batch Jobs** to issue rewards
+
+
+
+
+# Common Customizations to Reward for Action Campaigns
+
+## Send Multiple Reward Values
+
+In many cases, you may have some participants earning either a $50 reward or a $100 reward. If you want to upload them in one file, you will need to add a column for reward_value and make the following changes:
+
+### Step 1: Add Reward Value Data to Event
+
+  1. Click into the outcome step (example Survey Reward) and click + New Data
+
+  2. Choose **Business Event Data** from the list
+
+  3. Rename it to Reward Value
+
+
+
+
+### Step 2: Configure the First Reward
+
+  1. Click into the **reward** and under Trigger Rules click **\+ New Reward Rule**
+
+  2. Select Reward Data Comparison and rename it Reward Value is $XXX
+
+  3. For the **Journey Parameter** , you want to use the name of the Business Event data with underscores instead of spaces and then choose Equals and enter the value. 
+
+
+
+
+![](https://files.readme.io/166ce6705d7a6912aa890351de0e22444d6db0c2bdf6ea7edfcb961fb21b6fdd-0227408b_image.png)
+
+This trigger rule is indicating it should only trigger the reward, if the `reward_value` is `200`. 
+
+## Step 3: Add and Configure the Second Reward
+
+  1. On the flow page, find the step you want to send a reward on and click the + button
+
+  2. Choose Add Reward and Participant  
+​
+
+![](https://files.readme.io/02b938ded45282ba225b5e7db7237cb5840b007bf85a067c73c2c2bfb970b56f-912f7012_image.png)
+
+  3. Rename this Reward so it is differentiated from the first reward
+
+  4. Repeat Step 2 to configure this new reward for the additional reward values.

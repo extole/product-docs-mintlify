@@ -1,0 +1,202 @@
+---
+title: "Rules & Quality"
+description: "Learn about Extole's rewarding system and how quality and reward rules are applied to ensure your customers' program participation is being recognized."
+---
+
+## Overview
+
+[//]: # "How do I make sure the right people are getting rewarded?"
+
+Rewards are most impactful when they are consistently applied to the right customers at the right time and in the right situations. Extole's rewarding system provides you with the ability to configure all of the quality and reward rules that apply to your program(s) and events directly in your My Extole account.
+
+## Reward System
+
+Within the context of Extole's reward system, events move through three phases: Quality Rules, Approval Workflow, and Reward Rules.
+
+### Quality Rules
+
+When an event occurs, Extole applies event-specific quality rules to determine if the event meets all of the terms of the program. Extole marks an event as suspicious if any rule fails and marks an event passing if all rules succeed.
+
+### Approval Workflow
+
+Events that trigger rewards must then be approved. Approvals happen through a configurable workflow, which assesses events that have been marked as passing during the quality rules phase. After the period of time you've specified, the workflow settings move events to an approved or declined state. This workflow must be configured for any event that has a reward.
+
+### Reward Rules
+
+Once an event is approved, Extole applies reward rules to see if the event meets your reward criteria and to determine whether the participant earns the reward for that event.
+
+[//]: ___
+
+## Example Event Quality Rules
+
+[//]: # "What rules apply to my referral program?"
+
+To see what quality rules look like in action, let's take a look at two events in a standard Refer A Friend program.
+
+### Advocate Share
+
+For the advocate share event, when a quality rule fails Extole will not send the share email. However, social posts are still permitted. For this event, you may configure the following rules. 
+
+| Quality Rule          | Description                                                                                                                                                                                                                            |
+| :-------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Prevent Mass Shares   | A share count that surpasses the specified limit during a time period is invalid.                                                                                                                                                      |
+| Rate Limit Emails     | A friend can only receive a certain rate of emails over a period of time.                                                                                                                                                              |
+| Blacklisted Domains   | Advocates with an email domain that appears on the blacklist cannot share. Extole has a comprehensive domain blacklist built-in, which includes disposable email domains. Friends at these domains cannot receive Extole share emails. |
+| Block Country by IP   | Events originating from the countries specified here are marked as suspicious. Extole recommends blocking OFAC countries as well as countries that originate spam: China, Russia, Philippines.                                         |
+| Spam Messages         | This rule blocks advocate email shares when the Extole systems suspects they are spam by checking the content of the personalized message for spam triggers.                                                                           |
+| Blocked               | An event is blocked if the person who caused the event is blocked in this program.                                                                                                                                                     |
+| Extole Global Blocked | An event is blocked if the person who caused the event has been blocked in multiple Extole programs across clients.                                                                                                                    |
+
+### Friend Visit
+
+For the friend visit event, when a quality rule fails the “reward failed” message appears on the Friend Landing Experience creative and no reward (such as friend coupon code) is made available to the friend. For this event, you may configure the following rules.
+
+| Quality Rule              | Description                                                                                                                                                                                            |
+| :------------------------ | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| New Customers Only        | Events with an advocate or friend email that appears on the existing person list are invalid. Most friends visit anonymously and this rule cannot be applied.                                          |
+| Blacklisted Domains       | Friend clicks are marked suspicious when the advocate who shared to them has a blacklisted email domain. Extole has a comprehensive domain blacklist built-in, which include disposable email domains. |
+| Block Preview             | Events originating from mobile preview are invalid.  This can occur when texting share links or viewing share messages on Twitter and Facebook mobile apps.                                            |
+| Block Bots                | Events from bots are invalid.                                                                                                                                                                          |
+| Blacklist Referral Header | Clicks originating from an blacklisted domains are invalid. These typically include Google Ads, Coupon Sites, etc.                                                                                     |
+| Similar Email Address     | When the referring email address is similar to the friend email address, events are invalid. Most friends visit anonymously and this rule cannot be applied.                                           |
+| Block Self Referral       | Guard against self referral based on browser fingerprint and email address.                                                                                                                            |
+| Block Country by IP       | Events originating from the countries specified here are marked as suspicious. Extole recommends blocking OFAC countries as well as countries that originate spam: China, Russia, Philippines.         |
+| Minimum Event Speed       | Events that occur quickly after a share may be suspicious. You can set the interval with this rule.  Clicks often occur very quickly (\&lt; 5 seconds) after a share.                                     |
+| Blocked                   | Block event if the actions or involved persons leading to the event were blocked                                                                                                                       |
+
+[//]: ___
+
+## Example Program Reward Rules
+
+[//]: # "Can I customize the rules of my program?"
+
+To configure a reward, you must specify who gets the reward (e.g., the advocate or the friend) and what reward they will receive. You must also determine the rules your rewardee must meet in order to receive their reward. These rules run after an event is approved.
+
+**In a standard Refer a Friend program, Extole gives you complete control over the following reward rules**:
+
+<table>
+  <thead>
+    <tr>
+      <th>
+        Reward Rule
+      </th>
+
+      <th>
+        Description
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        Cart value is at least $(X).
+      </td>
+
+      <td>
+        Set the minimum cart value required in order to issue a reward.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        The customer should be rewarded every (N)th qualifying transaction.
+      </td>
+
+      <td>
+        With this rule, you can create a second bonus reward on every nth transaction. For example, you could give an advocate a bonus reward for every 5 unique friends they drive to purchase.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        The person has earned less than (X) rewards:  
+
+        * Since the last month of (X) (1–12 map to Jan–Dec)  
+        * And in the past (X) day(s).
+      </td>
+
+      <td>
+        Use this rule to restrict the number of rewards an advocate or friend may earn and to restrict the time period under which the rule applies. Both of these date filters will run and people will only be rewarded when both filters pass. Most commonly this can be used to limit the number of rewards earned in a month or year.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        The person has received less than $(X):  
+
+        * Since the last month of (X) (1–12 map to Jan–Dec)  
+        * And in the past (X) day(s).
+      </td>
+
+      <td>
+        This rule allows you to restrict the amount an advocate or friend may earn and to restrict the time period under which the rule applies. Both of these date filters will run, and people will only be rewarded when both filters pass. This rule is usually enabled for cash rewards to keep earned rewards under the tax-reporting amount.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        The person has an email address.
+      </td>
+
+      <td>
+        This rule ensures that rewards are only to people with email addresses. This rule is enabled by default because, in most cases, email is how we deliver a reward.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        If the parameter named (X) has the value (Y).
+      </td>
+
+      <td>
+        This rule allows you to reward based on attributes that are passed to Extole on the event.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        The rewardee must not have been rewarded for the same friend before.
+      </td>
+
+      <td>
+        This rule prevents rewards from being sent to the same combination of advocates and friends. An advocate can only refer a friend once. Additionally, that friend cannot refer the advocate that referred them.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Reward based on profile attributes.
+      </td>
+
+      <td>
+        Extole creates profiles for each person that interacts with your program(s). Extole stores attributes about a person and updates their profile as we learn more about them. There is an open-ended rule that looks at specific profile information and allows you to run a reward rule based on those attributes. For example, if you want to give someone from CA a different reward than someone from NY, or if you want to give someone in loyalty tier 1 a different reward than loyalty tier 3.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+### Advanced Reward Rule Configurations
+
+In addition to standard reward rules, Extole Support can help you write custom reward rules such as JavaScript expressions or reward groups.
+
+[//]: ___
+
+## Tiered Rewards
+
+Extole programs support reward tiers for cases where you would like to reward specific participants differently based on their behavior. Tiered rewards can be achieved using the program reward rules described in the section above.
+
+Common use cases for tiered rewards include: 
+
+* Offering different rewards based on cart value or product type, number of deposits, etc.
+* Rewards based on the number of referred friends.
+* Rewards based on other specific profile attributes.
+
+As the value or number increases, so would the reward. Tiered rewards help to further incentivize your program participants, while more generously rewarding those who have brought the most value to your business.
+
+<Info>
+**Extole Audiences**
+
+
+You can also use Extole's audience features to target distinct groups of participants and tailor your rewards. Using program reward rules, you could set up several programs that each target a different audience and reward members of each audience differently for their actions. [Learn more about Advocate Tiers](https://docs.extole.com/docs/advocate-tiers).
+</Info>

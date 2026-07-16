@@ -1,0 +1,91 @@
+---
+title: "Flow Builder"
+description: "Understand how to use Extole's Flow Builder to set up and manage campaigns."
+---
+
+## Overview
+
+The Flow Builder allows you to visualize and manage your Extole campaigns. For a standard referral campaign, the Flow displays how advocates and friend interact with your campaign, including key business events, rules, creative experiences, emails, rewards, and more.
+
+<img src="https://files.readme.io/a23b8cb1e31a47c7286b71177645b4b06bdcb49390ce6b4cee8f958e9d65e4a1-7f27703157d324846792a334ae1df11507140c3352b15ee6616c9e6b6f1cecdc-Screenshot_2025-08-11_at_13.40.07.png" alt="" />
+
+## Campaign Elements & Terminology
+
+### Roles
+
+Roles represent the people who participate in your campaign. These are the columns on the Flow Builder, such as Advocate and Friend.
+
+<img src="https://files.readme.io/4dfb5a69edd92757619692e800bb20d90cd4bb669707ac479d8c17cc763817aa-e3cc215983f1c2be1062bdd0f56956f5f69314fad0d908e55db64c56d55ffa28-Screenshot_2025-08-11_at_14.06.29.png" alt="" />
+
+### Flows
+
+A flow is a group of business events that represent a phase of a person's overall journey through your campaign. These are the darker boxes within roles, such as Marketing, Share, and New Customer.
+
+<img src="https://files.readme.io/2f6591368f955d7581803c0a3d5753bfbec00c285241b5175a466f424f883685-18ec5676c7d1f400deb756eee3ca9d25991871a95ecbad52577e1165722b4e3f-Screenshot_2025-08-11_at_13.59.12.png" alt="" />
+
+You can customize your flows by adjusting targeting and adding or removing business events.
+
+### Targeting
+
+Targeting refers to the group of people you would like to target your campaign. Targeting scenarios are packaged rules for common use cases that can be plugged into the various flows of your campaign. The default targeting scenarios include as many people as possible for each flow, which is everyone in the US and Canada who pass Extole's fraud filters. 
+
+<img src="https://files.readme.io/ec1a1a9ecc9fc4f2fd0dd3bf022bce9ee4e350ed09550d98959fa2fb7a163e0d-ee4a15cf8170f4b73c27de3b8098866322f1ef62a3ca4993df003db83e1edb7a-Screenshot_2025-08-12_at_17.32.35.png" alt="" />
+
+You can adjust targeting for each flow by adding rules or removing the default and instead targeting a specific audience or domain.
+
+### Business Events
+
+Business events are important events, typically performed by a customer or user, sent from your system to Extole via tag, file, or API, depending on your integration. These are the white boxes within flows, such as Promotion Clicked or Shared for the advocate, or Signed Up or Converted for the friend. 
+
+<img src="https://files.readme.io/0356b9a35116bf1bc7bb56f6f8d15bd243813767b53d4ecdbfc505b6f59ead55-63470cf014c11d77b56d8247cf0ffa6054ce1bc421143242a1533436d570ef57-Screenshot_2025-08-11_at_15.29.06.png" alt="" />
+
+Business events are tracked in your performance dashboards and are highly customizable. For each business event you can manage: 
+
+* Names and descriptions
+* Promotions or Experiences
+* Quality rules
+* Actions
+* Data
+* Rewards
+
+### Promotions
+
+Promotions are emails or marketing placements served by Extole directly onto your site or app that encourage people to participate in your campaign. You can find them on the Promotion Viewed business event.
+
+<img src="https://files.readme.io/c786c7830bea506706b666bbcc1843e24e2dd09bc556bbd2f0cee43129a645a7-a2cdfa6ae1e40f9b2d2856529df2903822c82ef386c09330060765ba648efd78-Screenshot_2025-08-12_at_17.30.44.png" alt="" />
+
+You can customize promotions by clicking into them and editing their creative settings in line or by navigating to the Assets tab to make edits across multiple promotions, experiences, and emails.
+
+### Experiences
+
+An experience is creative content served by Extole, typically via tag, directly on your site to facilitate key moments in your customer flows. You can find experiences on the business events to which they are related. 
+
+<img src="https://files.readme.io/a8b6b9eef604322c2e8d7231170deaf0b12ac6c133f03fd595afd1d73a661f42-2ed8f124acbf7e236610330d3187e056161ec20940cb11afcc3aee6169bf5fd9-Screenshot_2025-08-11_at_15.53.06.png" alt="" />
+
+An example is the Share Experience located on the Promotion Clicked business event. When an advocate clicks on a promotion on your site, they are taken to the Share Experience, where they can generate a personal share link and refer their friends.
+
+ You can customize experiences by clicking into them and editing their creative settings in line or by navigating to the Assets tab to make edits across multiple experiences, promotions, and emails.
+
+### Quality Rules
+
+A quality rule is a rule set up on a business event that must be passed in order for the event to be considered high quality. All quality rules must pass; if even one rule fails, the event will be marked low quality. 
+
+By default, business events are set up with quality rules that reflect our best practices. An example is our Self Referral Prevention rule, which prevents advocates from referring themselves. 
+
+<img src="https://files.readme.io/33dd0d815ff88b7853d2cbdf9969a6a710a87b00e7f7902f816143a0f3dbb3ff-a54958fe2b4f8ac5e9aa6eb12a855df309c8b62595617e536fc5df92eaa30238-use_this.png" alt="" />
+
+You can customize your quality rules by clicking into them and adjusting their names, descriptions, and settings, or by adding or removing rules on each business event.
+
+### Actions
+
+An action is something that occurs as a result of a business event, such as sending an email, firing a webhook, or publishing event data to a reward. Typically, the business event must by high quality in order for actions to execute.
+
+Examples of actions include the Share Email that is sent from the advocate to the friend when the advocate completes a share, and the publisher that shares data about the friend's conversion with the advocate's reward for referring them. 
+
+### Rewards
+
+Rewards are the primary mechanism for motivating your target audience to engage with your brand. These are the white boxes with colorful headings located either within or adjacent to business events. Every flow campaign comes with one or more default rewards ready for you to finish setting up. 
+
+<img src="https://files.readme.io/8718bf31f9a347c22ccb4e681a2782de701e2ce49f346a609344c33311698fc6-2b777f3dda49b9210333fcc1c1299efaed3af8d4a6f61228852a23942d2b5722-Screenshot_2025-08-15_at_15.43.31.png" alt="" />
+
+All that is required for you to configure a reward is clicking into it and selecting a reward supplier (e.g., a coupon set or gift card) you've created in the Rewards center.

@@ -1,0 +1,165 @@
+---
+title: "Banno (Jack Henry)"
+description: "Add an automated referral program to your Banno online, iOS, and Android applications with the Extole and Banno integration"
+---
+
+## Prerequisites
+
+| Requirement                | Description                                                                                                                                                                                                      |
+| :------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Banno People Account**   | You must have access to the Banno People administrative dashboard to configure this integration.                                                                                                                 |
+| **Extole Account**         | You must have an active Extole subscription to use this integration.                                                                                                                                             |
+| **Branded Program Domain** | You must have a branded program domain (share.yourcompany.com) which can be created via a simple CNAME. Instructions [here](https://docs.extole.com/docs/extole-dns-requirements#create-cnames-for-your-domains). |
+
+## Before your Start
+
+### Configure your Extole Campaign
+
+Submit a request to your Extole team to add the `jh microsite` and `mini microsite` zones to your Extole campaign. Then configure the `mini microsite`zone that was added to your your Extole campaign to match your branding (this is the zone that the Banno dashboard card will pull content from.) 
+
+![](https://files.readme.io/326fb4d4ed3c8d33463a76c365ee526a0372d2bddee018855996d48e2f2a5d97-e9f5551806ede7b9ac54fed45353ac6e0edeb4ea7fc4139524bedb01aaf4905b-Screenshot_2025-03-10_at_2.25.35_PM.png)
+
+## Configure the Extole plugin in the Banno People app
+
+### Configure an External Application in the Banno People app
+
+Follow the instructions [here](https://jackhenry.dev/open-api-docs/plugins/architecture/externalapplications/) to add a new External Application to your Banno People account. Use the following values for the configuration:
+
+<table>
+  <thead>
+    <tr>
+      <th>
+        Field
+      </th>
+
+      <th>
+        Value
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        Name
+      </td>
+
+      <td>
+        Refer a Friend
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Partner
+      </td>
+
+      <td>
+        Extole
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Require PKCE
+      </td>
+
+      <td>
+        Checked
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Link Type
+      </td>
+
+      <td>
+        PluginCard
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Redirect URI
+      </td>
+
+      <td>
+        Enter the following URLs, but replace the `refer.brand.com` portion of the URL with your **Branded Program Domain**, which can be found in [Extole's tech center](https://my.extole.com/tech-center).  
+
+        `https://refer.brand.com/authenticate`\
+        `https://refer.brand.com/zones/jh-microsite`\
+        `https://refer.brand.com/zones/mini-microsite`\
+        `https://refer.brand.com/zones/microsite`
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+#### Configure Second Application for Full-Screen Experience (Optional)
+
+You can configure a second Application for a full screen Experience accessible within the sidebar. You'll repeat the configuration above but set it as `Link Type` of `Rewards`
+
+#### Additional Scopes and Claims to be Added to Token (Optional)
+
+By Default, Extole will make a request for the following scopes:
+
+* `openid`
+* `email`
+* `profile`
+* `https://api.banno.com/consumer/auth/user.profile.readonly`
+
+Extole will request the following claims within the ID Token:
+
+* `given_name`
+* `family_name`
+* `email`
+
+If additional claims are needed to be added (ex: customer\_identifier to support non-email identifiers), work with your Extole team to ensure these are requested and then ensure they are checked as allowed to be requested in your External Application. Information on available scopes and claims can be found [here](https://jackhenry.dev/open-api-docs/authentication-framework/overview/openidconnectoauth/).
+
+### Configure your Dashboard in the Banno People app
+
+Follow the instructions [here](https://jackhenry.dev/open-api-docs/plugins/overview/configuration/) to add a new Plugin. Use the following values as starting points:
+
+| Field                | Value          |
+| :------------------- | :------------- |
+| Title                | Refer and Earn |
+| Initial Height       | 535            |
+| Icon                 | dollar-sign    |
+| External Application | Refer a Friend |
+
+#### Set Up Card Action (Optional)
+
+If you configured a Full-Screen Experience application above, configure the card action to load that application instead of the default action.
+
+## Configure a Webhook in the Extole platform
+
+#### Create Webhook Key
+
+* Navigate to the Security Center in the Extole platform and select `+ New Key`
+* Enter `Banno Consumer API` as the Key Name
+* Select `Webhook` as the Key Type
+* Select `PASSWORD` as the algorithm type
+* Copy your Client ID from the Banno People dashboard and paste it in the Partner Key ID field
+* Copy your Client Secret from the Banno People dashboard and paste it in the Key field
+* Click `Create Key`
+
+#### Create Webhook
+
+* Navigate to the Tech Center > Outbound Webhooks in the Extole platform
+* Select `+ New Webhook`
+* Enter `Banno Webhook` as the name
+* Select `Generic` as the Type
+* Copy the Consumer API URL from your External Application in the Banno People Dashboard and paste it in the URL field
+* Select `POST` as the Default Method
+* Click Save and reach out to your Extole team to have them review and finalize the configuration
+
+## Considerations
+
+### Testing in Staging
+
+If your staging environment is managed in a separate Banno People instance, you'll need to create a separate external application in your Banno People staging instance, along with a seperate webhook configuration in the Extole platform.
+
+### Connect your Account Opening and Core Systems
+
+The Extole and Banno integration enables the advocate experience of your referral program in mobile and online banking. To enable automated referral tracking and rewarding, you'll need to connect your account opening and core banking systems with one or a combination of Extole's File System, Rest APIs, Webhooks, and Javascript SDK.

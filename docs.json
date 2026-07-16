@@ -1,37 +1,906 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Mintlify Starter Kit",
+  "name": "Extole Documentation",
   "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
+    "primary": "#7C3AED",
+    "light": "#A78BFA",
+    "dark": "#5B21B6"
   },
   "favicon": "/favicon.svg",
   "navigation": {
-    "pages": [
+    "tabs": [
       {
-        "group": "Getting Started",
-        "pages": [
-          "index",
-          "quickstart"
+        "tab": "Product Docs",
+        "groups": [
+          {
+            "group": "Extole Overview",
+            "pages": [
+              "product-docs/getting-started/index",
+              "product-docs/getting-started/what-is-extole",
+              "product-docs/getting-started/your-team",
+              "product-docs/getting-started/terms-you-should-know"
+            ]
+          },
+          {
+            "group": "Product Overview",
+            "pages": [
+              "product-docs/product-overview/index",
+              {
+                "group": "Integration & Launch",
+                "pages": [
+                  "product-docs/product-overview/launch-overview/index",
+                  "product-docs/product-overview/launch-overview/integration-basics",
+                  "product-docs/product-overview/launch-overview/quick-integration",
+                  "product-docs/product-overview/launch-overview/sending-data-to-extole",
+                  "product-docs/product-overview/launch-overview/receiving-data-from-extole",
+                  "product-docs/product-overview/launch-overview/rewarding",
+                  "product-docs/product-overview/launch-overview/launch-faqs",
+                  "product-docs/product-overview/launch-overview/enterprise-accounts-user-roles",
+                  "product-docs/product-overview/launch-overview/creative-content"
+                ]
+              },
+              {
+                "group": "Programs",
+                "pages": [
+                  "product-docs/product-overview/programs/index",
+                  {
+                    "group": "Refer a Friend",
+                    "pages": [
+                      "product-docs/product-overview/programs/refer-a-friend/index",
+                      "product-docs/product-overview/programs/refer-a-friend/employee-referral-program",
+                      "product-docs/product-overview/programs/refer-a-friend/go-extole",
+                      "product-docs/product-overview/programs/refer-a-friend/index",
+                      "product-docs/product-overview/programs/refer-a-friend/refer-a-member"
+                    ]
+                  },
+                  {
+                    "group": "Welcome Offer",
+                    "pages": [
+                      "product-docs/product-overview/programs/welcome-offer/index",
+                      "product-docs/product-overview/programs/welcome-offer/index",
+                      "product-docs/product-overview/programs/welcome-offer/welcome-offer-for-credit-unions"
+                    ]
+                  },
+                  "product-docs/product-overview/programs/influencer",
+                  "product-docs/product-overview/programs/friends-family",
+                  "product-docs/product-overview/programs/drop-a-hint",
+                  "product-docs/product-overview/programs/sweepstakes",
+                  "product-docs/product-overview/programs/nomination",
+                  "product-docs/product-overview/programs/offer",
+                  "product-docs/product-overview/programs/international-programs"
+                ]
+              },
+              {
+                "group": "Content",
+                "pages": [
+                  "product-docs/product-overview/content-1/index",
+                  "product-docs/product-overview/content-1/emails",
+                  "product-docs/product-overview/content-1/experiences",
+                  "product-docs/product-overview/content-1/promotions"
+                ]
+              },
+              {
+                "group": "People",
+                "pages": [
+                  "product-docs/product-overview/people-2/index",
+                  "product-docs/product-overview/people-2/people-overview",
+                  "product-docs/product-overview/people-2/audience-discovery",
+                  "product-docs/product-overview/people-2/advocate-tiers"
+                ]
+              },
+              {
+                "group": "Events",
+                "pages": [
+                  "product-docs/product-overview/events-2/index",
+                  "product-docs/product-overview/events-2/events-overview",
+                  "product-docs/product-overview/events-2/referral-events",
+                  "product-docs/product-overview/events-2/non-referral-events",
+                  "product-docs/product-overview/events-2/in-person-referrals"
+                ]
+              },
+              {
+                "group": "Rewards",
+                "pages": [
+                  "product-docs/product-overview/rewards-2/index",
+                  "product-docs/product-overview/rewards-2/rewards-overview",
+                  "product-docs/product-overview/rewards-2/rules-quality"
+                ]
+              },
+              {
+                "group": "Data",
+                "pages": [
+                  "product-docs/product-overview/data/index",
+                  "product-docs/product-overview/data/data-overview",
+                  "product-docs/product-overview/data/reports"
+                ]
+              },
+              {
+                "group": "Security & Compliance",
+                "pages": [
+                  "product-docs/product-overview/security-compliance/index",
+                  "product-docs/product-overview/security-compliance/ada-compliance",
+                  "product-docs/product-overview/security-compliance/gdpr-ccpa",
+                  "product-docs/product-overview/security-compliance/iso-27001-certification",
+                  "product-docs/product-overview/security-compliance/cookie-handling"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "Best Practices",
+            "pages": [
+              "product-docs/best-practices/index",
+              {
+                "group": "Rewarding Best Practices",
+                "pages": [
+                  "product-docs/best-practices/rewarding-best-practices/index",
+                  "product-docs/best-practices/rewarding-best-practices/referral-reward-strategy-retail",
+                  "product-docs/best-practices/rewarding-best-practices/referral-reward-strategy-financial-services",
+                  "product-docs/best-practices/rewarding-best-practices/ab-testing",
+                  "product-docs/best-practices/rewarding-best-practices/limited-time-bursts"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Technical Docs",
+        "groups": [
+          {
+            "group": "Integration Overview",
+            "pages": [
+              "technical-docs/integrations-overview/index",
+              "technical-docs/integrations-overview/integrating-with-extole",
+              "technical-docs/integrations-overview/key-concepts"
+            ]
+          },
+          {
+            "group": "Extole AI Tools",
+            "pages": [
+              "technical-docs/extole-ai/index",
+              {
+                "group": "Extole MCP Server",
+                "pages": [
+                  "technical-docs/extole-ai/extole-mcp/index",
+                  "technical-docs/extole-ai/extole-mcp/mcp-authentication",
+                  "technical-docs/extole-ai/extole-mcp/setup-claude",
+                  "technical-docs/extole-ai/extole-mcp/setup-claude-code",
+                  "technical-docs/extole-ai/extole-mcp/setup-chatgpt",
+                  "technical-docs/extole-ai/extole-mcp/setup-cursor",
+                  "technical-docs/extole-ai/extole-mcp/setup-codex"
+                ]
+              },
+              {
+                "group": "Extole CLI",
+                "pages": [
+                  "technical-docs/extole-ai/extole-cli/index",
+                  "technical-docs/extole-ai/extole-cli/extole-cli-claude-desktop",
+                  "technical-docs/extole-ai/extole-cli/extole-cli-claude-code"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "Platform Integrations",
+            "pages": [
+              "technical-docs/platform-integrations/index",
+              {
+                "group": "JavaScript SDK",
+                "pages": [
+                  "technical-docs/platform-integrations/javascript-sdk/index",
+                  "technical-docs/platform-integrations/javascript-sdk/advanced-concepts",
+                  "technical-docs/platform-integrations/javascript-sdk/faqs"
+                ]
+              },
+              {
+                "group": "Mobile SDKs",
+                "pages": [
+                  "technical-docs/platform-integrations/mobile-sdks/index",
+                  "technical-docs/platform-integrations/mobile-sdks/android-sdk",
+                  "technical-docs/platform-integrations/mobile-sdks/ios-sdk",
+                  "technical-docs/platform-integrations/mobile-sdks/react-native-sdk",
+                  "technical-docs/platform-integrations/mobile-sdks/deep-link-integrations"
+                ]
+              },
+              {
+                "group": "REST APIs",
+                "pages": [
+                  "technical-docs/platform-integrations/rest-apis/index",
+                  "technical-docs/platform-integrations/rest-apis/mobile-api",
+                  "technical-docs/platform-integrations/rest-apis/errors",
+                  "technical-docs/platform-integrations/rest-apis/api-references",
+                  "technical-docs/platform-integrations/rest-apis/asynchronous-reporting-api"
+                ]
+              },
+              {
+                "group": "Files",
+                "pages": [
+                  "technical-docs/platform-integrations/files/index",
+                  "technical-docs/platform-integrations/files/extoles-sftp-server",
+                  "technical-docs/platform-integrations/files/external-sftp-servers",
+                  "technical-docs/platform-integrations/files/general-file-uploads",
+                  "technical-docs/platform-integrations/files/file-based-events",
+                  "technical-docs/platform-integrations/files/audience-files"
+                ]
+              },
+              {
+                "group": "Webhooks",
+                "pages": [
+                  "technical-docs/platform-integrations/webhooks/index",
+                  "technical-docs/platform-integrations/webhooks/webhook-creation",
+                  "technical-docs/platform-integrations/webhooks/reward-webhooks"
+                ]
+              },
+              "technical-docs/platform-integrations/data-analysis-visualization",
+              {
+                "group": "Extensions",
+                "pages": [
+                  "technical-docs/platform-integrations/extensions/index",
+                  "technical-docs/platform-integrations/extensions/reward-bank",
+                  "technical-docs/platform-integrations/extensions/event-streams-overview",
+                  "technical-docs/platform-integrations/extensions/create-share-link-on-an-event"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "Partners",
+            "pages": [
+              "technical-docs/partners/index",
+              {
+                "group": "Account Opening",
+                "pages": [
+                  "technical-docs/partners/account-opening/index",
+                  "technical-docs/partners/account-opening/withclutch"
+                ]
+              },
+              {
+                "group": "Appointment Management",
+                "pages": [
+                  "technical-docs/partners/appointment-management/index",
+                  "technical-docs/partners/appointment-management/boulevard-blvd"
+                ]
+              },
+              {
+                "group": "Automations",
+                "pages": [
+                  "technical-docs/partners/automations/index",
+                  "technical-docs/partners/automations/zapier"
+                ]
+              },
+              {
+                "group": "Core Banking",
+                "pages": [
+                  "technical-docs/partners/core-banking/index",
+                  "technical-docs/partners/core-banking/fiserv-dna"
+                ]
+              },
+              {
+                "group": "Customer Data",
+                "pages": [
+                  "technical-docs/partners/customer-data/index",
+                  "technical-docs/partners/customer-data/amplitude",
+                  "technical-docs/partners/customer-data/segment"
+                ]
+              },
+              {
+                "group": "CRM",
+                "pages": [
+                  "technical-docs/partners/customer-relationship-management/index",
+                  "technical-docs/partners/customer-relationship-management/extole-to-salesforce-crm",
+                  "technical-docs/partners/customer-relationship-management/hubspot",
+                  "technical-docs/partners/customer-relationship-management/salesforce-sales-cloud-apex-and-flows",
+                  "technical-docs/partners/customer-relationship-management/service-titan"
+                ]
+              },
+              {
+                "group": "Digital Banking",
+                "pages": [
+                  "technical-docs/partners/digital-banking/index",
+                  "technical-docs/partners/digital-banking/alkami",
+                  "technical-docs/partners/digital-banking/banno-jack-henry",
+                  "technical-docs/partners/digital-banking/ncr",
+                  {
+                    "group": "Q2",
+                    "pages": [
+                      "technical-docs/partners/digital-banking/q2/index",
+                      "technical-docs/partners/digital-banking/q2/index",
+                      "technical-docs/partners/digital-banking/q2/q2-marketing-guide"
+                    ]
+                  }
+                ]
+              },
+              {
+                "group": "eCommerce",
+                "pages": [
+                  "technical-docs/partners/ecommerce/index",
+                  "technical-docs/partners/ecommerce/bigcommerce",
+                  "technical-docs/partners/ecommerce/salesforce-commerce-cloud-sfra",
+                  "technical-docs/partners/ecommerce/salesforce-commerce-cloud-site-genesis",
+                  "technical-docs/partners/ecommerce/shopify-hydrogen",
+                  "technical-docs/partners/ecommerce/shopify"
+                ]
+              },
+              {
+                "group": "Experimentation",
+                "pages": [
+                  "technical-docs/partners/experimentation/index",
+                  "technical-docs/partners/experimentation/optimizely"
+                ]
+              },
+              {
+                "group": "Loyalty",
+                "pages": [
+                  "technical-docs/partners/loyalty/index",
+                  "technical-docs/partners/loyalty/sessionm-loyalty-solution-guide"
+                ]
+              },
+              {
+                "group": "Marketing Automation",
+                "pages": [
+                  "technical-docs/partners/marketing-automation/index",
+                  "technical-docs/partners/marketing-automation/adobe-marketo-engage",
+                  "technical-docs/partners/marketing-automation/attentive",
+                  "technical-docs/partners/marketing-automation/braze",
+                  "technical-docs/partners/marketing-automation/cordial",
+                  "technical-docs/partners/marketing-automation/iterable",
+                  "technical-docs/partners/marketing-automation/klaviyo",
+                  "technical-docs/partners/marketing-automation/listrak",
+                  "technical-docs/partners/marketing-automation/optimove",
+                  "technical-docs/partners/marketing-automation/salesforce-marketing-cloud-opt-ins"
+                ]
+              },
+              {
+                "group": "OTT Platform",
+                "pages": [
+                  "technical-docs/partners/ott-platform/index",
+                  "technical-docs/partners/ott-platform/vimeo-ott-zapier"
+                ]
+              },
+              {
+                "group": "Rewards and Payments",
+                "pages": [
+                  "technical-docs/partners/rewards-and-payments/index",
+                  "technical-docs/partners/rewards-and-payments/bhn",
+                  "technical-docs/partners/rewards-and-payments/tremendous"
+                ]
+              },
+              {
+                "group": "Tag Management",
+                "pages": [
+                  "technical-docs/partners/tag-management/index",
+                  "technical-docs/partners/tag-management/ensighten",
+                  "technical-docs/partners/tag-management/google-tag-manager",
+                  "technical-docs/partners/tag-management/tealium"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "Solutions",
+            "pages": [
+              "technical-docs/solutions/index",
+              {
+                "group": "Extole Solution Guides",
+                "pages": [
+                  "technical-docs/solutions/extole-solution-guides/index",
+                  "technical-docs/solutions/extole-solution-guides/financial-services",
+                  "technical-docs/solutions/extole-solution-guides/lead-generation",
+                  "technical-docs/solutions/extole-solution-guides/membership-loyalty",
+                  "technical-docs/solutions/extole-solution-guides/quick-banking",
+                  "technical-docs/solutions/extole-solution-guides/retail",
+                  "technical-docs/solutions/extole-solution-guides/subscription"
+                ]
+              },
+              "technical-docs/solutions/go-extole-technical-docs"
+            ]
+          },
+          {
+            "group": "Operational Tasks",
+            "pages": [
+              "technical-docs/operational-tasks/index",
+              {
+                "group": "Security & Compliance",
+                "pages": [
+                  "technical-docs/operational-tasks/security-compliance/index",
+                  "technical-docs/operational-tasks/security-compliance/data-erasure-requests",
+                  "technical-docs/operational-tasks/security-compliance/right-to-access-requests",
+                  "technical-docs/operational-tasks/security-compliance/manage-your-ssl-certificate",
+                  "technical-docs/operational-tasks/security-compliance/verifying-consumers"
+                ]
+              },
+              {
+                "group": "Account Configuration",
+                "pages": [
+                  "technical-docs/operational-tasks/account-configuration/index",
+                  "technical-docs/operational-tasks/account-configuration/develop-behind-your-firewall",
+                  "technical-docs/operational-tasks/account-configuration/extole-dns-requirements",
+                  "technical-docs/operational-tasks/account-configuration/generate-long-lived-access-tokens",
+                  "technical-docs/operational-tasks/account-configuration/my-extole-single-sign-on",
+                  "technical-docs/operational-tasks/account-configuration/opt-out-list-management",
+                  "technical-docs/operational-tasks/account-configuration/recent-customer-purchase-upload",
+                  "technical-docs/operational-tasks/account-configuration/contact-extole-help"
+                ]
+              },
+              {
+                "group": "Program Testing",
+                "pages": [
+                  "technical-docs/operational-tasks/program-testing/index",
+                  "technical-docs/operational-tasks/program-testing/exclude-test-data-from-analytics",
+                  "technical-docs/operational-tasks/program-testing/ab-test-your-offer",
+                  "technical-docs/operational-tasks/program-testing/set-up-ab-tests"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "Flow Campaigns",
+            "pages": [
+              "technical-docs/flow-campaign/index",
+              "technical-docs/flow-campaign/flow-builder"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Guides",
+        "groups": [
+          {
+            "group": "Platform Overview",
+            "pages": [
+              "guides/getting-help/index",
+              {
+                "group": "Key Concepts",
+                "pages": [
+                  "guides/getting-help/key-concepts/index",
+                  "guides/getting-help/key-concepts/understanding-participation-rate",
+                  "guides/getting-help/key-concepts/acquisition-rate",
+                  "guides/getting-help/key-concepts/what-is-the-value-that-extole-delivers",
+                  "guides/getting-help/key-concepts/how-does-extole-recognize-advocates",
+                  "guides/getting-help/key-concepts/referral-marketing-glossary"
+                ]
+              },
+              {
+                "group": "Implementing your Referral Program",
+                "pages": [
+                  "guides/getting-help/implementing-your-referral-program/index",
+                  "guides/getting-help/implementing-your-referral-program/program-and-campaign-flows",
+                  {
+                    "group": "Creating CTAs",
+                    "pages": [
+                      "guides/getting-help/implementing-your-referral-program/creating-ctas/index",
+                      "guides/getting-help/implementing-your-referral-program/creating-ctas/marketing-tags-for-marketers",
+                      "guides/getting-help/implementing-your-referral-program/creating-ctas/how-to-create-a-promo-link",
+                      "guides/getting-help/implementing-your-referral-program/creating-ctas/how-to-host-your-own-call-to-action"
+                    ]
+                  },
+                  {
+                    "group": "Technical Items",
+                    "pages": [
+                      "guides/getting-help/implementing-your-referral-program/technical-items/index",
+                      "guides/getting-help/implementing-your-referral-program/technical-items/webhooks",
+                      "guides/getting-help/implementing-your-referral-program/technical-items/passing-all-events-to-extole",
+                      "guides/getting-help/implementing-your-referral-program/technical-items/how-to-track-referral-revenue-generated-by-your-program",
+                      "guides/getting-help/implementing-your-referral-program/technical-items/delivering-share-messages",
+                      "guides/getting-help/implementing-your-referral-program/technical-items/program-domain-setup",
+                      "guides/getting-help/implementing-your-referral-program/technical-items/managing-your-branded-urls",
+                      "guides/getting-help/implementing-your-referral-program/technical-items/mobile-app-sharing",
+                      "guides/getting-help/implementing-your-referral-program/technical-items/tracking-conversions-with-a-mobile-app",
+                      "guides/getting-help/implementing-your-referral-program/technical-items/technical-requirements"
+                    ]
+                  }
+                ]
+              },
+              "guides/getting-help/getting-started-with-extole",
+              "guides/getting-help/go-live-qa-checklist",
+              "guides/getting-help/introducing-my-extole",
+              "guides/getting-help/leveraging-user-support-pages",
+              "guides/getting-help/meet-cate-your-24-7-program-assistance-chatbot",
+              "guides/getting-help/programs-vs-campaigns",
+              "guides/getting-help/referral-program-qa-guide-for-marketers",
+              "guides/getting-help/exploring-the-programs-page",
+              "guides/getting-help/exploring-the-reports-page",
+              "guides/getting-help/add-a-promotion-onsite-call-to-action-or-marketing-email",
+              "guides/getting-help/extole-opt-in-opt-out-sync-guide",
+              "guides/getting-help/manually-uploading-events-to-extole",
+              "guides/getting-help/program-and-campaign-dashboards",
+              "guides/getting-help/set-up-dynamic-eligible-audience-files",
+              "guides/getting-help/tracking-referrals-via-tags-vs-email-capture",
+              "guides/getting-help/uploading-an-eligibility-audience-file-via-sftp",
+              "guides/getting-help/targeting",
+              "guides/getting-help/troubleshooting-audience-file-processing"
+            ]
+          },
+          {
+            "group": "Programs & Campaigns",
+            "pages": [
+              "guides/programs-campaigns/index",
+              {
+                "group": "Campaign Creation & Editing",
+                "pages": [
+                  "guides/programs-campaigns/campaign-creation-editing/index",
+                  "guides/programs-campaigns/campaign-creation-editing/using-extole-s-campaign-editor",
+                  "guides/programs-campaigns/campaign-creation-editing/enable-friend-email-capture-for-opt-ins",
+                  "guides/programs-campaigns/campaign-creation-editing/how-do-i-clone-an-existing-campaign",
+                  "guides/programs-campaigns/campaign-creation-editing/implement-fonts-across-your-creatives",
+                  "guides/programs-campaigns/campaign-creation-editing/creative-customizations"
+                ]
+              },
+              {
+                "group": "Asset Guides",
+                "pages": [
+                  "guides/programs-campaigns/asset-guides/index",
+                  "guides/programs-campaigns/asset-guides/social-media-share-creative-elements",
+                  "guides/programs-campaigns/asset-guides/creative-image-asset-guide",
+                  "guides/programs-campaigns/asset-guides/drop-a-hint-asset-guide",
+                  "guides/programs-campaigns/asset-guides/nomination-asset-guide",
+                  "guides/programs-campaigns/asset-guides/sweepstakes-asset-guide",
+                  "guides/programs-campaigns/asset-guides/welcome-offer-asset-guide",
+                  "guides/programs-campaigns/asset-guides/friends-family-asset-guide",
+                  "guides/programs-campaigns/asset-guides/advocate-invite-email-asset-guide",
+                  "guides/programs-campaigns/asset-guides/advocate-stats-email-asset-guide",
+                  "guides/programs-campaigns/asset-guides/earned-reward-emails-asset-guide",
+                  "guides/programs-campaigns/asset-guides/friend-landing-experience-asset-guide",
+                  "guides/programs-campaigns/asset-guides/pending-reward-email-asset-guide",
+                  "guides/programs-campaigns/asset-guides/share-email-reminder-asset-guide",
+                  "guides/programs-campaigns/asset-guides/share-experience-asset-guide",
+                  "guides/programs-campaigns/asset-guides/welcome-email-asset-guide"
+                ]
+              },
+              {
+                "group": "International Programs",
+                "pages": [
+                  "guides/programs-campaigns/international-programs/index",
+                  "guides/programs-campaigns/international-programs/adding-languages-to-international-programs",
+                  "guides/programs-campaigns/international-programs/international-programs",
+                  "guides/programs-campaigns/international-programs/configuring-an-international-program"
+                ]
+              },
+              {
+                "group": "Other Acquisition and Engagement Programs",
+                "pages": [
+                  "guides/programs-campaigns/other-programs/index",
+                  "guides/programs-campaigns/other-programs/sweepstakes-program",
+                  "guides/programs-campaigns/other-programs/launch-a-credit-union-welcome-offer",
+                  "guides/programs-campaigns/other-programs/agent-programs",
+                  "guides/programs-campaigns/other-programs/run-targeted-super-advocate-programs",
+                  "guides/programs-campaigns/other-programs/campaigns-for-selected-audiences",
+                  "guides/programs-campaigns/other-programs/welcome-offer-program",
+                  "guides/programs-campaigns/other-programs/launch-a-sweepstakes-giveaway"
+                ]
+              },
+              {
+                "group": "Managing Campaigns",
+                "pages": [
+                  "guides/programs-campaigns/managing-campaigns/index",
+                  "guides/programs-campaigns/managing-campaigns/pausing-ending-and-scheduling-campaigns",
+                  "guides/programs-campaigns/managing-campaigns/how-to-run-a-burst",
+                  "guides/programs-campaigns/managing-campaigns/share-link-and-promote-link-behavior",
+                  "guides/programs-campaigns/managing-campaigns/how-to-push-your-test-campaign-live",
+                  "guides/programs-campaigns/managing-campaigns/how-to-qa-your-referral-program",
+                  "guides/programs-campaigns/managing-campaigns/making-updates-to-your-campaigns"
+                ]
+              },
+              "guides/programs-campaigns/add-an-advocate-stats-dashboard",
+              "guides/programs-campaigns/adding-and-removing-share-channels",
+              "guides/programs-campaigns/advocate-share-experience",
+              "guides/programs-campaigns/call-to-action-creative-elements",
+              "guides/programs-campaigns/choosing-your-advocate-sharing-experience",
+              "guides/programs-campaigns/common-html-tags-for-basic-campaign-editing",
+              "guides/programs-campaigns/editing-the-advocate-microsite-and-share-experience",
+              "guides/programs-campaigns/go-extole-app-login-guide",
+              "guides/programs-campaigns/how-to-set-up-a-reward-for-action-offer-program",
+              "guides/programs-campaigns/how-to-upload-terms-conditions",
+              "guides/programs-campaigns/my-account-settings",
+              "guides/programs-campaigns/overlay-creative-elements",
+              "guides/programs-campaigns/overlay-ctas-and-how-to-optimize-them-for-sharing",
+              "guides/programs-campaigns/reward-bank-redemption-experience",
+              "guides/programs-campaigns/tango-reward-email"
+            ]
+          },
+          {
+            "group": "Dashboards and Reporting",
+            "pages": [
+              "guides/dashboards-and-reporting/index",
+              {
+                "group": "Extole Dashboards & Metrics",
+                "pages": [
+                  "guides/dashboards-and-reporting/extole-dashboards-metrics/index",
+                  "guides/dashboards-and-reporting/extole-dashboards-metrics/how-to-measure-and-benchmark-your-referral-program-success",
+                  "guides/dashboards-and-reporting/extole-dashboards-metrics/the-influencer-program-page",
+                  "guides/dashboards-and-reporting/extole-dashboards-metrics/how-do-i-prevent-testing-data-from-appearing-in-my-analytics-dashboard",
+                  "guides/dashboards-and-reporting/extole-dashboards-metrics/downloadable-reports-on-program-and-campaign-dashboards",
+                  "guides/dashboards-and-reporting/extole-dashboards-metrics/using-my-timeline-dates",
+                  "guides/dashboards-and-reporting/extole-dashboards-metrics/account-dashboard"
+                ]
+              },
+              {
+                "group": "Integrating Reports",
+                "pages": [
+                  "guides/dashboards-and-reporting/integrating-reports/index",
+                  "guides/dashboards-and-reporting/integrating-reports/sftp-and-batch-file-conventions",
+                  "guides/dashboards-and-reporting/integrating-reports/using-extole-s-sftp-server",
+                  "guides/dashboards-and-reporting/integrating-reports/integrating-extole-with-web-analytics",
+                  "guides/dashboards-and-reporting/integrating-reports/sending-reports-to-an-external-sftp",
+                  "guides/dashboards-and-reporting/integrating-reports/how-to-use-the-extole-asynchronous-reporting-api"
+                ]
+              },
+              {
+                "group": "Configuring Reports",
+                "pages": [
+                  "guides/dashboards-and-reporting/configuring-reports/index",
+                  "guides/dashboards-and-reporting/configuring-reports/advanced-report-configuration",
+                  "guides/dashboards-and-reporting/configuring-reports/scheduled-reports",
+                  "guides/dashboards-and-reporting/configuring-reports/aggregated-reports",
+                  "guides/dashboards-and-reporting/configuring-reports/understanding-how-extole-counts-people"
+                ]
+              },
+              {
+                "group": "Report Types",
+                "pages": [
+                  "guides/dashboards-and-reporting/report-types/index",
+                  {
+                    "group": "Recommended Reports",
+                    "pages": [
+                      "guides/dashboards-and-reporting/report-types/recommended-reports/index",
+                      "guides/dashboards-and-reporting/report-types/recommended-reports/participation-rate-report",
+                      "guides/dashboards-and-reporting/report-types/recommended-reports/events-report",
+                      "guides/dashboards-and-reporting/report-types/recommended-reports/metrics-report",
+                      "guides/dashboards-and-reporting/report-types/recommended-reports/successful-advocates-report",
+                      "guides/dashboards-and-reporting/report-types/recommended-reports/top-promotion-sources-report",
+                      "guides/dashboards-and-reporting/report-types/recommended-reports/email-stats-report",
+                      "guides/dashboards-and-reporting/report-types/recommended-reports/acquisition-rate-report",
+                      "guides/dashboards-and-reporting/report-types/recommended-reports/rewards-reporting"
+                    ]
+                  },
+                  {
+                    "group": "Audience Reports",
+                    "pages": [
+                      "guides/dashboards-and-reporting/report-types/audience-reports/index",
+                      "guides/dashboards-and-reporting/report-types/audience-reports/unique-share-messages-report",
+                      "guides/dashboards-and-reporting/report-types/audience-reports/referred-friends-who-advocate-report",
+                      "guides/dashboards-and-reporting/report-types/audience-reports/inactive-advocates-report",
+                      "guides/dashboards-and-reporting/report-types/audience-reports/advocate-opt-in-report",
+                      "guides/dashboards-and-reporting/report-types/audience-reports/active-advocates-report",
+                      "guides/dashboards-and-reporting/report-types/audience-reports/influencer-stats-report",
+                      "guides/dashboards-and-reporting/report-types/audience-reports/count-of-successful-advocates-report",
+                      "guides/dashboards-and-reporting/report-types/audience-reports/reports-based-on-locale-and-country",
+                      "guides/dashboards-and-reporting/report-types/audience-reports/count-of-active-advocates-report"
+                    ]
+                  },
+                  {
+                    "group": "Rewards Reports",
+                    "pages": [
+                      "guides/dashboards-and-reporting/report-types/rewards-reports/index",
+                      "guides/dashboards-and-reporting/report-types/rewards-reports/nominations-report",
+                      "guides/dashboards-and-reporting/report-types/rewards-reports/reward-transitions-report",
+                      "guides/dashboards-and-reporting/report-types/rewards-reports/failed-rewards-report",
+                      "guides/dashboards-and-reporting/report-types/rewards-reports/earned-rewards-report",
+                      "guides/dashboards-and-reporting/report-types/rewards-reports/friend-conversion-report",
+                      "guides/dashboards-and-reporting/report-types/rewards-reports/revenue-contribution-report"
+                    ]
+                  }
+                ]
+              },
+              "guides/dashboards-and-reporting/how-to-run-a-report",
+              "guides/dashboards-and-reporting/csv-encoding",
+              "guides/dashboards-and-reporting/new-customer-contribution-rate-report",
+              "guides/dashboards-and-reporting/paused-reports",
+              "guides/dashboards-and-reporting/person-vs-related-person-columns-in-reports",
+              "guides/dashboards-and-reporting/recommended-reports",
+              "guides/dashboards-and-reporting/understanding-the-direct-promotion-source",
+              "guides/dashboards-and-reporting/visit-type-and-quality"
+            ]
+          },
+          {
+            "group": "Audiences & Segmentation",
+            "pages": [
+              "guides/audiences-segmentation/index",
+              {
+                "group": "Audience Management",
+                "pages": [
+                  "guides/audiences-segmentation/audience-management/index",
+                  "guides/audiences-segmentation/audience-management/existing-customer-list-management",
+                  "guides/audiences-segmentation/audience-management/eligibility-files"
+                ]
+              },
+              {
+                "group": "My Audiences",
+                "pages": [
+                  "guides/audiences-segmentation/my-audiences/index",
+                  "guides/audiences-segmentation/my-audiences/how-to-send-a-promotional-email-to-an-audience",
+                  "guides/audiences-segmentation/my-audiences/interpreting-the-network-graph",
+                  "guides/audiences-segmentation/my-audiences/upload-and-email-an-audience"
+                ]
+              },
+              {
+                "group": "Segmentation",
+                "pages": [
+                  "guides/audiences-segmentation/segmentation/index",
+                  "guides/audiences-segmentation/segmentation/turning-friends-into-advocates",
+                  "guides/audiences-segmentation/segmentation/using-refer-a-friend-data-beyond-refer-a-friend",
+                  "guides/audiences-segmentation/segmentation/advocacy-customer-segments",
+                  "guides/audiences-segmentation/segmentation/dive-into-people-find-your-super-advocates-and-discover-who-s-new",
+                  "guides/audiences-segmentation/segmentation/converting-advocates-to-influencers"
+                ]
+              },
+              "guides/audiences-segmentation/advocate-tiers"
+            ]
+          },
+          {
+            "group": "Rewards Management",
+            "pages": [
+              "guides/rewards-management/index",
+              {
+                "group": "Rules Configuration",
+                "pages": [
+                  "guides/rewards-management/rules-configuration/index",
+                  "guides/rewards-management/rules-configuration/configuring-the-rules-of-your-program",
+                  "guides/rewards-management/rules-configuration/fraud-and-anti-gaming-protection",
+                  "guides/rewards-management/rules-configuration/preventing-fraud-and-best-practices-for-campaign-rules",
+                  "guides/rewards-management/rules-configuration/new-customer-rule"
+                ]
+              },
+              {
+                "group": "Reward Fulfillment",
+                "pages": [
+                  "guides/rewards-management/reward-fulfillment/index",
+                  "guides/rewards-management/reward-fulfillment/how-to-investigate-a-wismr-request",
+                  "guides/rewards-management/reward-fulfillment/look-up-and-understand-your-program-event-statuses",
+                  "guides/rewards-management/reward-fulfillment/inform-your-support-team-about-your-extole-program",
+                  "guides/rewards-management/reward-fulfillment/wismr-101-understanding-customer-reward-inquiries",
+                  "guides/rewards-management/reward-fulfillment/how-to-manually-create-a-referral-or-other-event",
+                  "guides/rewards-management/reward-fulfillment/approving-and-declining-events-workflow",
+                  "guides/rewards-management/reward-fulfillment/how-to-block-users-and-decline-shares"
+                ]
+              },
+              {
+                "group": "Setting up your Rewards",
+                "pages": [
+                  "guides/rewards-management/setting-up-your-rewards/index",
+                  "guides/rewards-management/setting-up-your-rewards/how-to-reward-with-tango-gift-cards",
+                  "guides/rewards-management/setting-up-your-rewards/how-to-reward-with-salesforce-commerce-cloud",
+                  "guides/rewards-management/setting-up-your-rewards/how-to-reward-with-account-credits",
+                  "guides/rewards-management/setting-up-your-rewards/how-to-reward-with-coupons",
+                  "guides/rewards-management/setting-up-your-rewards/offer-advocates-multiple-gift-card-options",
+                  "guides/rewards-management/setting-up-your-rewards/auto-applying-multi-use-coupons",
+                  "guides/rewards-management/setting-up-your-rewards/general-information-about-tango-gift-cards",
+                  "guides/rewards-management/setting-up-your-rewards/using-reward-passes-with-a-mobile-wallet",
+                  "guides/rewards-management/setting-up-your-rewards/rewards-overview-and-faq"
+                ]
+              },
+              "guides/rewards-management/sending-rewards-with-tremendous",
+              "guides/rewards-management/set-up-account-credits-for-financial-institutions"
+            ]
+          },
+          {
+            "group": "Strategy & Best Practices",
+            "pages": [
+              "guides/strategy-best-practices/index",
+              {
+                "group": "Tactics & Strategy",
+                "pages": [
+                  "guides/strategy-best-practices/tactics-strategy/index",
+                  "guides/strategy-best-practices/tactics-strategy/capturing-in-person-referrals",
+                  "guides/strategy-best-practices/tactics-strategy/how-to-market-your-program",
+                  "guides/strategy-best-practices/tactics-strategy/top-performing-cta-implement-the-overlay-call-to-action-across-your-site",
+                  "guides/strategy-best-practices/tactics-strategy/taking-referrals-from-site-to-store",
+                  "guides/strategy-best-practices/tactics-strategy/increasing-activity",
+                  "guides/strategy-best-practices/tactics-strategy/create-a-compelling-offer-structure"
+                ]
+              },
+              {
+                "group": "Campaign Optimization",
+                "pages": [
+                  "guides/strategy-best-practices/campaign-optimization/index",
+                  "guides/strategy-best-practices/campaign-optimization/a-b-testing-your-offer",
+                  "guides/strategy-best-practices/campaign-optimization/a-b-testing-your-campaign",
+                  "guides/strategy-best-practices/campaign-optimization/how-do-i-enable-content-sharing",
+                  "guides/strategy-best-practices/campaign-optimization/optimizing-share-channels",
+                  "guides/strategy-best-practices/campaign-optimization/how-do-i-prevent-ad-blockers-from-blocking-my-extole-experience",
+                  "guides/strategy-best-practices/campaign-optimization/boost-share-rates-with-the-stats-drip",
+                  "guides/strategy-best-practices/campaign-optimization/enable-and-test-friend-reminder-email",
+                  "guides/strategy-best-practices/campaign-optimization/mail-after-purchase-asking-for-a-referral-when-it-matters",
+                  "guides/strategy-best-practices/campaign-optimization/optimizing-your-referral-program",
+                  "guides/strategy-best-practices/campaign-optimization/using-promotion-badges",
+                  "guides/strategy-best-practices/campaign-optimization/why-you-should-pop-up-your-advocate-share-experience",
+                  "guides/strategy-best-practices/campaign-optimization/invite-customers-to-share-post-purchase"
+                ]
+              },
+              "guides/strategy-best-practices/create-your-own-customer-facing-faq",
+              "guides/strategy-best-practices/trigger-advocacy-with-seasonal-and-burst-promotions"
+            ]
+          },
+          {
+            "group": "Notifications & Troubleshooting",
+            "pages": [
+              "guides/notifications-troubleshooting/index",
+              {
+                "group": "Platform & Admin",
+                "pages": [
+                  "guides/notifications-troubleshooting/platform-admin/index",
+                  "guides/notifications-troubleshooting/platform-admin/how-do-i-view-extole-system-status-and-subscribe-to-extole-updates",
+                  "guides/notifications-troubleshooting/platform-admin/why-is-the-from-email-email-referral-mail-com-gmail-friendly-from-changes",
+                  "guides/notifications-troubleshooting/platform-admin/how-can-i-whitelist-my-extole-in-ublock-origin",
+                  "guides/notifications-troubleshooting/platform-admin/extole-browser-support",
+                  "guides/notifications-troubleshooting/platform-admin/login-troubleshooting-tips",
+                  "guides/notifications-troubleshooting/platform-admin/subscribing-to-my-extole-notifications",
+                  "guides/notifications-troubleshooting/platform-admin/what-to-do-when-you-get-a-notification"
+                ]
+              },
+              {
+                "group": "Troubleshooting",
+                "pages": [
+                  "guides/notifications-troubleshooting/troubleshooting/index",
+                  "guides/notifications-troubleshooting/troubleshooting/quick-troubleshooting-guide"
+                ]
+              },
+              "guides/notifications-troubleshooting/managing-your-ssl-certificates"
+            ]
+          },
+          {
+            "group": "Compliance & Policies",
+            "pages": [
+              "guides/compliance-policies/index",
+              "guides/compliance-policies/ada-compliance",
+              "guides/compliance-policies/data-processing-agreement",
+              "guides/compliance-policies/data-subject-rights",
+              "guides/compliance-policies/extole-cookie-handling",
+              "guides/compliance-policies/index"
+            ]
+          },
+          {
+            "group": "User Management",
+            "pages": [
+              "guides/user-management/index",
+              {
+                "group": "Managing Users",
+                "pages": [
+                  "guides/user-management/managing-users/index",
+                  "guides/user-management/managing-users/deleting-team-members",
+                  "guides/user-management/managing-users/okta-single-sign-on-to-my-extole",
+                  "guides/user-management/managing-users/creating-an-extole-account",
+                  "guides/user-management/managing-users/inviting-team-members",
+                  "guides/user-management/managing-users/managing-your-extole-users",
+                  "guides/user-management/managing-users/user-roles-permissions"
+                ]
+              },
+              "guides/user-management/access-multiple-instances"
+            ]
+          },
+          {
+            "group": "Flow Campaigns",
+            "pages": [
+              "guides/flow-campaigns/index",
+              "guides/flow-campaigns/upgrading-to-flow-builder-v10"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "API Reference",
+        "groups": [
+          {
+            "group": "Consumer to Extole API",
+            "openapi": "api-reference/integration-consumer-to-extole.json"
+          },
+          {
+            "group": "Server to Extole API",
+            "openapi": "api-reference/integration-server-to-extole.json"
+          },
+          {
+            "group": "Management API",
+            "openapi": "api-reference/management.json"
+          },
+          {
+            "group": "Management Expert API",
+            "openapi": "api-reference/management-expert.json"
+          }
         ]
       }
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
-        },
-        {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
-        }
-      ]
-    }
+    ]
   },
   "logo": {
     "light": "/logo/light.svg",
@@ -40,14 +909,14 @@
   "navbar": {
     "links": [
       {
-        "label": "Support",
-        "href": "mailto:hi@mintlify.com"
+        "label": "docs.extole.com",
+        "href": "https://docs.extole.com"
       }
     ],
     "primary": {
       "type": "button",
-      "label": "Dashboard",
-      "href": "https://app.mintlify.com"
+      "label": "my.extole.com",
+      "href": "https://my.extole.com"
     }
   },
   "contextual": {
@@ -56,17 +925,12 @@
       "view",
       "chatgpt",
       "claude",
-      "perplexity",
-      "mcp",
-      "cursor",
-      "vscode"
+      "mcp"
     ]
   },
   "footer": {
     "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
+      "github": "https://github.com/extole"
     }
   }
 }

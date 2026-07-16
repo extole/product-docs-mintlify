@@ -1,0 +1,188 @@
+---
+title: "Extole SFTP Server"
+description: "Set up and use internal servers within your My Extole account."
+---
+
+## Overview
+
+[//]: # "How do I upload files using SFTP to Extole?"
+
+If your business registers online but completes conversion events outside of your company's website, then it may make sense for you to use file-based conversions to send Extole purchase events. Within the Tech Center of your My Extole account, you can easily upload  files of events. These events become conversion events in Extole and go through all the standard event approval methods and incentive configurations.
+
+[//]: ___
+
+## Accessing Extole's SFTP server
+
+[//]: # "How do I set up an SFTP server in Extole?"
+
+### Add a Server
+
+Navigate to the Tech Center and click the "+ New Server" button. Make sure you have selected "Extole Server" in the top left. You will see a number of fields to fill out to describe the server.
+
+![](https://files.readme.io/9ad63a7ed93baef4d4bff5e768af4c379cb5065afcae8e32c821a46ec121490a-9c7cfcb-Screen_Shot_2022-05-17_at_3.01.46_PM.png "Screen Shot 2022-05-17 at 3.01.46 PM.png")
+
+**Name**: How you'd like to reference the server in your My Extole account.
+
+**Username**: The username used to access the SFTP server. By default, this will be your client name (e.g., `susan-irving-test` in the above example). While all usernames must begin with your client name, you can optionally add suffixes to distinguish the purpose of the account using the text box (e.g., `susan-irving-test-events`, `susan-irving-test-reports`, etc.).
+
+<Warning>
+**Username Format**
+
+
+Some clients may have user names in our previous format "c123456..." which is still supported.  
+</Warning>
+
+### Add a login key
+
+**Login Key**: The key used to access the SFTP server.
+
+Click on the "Create Login Key" button to create a new SSH key and fill out the required fields (see below).
+
+* Key Name: How we'll refer to the key in your My Extole account.
+* Partner Key Id: Your unique identifier for the key.
+* Key: The key itself, formatted according to the following requirements.
+  * Starts with `ssh-rsa`
+  * Ends with email address
+  * Does not contain line breaks
+  * [View more information on SSH key formatting](https://git-scm.com/book/en/v2/Git-on-the-Server-Generating-Your-SSH-Public-Key)
+* Description: An optional description for the key.
+
+[//]: ___
+
+![](https://files.readme.io/5671389e5673e733b7a7234ecaeaf6a6df5ec333e6d13d52d98453a8de7b9e90-d9503fc-Screen_Shot_2022-05-17_at_2.34.22_PM.png "Screen Shot 2022-05-17 at 2.34.22 PM.png")
+
+### Use PGP Encryption with Extole (Optional)
+
+[//]: # "How do I use PGP encryption with Extole?"
+
+#### Upload Your PGP Key
+
+From the Create New Server page, click the "Create PGP Encryption Key" button and fill out all required fields.
+
+* Key Name: How we'll refer to the key in your My Extole account.
+* Email: Your email address.
+* Key: The key itself. [View more information on PGP key formatting](https://datatracker.ietf.org/doc/html/rfc4880#section-6.2).
+* Description: An optional description for the key.
+
+![](https://files.readme.io/5b9eccb8c175b110ff0130a701713f3923ebccf9d5dabe5c15fa7142119c8fbd-f33b4b2-Screen_Shot_2022-06-27_at_10.57.07_AM.png "Screen Shot 2022-06-27 at 10.57.07 AM.png")
+
+#### Download Extole's PGP Key
+
+You must also download Extole's public PGP encryption key, which you can do from the Create New Server page in the Tech Center.
+
+![](https://files.readme.io/cd99d5dfda4bb7be15c694e488ad247b531a92bf669fedf649a3f8c67a3c208e-caf596f-download-extole-key.png "download-extole-key.png")
+
+[//]: ___
+
+### Configure and Test Your SFTP Client
+
+[//]: # "How do I test my SFTP client?"
+
+Using your own SFTP program, follow its instructions to configure your private key.
+
+Extole recommends [FileZilla](https://filezilla-project.org/download.php), as it is free and works on multiple operating systems. [Learn how to configure FileZilla with your private key](https://docs.extole.com/docs/extoles-sftp-server#how-do-i-configure-filezilla-with-my-private-key).
+
+[//]: ___
+
+## Uploading to Extole's SFTP server
+
+[//]: # "How do I upload files using Extole's SFTP server?"
+
+### File Conventions
+
+The following conventions are used by almost all files at Extole to ensure file transfer consistency:
+
+* Name the file based on the event name (ex: reviews-20201015.csv) or add an "event_name" column to your file and Extole will create events in your campaign based on the file name or value.
+  * NOTE: Previous SFTP directories are not affected by this feature. The priority goes as follows: "event_name" specified in a row, file name, then "unspecified" if neither are defined.
+  * The event name used in the file name will be used when posting to the **api.extole.io/v5/events** endpoint if no event is specified in the file.
+* Each file type goes into its own directory on the Extole SFTP system.
+* All files are encoded as UTF-8.
+* Files may contain Unix (\n) or Dos (\r\n).
+* All batch files contain a column header row.
+* Column order is never important, as Extole determines the order based on the header row.
+* Extra columns in the file that Extole does not recognize are ignored.
+* Extole stores 90 days worth of file history, and older files are deleted.
+* Extole follows standard CSV quoting conventions:
+  * A comma can be included by quoting the values: First Name, "Last Name, Jr.", Gift Message
+  * A quote can be included by escaping the quote: First Name, Last Name, "Thanks for the "help"
+
+### File Permissions
+
+If you are uploading any CSV file through SFTP, make sure the permissions of the file are configured so "everyone" can either read or write. In this case, we want to make sure Extole can read the file.
+
+1. Check the permissions by right-clicking the file and clicking "Get Info."
+2. Scroll all the way down to where it says "Sharing & Permissions."
+3. You will see your local machine's name with the permissions of "Read & Write," under which you can select "everyone."
+4. Make sure "everyone" has the Privilege set to either "Read Only" or "Read & Write."
+
+### Processed Files
+
+After Extole processes files, it moves them into an "archive" folder on the SFTP server to indicate it has been processed.
+
+[//]: ___
+
+## Frequently Asked Questions
+
+### How do I connect to Extole SFTP servers using WS_FTP?
+
+To connect to Extole SFTP servers using WS_FTP, you need to upload both a private AND public key. The public key needs to be in a .pub format. In this case, Extole needs to [provide both keys in the correct format](https://community.progress.com/s/article/How-to-Import-SSH-Key-Pair-from-Vendor).
+
+### How do I configure FileZilla with my private key?
+
+[//]: # "How do I configure FileZilla with my private key?"
+
+Once you've downloaded and installed FileZilla for your operating system, complete the following steps.
+
+1. In FileZilla's Menu, go to File → Site Manager to get to the Site Manager page.
+
+2. Click the New Site button on the lower left, then fill out the fields under the General Tab as follows:
+
+* Host: sftp.extole.io
+* Protocol: SFTP - SSH File Transfer Protocol
+* Logon Type: Key File
+* User: Found in the SFTP section of the Settings page of your My Extole account.
+* Key file: click the Browse button and look for the key file you saved in Step #1.
+
+3. Click the Connect button to establish your connection.
+
+[//]: ___
+
+### In FileZilla, why am I receiving an error on connection that passwords cannot be saved?
+
+[//]: # "In FileZilla, why am I receiving an error on connection that passwords cannot be saved?"
+
+Extole uses public keys instead of passwords, but this may cause the connection not to occur properly. To resolve this issue please go to Edit > Settings > on the left side, click Interface > on the right side, uncheck the “Do not save passwords” checkbox under the Behavior section.
+
+[//]: ___
+
+### Can I set up an automated process that will push or pull files from the SFTP server?
+
+[//]: # "Can I set up an automated process that will push or pull files from the SFTP server?"
+
+Yes. Your company's IT department likely has tools that can help automate the transfer of files to and from Extole.
+
+[//]: ___
+
+### Can the files being sent to and from Extole be encrypted?
+
+[//]: # "Can the files being sent to and from Extole be encrypted"
+
+SFTP encrypts files as they are transferred. For the types of files being sent, encryption during transmission (transmission-level encryption) is sufficient. Extole does not have a standard way to handle direct file encryption (message-level encryption).
+
+[//]: ___
+
+### Can Extole support another transport protocol like ConnectDirect?
+
+[//]: # "Can Extole support another transport protocol like ConnectDirect?"
+
+The Extole product offering currently supports SFTP. SFTP is widely supported by file transfer packages, including ConnectDirect.
+
+[//]: ___
+
+### Can Extole keep copies of my files forever?
+
+[//]: # "Can Extole keep copies of my files forever?"
+
+The SFTP server is a temporary storage location for the transmission of files. If you need longer-term access to them, you should work with your IT team to set up automatic downloading and storage.
+
+[//]: ___

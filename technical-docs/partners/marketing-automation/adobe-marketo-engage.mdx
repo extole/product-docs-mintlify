@@ -1,0 +1,69 @@
+---
+title: "Adobe Marketo Engage"
+description: "Send data from your Extole Lead Generation or B2B program directly to the Marketo Lead API."
+---
+
+## Overview
+
+[//]: # "Does Extole integrate with Adobe Marketo Engage?"
+
+Adobe Marketo Engage makes the complex buyer journey simple. Send your Extole program data into your Marketo account to improve your advocacy and experiences to keep customers engaged.
+
+[//]: ___
+
+## Prerequisites
+
+[//]: # "What are the requirements for the Extole integration with Adobe Marketo Engage?"
+
+| Requirement                         | Description                                                                                        |
+| :---------------------------------- | :------------------------------------------------------------------------------------------------- |
+| Marketo Account                     | An Adobe Marketo Engage account is required in order to take advantage of this integration.        |
+| Marketo Client ID and Client Secret | A Marketo access token can be created in your Marketo account in the Admin > LaunchPoint menu.     |
+| Extole Webhook Key                  | An Extole key. This can be generated in your My Extole account in the Security Center > + New Key. |
+
+[//]: ___
+
+## Integration
+
+[//]: # "How do I set up the Extole integration with Adobe Marketo Engage?"
+
+### Create an Access Token in Marketo
+
+You can see Marketo Documentation here: [https://developers.marketo.com/rest-api/authentication/#creating\_an\_access\_token](https://developers.marketo.com/rest-api/authentication/#creating_an_access_token)
+
+The Client ID and Client Secret are found in the Admin > LaunchPoint menu by selecting the custom service option, and clicking View Details.  A new custom service can be created for Extole Leads.
+
+![](https://files.readme.io/4a0fafff7cba1e5c40f26cac898242816409eefaad1cc90c7a0136935941ce4a-bdfbffc-doc-rest-api-authentication-service-view-details-1024x509.png "doc-rest-api-authentication-service-view-details-1024x509.png")
+
+### Create a New Key in Extole
+
+After generating your new key, save it and navigate to the My Extole [Security Center](https://my.extole.com/security-center). Click the + New Key button.
+
+<img src="https://files.readme.io/025e8bd22b8a5b27c85daf7d9dfad5c3d8b3561508a1f4217b22dd1871b32fc6-d94bce4-Screen_Shot_2022-02-10_at_9.47.21_AM.png" alt="Screen Shot 2022-02-10 at 9.47.21 AM.png" />
+
+When creating the new key, fill in the following information:
+
+1. Key Name: How we will refer to the key in My Extole
+2. Key Type: Webhook
+3. Algorithm: OAUTH
+4. Key: The new key you saved from Marketo
+5. Authorization URL: `<https://123-XXX-456.mktorest.com/rest/v1/leads/push.json>`
+6. OAUTH Client ID: Your Marketo Client ID
+
+<img src="https://files.readme.io/35a90dca3292c3ed6e58bc3511e51a3aa3e443194f83fe41ee948ee69d9230ce-5abc5c1-Screen_Shot_2022-02-10_at_9.48.38_AM.png" alt="Screen Shot 2022-02-10 at 9.48.38 AM.png" width="60%" />
+
+### Configure your Extole Webhook
+
+Next you will need to set up a webhook in My Extole. Navigate to the Technical Center > Outbound Webhooks section to begin.
+
+You can name and describe the key however you'd like. Select the Type as Generic and choose the key you created as the Client Key. 
+
+Paste in the URL: `<https://123-XXX-456.mktorest.com/rest/v1/leads/push.json>`
+
+<img src="https://files.readme.io/edfacd7e25194175ab1895f148814c15ed036a399cca90ede56525dc6ed6b2b7-d6a60e2-Screen_Shot_2022-02-10_at_9.51.25_AM.png" alt="Screen Shot 2022-02-10 at 9.51.25 AM.png" width="60%" />
+
+Extole Support will then configure the lead submitted event to send into the Marketo Lead Webhook. The default JSON looks like the following, but can be updated by Extole Support:
+
+`<https://123-XXX-456.mktorest.com/rest/v1/leads/push.json>`
+
+[//]: ___

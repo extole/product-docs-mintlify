@@ -1,0 +1,69 @@
+---
+title: "How Does Extole Recognize Advocates?"
+description: "An Advocate is the consumer who is referring their friends"
+---
+
+# Terms
+
+- An **Advocate** is the consumer who is referring their friends
+- A **Friend** is the consumer who was shared with and may have completed a purchase
+- **Advocate recognition** is the result of determining if a particular friend activity was influenced by an advocate and whether that advocate is eligible for a reward
+
+# How Extole Recognizes Advocates
+
+Our goal is to get as many folks to refer your brand, and to have the smallest level of customer support issues or inquiries in the process. Happy Advocates are better customers, and are more likely to buy again and to refer again. To make them happy, we need to be very accurate about how we **recognize** advocacy.
+
+What is the potential impact?
+
+- Our model usually results in 30% more accurate advocate recognition than ordinary referral methods.
+- Because we recognize more accurately, we can significantly lower the incidence of "WISMR" (Where is My Reward) call center incidents that can radically lower satisfaction with your program.
+- Advocates have, on average, 10% higher revenue per visit than non-advocates, so there is real value in aggressively recognizing them.
+- The value of individual advocates to your brand can vary widely, and understanding long-term impact of your best-performers means you can focus resources where they can achieve the highest impact.
+
+Extole's Recognition model *is not an attribution model*. We encourage you to calculate attribution using your current systems, as we find that our cost per acquisition using this analysis is very competitive. Recognition is not about cost accounting, it is about catching your customers being good to your brand. When you recognize an advocate, you reinforce an existing passion for your brand, and it pays for itself.
+
+Our Recognition model uses multiple algorithms to track and monitor influence from advocate participants to their friends at every step in the process, including visits, registrations, and conversions. A first-generation referral was often "It is a referral if they use the referral coupon", which was adequate. Extole is about "It is a referral if we can determine direct influence," which is superior.
+
+Our platform is continuously seeking to build and model relationships and influence at every interaction. We model these relationships in several ways so that when a referral event occurs, we can:
+
+- use data passed in that event - coupon code, email, account id, etc.
+- use data stored based on their journey and previous events
+
+In combination, this data allows Extole to very accurately determine who influenced a purchase and even calculate long-term revenue impact from a given relationship or referral, not simply match a coupon to a share.
+
+## Recognition Types
+
+1. Referral Coupon Used - 20%-30% (typically, this is the ONLY method a client would use to determine referral purchases and revenue)
+
+  - This will appear as "COUPON_CODE" or "Coupon Code" in our reports. It indicates that the friend has used a coupon that was issued as a result of an advocate’s referral.
+
+2. Click-through - 60%-80%
+
+  - This will appear as "SHARE_ID", "SHAREABLE_ID", or "Clicked Share Link" and occurs when a friend clicks on an advocate’s share link.
+
+3. Email match-back - &lt;10%
+
+  - This will appear as "SHARE_RECIPIENT" or "Email Match-Back" in our reports. Email match-backs happen when a friend’s email address matches an email address an advocate has shared to.
+
+4. Advocate Code/Referral code* (usually not implemented for Retail)
+
+  - This will appear as "ADVOCATE_CODE" or "Advocate Code" in our reports and means the advocate's unique referral code is a parameter passed in the request to Extole.
+
+5. Account ID (usually used in financial services)
+
+  - This will appear as "ADVOCATE_PARTNER_USER_ID" or "Advocate Info" in our reporting and means the advocate's account ID is a parameter passed in the request to Extole.
+  - You can also pass other advocate identifiers as parameters in the request to Extole, such as the advocate's email address or order ID. These would appear as "ADVOCATE_EMAIL" or "ADVOCATE_ORDER_ID", respectively. In our visualizations, all advocate identifiers aside from advocate codes are grouped into the "Advocate Info" category.
+
+6. Incentivized Shares
+
+  - This is specifically for Friends and Family programs and will appear as "INCENTIVIZED_SHARE" in our reporting.
+
+## Multiple Advocates
+
+In cases where more than one advocate has referred a given Friend, we will bias recognition of the advocate whose code, coupon, or link is used. If an alternative matching method is used, then the most recent Advocate will be recognized.
+
+## Long-Term Recognition
+
+Our recognition model recognizes initial purchase vs. subsequent purchases. While normally only the first purchase from a referral is rewarded, it can be valuable to identify subsequent purchases to assess the long-term value creation by the program and by those advocates.
+
+While most programs only reward on a single purchase, our programs can allow for more complex offer structures like rewarding and Advocate for every Nth purchase by the Friend.

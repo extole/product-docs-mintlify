@@ -1,0 +1,164 @@
+---
+title: "BHN (Blackhawk Network)"
+description: "Integrate with BHN to reward program participants with open loop and closed loop products from BHN's robust catalogue."
+---
+
+## Overview
+
+With the Extole and BHN integration, you can drive customer acquisition, generate brand advocacy, and build long-term loyalty with your customers. This powerful integration automates reward fulfillment with real-time reward delivery and offers a wide variety of reward options from Virtual Prepaid Cards to Physical Reloadable Cards for your referral and engagement programs.
+
+## Prerequisites
+
+| Requirement                                    | Description                                                                                                                                                                 |
+| :--------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Blackhawk Network Incentives Customer          | You must be a Blackhawk Network Incentives customer in order to leverage this integration.                                                                                  |
+| Enterprise Hawk Marketplace Account            | You must have an Enterprise Hawk Marketplace account in order to leverage this integration.                                                                                 |
+| BHN Merchant ID                                | The unique identifier associated with your BHN account.                                                                                                                     |
+| BHN Client Program Number                      | The unique identifier associated with your BHN program.                                                                                                                     |
+| BHN Payment Method                             | The method you will use to fund your BHN program. Options include ACH and Draw Down.                                                                                        |
+| BHN FAID Number                                | If you have separate financial accounts within your BHN program, please provide the FAID number where orders should be placed.                                              |
+| BHN Pre-Production and Production Certificates | The certificates needed to generate your Client Key ID for your staging and production integrations. **Your Extole team will request the certificates from your BHN team**. |
+| Extole Webhook IP Address                      | The IP address that needs to be included in any outbound webhook requests sent from Extole to BHN. **Extole will provide the webhook IP address to your BHN team**.         |
+
+## Available Products
+
+### Virtual Prepaid Cards
+
+Virtual Prepaid Cards are a great contactless payment option when you need something fast. They can be used for online and phone purchases anywhere Debit Mastercard and Visa Debit Cards are accepted.Virtual Prepaid Mastercard cards can also be added to popular mobile wallets like Apple Pay, Samsung Pay, and Google Pay.
+
+### Physical Reloadable Prepaid Cards
+
+Reloadable prepaid cards are ideal for companies who want to reward their recipients multiple times throughout the year. They can be used to incentivize program participation by creating cards specific to certain categories, like health and wellness. Additionally, they can be personalized with a company logo and a recognition message to strengthen relationships.
+
+### Virtual Closed Loop (eGift Cards) & Tango Rewards (Reward Link & Disbursement Link)
+
+BHN’s virtual closed loop in addition to Tango's Disbursement (Card Transfer, ACH, PayPal) & Reward Link solutions offer fast, flexible reward delivery for any audience. Choose from eGift cards from popular merchants (Target, Amazon, etc.) or curate digital gift card experiences that can be personalized and branded. These solutions make it easy to drive engagement, loyalty, or compensation at scale, with global reach and real-time delivery.
+
+### Compatible with Reward Bank
+
+BHN card products can also be used within Extole's Reward Bank. Reward Bank gives your advocates a single place to collect and redeem multiple referral rewards. [Learn more about Reward Bank.](https://www.extole.com/platform/reward-bank/)
+
+## Integration
+
+Complete the following steps to quickly get your integration up and running. Your Extole and BHN teams will support you through this process and answer any questions you may have.
+
+### Enable the BHN Integration
+
+Your Extole team will help you with this process.
+
+1. Select the BHN integration on the Partners center of your My Extole account.
+2. Within the BHN integration, hit the Install button to initiate the connection between Extole and BNH.
+3. Several required fields will appear where you'll need to provide information such as the Merchant ID and Client Key ID. Your Merchant ID is a unique identifier, provided by your BHN team, that identifies your business within their system. The Client Key ID will be configured by your Extole team.
+4. Complete the connection by applying the changes.
+
+### Set up the BHN Reward Supplier from your Rewards page
+
+1. Go to Rewards page in your My Extole account and hit **+ New Reward**.
+2. Select the Reward Type—Virtual Card or Physical Card.
+3. Specify the name of the reward, the value of the reward, and the Client Program Number and FAID (optional) supplied by your BHN team. You can also get your program number and FAID from the Hawk Marketplace Portal.
+4. Select the appropriate Payment Type. Confirm your preferred payment method (ACH Debit or Drawdown) and complete the necessary documentation for setup. This step can be confirmed with your BHN team.
+5. Save the configuration and use the newly created reward.
+
+Once the integration is complete, you will be able to see rewards flow in real-time in your My Extole account.
+
+<img src="https://files.readme.io/e465eb6a6fbb58207f2416c21bbe94857c33c8392aa3a3aaecc818c32db3e6a6-1fce53b34f2397e80f7e6a32ee733bfa7eef33fa8717b2c1fddbe950e110dcb8-Screenshot_2024-09-23_at_7.28.10_AM.png" alt="" />
+
+## FAQs
+
+### How can I understand the status of a reward in the Extole platform?
+
+Extole leverages HTTP status codes from BHN API responses to update the status of a card order (aka reward) in the Extole platform. You can use the Extole platform to understand if a reward has been submitted to BHN, if it's been processed and sent to the recipient, or if the reward failed. Refer to the table below for additional information on reward stages in the Extole platform.
+
+<img src="https://files.readme.io/20b5ce8d8ef27ba0362a3bc3266908f35bc75219a9ca702c23f9706dc18fbeb0-77754c9577a4269e8c0b6e247f33fc60754eae832d7eb791659f6fe5a5d7c56f-Screenshot_2025-01-29_at_12.25.21_PM.png" alt="" />
+
+Refer to BHN's Developer Documentation for more detailed information on card ordering and response codes for [physical prepaid cards](https://developer.blackhawknetwork.com/hawkmarketplace/docs/placing-prepaid-card-personalized-individual-orders#submitting-the-order), [re-loadable cards](https://developer.blackhawknetwork.com/hawkmarketplace/docs/reloadable-personalized-prepaid-card-orders#responses), and [digital prepaid cards](https://developer.blackhawknetwork.com/hawkmarketplace/docs/placing-prepaid-card-personalized-individual-orders#submitting-the-order).
+
+<table>
+  <thead>
+    <tr>
+      <th>
+        Reward State in Extole
+      </th>
+
+      <th>
+        Definition
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        `EARNED`
+      </td>
+
+      <td>
+        Extole has submitted a card order to BHN and is waiting on confirmation from BHN whether the order has been processed or has failed.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `TRYING TO FULFILL`
+      </td>
+
+      <td>
+        BHN has responded to Extole's order request and is processing the card order.
+
+        -Physical Prepaid Single Load cards take up to 2-3 business days to process.
+
+        -Physical Prepaid Re-Loadable Cards take up to 2-3 business days to process the initial card order, and then 24 hours for any subsequent re-loads.
+
+        -Digital Prepaid Single Load Cards take up to 24 hours to process.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `SENT`/ `FULFILLED`
+      </td>
+
+      <td>
+        BHN has successfully processed the order and has sent the card to the recipient via email/post. Physical cards take an additional 7-10 business days to arrive in the mail.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `FAILED`
+      </td>
+
+      <td>
+        BHN was not able to process the order, either due to an improperly formatted request (400), a duplicate request ID (409), or a system error (500).
+
+        Extole's monitoring system will automatically detect failures and triage them into tickets for resolution via the Extole support team. In the case of a 409 (duplicate request ID), Extole Support may re-send the request to BHN with an updated request ID. In the case of a 400 or 500, Extole will reach out to the BHN account manager to cancel the reward and then submit a new order to BHN for processing.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `CANCELED/REVOKED`
+      </td>
+
+      <td>
+        An order has been manually canceled or revoked inside of the Extole platform. This is a manual operation done by the Extole customer support team. Any order canceled in the Extole platform also to be canceled in the BHN Program Modeler patform.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+### How do I cancel a reward?
+
+By default rewards that are in an `EARNED`, `TRYING TO FULFILL`, or `SENT/FULFILLED` state have either already been delivered to the recipient or are in processing and cannot be canceled inside of the Extole platform. In some cases, you may be able to manually intervene in the BHN platform and attempt to reverse the reward if the recipient has not redeemed the card yet. Please read the following steps to attempt to reverse the reward order in BHN's Program Modeler:
+
+1. Look up the order number for the reward in the Extole platform. The Order number is the `Partner ID` located on the Reward event.
+
+   <img src="https://files.readme.io/4f1074794c1ec074572cbe8f85bb89d995a1ceb96a365bc76460087d66a96b61-3b82f9cbc43ed16d71e9b5d041dfaea03432a0a386fa6bf73c1a518c0c43f29d-image_2.png" alt="" />
+
+   <br />
+2. Log in to BHN's program modeler and look up the order number to see if it can reversed. For reloadable cards, reversals must be submitted within the 10‑day window of ordering. For single‑load cards, the card must be unused and at least 30 days prior to expiration.
+3. Once you've reversed the reward, navigate back to the Reward in the Extole system and select`Mark as Revoked`if the reward had already been fulfilled, or `CANCEL` if it was in processing.
+
+<img src="https://files.readme.io/5a6dab10439e205aac86884156b97223f34f74dc2194c3fea42d24c133bef5e4-f2f82069cc204caf20dbc8642b6f86ca0f93a0481c5afa8a66d64e4b72ec3764-Screenshot_2025-04-18_at_8.32.38_AM.png" alt="" />
+
+<br />

@@ -1,0 +1,409 @@
+---
+title: "Reward Webhooks"
+description: "Learn more about the most frequent use case for Extole outbound webhooks."
+---
+
+## Setting Up Reward Webhooks in My Extole
+
+[//]: # "How do I send rewards using webhooks?"
+
+Extole supports multiple ways of knowing which rewards have been earned, including reports, API calls, delivery to internal and external SFTP servers, and real-time webhooks.
+
+Webhooks are most useful when you are trying to apply real-time account credits into an advocate or friend's account as part of your program.
+
+Go to [Outbound Webhooks](https://my.extole.com/tech-center/outbound-webhooks) located within the Tech Center of your My Extole account to configure your webhook. 
+
+Under the Advanced section, you can filter the webhooks for certain reward states or suppliers. 
+
+[//]: ___
+
+<img src="https://files.readme.io/e50c6b9902c7984d8a97bf908a42ce44b147b94112241dc2bcef191e7f370ae9-66e6c7a-Screen_Shot_2019-10-01_at_3.17.38_PM.png" alt="Screen Shot 2019-10-01 at 3.17.38 PM.png" width="60%" />
+
+## Filters
+
+[//]: # "How do I make it so rewards webhooks are only sent under certain conditions?"
+
+### Events
+
+When you are filtering your events, you will likely want to only include rewards in a given state. The supported reward states are as follows:
+
+* Earned
+* Fulfilled
+* Failed
+* Sent
+* Redeemed
+* Canceled
+* Revoked
+
+For definitions of each of these states, please see the Additional Attributes table below.
+
+#### Use cases
+
+* If you want to fulfill account credits in real time, you will call for the **Earned** state. 
+* If you want to apply coupon codes to an account, you will call for the **Fulfilled** state. 
+* If you want to make a coupon code active when Extole distributes it, you will call for the **Fulfilled** state. 
+
+[//]: ___
+
+### Reward Supplier Name
+
+[//]: # "What is a reward supplier name?"
+
+This is the name of your reward. You can find the names of your rewards in your [Rewards Center](https://my.extole.com/account-rewards) by looking at your rewards table.
+
+[//]: ___
+
+![](https://files.readme.io/626ded9d812e44d554f0686e17511698101798d9745ad4c0fe27bb6f285af8c2-3c86a0f-Screen_Shot_2019-10-01_at_3.26.27_PM.png "Screen Shot 2019-10-01 at 3.26.27 PM.png")
+
+## Security
+
+Security and signature information is available on our [Webhooks](/api-reference) page.
+
+## Reward Event Payload
+
+[//]: # "What does a basic reward event payload for a webhook look like?"
+
+The event payload of a reward webhook post always contains the `reward_id` and the `data` parameters associated with the event that triggered the webhook. See an example payload below.
+
+`reward_id`
+
+### Additional Attributes
+
+Certain reward events may have additional attributes.
+
+| Event Name                   | Definition                                                                                                                                                            | Extra Attributes                                                                                                                   |
+| :--------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------- |
+| `EarnedRewardEvent`          | Fired every time a customer earns a reward. For coupon codes, this event contains the earned code.                                                                    | No extra attributes                                                                                                                |
+| `FulfilledRewardEvent`       | Fired every time a reward is fulfilled. This may be when a coupon is allocated, a gift card is allocated, or an account is credited.                                  | `partner_reward_id`- partner's ID for the fulfilled reward, often the coupon code, sometimes the account credit ID or gift card ID |
+| `FailedFulfilledRewardEvent` | Fired every time a reward fulfillment fails. This may be because a supplier is out of coupons, there are insufficient funds, or services are temporarily unavailable. | No extra attributes                                                                                                                |
+| `SentRewardEvent`            | Fired every time a reward is sent to the customer                                                                                                                     | `email` - optional email to which the reward was delivered                                                                         |
+| `RedeemedRewardEvent`        | Fired every time a reward is redeemed by the customer                                                                                                                 | `partner_event_id` - partner ID associated with redemption (e.g., `order_id`)                                                      |
+| `CanceledRewardEvent`        | Fired every time a reward is canceled                                                                                                                                 | No extra attributes                                                                                                                |
+| `RevokedRewardEvent`         | Fired every time a reward is revoked                                                                                                                                  | No extra attributes                                                                                                                |
+| `FailedRewardEvent`          | Fired when Extole stops attempting to deliver the reward or the reward system informs of failure                                                                      | No extra attributes                                                                                                                |
+
+[//]: ___
+
+## Event Delivery Details
+
+[//]: # "How are events delivered by webhooks?"
+
+A webhook will POST to the specified URL. An event will be considered delivered when Extole receives a 200 OK after posting the event to the webhook URL.
+
+A webhook will attempt to deliver events for up to 4 attempts. 
+
+* First time: When the event happens
+* First retry: 1 hour after the previous failure attempt
+* Second retry: 3 hours after the previous failure attempt
+* Third retry:  12 hours after the previous failure attempt
+
+Due to the asynchronous nature of the webhooks, the delivery order of events is not guaranteed.
+
+**Recommendations** :  
+
+* It is generally advised to not process the event in the same flow it was received in order to avoid timeouts. Instead, save the event as quickly as possible and return 200, proceeding with event processing later in a separate flow.
+
+* The same event may be delivered more than once due to different reasons (timeout, lost connection, etc) - when we did not get the 200 response but you received the event. So idempotency should be implemented on the webhook listener side, responding with 200 if such event was previously delivered (the retry attempts from Extole side will be stopped). 
+
+* If events are ever lost they can be retrieved via the rewards endpoints.
+
+[//]: ___
+
+## Set Up Reward Event Filters
+
+[//]: # "How do I set up reward event filters for my webhook?"
+
+By default webhook has no filters, this means all reward events are going to be delivered on the specified webhook's URL. If you are interested only in a subset of events, add filters to the webhook in the advanced section:
+
+![](https://files.readme.io/ce93f5b94286e1cfb5880a38b1e33a9d154ad4f1e65db709b3e924e173c8fcd1-11ed6bd-Filters.png "Filters.png")
+
+If multiple filters are present, they are evaluated as **boolean expression**, considering **OR** operators within the same group of filters (STATE, SUPPLIER), and considering **AND** operators between the groups.
+
+For example, a webhook with three filters could look like the following:
+
+* Filter 1, state = `FAILED`
+* Filter 2, supplier = `supplier_a_id`
+* Filter 3, supplier = `supplier_b_id`
+
+The event will be sent to a webhook URL when the filters evaluate to true:
+
+`(state == FAILED ) AND ( supplier == supplier_a_id OR supplier == supplier_b_id)`
+
+[//]: ___
+
+## Filter Reward Events by State
+
+[//]: # "How do I filter my reward events by state?"
+
+Extole supports filtering reward events by state. A new reward event is fired when a new state for the reward is created.
+
+For example, a reward with state `SENT` transitioned to `REDEEMED` will fire the `reward_redeemed` event.
+
+Below are all the states and related events.
+
+<table>
+  <thead>
+    <tr>
+      <th>
+        State
+      </th>
+
+      <th>
+        Event
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        EARNED
+      </td>
+
+      <td>
+        `reward_earned`
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        FULFILLED
+      </td>
+
+      <td>
+        `reward_fulfilled`\
+        `reward_fulfillment_failed`
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        SENT
+      </td>
+
+      <td>
+        `reward_sent`
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        REDEEMED
+      </td>
+
+      <td>
+        `reward_redeemed`
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        REVOKED
+      </td>
+
+      <td>
+        `reward_revoked`
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        FAILED
+      </td>
+
+      <td>
+        `reward_failed`
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        CANCELED
+      </td>
+
+      <td>
+        `reward_canceled`
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+[//]: ___
+
+## Filter Reward Events by Reward Supplier
+
+[//]: # "How do I filter my reward events by reward supplier?"
+
+If you are interested only in reward events from a specific reward supplier (e.g., only your friend coupon rewards), you can add supplier filter to the webhook.
+
+[//]: ___
+
+## Marking a Reward as Fulfilled
+
+[//]: # "How do I mark a reward as fulfilled?"
+
+After you have received a reward and fulfilled it into your account credit system, you should mark the reward as "fulfilled" in Extole. This will cause Extole to stop sending retries for the reward and Extole can send out a reward fulfillment email to the recipient.
+
+`data`
+
+### Input Fields
+
+<table>
+  <thead>
+    <tr>
+      <th>
+        Field Name
+      </th>
+
+      <th>
+        Description
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        `message`
+        **required**
+      </td>
+
+      <td>
+        A message about the fulfillment that can appear. It can simply be "fulfilled."
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `partner_reward_id`\
+        *optional*
+      </td>
+
+      <td>
+        An optional unique reward identifier for the reward on your side such as a confirmation code or number. **This is often the coupon code, and sometimes the account credit ID or gift card ID**.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `cost_code`\
+        *optional*
+      </td>
+
+      <td>
+        If you need to track the reward to a cost code, this can be used. This allows for reporting from Extole rewards based on cost code.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+### Response Fields
+
+<table>
+  <thead>
+    <tr>
+      <th>
+        Field
+      </th>
+
+      <th>
+        Description
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        `reward_id`
+      </td>
+
+      <td>
+        The Extole unique identifier for the reward.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `reward_supplier_id`
+      </td>
+
+      <td>
+        The Extole unique reward supply ID.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `partner_reward_supplier_id`
+      </td>
+
+      <td>
+        The partner identifier configured inside of Extole for this identifier.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `person_id`
+      </td>
+
+      <td>
+        The Extole unique identifier for the Person who earned the reward.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `partner_user_id`
+      </td>
+
+      <td>
+        The partner identifier for this user. This ID is something YOU passed to Extole in the tags or events.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `email`
+      </td>
+
+      <td>
+        The email address in Extole for reward recipient.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `partner_reward_id`
+      </td>
+
+      <td>
+        The partner ID, if set. **This is often the coupon code, and sometimes the account credit ID or gift card ID**.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `state`
+      </td>
+
+      <td>
+        Will respond with the reward state, which is `FULFILLED`.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `created_at`
+      </td>
+
+      <td>
+        Indicates when the reward was created at (e.g.,\
+        2020-05-28T13:53:02.175-05:00).
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+[//]: ___

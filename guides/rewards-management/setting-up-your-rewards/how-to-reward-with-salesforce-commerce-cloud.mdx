@@ -1,0 +1,55 @@
+---
+title: "How to Reward with Salesforce Commerce Cloud"
+description: "You can use the Extole Salesforce Commerce Cloud Cartridge as a reward option. This integration allows you to automatically replenish coupons without the need to upload coupon codes into My Extole."
+---
+
+# Overview
+
+You can use the Extole Salesforce Commerce Cloud Cartridge as a reward option. This integration allows you to automatically replenish coupons without the need to upload coupon codes into My Extole.
+
+# Connect Salesforce Commerce Cloud to Extole
+
+The first step of enabling this reward option is to [install and configure the Extole Cartridge](https://www.salesforce.com/products/commerce-cloud/partner-marketplace/partners/extole/). You can follow our guide on this process here: [Salesforce Commerce Cloud (SFRA).](https://docs.extole.com/docs/salesforce-commerce-cloud-sfra)
+
+# Set Up Your Integration in My Extole
+
+In your My Extole account, navigate to [Tech Center > Integrations](https://my.extole.com/tech-center/integrations). Click on the SFCC tile to set up your integration. You will need to enter your SFCC account information.
+
+Once your accounts are linked, you will need to set up your coupons in the Rewards center of your My Extole account.
+
+# Configure SFCC Coupons in My Extole
+
+Go to the [Rewards](my.extole.com/account-rewards) page of your My Extole account.
+
+Click the + New Reward button in the top right corner of the page and select Salesforce Commerce Cloud.
+
+![Screen_Shot_2018-05-18_at_12.47.48_PM.png](https://extole-5ef307a0e5b1.intercom-attachments-1.com/i/o/syy27wia/1421734831/fb086a6ef4954b89bd5d2735c745/Screen_Shot_2018-05-18_at_12_47_48_PM.png?expires=1778306400&signature=db815ba7dd79e312a6c3a90ec98aa16b5b1f9c91295f914e8ab33ee4f2f2fc27&req=dSQlF859mYlcWPMW3nq%2BgdZvUukxXf3vx9os24QjW62mNxBdE77g3pPRFyg6%0A5O2WK55zXrjh7Jl6J5BUN4THQgg%3D%0A)
+
+**SFCC Coupon Sets**: These sets will be configured in your SFCC account. Extole will pull in all sets associated with the SFCC account you set up in your integration.
+
+- **Name**: This will automatically pull from the SFCC Coupon Set. If you want to rename it in our platform you can.
+- **Value**: This is the value of the coupon codes you are configuring.
+- **Type**: This is the type of coupon code (e.g., USD, percent off, credits, etc.)
+- **Refill Amount**: This is the number of coupon codes you will want automatically refilled when you hit a minimum threshold.
+
+# Viewing Your Reward and Troubleshooting
+
+Once your reward is created, you can click on either the specific coupon set or the reward type itself.
+
+![Screen_Shot_2018-05-18_at_12.56.26_PM.png](https://extole-5ef307a0e5b1.intercom-attachments-1.com/i/o/syy27wia/1421734837/7128f6877d11626098d430991409/Screen_Shot_2018-05-18_at_12_56_26_PM.png?expires=1778306400&signature=06a0e825689c3405c901fc69ef9ea08cd0547c9bb947d01ab55344f1bc4fb74b&req=dSQlF859mYlcXvMW3nq%2BgW%2BetVjSGruC%2FrsINZFB%2BDHk5whV%2FjAAMpdUigp5%0AWOmLHb11qXDJmBHq3rwB1AkYc5I%3D%0A)
+
+**If you select the reward type (Salesforce Commerce Cloud)**
+
+This will take you to the reward type and give you a high-level overview of all of your Salesforce Commerce Cloud (SFCC) coupon codes.
+
+The table will tell you the name of the coupon, remaining coupons in that pool, the number of coupons distributed, the total amount that has been inputted, and the value.
+
+ ![Screen_Shot_2018-05-18_at_12.57.19_PM.png](https://extole-5ef307a0e5b1.intercom-attachments-1.com/i/o/syy27wia/1421734830/1861e639bd26411c1d4b4d12c8c0/Screen_Shot_2018-05-18_at_12_57_19_PM.png?expires=1778306400&signature=2c7413b2938ce398af9ae5c6b1920b724176cdc5305a56898b906a4bd2baa2df&req=dSQlF859mYlcWfMW3nq%2Bgetx%2Bc5uqflyOUZUZBQa3V32fzjRWl%2F%2FRs3dtwFD%0AYWGxVj8T8ztwDglGDYlXocL86HA%3D%0A)
+
+**If you select the actual reward (your coupon set)**
+
+This will take you to all of the coupon code details you configured within the platform. It will also show you the all of the requests Extole has made to Salesforce to get more codes. This is extremely important when troubleshooting the reward activities and ensuring that everything is hooked up properly.
+
+If you would like to do a manual coupon refill, you can click the "Refill Manually" button.
+
+ ![Screen_Shot_2018-05-18_at_12.57.10_PM.png](https://extole-5ef307a0e5b1.intercom-attachments-1.com/i/o/syy27wia/1421734833/b3033cf91b24267d6fcefd2aaa9a/Screen_Shot_2018-05-18_at_12_57_10_PM.png?expires=1778306400&signature=f32ef1998b315d01e5c53a5f0f7e3a7b2fd2cbfd453c7d971f54c2255774c19f&req=dSQlF859mYlcWvMW3nq%2BgTNbkZnkRCtIcI%2FvEq%2FVvaMlHnr8v%2BgLhSHo%2Bx%2B2%0AVQNZVPXVPCLLVJYqzcPrCG3k8hI%3D%0A)

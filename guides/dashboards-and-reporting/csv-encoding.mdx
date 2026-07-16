@@ -1,0 +1,22 @@
+---
+title: "CSV Encoding"
+description: "When downloading data in CSV format, there are some values that need to be quoted. Extole uses the following algorithm for determining which values to quote:"
+---
+
+When downloading data in CSV format, there are some values that need to be quoted. Extole uses the following algorithm for determining which values to quote:
+
+1. If the value contains a comma or any ASCII character lower than a comma - this includes a space and `,!"#$%&'()*+`
+2. If the value is longer than 24 characters
+
+Here are some examples:
+
+| **Value in CSV File** | **Reason for Quoting** |
+| --- | --- |
+| test@example.com[](mailto:test@example.com) | None |
+| "johnrichardsdoe@example.com[](mailto:johnrichardsdoe@example.com)" | Over 24 characters |
+| "coupon1,coupon2" | Comma in value |
+| "United States" | Space in value |
+| refer-a-friend | None |
+| "test+1@example.com[](mailto:test+1@example.com)" | Plus in value |
+
+For more information on SFTP and file transfers, see: [https://docs.extole.com/docs/sftp-and-batch-file-conventions](/guides/dashboards-and-reporting/integrating-reports/sftp-and-batch-file-conventions).

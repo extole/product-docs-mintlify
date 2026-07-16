@@ -1,0 +1,270 @@
+---
+title: "Salesforce CRM to Extole (Apex and Flows)"
+description: "Send event data from Salesforce CRM (Salesforce Sales Cloud) to Extole using Apex triggers and automate your processes using Flows."
+---
+
+## Overview
+
+[//]: # "Does Extole have an integration with Salesforce CRM?"
+
+Integrating Extole and Salesforce CRM (also known as Salesforce Sales Cloud) allows you to set up Apex triggers that correspond to key events in your lead generation program design. When these events occur, you can configure Flows so that the data automatically fires into Extole. 
+
+[//]: ___
+
+## Prerequisites
+
+[//]: # "What is required to integrate with Salesforce CRM?"
+
+| Requirements                                    | Description                                                                                                                                           |
+| :---------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Salesforce Sales Cloud Account and Admin Access | You must have a Salesforce Sales Cloud account and admin-level access, as well as familiarity with the platform, in order to set up this integration. |
+| Extole Account                                  | You must have an Extole account to leverage this integration.                                                                                         |
+
+[//]: ___
+
+## Integration
+
+[//]: # "How do I send Lead Created events from Salesforce CRM to Extole?"
+
+### Send Lead Created Events
+
+When leads are created, trigger a RESTful API call to Extole.
+
+#### Set Up Basic Configuration
+
+You must be a system administrator in order to complete the following steps.
+
+1. Navigate to Setup > Remote Site Settings > New and add `<https://api.extole.io`>.
+2. Go to Setup > Apex Classes > New and create an Apex class with an invocable method by copying and pasting the code below.
+3. Edit the code to query fields on your specific Lead object (line 9), and add those in to be sent to Extole in the request body (line 12)
+
+`<https://api.extole.io`
+
+#### Automate using Flow on Lead Object
+
+1. Go to Setup > Process Automation > Flow > New Flow > Record Triggered Flow > Create.
+2. Select the Object and configure the Trigger by checking the option `A record is created`.
+3. Choose to optimize the flow for Actions and Related Records.
+
+<img src="https://files.readme.io/b1ec631bd55bcac08d586909eb8050b490b0613d40dd07be6d694cdd87d1260b-fb36237-Screen_Shot_2022-10-18_at_1.23.58_PM.png" alt="" />
+
+4. Click on the + sign to add an element, then select `Action`.
+
+<img src="https://files.readme.io/3a1e8529533541e365fb8a4ef5cdbdebc679c79c50987dfb86cbdf8ae732c265-e51a884-Screen_Shot_2022-11-07_at_9.59_1.png" alt="" />
+
+5. Select the Apex Action and Controller you just created.
+
+![](https://files.readme.io/3b9a41bb5159916a2433cdc50ea73a9b81b764642601fae0fab067707c08314b-a5e7d77-Screen_Shot_2022-10-18_at_1.26.30_PM.png)
+
+5. Select Apex Action and set the input value for `leadId` as `{!$Record.Id}`.
+
+![](https://files.readme.io/93acdecf5a60b20849aef09b0b7338e768cb594365d560bbebb0e531988a3572-3d462af-Screen_Shot_2022-10-18_at_1.27.33_PM.png)
+
+6. Your final result should look like this:
+
+![](https://files.readme.io/41ac94c9d29e8311cee21a7eaa21363964ec0a105e18deb10d72671443bd0029-1b7a803-Screen_Shot_2022-10-18_at_1.28.08_PM.png)
+
+7. Activate the flow and test it by creating the Lead Record.
+
+[//]: ___
+
+### Send Lead Converted (Opportunity Created) Events
+
+[//]: # "How do I send Lead Converted events from Salesforce CRM to Extole?"
+
+When created leads convert to an opportunity, trigger a RESTful API call to Extole.
+
+#### Set Up Basic Configuration
+
+You must be a system administrator in order to complete the following steps. The flow will be triggered when the lead will be converted (not on opportunity creation).
+
+1. Navigate to Setup > Remote Site Settings > New and add `<https://api.extole.io`>.
+2. Go to Setup > Apex Classes > New and create a new Apex class with an invocable method by copying and pasting the code below. 
+3. Edit the code to query fields on your specific Lead object (line 9), and add those in to be sent to Extole in the request body (line 12)
+
+`A record is created`
+
+<Info>
+**Important Notes**
+
+
+* This sample code may not reflect your SFDC configuration or custom fields. It may need updating to use fields your team is taking advantage of.
+* Feel free to rename the label or variable as per your org coding guidelines. 
+* The method is tagged with `@InvocableMethod`, which enables this class to be used by Flow. 
+* Keep the auth token in custom metadata or a custom label.
+</Info>
+
+#### Automate using Flow on Lead Object
+
+For the following steps, you must have System Administrator permission. You must also have a basic understanding of how to create a flow and add filters and actions.
+
+1. Go to Setup > Process Automation > Flow > New Flow > Record Triggered Flow > Create.
+2. Select the Object and configure the Trigger by checking the option `A record is updated`.
+3. Open the Condition Requirements dropdown and select `All Conditions Are Met (AND)`. Set the Field as `IsConverted`, the Operator as `Equals`, and the Value as `True`.
+4. Choose to run the flow for updated records every time a record is **updated to meet the condition requirements**.
+5. Choose to optimize the flow for Actions and Related Records.
+
+![](https://files.readme.io/87708b4d4f18040837f5c52a84fdfe490c24cd656b288f31fa7281d83d9e1a0a-275e4ce-Screen_Shot_2022-11-07_at_9.59_1.png)
+
+6. Click on the + sign to add an element, then select `Action`.
+
+![](https://files.readme.io/f962565507a3d74f27995c0c7e6869f673c4169a9a3b0c79190e20b49f63a828-0bc36fe-Screen_Shot_2022-11-07_at_9.59_1.png)
+
+7. Select the Apex Action and Controller you just created.
+
+![](https://files.readme.io/e470d9aeebd2994df4e9dc5c6a728348d65cd03e6e145d0350beba1156e661ab-6b52553-Screen_Shot_2022-10-18_at_2.09.18_PM.png)
+
+8. Select the Apex Action and set the input value for `leadId` as `{!$Record.Id}`.
+
+![](https://files.readme.io/31b51e4e8a600e0300768d31488d7094dc0e96182a7cad7b2dcabeac51fee044-a6ba7d5-Screen_Shot_2022-10-18_at_2.10.51_PM.png)
+
+9. Your final result should look like this:
+
+![](https://files.readme.io/fdc64a0d27f519c9ff49cca874376e3acbdd110499309fb3ec3c4e2abfde67de-5c46079-Screen_Shot_2022-10-18_at_2.12.09_PM.png)
+
+10. Active the flow and test it by converting the Lead Record.
+
+[//]: ___
+
+### Send Opportunity Closed / Won Events
+
+[//]: # "How do I send Opportunity Closed or Won events from Salesforce CRM to Extole?"
+
+When an opportunity is closed or won, trigger a RESTful API call to Extole.
+
+#### Set Up Basic Configuration
+
+You must be a system administrator in order to complete the following steps.
+
+1. Navigate to Setup > Remote Site Settings > New and add `<https://api.extole.io`>.
+2. Go to Setup > Apex Classes > New and create a new Apex class with an invocable method by copying and pasting the following code:
+3. Edit the code to query fields on your specific Opportunity object (line 9), and add those in to be sent to Extole in the request body (line 12). You may need to use an identifier in the Opportunity object to query a different Object to get the required data. This should happen inside of the for loop on line 11
+
+`Action`
+
+<Info>
+**Important Notes**
+
+
+* This sample code may not reflect your SFDC configuration or custom fields. It may need updating to use fields or objects your team is taking advantage of. 
+* Feel free to rename the label or variable as per your org coding guidelines.
+* The method is tagged with `@InvocableMethod`, which enables this class to be used by Flow.
+* Keep the auth token in custom metadata or a custom label.
+</Info>
+
+#### Automate using Flow on Lead Object
+
+For the following steps, you must have System Administrator permission. You must also have a basic understanding of how to create a flow and add filters and actions.
+
+1. Go to Setup > Process Automation > Flow > New Flow > Record Triggered Flow > Create.
+2. Select the Object and configure the Trigger by checking the option `A record is created or updated`.
+3. Open the Condition Requirements dropdown and select `All Conditions Are Met (AND)`. Set the Field as `StageName`, the Operator as `Equals`, and the Value as `Closed Won`.
+4. Choose to run the flow for updated records every time a record is **updated to meet the condition requirements**.
+5. Choose to optimize the flow for Actions and Related Records.
+
+![](https://files.readme.io/a49677afc06feb332870c5c3312c351f8ff04f0d2cdeb54d61f3513617027f78-e017383-Screen_Shot_2022-10-18_at_2.29.14_PM.png)
+
+6. Click on the + sign to add an element, then select `Action`.
+
+<img src="https://files.readme.io/287c7a5a78764926a7c5936d908e9cbb7fb3097a659054118848e7d5ea6adc1a-a31382e-Screen_Shot_2022-11-07_at_9.59_1.png" alt="" />
+
+7. Select the Apex Action and Controller you just created.
+
+<img src="https://files.readme.io/ba5da0787c2ccc2ad3f2b10df0e8818c4138b18a19f055156bea99ea270c0052-bba45d4-Screen_Shot_2022-10-18_at_2.30.48_PM.png" alt="" />
+
+8. Select the Apex Action and set the input value for `opportunityId` as `{!$Record.Id}`.
+
+![](https://files.readme.io/23653baaa37fe71a4db79a43833ad7631b1d79397deeedc4590b470242dea672-ae44ea1-Screen_Shot_2022-10-18_at_2.31.33_PM.png)
+
+9. Your final result should look like this:
+
+![](https://files.readme.io/ee28dc0861d7b2fbd0ac0a0698c4aa620add011d14e346d157151c253288a3db-15fe2fb-Screen_Shot_2022-10-18_at_2.33.38_PM.png)
+
+10. Activate and test the flow by changing or creating closed won opportunities.
+
+[//]: ___
+
+## How-To Guide
+
+[//]: # "How do I debug the Salesforce CRM integration with Extole?"
+
+### Debug Instructions
+
+To debug, you can use the standard debugging options for Salesforce.
+
+1. In your Apex code, put `System.debug()` where you would like to debug.
+2. Go to Setup and type Debug Log into the search bar. 
+3. Click on Debug Logs from your search results. 
+4. Click the New button to enable the debug log for a user.
+5. Select User from the Traced Entity Type dropdown.
+6. Enter `SFDC_DevConsole` for the Traced Name Entity and Debug Level.
+7. Save the log.
+
+![](https://files.readme.io/1a4ed9d8e03cc0c0b9bbe41705646454d63aac05d1b847af97f32fd9cf99f39f-c6fe317-Screen_Shot_2022-10-18_at_2.39.18_PM.png)
+
+8. After setting up the debug log, perform an operation to execute the flow/trigger. For example,  you could create a lead, convert a lead, or close an opportunity.
+9. Executing a flow will generate debug logs. Refresh the debug log page to see them.
+10. Look for the most recent log and download it to see the response from Extole.
+
+<Info>
+**Debug Help**
+
+
+Still need help with debugging? Reference the following Salesforce articles.
+
+* [Debugging Your Code](https://help.salesforce.com/s/articleView?id=sf.debugging_your_code.htm\&type=5)
+* [Debugging Apex](https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_debugging.htm)
+</Info>
+
+[//]: ___
+
+### Send Additional Salesforce Events to Extole
+
+[//]: # "How do I send other Salesforce CRM events to Extole?"
+
+There are two primary steps that must be set up for an event.
+
+1. Create a Service Apex Class that can be used by a flow.
+2. Create a flow to run for the specified events.
+
+#### Create Service Apex Controller
+
+You must be a system administrator in order to complete the following steps.
+
+1. Navigate to Setup > Remote Site Settings > New and add `<https://api.extole.io`>.
+2. Go to Setup > Apex Classes > New and create a new Apex class with an invocable method by copying and pasting the following code:
+
+`leadId`
+
+<Info>
+**Important Notes**
+
+
+* Feel free to rename the label or variable as per your org coding guidelines.
+* Replace the object name and update the query as necessary.
+* Update the endpoint and other details as necessary.
+* Keep the auth token in custom metadata or a custom label.
+</Info>
+
+#### Create Flow
+
+For the following steps, you must have System Administrator permission. You must also have a basic understanding of how to create a flow and add filters and actions.
+
+1. Go to Setup > Process Automation > Flow > New Flow > Record Triggered Flow > Create.
+2. Select the Object and configure the Trigger. For example, to fire the call when a lead is created, here you would select the Lead object.
+3. Set the Entry Conditions according to your object and trigger.
+4. Choose to optimize the flow for Actions and Related Records.
+5. Click on the + sign to add an element, then select `Action`.
+6. Select whatever Apex Action and controller you want.
+7. Select Apex Action and set the input value as `{!$Record.Id}`.
+8. Activate the flow and test it by conducting whatever action triggers the event.
+
+[//]: ___
+
+### Send Additional Data Attributes to Extole
+
+[//]: # "Can I send additional data attributes from Salesforce CRM to Extole?"
+
+Parameters are passed to Extole's Events API using Apex controllers. Parameters are passed a JSON (key, value pair). You can add as many additional data attributes as you want in the JSON.
+
+[//]: ___
