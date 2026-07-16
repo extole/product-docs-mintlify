@@ -524,7 +524,6 @@ def build_docs_json(tabs):
         "colors": {"primary": "#7C3AED", "light": "#A78BFA", "dark": "#5B21B6"},
         "favicon": "/favicon.svg",
         "navigation": {"tabs": tabs},
-        "logo": {"light": "/logo/light.svg", "dark": "/logo/dark.svg"},
         "navbar": {
             "links": [{"label": "docs.extole.com", "href": "https://docs.extole.com"}],
             "primary": {"type": "button", "label": "my.extole.com", "href": "https://my.extole.com"},
