@@ -1,0 +1,47 @@
+---
+title: "How to Reward with Account Credits"
+description: "Account credits are another way to reward loyal customers who share your site with friends. Account credits can be awarded as discounts, redeemable points or cash."
+---
+
+# Overview
+
+Account credits are another way to reward loyal customers who share your site with friends. Account credits can be awarded as discounts, redeemable points or cash.
+
+Account credits differ from other reward options in that they are tied to user accounts. You can use them to reward friends who have created new accounts and the advocates who referred them. Account credits can also be combined with other reward options such as coupon-codes and gift cards, adding variety to your campaign.
+
+# Add Account Credits
+
+To add account credits, create a new reward in the [Rewards](https://www.my.extole.com/account-rewards) section of your Extole account.
+
+1. Navigate to **Rewards** and hit **+ New Reward**.
+2. Choose **Custom Reward**.
+3. Enter a descriptive name and set the Denomination (USD, CAD, percentage off, etc.), the Type (Account Credit or Loyalty Points), and specify the Fixed or Dynamic value.![Screenshot 2024-08-22 at 2.05.42 PM.png](https://extole-5ef307a0e5b1.intercom-attachments-7.com/i/o/syy27wia/1421734907/a7bfd1c80974d0f9a8f03a247c96/32632662391443?expires=1778306400&signature=7fd8042edc622d6a768a736479f9a8ef69e6d6dfa9ba3a8357a42cdd2f466d36&req=dSQlF859mYhfXvMW3nq%2BgbaKJoXO8zfR%2BRRhUJBgFPbu960ZgkXTuVbMZK3%2F%0ApGCBlCF3SzQbk7elBQ1AbqbElDg%3D%0A)
+4. Select your fulfillment method.![Screenshot 2024-08-22 at 2.10.42 PM.png](https://extole-5ef307a0e5b1.intercom-attachments-7.com/i/o/syy27wia/1421734909/21dc82f8dc86b0758338e12fdf95/32632654761747?expires=1778306400&signature=65c03800c287c3619cd3c220fa6bd6e6479fbbce39d7762207a614e7f9fdc6af&req=dSQlF859mYhfUPMW3nq%2BgUXKle3JUqckB1mf%2FLmjrBm%2BED72JMqZnUP7LlMi%0ALd7c3exOTS2sZ0JQC%2B8NOmLp5V0%3D%0A)
+5. Enable or disable reward emails.![Screenshot 2024-08-22 at 2.14.05 PM.png](https://extole-5ef307a0e5b1.intercom-attachments-7.com/i/o/syy27wia/1421734904/25ee6bd3c1584f43ba23cecb1041/32632654765459?expires=1778306400&signature=6cafaba9d9dc1218ce883e01e7e2b7f27ad300b3ba3304cab9024b88691338ee&req=dSQlF859mYhfXfMW3nq%2BgXB9LCQI6yQJrVUaWfGbY3QVEmvc2DTArRtE0a5k%0AUaDVEEDctg4q2j0JGkvvf%2Bv8Wq4%3D%0A)
+6. Set Limits to alert you when too many rewards are fulfilled in an hour or a day.![Screenshot 2024-08-22 at 2.14.17 PM.png](https://extole-5ef307a0e5b1.intercom-attachments-7.com/i/o/syy27wia/1421734905/855081471ca42c742cef3a589cd1/32632654776595?expires=1778306400&signature=aa3d238bb4fed5775339d9559f198ab8f559a853b589e612602784606c79042f&req=dSQlF859mYhfXPMW3nq%2BgZRcckST%2BdDAC0w3ff2oRXL8N1%2BcUzE4CsI96%2FyB%0AbwfZ0exN7KavAldmpuft10%2B53C4%3D%0A)
+7. Specify if you would like to be alerted when rewards are not fulfilled within a certain timeframe or if you would like to fail rewards that have not been fulfilled within a certain timeframe.
+
+# Use the Get Rewards API to Apply Daily Account Credits
+
+Extole tracks account credits earned by advocates and friends, based on the incentive rules selected during the configuration process. A tally of generated and fulfilled rewards is maintained by the Rewards API. A daily call to the Reward API provides a list of the previous day’s account credits, but it is up to you to apply these credits to the correct accounts on your website.
+
+The Rewards API will return two pieces of identifying information for each account as it tallies account credits:
+
+1. **recipient_email** – the email address of the person who has earned the account credit
+2. **recipient_identifier** – usually this is the unique **partner_user_id** that was passed to Extole through the sharing experience in a zone tag
+
+# Frequently Asked Questions
+
+## Are there any restrictions on Amount types?
+
+Amount type values are completely at your discretion. **Points** can be accrued and **percent off** can be applied to either the advocate or friend account. Cash incentives are applied in **USD** currency, or in any of the international currencies listed in the dropdown menu.
+
+## How quickly does an advocate receive an account credit after a friend's conversion?
+
+Rewards are provided within minutes of conversion approval. If your conversion events are auto-approved, rewards could be realized immediately. If you wait for a 30-day return period to pass before approving events, it may take up to 30 days after the event.
+
+The Extole Rewards API may be called for the same day, but Extole will return a running list of issued rewards for the day. If you are trying to apply intra-day credits you will need to use the Extole **Fulfillment ID** to make sure you are not applying the same reward multiple times.
+
+## How quickly does a friend receive their account credit?
+
+Friend account credits are typically issued on the Friend Landing Experience. They are earned either after clicking on an advocate’s share link or after providing an email address on the Friend Landing Experience.

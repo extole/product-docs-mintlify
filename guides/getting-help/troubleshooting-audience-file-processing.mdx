@@ -1,0 +1,55 @@
+---
+title: "Troubleshooting Audience File Processing"
+description: "---"
+---
+
+---
+
+**Description:** How to find and interpret errors from audience (add / replace / remove) file processing, and what the most common error messages mean.
+
+## Where to look first
+
+Every processed file produces a **results file** in the `results` folder on your SFTP server. When a file fails, the results file is the first place to check — it usually contains a metadata row explaining what went wrong. After processing, the original file is moved to the `archive` folder. See [SFTP and Batch File Conventions](https://docs.extole.com/docs/sftp-and-batch-file-conventions).
+
+For audience **replace** uploads, files go to:
+
+`results`
+
+## Common errors and what they mean
+
+### "Audience members count X does not match the expected number of members Y"
+
+Often paired with:
+
+`archive`
+
+**What it means:** During a `/replace` operation, Extole validated the processed audience and the final distinct member count did not match the expected count (frequently off by one, e.g., `281661` vs `281662`). Because the counts did not reconcile, Extole **intentionally did not activate** the audience modification — this is a safety check that prevents a partially/incorrectly processed file from going live.
+
+**Most common cause:** an **ID collision** — two member/event identifiers in the file resolve to the same person, so the distinct membership count comes out lower than the row count.
+
+**Impact:** That run's replace did not complete, so the audience may be **stale or missing the colliding member** until the next successful run. The runtime impact is otherwise limited, and the affected person is simply not in the audience for that period.
+
+**What to do:**
+
+1. Check the **next day's** results file — this condition frequently **self-recovers** on the following successful file with no manual action.
+2. If it persists, inspect the file for **duplicate or colliding identifiers** (same `email` / `member_id` mapping to one person across rows).
+3. Confirm the file is the **full current list** (replace expects the complete audience each time), correctly formatted, and UTF-8 encoded.
+
+### Other common full-file failures
+
+| Symptom in results file | Likely cause | Fix |
+|---|---|---|
+| File rejected with a missing-headers message | Required column headers absent | Add the required header row (e.g., `first_name,last_name,email,member_id`) |
+| File not processed / duplicate | Same file submitted twice | Use a unique, timestamped name: `clientid_filetype_YYYYMMDDHHMMSS.csv` |
+| Encoding / parsing errors | File not UTF-8, or bad CSV quoting | Re-export as UTF-8; quote fields containing commas/quotes |
+| File ignored entirely | Uploaded to the wrong SFTP path | Place audience replace files in `/audiences/{audience_id}/replace` |
+
+## When to contact Extole
+
+If the results file does not explain the failure, or the count mismatch does **not** clear on the next run, contact Extole support with the **audience ID**, the **file name**, and the approximate **upload time** so the specific batch job can be located.
+
+## Related articles
+
+- [Uploading an Eligibility Audience File via SFTP](https://docs.extole.com/docs/uploading-an-eligibility-audience-file-via-sftp)
+- [SFTP and Batch File Conventions](https://docs.extole.com/docs/sftp-and-batch-file-conventions)
+- [Set Up Dynamic Eligible Audience Files](https://docs.extole.com/docs/set-up-dynamic-eligible-audience-files)

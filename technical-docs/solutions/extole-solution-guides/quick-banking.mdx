@@ -1,0 +1,423 @@
+---
+title: "Banking / Credit Unions"
+description: "Quickly build an effective referral program to turn account holders and influencers into advocates who turn their passion for you into new account holders."
+---
+
+## Overview
+
+This guide covers the necessary steps for setting up a successful referral program with Extole.
+
+* Tag your Website
+* Configure Data Exchange/SFTP
+* Brand your Links
+* Design your Experience (done by your creative team)
+* Reward your Customers (done by your marketing team)
+
+<img src="https://files.readme.io/8d166a7a3adfc3287e536f2eb2a39439f2871913378588016691ef0dcdef94cd-67916d5-Financial_-_Bank_Account.png" alt="Financial Services Referral Steps" />
+
+<br />
+
+### Pre-Configured Flows for Banking / Credit Unions
+
+We recommend that you choose one of our pre-configured flows, specifically designed for banking and credit unions. These flows are built around the credit-union member lifecycle (Account Opened, Direct Deposit, Debit Card Usage, Account Qualified) and come with intelligent defaults and CU-specific steps right inside Flow Builder. It ships ready to go so you can launch quickly, and you still have the flexibility to customize the flow to your program’s needs.
+
+* [Refer a Member](https://docs.extole.com/docs/refer-a-member)
+* [Welcome Offer for Credit Unions](https://docs.extole.com/docs/welcome-offer-for-credit-unions)
+
+## Brand your Program
+
+### Create a CNAME for your Domain
+
+<Info>
+**Task Duration**
+
+
+This task will typically take an IT/Ops engineering team 10–15 minutes to complete.
+</Info>
+
+You'll want to create a CNAME for your domain so that you can create branded Promotion Links and Share Links.
+
+To set up your CNAME, please complete the steps outlined in [Extole DNS Requirements](/technical-docs/operational-tasks/account-configuration/extole-dns-requirements).
+
+### Send from Your Branded Email
+
+&lt;ImproveOpenRatesCallout />
+
+The referral program will send program emails from you to your customers:
+
+* Welcome Email
+* Advocate Stats Email
+* Earned Reward Email
+
+The from address for this will typically be something similar to `do-not-reply@mycompany.com`. Once this email has been identified, Extole can check if it is configured to allow Extole to send emails from this address.
+
+For details on how to update your SPF DNS records and install Extole DKIM keys, please reference [Extole DNS Requirements](/technical-docs/operational-tasks/account-configuration/extole-dns-requirements).
+
+<Info>
+**Related Content**
+
+
+* [Find your domain in the settings page of My Extole](https://my.extole.com/settings)
+* [How to set up your program domain](https://docs.extole.com/docs/program-domain-setup)
+</Info>
+
+## Add CTA Links to Your Website
+
+Promotion Links take your customers to an Extole-hosted share experience. You will use HTML to present CTAs, like buttons or banners, containing promotion links. When customers tap on these CTAs, the promotion link will take them to a share page. These links also enable tracking, so you can discover which marketing placements are driving participation in the program.
+
+Each promotion link needs to be created in My Extole before being used on your site. Extole recommends placing the links in these sections of your website:
+
+* `global_header`
+* `global_footer`
+* `product`
+* `confirmation`
+* `overlay`
+
+It's easy to create additional promotion links if you add additional CTAs or run outbound promotions.
+
+`do-not-reply@mycompany.com`
+
+### Consider your Promotion Audience
+
+#### Reward Everyone or Reward Members/Customers
+
+Most banking referrals programs are focused on only allowing customers or members to participate as advocates in the referral program.
+
+**There are three approaches for this**:
+
+**Option 1**  
+Promote and market to existing customers without any technical restrictions. This is the most common setup and is straightforward. You will have some non-customers sharing and earning rewards, but they will still be bringing in net new customers. Extole will enforce reward limits so there are no tax implications for the process.
+
+**Option 2**  
+Use Extole tags so that the experience is behind login. This process works well and is the preferred process, but requires more technical work to include the experience behind login.
+
+**Option 3**  
+Have a process for uploading a list of existing customer emails to Extole. Users who attempt to share but do not have a matching email will be provided an error message. This process will require you to upload new member emails each day.
+
+#### Connect Friends
+
+When a friend follows an advocate’s share link from an email message, SMS, or social media post, they will be taken to a landing experience hosted through your Extole program, reinforcing they are part of a referral experience, providing any disclosures, and asking them to provide the email address they will use as part of opening their new account.
+
+## Connect Your Account Opening System via SFTP
+
+In order to reward advocates when a friend opens an account, you need to communicate when a friend applies for an account, when the account is opened, and when the event meets any additional criteria. You can send this information to Extole by establishing an SFTP connection to your Account Opening System.
+
+### Track Events
+
+An account opening referral program supports accounts being created, which is often not an instant process. Extole supports both a file-based process for sending conversions.
+
+Extole uses Public Key Authentication to connect to the Extole SFTP server. You are able to install/revoke multiple public keys, which helps keep the system more secure by revoking keys as needed when employees leave.
+
+#### Send Account Openings with Event File
+
+The conversion file should be uploaded to the Extole SFTP system.
+
+<Info>
+**SFTP Resources**
+
+
+[Using Extole's SFTP Server](https://docs.extole.com/docs/extoles-sftp-server)
+</Info>
+
+Our system uses the following naming convention:  
+events_YYYYMMDDHHMMSS.csv
+
+The file is a plaintext CSV file:
+
+<table>
+  <thead>
+    <tr>
+      <th>
+        CSV Column Name
+      </th>
+
+      <th>
+        Description
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        `event_name`
+      </td>
+
+      <td>
+        The type of event to create from the list (e.g., `opened`).
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `email`
+      </td>
+
+      <td>
+        The account opener’s email address.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `partner_user_id`
+      </td>
+
+      <td>
+        The account opener’s customer ID or member IS.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `first_name`
+      </td>
+
+      <td>
+        The account opener’s first name.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `last_name`
+      </td>
+
+      <td>
+        The account opener’s last name.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `event_time`
+      </td>
+
+      <td>
+        The date and time of the event in ISO_8601 format. Generally this is YYYY-MM-DDThh:mm:ssZ (e.g. "2013-08-11T14:33:18-0700"). If not provided, Extole will use the processing time of the event file as the event time.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `account_id`  
+        _recommended_
+      </td>
+
+      <td>
+        This is a client's unique identifier for the account being opened. It should match the identifier that comes in the instant account approval tag.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<Warning>
+**Important Note about Event Times**
+
+
+Extole will not count an account opening if the date/time of the event takes place before the share occurred. Often times the share event and account opening happen on the same day, so if you cannot provide the time the opening happened you should use the end of day timestamp 23:59:59.
+</Warning>
+
+#### Send Reward Approval with Qualified File
+
+If there are additional requirements for an advocate and friend to earn a reward beyond a simple account opening, such as a minimum balance value or an initial transaction, then it is important to send Extole a reward approval when a new account meets these requirements. Extole can be configured to automatically decline rewards for accounts that haven't met the criteria within a timeframe, typically 90 days.
+
+The initial approval can be sent for all newly opened accounts meeting criteria. Extole handles attributing referrals, removing duplicates, and discarding data that doesn't apply.
+
+The approval should include a `partner_conversion_id` that matches the identifier provided in the conversion call.
+
+The conversion file should be uploaded to the Extole SFTP system, which uses the following naming convention:  
+approval_YYYYMMDDHHMMSS.csv
+
+The file is a plaintext CSV file:
+
+<table>
+  <thead>
+    <tr>
+      <th>
+        CSV Column Name
+      </th>
+
+      <th>
+        Description
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        `event_name`
+      </td>
+
+      <td>
+        The `qualified` event to indicate it’s approved.  Alternatively a `initial_deposit`, `funded`, or `direct_deposit` event.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `email`  
+        _optional_
+      </td>
+
+      <td>
+        The account opener’s email address.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `partner_user_id`  
+        _recommended_
+      </td>
+
+      <td>
+        The account opener’s customer ID or member ID.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `account_id`  
+        _recommended_
+      </td>
+
+      <td>
+        On the approved event, this is your order number that uniquely identifies the account that was opened.  Extole recommends not to use the actual account number, which is sensitive data, but an internal account id. This is needed so when the funding event or other event comes through later, it can be tied back to this referral.
+
+        E.g. 122948302lala
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `funding_amount`
+      </td>
+
+      <td>
+        The amount of the initial funding or direct deposit.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+## Design your Experience
+
+Your entire referral consumer experience can be configured in the My Extole Campaign Editor. This part of setting up the solution can be done entirely by your marketing and creative team and doesn't require technical involvement. Each template is a comprehensive guide for your designer or marketer to customize for both mobiles and desktop experiences.
+
+<img src="https://files.readme.io/6d13598f2e378f629ecabbf99782c7ea52a7998481ce9a4dbd92d4504b103499-6841990-Screen_Shot_2022-07-28_at_10.32.12_AM.png" alt="Screen Shot 2022-07-28 at 10.32.12 AM.png" />
+
+<br />
+
+### Banking / Credit Union Specific Creatives
+
+We've made credit union-specific share experiences easier to access, customize, and add to your program flow. Our in-branch experience lets employees capture in-person referrals, while the printable form lets referred friends submit a hard copy of their referral details.
+
+#### In-Branch Employee Portal
+
+Our [Refer a Member](https://docs.extole.com/docs/refer-a-member) pre-configured flow comes with an in-branch employee portal to capture referrals where the friend opens their account in-person. To set up this portal
+
+* Go to "Audiences" and create a new audience that contains your authorized employees' email addresses.
+* Create a new program with or modify a [Refer a Member](https://docs.extole.com/docs/refer-a-member) pre-configured flow that includes the "Branch Employee" role
+* In the "In Branch" flow, select your employee audience as the "In-Branch Employee Audience"
+
+<img src="https://files.readme.io/2f97c419df0329af34b43db9a63b65b8f88a704228a5d64a1390c9013c876cde-42cccc913ec96140c1cf1282d77986c7a1336cf550f62ebda650ca1fe218ae0b-Screenshot_2025-12-15_at_1.09.19_AM.png" alt="" />
+
+* Open the "In Branch Referral Portal" creative, and modify the image, text, and copy to match your program's needs.
+
+<img src="https://files.readme.io/6407406d47b45502b9f2134f1bab2f6e0b7d82a4194d9fd1d5f2043918207adb-f1af9934d17c36cf72b0e1ba9624b9a0be0c53dad25c692f48e348b2339f2286-Screenshot_2025-12-12_at_2.35.41_AM.png" alt="" />
+
+* Now, when an eligible employee opens the in-branch referral portal and enters the advocate and friend information, the referral relationship will be created, and both will be eligible for rewards according to your program design.
+
+#### Printable Form
+
+We also have an optional printable form, usable by both advocates and friends throughout their referral process. This printable form is available in our [Refer a Member](https://docs.extole.com/docs/refer-a-member) pre-configured flow by default, but you can always add it to your flow, if you have an existing program in Flow Builder.
+
+<img src="https://files.readme.io/faaf9b1e04a443228eea5caa8d1ef70c0fffda381ec2299da52da048b09386d9-ad716b3b0bb478dc657829fa1df03806ac2e18e5b15ba45264ebeccbbcad3f07-Screenshot_2025-12-12_at_2.30.05_AM.png" alt="" />
+
+**Advocate Sharing via Printable Form**
+
+The first supported scenario is an advocate preferring to share via a printable form instead of SMS, email, native sharing, or social media. If an advocate would like to share this way:
+
+* Modify the "Printable Form" creative with your desired imagery and text. Also, determine if you would like to display the advocate's share code, share link, or a QR code containing that information on the printable form, so that the friend can easily open their account online.
+* Modify the advocate's "Share Experience" creative, and modify the fields "Share Options When Native Sharing Is Available (ordered)" and "Share Options When Native Sharing Is Not Available (ordered)" to add "Printable Form" as a share option.
+
+Now, when the advocate is on their share experience and is deciding how to share, they can click on the printable form (a printer icon), which will open the printable form in a new tab, ready to print. The printable form will be pre-populated with their advocate information if available, to reduce friction. The advocate should print the form, and give it to their friend or family member who they want to refer.
+
+<img src="https://files.readme.io/47c91ca4a0635daf147a04063808c1fbc67535b8201fd18d9fc62868ad42562c-445804e0cb9af44dbf2515cbdcbb786997e45940ccb95163afbba4a4c27c3ca6-Screenshot_2025-12-15_at_1.34.45_AM.png" alt="" />
+
+If the printable form was configured to show the advocate's share link and a QR code, the friend can scan the QR code and complete their account opening online. If the form does not have this information, the friend should open their account in-branch.
+
+**Friend Opening Account In-Branch**
+
+Another supported case is a friend, who was referred to a credit union, and the friend would prefer to open their account in-person. To accommodate this scenario:
+
+* Modify the "Printable Form" creative with your desired imagery and text.
+* Open the "Friend Landing Experience" creative, and toggle the "Enabled Printable Form Button" setting to on. You can modify the text and button that describes the in-person referral process.
+
+When the friend clicks an advocate's share link, the friend landing experience will open, which will have a button "Print and Visit a Branch". The friend can press that button, which will open the printable form in a new tab, ready to print. The advocate's information will be pre-populated if available, reducing friction. The friend should then take this referral form into the branch and open their account in-person.
+
+<img src="https://files.readme.io/acc54551bbbe81383397e2b4a16b691ee3e9d9a8cb8e3df6f0b2a69dd34aa26d-1bcba40b9fad9b5e3f5a26276d4e6b580abd5ce03cbf439516bf9a580f488ac8-Screenshot_2025-12-15_at_1.37.46_AM.png" alt="" />
+
+<br />
+
+## Reward your Customers
+
+After a conversion is complete, Extole will reward the advocate and friend by emailing them a digital gift card.
+
+Your business team is in charge of setting up the gift cards in My Extole and providing funding to Extole for the cost of the gift cards.
+
+<Info>
+**Alternative Rewards**
+
+
+If you’d like to reward your customers by crediting their accounts (instead of giving a gift card), you can do the following:
+
+1. Use marketing tags to pass your customer identifier into the sharing experience.
+2. Use the Extole Account Credit Webhook, API, or files to credit and fulfill your customer’s accounts.
+</Info>
+
+## Recommended Additional Steps
+
+<details>
+  <summary><strong>Embedding a Share Experience Directly onto a Page</strong></summary>
+
+  <br />
+
+  If you want to embed a sharing experience on a dedicated referral page or account page, the tag looks exactly same—you would just call the zone “**referral\_page**” or “**account\_page**”.
+</details>
+
+## Uncommon Additional Steps
+
+<details>
+  <summary><strong>My Extole Single-Sign On (SSO)</strong></summary>
+
+  <br />
+
+  The My Extole admin platform supports single sign-on from a variety of Identity Providers and should be able to enable you to login to My Extole using your corporate email address without needing a separate password for My Extole.  Simply let your Launch Manager or Solutions Engineer know to enabled:
+
+  * Okta through OpenIDConnect (OIDC) SAML Single-Sign
+  * Google Workspace
+  * Microsoft Teams
+</details>
+
+<details>
+  <summary><strong>Mobile App Placement</strong></summary>
+
+  <br />
+
+  Your best customers most likely engage with you through your mobile app.  It’s good to launch with a placement in your mobile app.  Extole supports three simple methods:
+
+  * Promotion Link in mobile app that redirects to the sharing page
+  * WebView of the Share Experience in your mobile app
+  * Mobile API integration with your mobile app
+</details>
+
+<details>
+  <summary><strong>Welcome Offer Program</strong></summary>
+
+  <br />
+
+  With your account opening process configured for your referral program, it’s a great time to additionally launch a welcome offer program. There is typically no additional technical setup required. It’s just a matter of setting up your welcome offer creatives with your Extole CSM.
+</details>

@@ -1,0 +1,181 @@
+---
+title: "How to QA Your Referral Program"
+description: "This article covers how to perform quality assurance (QA) tests on your program. Bear in mind that this is completely optional. As part of your Extole launch support, we will conduct a rigorous QA process that tests your program on multiple…"
+---
+
+# Overview
+
+This article covers how to perform quality assurance (QA) tests on your program. Bear in mind that this is completely optional. As part of your Extole launch support, we will conduct a rigorous QA process that tests your program on multiple browsers and devices. Your implementation team will schedule a call to walk through your customer journey end-to-end to make any final creative changes and give approval for going live.
+
+Before starting the QA process, be sure to properly classify yourself as a tester so your events don't get counted in the analytics dashboard—see the article [How Do I Prevent Testing Data from Appearing in my Analytics Dashboard?](/guides/dashboards-and-reporting/extole-dashboards-metrics/how-do-i-prevent-testing-data-from-appearing-in-my-analytics-dashboard)
+
+# Why QA Tests are Necessary
+
+Performing QA tests on your referral program is a crucial part of your integration and launch with Extole. Verifying that every facet of your program is functioning correctly is the best way to ensure that your customers have a positive experience and continue to engage with your programs.
+
+Extole is configured to be compatible with all major internet browsers and operating systems, but testing every element of your program across a wide range of environments is still a good idea. QA tests are designed to verify important details like whether your zones work on every internet browser, whether your calls-to-action (CTAs) display correctly, and whether your reward emails are sending without any issues.
+
+# Best Practices
+
+Follow our recommendations for setting up your QA tests.
+
+## Browser and General Setup
+
+- Use emails that are significantly different from each other to avoid flagging the Similar Email Address rule. This rule is set up to prevent people from referring or nominating themselves or from signing up/registering as a new user multiple times.
+
+  - Bear in mind that simply adding a plus or period to an existing email address will not be enough to distinguish it. In other words, using [ellathompson@extole.com](mailto:ellathompson@extole.com) as a test email and then [ella+thompson@extole.com](mailto:ella+thompson@extole.com) or [ella.thompson@extole.com](mailto:ella.thompson@extole.com) will still flag the Similar Email Address rule.
+
+- Do not use production data, especially if you are a financial institution or your program requires eligibility checks.
+- Do not reuse test users. Use new emails as much as possible to eliminate cache issues and prevent the possibility of testing with a user that has already been flagged as suspicious. If it’s easier, you can turn off program rules to test and turn them back on after testing.
+- Use a staging or lower environment.
+- Test in an incognito browser window. This means using different incognito windows to test each of your customer journeys (e.g., one incognito to test the friend flow and another to test the advocate flow).
+
+## Mobile
+
+- Create a feature flag for your mobile app that allows Extole to test in your mobile environment.
+
+# Program Aspects to QA Test
+
+## Basic Program Functionality
+
+To verify your program elements, you'll be testing basic functionality and asking questions like:
+
+- Is the element displaying correctly? Are you seeing what you expect to see?
+- Does the element function as intended?
+- Are there any reported JavaScript errors that relate to the element?
+- Is the event reporting in regards to that element accurately portrayed in Extole?
+
+If for some reason any of your program elements are not working correctly, report the issue(s) to your Client Services Manager. They will work quickly to resolve the problem.
+
+## Creative Elements
+
+To give you an idea of what you should be looking for when you QA your program, here are some sample questions for verifying your creatives across multiple environments:
+
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+-
+
+| Creative | Questions to Consider |
+| --- | --- |
+| Onsite Promotions | Are they rendering correctly?Do they trigger your share experience? |
+| Share Experience | Is it rendering correctly?Do all of the share channels function properly?Does the Terms & Conditions link work? |
+| Advocate Microsite (optional) | Is it rendering correctly?Do the Privacy Policy and Terms & Conditions links work? |
+| Friend Share Email | Did it deliver to the right location in your inbox?Is the email's appearance and copy correct?Are the images rendering correctly?Is the subject and body language correct?Is your share link working? |
+| Facebook Post & Facebook Messenger Post | Is the post's appearance and copy correct?Are the images rendering correctly?Is the subject and body language correct?Is your share link working? |
+| Twitter Referral Tweet | Is the tweet's appearance and copy correct?Are the images rendering correctly?Is your share link working? |
+| SMS Referral Message (must be on a mobile device to test this send) | Is the message's appearance and copy correct?Are the images rendering correctly?Is your share link working? |
+| WhatsApp Referral Message | Is the message's appearance and copy correct?Are the images rendering correctly?Is your share link working? |
+| Advocate Welcome Email | Is the email appearance and copy correct?Are the images rendering correctly?Is your share link working? |
+| Advocate Reward Email | Is the email appearance and copy correct?Are the images rendering correctly?Does the reward code work? |
+| Advocate Stats Email | Is the email appearance and copy correct?Are the images rendering correctly? |
+| Friend Landing Experience | Is the landing page appearance and copy correct?Are the images rendering correctly?Does the coupon/gift card code (if applicable) function? |
+| Registration, Conversion and Fulfillment | Did the friend's coupon/gift card apply correctly?Did the advocate's coupon/gift card apply correctly?Was the reward amount(s) correct?Was the friend registration and/or conversion event recorded correctly? |
+
+If for some reason any of your program environments are not working correctly, report the issue(s) to your Client Services Manager so that they can work quickly to resolve the problem.
+
+## Zone Tags
+
+The simplest way to verify if your zone tags are working is to check that:
+
+- Your CTA's are displaying correctly on tap or hover.
+- Your CTA's correctly launch your share experience.
+- There are no reported JavaScript errors.
+- Your zone tag is tracking the number of impressions in Extole.
+
+Contact your Client Services Manager if your zone tags are not working properly.
+
+## Files
+
+If you send event files to Extole as part of your program flow, you'll want to fill out a file that you can use to test your connection. This may involve sending the test file through your SFTP setup or uploading the file directly to the platform.
+
+## Events
+
+To verify that your events, such as conversions or registrations, are passing information correctly:
+
+- Confirm that the conversion tag is placed correctly on the page.
+- Check that conversion events are being captured in [Event Live View](https://my.extole.com/events/live) of My Extole.
+- Check that the parameters of registration and conversion events (first name, last name, user email, cart value, product type, etc.) are being captured accurately.
+
+Contact your Client Services Manager if your conversion tags are not passing information correctly.
+
+# Frequently Asked Questions
+
+## I'm not receiving rewards why?
+
+If you're QA testing your program flow and your test user isn't receiving a reward, ask yourself the following questions:
+
+- Is my gift card balance funded?
+- Are coupon codes loaded?
+- Did I fail a quality reward rule? (Check in user support.)
+
+If a default reward is set in your account, our system is likely sending you a test reward to ensure we are not using production rewards. If a test container user shares with a new user, that new user will also usually be put in a test container. You can force yourself into a production container using a mod header.
+
+**Remember to use a new test email.** Any ongoing events will also be put in a test container if the user is in a test container. It’s best practice to start fresh with a new test email.
+
+## How do I know if my approved or declined events are sending rewards?
+
+To verify that your rewards are getting sent properly:
+
+- Check that events are being captured in the [Event Live View](https://my.extole.com/events/live) of My Extole.
+- You can filter for approved transactions by selecting the appropriate Review Status in the All Review Status drop down.
+
+![](https://extole-5ef307a0e5b1.intercom-attachments-7.com/i/o/syy27wia/1421735456/37fb35b690a9c5011af5ca01541d/360027376553?expires=1778306400&signature=fc9f29c0d85b661094786be5e9d8373a2c9825a59c02973fbe10adbd9af9383a&req=dSQlF859mIVaX%2FMW3nq%2BgUl%2F%2FHvWMw23wrYoSWLSuV6hZI61FxXfkYDQNXNW%0Ag7NnlZAHiR%2FcPK05nHu9xZ3wVC8%3D%0A)
+
+- If an event was approved, you can click on the event to get more information. If you click event, you will get more information as to why an approved event did not send a reward in the approval history section (for example, "the reward was not issued because this advocate already got rewarded for the same friend's action").
+
+![](https://extole-5ef307a0e5b1.intercom-attachments-7.com/i/o/syy27wia/1421735457/6ffcb63c1b92d9992d528bef016a/360027376193?expires=1778306400&signature=c26f14f33840a3e027efed51041c62af4c94005f5e17956c67940a81aad7e598&req=dSQlF859mIVaXvMW3nq%2BgRjIJ2Jt9aim8hiq63OcCe4lhliicNNCtJ8q6Zhk%0A4O6DC7QS8dNvk6Glx61Dw96wWxs%3D%0A)
+
+## What are the most important aspects of my program to verify?
+
+The most crucial aspect to verify during QA is the functionality of both your share experience and program emails, as these form the core of your referral program.
+
+## How do I add tags to my QA/staging environment and identify that they are working?
+
+Any Extole marketing tags you are using in your program design should point toward your QA campaign. This can be accomplished by appending "_qa" to the end of the tag name. **No changes are required to the event tags (Registrations, Conversions)**.
+
+Extole Support will need to update the names in your QA campaign to make sure targeting from your QA tags will reach your QA campaign. After your referral program has gone live, you may wish to keep a separate QA campaign where your lower environments (dev, QA) continue to point.
+
+# QA Checklist
+
+If you would like a more in-depth look at our QA process, or if you would like to conduct QA on your end, please reference our checklist.
+
+[Extole QA Checklist](https://docs.google.com/spreadsheets/d/1zI1S97_MBSuAPXRk4s_2WZrTkUAzKBBoAWxZm24ufbU/edit#gid=1677018654)
+
+Remember that our Client Success Managers are here to help you every step of the way, so don't hesitate to reach out if you have any questions.

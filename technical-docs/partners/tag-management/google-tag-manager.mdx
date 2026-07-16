@@ -1,0 +1,166 @@
+---
+title: "Google Tag Manager"
+description: "Set up Extole functionalities on your site using Google Tag Manager. If you already have GTM integrated with your site, then all you need to do is create and configure Extole tags."
+---
+
+## Overview
+
+[//]: # "Does Extole integrate with Google Tag Manager (GTM)?"
+
+Google offers a free JavaScript-­based tag manager.  You can use Google Tag Manager (GTM) to manage all of the Extole tags on your website pages. If you already have GTM integrated with your website, then no additional website development is required. You will only need to create and configure your tags using GTM.
+
+<Warning>
+**Google Tag Manager Ad Blocking**
+
+
+Be aware that as the internet has grown more privacy conscious, some of the more aggressive privacy blockers include Google Tag Manager in the list of tools that are blocked.
+
+For example, [EasyPrivacy](https://easylist.adblockplus.org) includes Google Tag Manager in the block list, and this list is included in the defaults of AdBlock and AdBlock Plus.
+
+As an alternative, it's possible to use the direct tagging guide to place tags directly onto your website.
+</Warning>
+
+## Prerequisites
+
+[//]: # "What are the requirements for an Extole integration with Google Tag Manager (GTM)?"
+
+| Requirement                | Description                                                 |
+| :------------------------- | :---------------------------------------------------------- |
+| Google Tag Manager Account | Access to and familiarity with the GTM platform.            |
+| Extole Account             | An Extole account is required to leverage this integration. |
+
+## Integration
+
+[//]: # "How do I set up the Extole integration with Google Tag Manager (GTM)?"
+
+### Set Up Variables
+
+Extole tags require dynamic information that provide context on your site’s user and conversion details. Google Tag Manager offers an easy way to define and manage the necessary JavaScript variables, HTML elements, URL parameters and other sources that are required to define Extole tags and filter triggers. The specific configuration of your variables will depend on how your site provides data to Extole.
+
+The table below lists the Extole variables you will need to create in GTM.
+
+| Variable       | Description                                                                                                                                                                            |
+| :------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `first_name`   | The first name of the person making the zone request. This would typically be the advocate on a CTA zone, or the friend on a registration or conversion zone.                          |
+| `last_name`    | The last name of the person making the zone request. This would typically be the advocate on a CTA zone, or the friend on a registration or conversion zone.                           |
+| `email`        | The email of the person making the zone request. This would typically be the advocate on a CTA zone, or the friend on a registration or conversion zone.                               |
+| `user_id`      | This is the unique ID passed to Extole as the `partner_user_id`.                                                                                                                       |
+| `order_number` | This is the unique order number passed to Extole as the `partner_conversion_id`.                                                                                                       |
+| `cart_value`   | Used on a conversion (purchase) event to track the value of the purchase for revenue reporting. This should be the value before any coupon codes were applied.                         |
+| `coupon_code`  | This is the coupon code, which is most commonly used on a registration or conversion tracking call. It will also be used as a method to tie the register/purchase back to an advocate. |
+
+<Info>
+**Variable names may be different**
+
+
+You may decide to name your GTM variables slightly differently, but the above list provides the basic variables you will need to define.
+</Info>
+
+If your variables require data that isn't immediately available on page load, see the FAQ at the end of this article that describes how to programmatically fire tags after your variables have loaded. 
+
+You can read more about variables in [Google Tag Manager's Support Documentation](https://support.google.com/tagmanager/answer/6106899?hl=en\&rd=1).
+
+### Add the Extole Core JavaScript Library
+
+The Extole JavaScript (JS) library should be added to all of your site pages. This tag is used to activate the Extole system and ensures that any other Extole tags on your pages work properly. It also detects when someone has come to your page through a referral, and automatically serves the friend landing experience.
+
+To add the Extole JS library:
+
+1. Create a new tag in GTM named Extole Main. 
+2. Define this tag with the JS snippet below and configure it to fire on all pages.
+
+#### Extole Core Tag
+
+The core tag is under your program’s branded domain domain (refer.brand.com), but prior to setting up the branded domain it's possible to load the tag from the Extole unbranded domain.
+
+You can find your domain in the [Tech Center](https://my.extole.com/tech-center)of My Extole .
+
+Find your active referral domain and use that for you site of your core tag.  It will look like `brand.extole.io` (unbranded) or `refer.brand.com` (branded).
+
+`first_name`
+`last_name`
+
+<img src="https://files.readme.io/491ea94e5d851acda46a6eef9537fcd44fde84f1cf4b08cc2ef97168e1fe1137-ba0b0f0-Google_Tag_Manager_Core.png" alt="Google Tag Manager Core.png" />
+
+### Add Conversion Tag
+
+Most marketing campaigns reward advocates when a conversion event occurs, such as a purchase or creation of a new account. These events are communicated to Extole by adding a conversion tag to the conversion confirmation page on your site.
+
+Create a new conversion tag named Extole Purchase by using the following code snippet. Configure this tag to fire on your confirmation page.
+
+`email`
+
+When finished, your tag should look something like this:
+
+<img src="https://files.readme.io/05e60dbbf59d22bfd5ca169d7ee4404fb68f23e3d4c63d0f1da88cef1e9d1cef-9bdab5a-S5e6JA3UT4K4NBHpP8nD_image01.jpg" alt="S5e6JA3UT4K4NBHpP8nD_image01.jpg" />
+
+<img src="https://files.readme.io/d72a19417a31955297e57ef5e54afda432648038c9eac0ace9c8e3275a2f0785-LPuU4OxwSnyOK08v2bK3_image04.jpg" alt="image04.jpg" />
+
+### Add Marketing Tags
+
+A CTA zone represents a particular section of content real estate on your site pages that allows your team to engage your advocates with multiple campaigns/creatives/messages. A zone to the Extole platform is similar to a zone with an ad server, site analysis tool, or testing framework.
+
+An Extole campaign includes the following set of standard zone names:
+
+* `global_header`
+* `global_footer`
+* `my_account`
+* `confirmation`
+
+Additional CTA zones may be created by modifying your campaign template. Typically, this requires working with your Extole Customer Success Manager.
+
+#### How Extole Targets the Location of Content
+
+There are three methods Extole tags use to target the location of content when inserted into a website page (such as a CTA):
+
+1. `element` provides a JavaScript object representing an HTML `element`. Extole will insert content directly into this element.
+2. `element_id` provides an HTML `element id`. Extole will scan the page until an HTML element appears and is identified by this unique `element id`. It will then insert the content and stop scanning.
+3. `nothing` is used if no `element` or `element_id` is passed. Extole will insert an hidden `div` tag at the end of the page to receive content. This works well for zones without content (e.g., conversion) or for overlay content (e.g., an auto-show share experience).
+
+The location is targeted by directly updating the page an adding a location:
+
+`user_id`
+
+The following tag is added into Google Tag Manager which connects the HTML element with Extole system.
+
+`partner_user_id`
+
+When finished, your tag should look something like this:
+
+<img src="https://files.readme.io/98e8a743837c13f41899c291558031bfabcac320575b448aa5eedb50099b6871-ye5aNsoREWfx19RadY37_image03.jpg" alt="image03.jpg" />
+
+In this example, you can see that the zone tag, Global Header Zone, has been inserted into the HTML element\_id as "header\_placement.”
+
+[//]: ___
+
+## Frequently Asked Questions
+
+### Where can I learn more about Google Tag Manager?
+
+[//]: # "What are the requirements for an Extole integration with Google Tag Manager (GTM)?"
+
+Please visit the Google help page: [https://support.google.com/tagmanager/](https://support.google.com/tagmanager/)
+
+### Does block order matter?
+
+[//]: # "Does block order matter for the Extole integration with Google Tag Manager (GTM)?"
+
+Block order does not matter. All tags having a script at the top that will cause the tag to execute immediately if the core tag has been loaded or to execute once the core tag is loaded.
+
+[//]: ___
+
+### Does Extole support other tag managers?
+
+[//]: # "Does Extole support other tag managers?"
+
+Yes. Extole works with all tag management systems.
+
+[//]: ___
+
+### Are there any limits on the partner\_conversion\_id?
+
+[//]: # "Are there any limits on the partner conversion ID for the Extole integration with Google Tag Manager (GTM)?"
+
+The `partner_conversion_id` has a maximum length of 38 characters and must be a unique identifier. If you pass Extole multiple conversions with the same partner\_conversion\_id, only the first conversion will be captured and all other others will be rejected as duplicate.
+
+[//]: ___

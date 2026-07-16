@@ -1,0 +1,82 @@
+---
+title: "SFTP and Batch File Conventions"
+description: "Extole supports using automated batch files to improve the execution of common activities. Batch files (also known as offline files) are a common method for transferring large volumes of information, and most customer relationship managemen…"
+---
+
+Extole supports using automated batch files to improve the execution of common activities. Batch files (also known as offline files) are a common method for transferring large volumes of information, and most customer relationship management (CRM) systems allow you to export and import these types of files.
+
+There are a number of file conventions you should comply with when sending or receiving files from Extole.
+
+# Secure File Transport Protocol
+
+All batch files are sent to Extole using Secure File Transport Protocol (SFTP). This is a generally available protocol that provides strong encryption when transferring files to and from Extole. There are many programs you can download that will allow you to directly connect to Extole, upload and download files, and that make it easy for your IT department to create processes that will automatically upload and download files.
+
+## Why use SFTP?
+
+SFTP provides a method for securely exchanging information with Extole, and preventing third parties from looking at the transfer.
+
+Many clients wish to transfer data via email, SendIt, Ge.tt, or other services. While these transfers may be convenient, they are not appropriate for sensitive information such as Personally Identifiable Information (PII).
+
+Sending information through less-secure services is analogous to sending mail in an unsealed envelope; while you can generally assume your postal workers will safely deliver and not look at your mail, there is no way to be sure. While you can generally assume the IT systems will safely deliver an email without anyone looking at it, there is no way to be sure.
+
+## Access the Extole SFTP server
+
+To learn how to access the SFTP Server please review:
+
+[How do I access and use SFTP?](/guides/dashboards-and-reporting/integrating-reports/using-extole-s-sftp-server)
+
+## Additional Resources
+
+To learn more about [how to send reports to an external SFTP server, please see this article.](/guides/dashboards-and-reporting/integrating-reports/sending-reports-to-an-external-sftp)
+
+# General File Conventions
+
+The following conventions are used by almost all files at Extole to ensure file transfer consistency:
+
+- All files follow a standard naming convention: clientid_filetype_YYYYMMDDHHMMSS.csv
+- Each file type goes into its own directory on the Extole SFTP system
+- All files are encoded as UTF-8.
+- Files may contain Unix (\n) or Dos (\r\n).
+- All batch files contain a column header row.
+- Column order is never important, as Extole determines the order based on the header row.
+- Extra columns in the file that Extole does not recognize are ignored.
+- Extole stores 30 days worth of file history and files older than 30 days are deleted.
+- Extole follows standard CSV quoting conventions:
+
+  - A comma can be included by quoting the values: First Name, "Last Name, Jr.", Gift Message
+  - A quote can be included by escaping the quote: First Name, Last Name, "Thanks for the \"help\"
+
+- For conventions related to CSV files that Extole generates, see: [https://docs.extole.com/docs/csv-encoding](/guides/dashboards-and-reporting/csv-encoding)
+
+# Validation and Balancing
+
+Validation and balancing assure that all the files you are providing are being properly formatted and sent to Extole. In return, it assures that Extole provides confirmation of the files being processing. The following conventions are used to balance the file submission/processing activity:
+
+- After Extole processes files, it moves them into an "archive" folder on the SFTP server to indicate it has been processed.
+- After Extole processes files, it creates a results file in a "results" folder on the SFTP server which contains success and failure messages for all records.
+
+## Results file
+
+Each file sent to Extole is balanced with a results file. Results files are placed in a "results" folder on the SFTP server underneath the main file. The results files will contain success and failure records for everything passed to Extole. These files should be reviewed automatically or regularly on a manual basis to ensure that your program is successfully running and processing everything correctly.
+
+The results file will usually contain one result line for each input line. So if a 50-line file is sent to Extole, you should receive a 50-line response. Each row of the response file will include extra columns at the beginning to indicate success or failure with a potential message back.
+
+If your entire file cannot be processed, the results file will have a single row of metadata explaining why the failure occurred. This can include things like missing headers, duplicate files, incorrect file encoding or incorrect file permissions.
+
+# Frequently Asked Questions
+
+## Can I setup an automated process that will push or pull files from the SFTP server?
+
+Yes. Your company's IT department likely has tools that can help automate the transfer of files to and from Extole.
+
+## Can the files being sent to and from Extole be encrypted?
+
+SFTP encrypts files as they are transferred. For the types of files being sent, encryption during transmission (transmission-level encryption) is sufficient. Extole does not have a standard way to handle direct file encryption (message-level encryption).
+
+## Can Extole support another transport protocol like ConnectDirect?
+
+The Extole product offering currently supports SFTP. SFTP is widely supported by file transfer packages, including ConnectDirect.
+
+## Can Extole keep copies of my files forever?
+
+The SFTP server is a temporary storage location for the transmission of files. If you need longer-term access to your files, work with your IT team to set up automatic downloading and storage options.

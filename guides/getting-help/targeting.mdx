@@ -1,0 +1,340 @@
+---
+title: "Targeting"
+description: "This document explains how Extole’s targeting system selects the correct campaign and referral relationship for an event using explicit targeting, required matching rules, ranking logic, and fallback behavior."
+---
+
+> 📌 This targeting description applies to upgraded clients
+>
+> Please note that this doc covers our latest targeting technology, which is implemented for new and upgraded clients on Flow Builder. If you have questions about whether or not this doc applies to you and your programs, please reach out to your CSM.
+
+# Extole Targeting System
+
+## Overview
+
+When someone takes an action, such as clicking a referral link, signing up, or making a purchase, Extole’s targeting system decides:
+
+> Which campaign and, if applicable, which advocate should receive credit for this action?
+
+Because many campaigns may be active at the same time, the targeting system chooses the correct one in a predictable and fair way.
+
+***
+
+## Mental Model
+
+Think of targeting like airport security.
+
+### Phase 1: Pre-Screening
+
+Only campaigns that could possibly apply are considered.
+
+For example, if the event is a `purchase`, campaigns that only support `signup` are ignored.
+
+### Phase 2: Final Selection
+
+Among the remaining campaigns, the system:
+
+1. Applies strict requirements, such as Targeting Groups.
+2. Uses hints, such as coupon codes or share IDs.
+3. Ranks candidates by priority, recency, and referral relationship.
+4. Selects one campaign.
+
+If no campaign qualifies, Extole fires an **unattributed event**. No campaign receives credit.
+
+***
+
+## Key Rules
+
+### 1. Explicit Targeting Always Wins
+
+If the event includes a specific targeting value, the system follows that first.
+
+Examples of explicit targeting include:
+
+- `coupon_code`
+- `share_id`
+- `advocate_code`
+- `journey.campaign_id`
+
+These values override normal priority rules.
+
+For example, if a coupon belongs to Campaign A, Campaign A wins even if Campaign B has a higher priority.
+
+***
+
+### 2. Journey Priority Beats Recent Journey
+
+When multiple campaigns could apply, the system ranks them using:
+
+1. Journey priority
+2. Journey ranking hints<br />Used when the request contains a partner ID that points to an existing journey.
+3. Journey recency<br />The most recent journey wins.
+4. Referral relationship journey recency
+
+***
+
+### 3. Programs Are Not Exclusive
+
+Being in Campaign A inside a program does not lock a user into Campaign A.
+
+For example:
+
+- Campaign A does **not** have a `Signed Up` event.
+- Campaign B does have a `Signed Up` event.
+- The user signs up.
+
+In this case, the signup event can move the user to Campaign B.
+
+To prevent this behavior, Campaign A must also support the signup event.
+
+***
+
+### 4. Required Targeting Groups Must Match
+
+Campaigns may have required targeting groups such as:
+
+`purchase`
+
+If required targeting groups do not match, targeting stops. No campaign matches, and no content is shown.
+
+***
+
+## Targeting Flow
+
+1. A person triggers an event, such as a signup or purchase.
+2. The system gathers all active campaigns.
+3. Campaigns that clearly do not apply are filtered out.
+4. The system checks whether the event includes explicit targeting, such as a coupon, share ID, or campaign ID.
+5. If explicit targeting identifies a single campaign, that campaign is selected.
+6. Otherwise, matching campaigns are ranked.
+7. The highest-ranked matching campaign wins.
+8. If no campaign qualifies, the event is unattributed.
+
+***
+
+## Referral Scenarios
+
+### Scenario 1: Friend Uses a Coupon Code
+
+#### Situation
+
+1. Advocate shares a referral.
+2. Friend receives a coupon.
+3. Friend checks out with the coupon.
+
+#### What Happens
+
+The event includes a `coupon_code`.
+
+Because `coupon_code` is an explicit targeting parameter, the system immediately routes the purchase to the correct campaign.
+
+Priority and recency do not matter.
+
+#### Expected Behavior
+
+The correct campaign always gets credit.
+
+***
+
+### Scenario 2: Friend Clicks a Referral Link
+
+#### Situation
+
+1. Friend clicks a referral link.
+2. The link contains a `share_id`.
+
+#### What Happens
+
+The `share_id` acts as a targeting hint group.
+
+The system filters to campaigns connected to that share. If multiple candidates remain, ranking applies.
+
+Usually, the matching campaign wins cleanly.
+
+#### Expected Behavior
+
+The friend stays tied to the correct referral campaign.
+
+***
+
+### Scenario 3: Long Journey from an External Ad Experience
+
+#### Situation
+
+1. Customer previously saw Campaign A through Facebook or another external channel.
+2. Later, the customer arrives on site without a referral link.
+3. The event includes `journey.campaign_id=A`.
+
+#### What Happens
+
+`journey.campaign_id` is a high-priority targeting hint.
+
+It forces creation or reuse of the correct journey, strongly favoring Campaign A.
+
+#### Expected Behavior
+
+The user continues in Campaign A even without a referral link.
+
+***
+
+### Scenario 4: User Is in Two Campaigns in the Same Program
+
+#### Situation
+
+1. Program has Campaign A and Campaign B.
+2. User started in Campaign A.
+3. Campaign B has a `Signed Up` event.
+4. Campaign A does not have a `Signed Up` event.
+5. User signs up.
+
+#### What Happens
+
+Campaign A does not match because it does not support the signup step.
+
+Campaign B matches, so the user is pulled into Campaign B.
+
+Programs are not exclusive.
+
+#### Expected Behavior
+
+The signup goes to Campaign B.
+
+#### Important
+
+To avoid this behavior, add the signup event to Campaign A.
+
+***
+
+### Scenario 5: Friend Was Referred by Multiple Advocates
+
+#### Situation
+
+A friend has multiple referrals, and a new event occurs.
+
+#### What Happens
+
+The system chooses the appropriate referral based on the event and selector.
+
+If the referral includes hints such as a share ID or coupon code, candidates are filtered by those hint groups.
+
+Remaining candidates are ranked by:
+
+1. Friend journey priority
+2. Friend journey recency
+3. Advocate journey recency
+
+#### Expected Behavior
+
+The most relevant journey wins.
+
+***
+
+### Scenario 6: Campaign Is Stopped
+
+#### Situation
+
+1. User was in Campaign A.
+2. Campaign A is stopped.
+3. Campaign B in the same program is active.
+4. User triggers an event.
+
+#### What Happens
+
+The system does not stick to stopped campaigns.
+
+Campaign B wins.
+
+Program membership does not lock targeting.
+
+***
+
+### Scenario 7: Required Targeting Group Does Not Match
+
+#### Situation
+
+The event specifies:
+
+`signup`
+
+But Campaign XYZ does not support the event.
+
+#### What Happens
+
+Because required targeting groups must match, targeting stops.
+
+#### Expected Behavior
+
+The event becomes unattributed.
+
+***
+
+## Best Practices for Second Programs
+
+### Promo-Link-Based Second Referral Programs
+
+Promo links with labels work the same way as other targeting hints.
+
+Extole tries to prioritize the program that corresponds to the label.
+
+If there is no program label, Extole uses the new targeting behavior.
+
+***
+
+### Audience-Based Second Referral Programs
+
+There is no special targeting behavior specific to audiences.
+
+Audience-based programs follow the same targeting rules as other programs.
+
+***
+
+### Dev Environment Second Referral Programs
+
+Previously, V3 targeting setups often used program labels. In the newer targeting model, labels are no longer the preferred approach.
+
+Recommended options:
+
+1. Add journey entry criteria that prevents live traffic from entering the new program.
+   1. Use test audiences.
+   2. Use specific profile parameters.
+   3. Use profile email domain checks.
+2. Develop the new program on another client, then duplicate it and push it live when complete.
+
+***
+
+### Adding Additional Programs Alongside Referral
+
+Examples include:
+
+- Welcome offer programs
+- Employee programs
+- Reward for offer programs
+
+The type of program does not matter.
+
+What matters is whether the request contains a program hint, such as:
+
+- Promotion link label
+- Shareable label
+- Coupon code
+- Other targeting hint
+
+After hints are applied, candidates are considered by journey priority.
+
+Only after that does the system consider existing journeys and other person journeys.
+
+***
+
+## Summary
+
+The targeting system chooses the best campaign by combining strict matching rules, explicit targeting hints, and ranking logic.
+
+The most important principles are:
+
+1. Explicit targeting wins first.
+2. Required targeting groups must match.
+3. Programs are not exclusive.
+4. Stopped campaigns are not sticky.
+5. Campaigns must support the relevant event to receive credit.
+6. When no campaign qualifies, the event is unattributed.
+
+<br />

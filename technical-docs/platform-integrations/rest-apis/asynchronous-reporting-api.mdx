@@ -1,0 +1,135 @@
+---
+title: "Asynchronous Reporting API"
+---
+
+## Overview
+
+We have asynchronous API endpoints to interact with your Extole reports. The three most essential endpoints can be used to run, check the status of, and download reports.
+
+## Generate an Access Token
+
+To get started, you'll first need to get an access token. This will authorize you to make calls to our APIs. To generate a long-lived access token, follow our documentation on [Generating Long-Lived Access Tokens](https://docs.extole.com/docs/generate-long-lived-access-tokens).
+
+## Get a Report
+
+Different reports require different parameters. To find out exactly how your API call should look, first go to [Reports](https://my.extole.com/reports) in My Extole and run the report. Once the report is running or complete, you have two options to get the correct API call.
+
+1. Open the kebab menu to the right of the report listing and select the option to Get API Call.
+
+<img src="https://files.readme.io/6e9752ce6f58647c51426ff188363590145b05cdef000571043a85a94d4457b8-4d5a07ba7fdec51516ac7d27dfa20042387a7a4fbb43d19b8704177e8779efe5-Screenshot_2024-10-17_at_15.25.44.png" alt="" />
+
+2. Click into the report and and hit the button to Get API Call in the top right.
+
+<img src="https://files.readme.io/8fbff5ea52d76c200c664cb22fe7cc0d12def7d7a09ee3290088880b58f4df71-52291065a150b85512a803613f184298208b75f1f3f77f5a33d8bd3a4584b90f-Screenshot_2024-10-17_at_15.24.05.png" alt="" />
+
+Both of the above methods will take you to the same page, where you can view and copy the GET call. This page also has the POST as well as the request body and response.
+
+<img src="https://files.readme.io/48a1174d6a5cb45e562230f49bac1d2a496a2116c97d244bf802c672eba37ab2-686e4bdddf1b57637e61d93f94b6de537fa6b053237bdc7f2ed691cbd4a2e7c4-Screenshot_2024-10-17_at_15.48.34.png" alt="" />
+
+### Get Scheduled Reports
+
+For scheduled reports, the Get API Call button on the schedules page will give you the latest version of the scheduled report.
+
+<img src="https://files.readme.io/0dede02b3922da59c4cd6c461194f0bd8fee84b6e98661d7798625630b7224d7-3657073dd0addd47cb27fc4761fb52f1d73f2c6b1a37466faf760f8f7478d363-Screenshot_2024-10-17_at_15.34.41.png" alt="" />
+
+### Successful GET Output
+
+There are 2 endpoints that can be used for getting report information. /`{report_id}` and /`{report_id}`/download. The first of which will return a body similar to:
+
+`{report_id}`
+
+Which contains all of the information about the report.
+
+The /`{report_id}`/download will allow you to download the contents of the report. For scheduled reports, you can always download the latest version of the report with /`{report_id}`/latest/download. The API call will return the contents of the report in the format specified by the extension:
+
+| File Type      | Extension              |
+| :------------- | :--------------------- |
+| .csv           | Comma Separated Values |
+| .headless\_csv | CSV without header row |
+| .psv           | Pipe Separated Values  |
+| .headless\_psv | PSV without header row |
+| .xlsx          | Excel File             |
+| .json          | JSON                   |
+| .jsonl         | JSON Lines             |
+
+## Execute a Report
+
+To run a report via API call, follow the instructions below.
+
+1. Make a POST call to our reports endpoint.
+
+`{report_id}`
+
+2. Include these HTTP Headers:
+
+`{report_id}`
+
+3. Include this body with your values filled in:
+
+`{report_id}`
+
+Options for the parameters above:
+
+<table>
+  <thead>
+    <tr>
+      <th>
+        Parameter
+      </th>
+      <th>
+        Value
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        &lt;REPORT_NAME&gt;
+      </td>
+      <td>
+        The name of the report you want to download.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        &lt;FORMAT&gt;
+      </td>
+      <td>
+        JSON, CSV
+      </td>
+    </tr>
+    <tr>
+      <td>
+        &lt;DATE_RANGE.START&gt;
+      </td>
+      <td>
+        Any start date for the report range in the format YYYY-MM-DD.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        &lt;DATE_RANGE.END&gt;
+      </td>
+      <td>
+        Any end date for the report range in the format YYYY-MM-DD.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+## Check the Status of a Report
+
+There are four options for the status of the report.
+
+* Pending: The report is preparing to run.
+* In progress: The report is initialized and in progress. Depending on the amount of data you pull back, reports typically remain in this status for one to ten minutes.
+* Failed: There was an error in the API call.
+* Done: The report is complete and ready to be downloaded.
+
+To get a report's status, simply make the GET call listed on the report's Get API Call page and look for the `status` parameter in the response.
+
+## Download a Report
+
+Once the status of a report is `DONE` you will be able to download your report. You can do so by making the following GET call.
+
+`status`

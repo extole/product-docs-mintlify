@@ -1,0 +1,124 @@
+---
+title: "Event Streams Overview"
+description: "This guide explains how to configure and use Event Streams in the Extole platform."
+---
+
+## What Are Event Streams?
+
+The **Event Stream** provides real-time visibility into every event sent through the Extole platform, making it an essential QA and troubleshooting tool. It’s designed to help you validate and debug data flows, track user activity, and verify that key actions and customer journeys are working as expected - all without technical expertise. Use it regularly during program setup and testing to ensure a seamless and rewarding customer experience.
+
+## Why Use Event Streams?
+
+Event Streams help you:
+
+* Validate event integration
+* Debug data transfer issues
+* Investigate anomalies 
+* Analyze live program behavior
+* Monitor events
+
+## How to Access Event Streams
+
+[Event Streams](https://my.extole.com/tech-center/event-streams), found in the Tech Center of your My Extole account.
+
+<img src="https://files.readme.io/06df4518f697107a9f094033e6d1f1a5402ab234b7a3371d0b9cd50e4e878a22-5f72a0906ebf191b02961f8a4e78cc2b19d52e081de396727ad5224ce2045453-image.png" alt="" />
+
+You can filter your Event Streams using multiple filters combined with an AND operator:
+
+| Filter           | Description                                                          |
+| :--------------- | :------------------------------------------------------------------- |
+| Event Name       | The name of a specific event in a program (e.g., login, share).      |
+| Event Type       | The type of event (e.g., INPUT, REWARD).                             |
+| Application Type | The type of application events are coming from (e.g., Web App, API). |
+| Person ID        | The specific ID of the person who performed the event.               |
+| Sandbox          | The name of the sandbox the event occurred in (e.g. container-test). |
+
+<img src="https://files.readme.io/f4bdcb33a817e1c479a39b83f7b1f2e6e316e2bc33da1d0dd61e8afafa5b83ab-032d2388301de4ac133cf6e8dbfed445694aaa95e2a44daf4f3f1569189159fb-Screenshot_2025-07-07_at_16.28.32.png" alt="" />
+
+Write expressions to explore and extract specific data using a specialized query language: [Event Stream Query Language →](https://docs.extole.com/docs/event-stream-query-language)
+
+The event stream does not start automatically; you need to click the Start Streaming button to begin. 
+
+<img src="https://files.readme.io/95e05b01ab50c7077396a0e6988372dc4af71bb5385029dff05689a9027f6189-513caddc523b944367cab1853aae083ad04b2bb4494485c08e930db2953d7d99-Screenshot_2025-07-07_at_16.22.54.png" alt="" />
+
+You can edit or delete the event stream from the current page or update the stop date.
+
+![](https://files.readme.io/4e4e341cfd8f6fa271ed5553549ade7827be497a731f39bb20909c69547ff502-c4fc4cfee200d037b7d3ef7efb1491eb06ff7aff4a1a7d5972cc87bb1c639ca8-Screenshot_2025-07-07_at_16.25.37.png)
+
+To stop an active stream, click on the timer section.
+
+<img src="https://files.readme.io/5793c6d51a8cb4fc5a93a99cd742f5d05ca2e8e49cffddc3bb5f60acd2368446-1bf99a97f396f955e8d4b83ce4e52918b2a5e14440c51ef82517986af512b7c1-Screenshot_2025-07-07_at_16.25.49.png" alt="" />
+
+To view events click on the event stream name, and you’ll be redirected to the stream’s event page.
+
+On the event page, you can:
+
+* Search for events
+* Edit the filter
+* Pause or stop the stream
+* View events as JSON (pretty or raw)
+* Copy the JSON
+* Refresh the stream to load new events into the view
+
+Additional meta-event entries will be recorded to indicate when the stream has been paused, ensuring clarity that no events were produced during those periods.
+
+## Common Use Cases for Marketers
+
+1. **QA During Program Testing**\
+   When testing your referral program, you can use the Event Stream to follow the sequence of actions triggered by your test accounts.\
+   Confirm that key events (such as sharing, registering, purchasing, or rewarding) are firing as expected, with the correct values.
+2. **Troubleshooting Missing Rewards or Referrals**\
+   If a test or live user doesn't receive a reward, use the Event Stream to trace what happened:
+   * Was the share link created and clicked?
+   * Did the registration or purchase event reach Extole?
+   * Was the friend email tied to the correct advocate? etc.
+3. **Validating Event Attribution**\
+   Ensure that events are being correctly associated with the referral journey by checking data like:
+
+* Advocate or friend email
+* Referral code
+* Campaign name or ID
+
+### Best Practices for Marketers
+
+* Always review the Event Stream after testing key steps in your program.
+* If something goes wrong (such as a missing reward), the Event Stream is your first stop for verifying what happened.
+* When sharing issues with your implementation or tech team, include a screenshot or copy of relevant event details - this will speed up resolution.
+* Maintain a list of test emails or campaigns you frequently use for easier filtering and validation.
+
+### Scenario 1: Tracking Actions by a Specific Person
+
+ **Use Case**
+
+When testing a referral program, it's often necessary to verify that a specific user — for example, **Sarah** — has completed the referral journey successfully. After entering her email as the advocate, the following points can be reviewed:
+
+* What actions the user took  
+* Whether those actions were recorded correctly  
+* Whether the referred friend signed up and triggered a reward
+
+**Outcome**
+
+The event stream confirms that Sarah generated a referral link, the link was clicked, the friend registered, and a reward was issued. This validates that the end-to-end referral flow worked as expected for that user and that the program is functioning properly for real participants.
+
+### Scenario 2: Troubleshooting When Something Isn’t Working
+
+**Use Case**
+
+During referral program testing, a scenario may arise where no reward is triggered after a friend signs up using a referral link. In this example, two test emails were used:
+
+* **Advocate:** [marketer1@yourcompany.com](mailto:marketer1@yourcompany.com)  
+* **Friend:** [testuser@yourcompany.com](mailto:testuser@yourcompany.com)
+
+The goal is to determine why the reward was not issued.
+
+**Possible Issues Identified**
+
+* The friend may not have fully completed the required action (e.g., registration or purchase)  
+* The expected event (e.g., registration) may not have reached Extole due to a tracking or integration issue  
+* A delay or timing issue may have prevented the event from being processed in real time
+
+**Next Steps**
+
+* Verify whether the friend completed the intended action or abandoned the process.  
+* Confirm that the relevant event (e.g., registration or purchase) is correctly implemented and sent to Extole.  
+* If the action was completed but no corresponding event appears in the Event Stream, escalate to the implementation or support team for further investigation

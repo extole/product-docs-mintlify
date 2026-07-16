@@ -1,0 +1,106 @@
+---
+title: "Tremendous"
+description: "Integrate with Tremendous to set up international gift card, PayPal, Venmo, and ACH rewards for your Extole programs."
+---
+
+## Overview
+
+[Tremendous](https://www.tremendous.com/about/) is a rewards platform designed around choice. By integrating Extole with Tremendous, you can give your program participants a choice of money, prepaid cards, international gift cards, and charity donations. Tremendous automatically takes care of any currency conversions, money movement, and cross-border regulations that might apply to your business case, while Extole handles rewarding the right people for their engagement with your brand. Each time a customer earns a reward through your program, Extole will communicate directly with Tremendous via webhook to trigger the reward dispensing process.
+
+## Prerequisites
+
+| Requirement    | Description                                                                                                                                         |
+| :------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Extole Account | An Extole account is required in order to take advantage of this integration. All other aspects of the integration are handled by your Extole team. |
+
+## Use Cases
+
+<img src="https://files.readme.io/1184bc941b238bfaeda1ed55a3d89a154cf91582e7643471818d7d698890c580-8241672-Screen_Shot_2023-11-06_at_2.38.31_PM.png" alt="Tremendous rewards" width="60%" />
+  Tremendous rewards
+&lt;/Image>
+
+**International Rewards**\
+Reward global participation in your Extole programs with the Tremendous international Visa gift card. The value is awarded in USD but transferred to local currency upon redemption. Tremendous handles all conversions based on real-time exchange rates and displays balances in the local currency within their portal.
+
+<img src="https://files.readme.io/ee6a74337b8dbfaa1da4c6b87e7e36ed6ce8a0074d175abae312d5b88f00e679-9142644-Screen_Shot_2023-11-06_at_2.38.52_PM.png" alt="" width="30%" />
+
+**Cash Rewards**\
+Offer rewards through PayPal, Venmo, and ACH transfer. While PayPal offers a fast and familiar way to get money in over 100 countries in several currencies, Venmo provides a more popular option for Millennial and Gen Z advocates and friends. Meanwhile, ACH (Automated Clearing House) transfers to any US bank or credit union. All cash options charge a small processing fee.
+
+**Multichoice Rewards**\
+Provide your program participants with the option to choose any Tremendous reward type available in their region. Search their [full catalog](https://www.tremendous.com/catalog/).
+
+<img src="https://files.readme.io/cd501fe6d18b30d7fe3b039f72ad3823129065aaa9d39c887a936938d125f423-c399894-Screen_Shot_2023-11-06_at_4.20.05_PM.png" alt="" width="30%" />
+
+## User Flow
+
+Extole’s integration with Tremendous is designed to give your customers a smooth and fulfilling reward experience. To get a better sense of how your customers will get rewarded through a standard Refer A Friend program, let’s take a look at a standard user flow.
+
+<img src="https://files.readme.io/775c19bd41f92e7cb1087cb1a2eaef88f38af62c9fa73ba0e3033a5a1b8630d0-ec5f745-Screen_Shot_2023-11-06_at_1.56.07_PM.png" alt="Example user flow for a standard Refer A Friend program" />
+  Example user flow for a standard Refer A Friend program
+&lt;/Image>
+
+The referral experience begins when a customer opens an email promoting your referral program or sees a promotion on your website or mobile app encouraging them to refer your product, service, or expert to a friend. When they tap on a CTA, advocates will be taken to a share experience hosted by Extole, where a share link is generated and they can choose the channel through which they'd like to share.
+
+Friends then receive an email or SMS message with the advocate's share link, or they may see the share message on social media. When the referred friend clicks on a share link, they will be directed to your website or app and encouraged to complete the desired action (e.g., convert, register, etc.). 
+
+Once referred friends have converted or otherwise achieved their outcome, Extole will run quality and reward rules to ensure both the friend and the advocate who referred them are eligible for the reward. We will then send a webhook to Tremendous and receive the necessary information for sending the reward to customers via Extole's Earned Reward email. You can fully customize the Earned Reward email within the Campaign Editor of your My Extole account.
+
+Remember that Extole programs are completely customizable and your team at Extole is dedicated to helping you find the best solution for your goals.
+
+## Integration
+
+### Initiate the Connection with Extole Team
+
+The Extole and Tremendous integration is handled almost entirely by your Extole team. In order to start the integration process, talk to your Extole team about which Tremendous rewarding solution is right for your program.
+
+### Configure the Reward in Extole
+
+In Extole, your marketing team is able to create and set reward values for any number of rewards. This takes place within the Rewards center of your My Extole account. The reward is then connected to your desired campaign in Extole. When Extole detects that a rewardable action has been completed and is high-quality (not fraudulent), it triggers the API workflow to Tremendous.
+
+<img src="https://files.readme.io/4e3a31121d77ca1fc77d77c12291282648937de005d67ab0ad514aed06704762-58c59d3-Screen_Shot_2023-11-06_at_4.17.39_PM.png" alt="Example Tremendous reward configured in Extole" width="60%" />
+  Example Tremendous reward configured in Extole
+&lt;/Image>
+
+### Establish an API Connection to Tremendous
+
+Extole has been configured to send a webhook to Tremendous when a consumer has earned a reward through your Extole program. The API connection is secured with a managed access token from Tremendous’ developer center. Your Extole team will work directly with Tremendous to secure this access token and set up the connection in your My Extole account.
+
+### Configure a Webhook to Send Rewards
+
+On the Extole side, your team will create webhook that fires to Tremendous when rewards are earned. This step will include deciding what data needs to be passed from Extole to Tremendous. 
+
+Typically, the data includes the recipient's name and email address, the configured reward's ISO currency code and denomination, and the Tremendous product type, but you can work with your Extole team to customize the payload.
+
+### Provide Funds in Tremendous
+
+You and your Extole team will have joint access to the Tremendous portal. Here you can directly upload funds to ensure you always have a healthy balance for your program rewards.
+
+<img src="https://files.readme.io/27b2351ef60a73e76e004d6fa1b5b9756caeb55c06b3da48839520cd7a88897d-19ea861-Screen_Shot_2023-11-06_at_4.21.18_PM.png" alt="" width="50%" />
+
+## Using this Integration
+
+Once the integration is set up, you will be able to see rewards flow from Extole to Tremendous in real-time in your My Extole account. You'll also be able to access the Tremendous portal, where you can manage your funds and run reports to monitor funding balances and rewards issued over time.
+
+## FAQs
+
+### Can Tremendous reward in currencies beyond USD?
+
+All transactions made through Tremendous are in USD, and all rewards are technically issued in USD. In a few cases, rewards are available in non-USD currencies. For example, PayPal allows recipients to redeem their rewards in their regional currency in certain countries. That said, PayPal can still be redeemed in any region where it's offered in the Tremendous catalog; the funds are just received in the recipient's account in the USD-converted amount.
+
+Tremendous uses automatic conversion by default if a recipient receives a USD reward in a foreign country. Meaning, when a recipient redeems their reward, the amount they'll receive will be the equivalent amount of the USD reward in their regional currency. For example, if you sent someone in Canada a $20 USD reward, they would receive $26.99 CAD based on the current conversion rate. Should the recipient complete the steps to redeem a merchant gift card, the amount will not change after they receive the gift card code, and they'll have a $26.99 CAD card.
+
+### How does Tremendous handle exchange rates?
+
+The continued variance based on the exchange rate after redemption is only possible with the Virtual Visa International prepaid option. As the recipient holds onto the card, the USD amount will remain the same, but the converted amount in their regional currency may fluctuate based on the conversion rates over time (both USD and the regional currency are listed on their card page).
+
+### What if I want to reward in a non-USD amount?
+
+If you're looking to send specific amounts in another currency (for example, €100 EUR instead of $100 USD), you can do this by using Currency Codes within Tremendous. The currency of the reward is set by you as the sender when placing an order. If no currency code is specified during the order, the reward will be sent in the default USD amount and converted to the equivalent in the recipient's currency when they receive it. But if a currency code is used, this will allow you to send the specific non-USD amount and the price of the reward will be the USD equivalent of that conversion.
+
+<Info>
+**Learn More**
+
+
+[Check out the Tremendous Help Center for more information](https://help.tremendous.com/en/articles/foreign-currencies).
+</Info>

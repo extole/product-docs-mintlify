@@ -1,0 +1,136 @@
+---
+title: "Extole DNS Requirements"
+description: "Learn how to fully white label your program by setting up DNS entries."
+---
+
+## Setting Up Branded URLs
+
+<Info>
+**Note**
+
+
+All domains on this page are just examples. You will pick the specific subdomain for your implementation during your launch.
+</Info>
+
+[//]: # "How do I set up my branded program URLs?"
+
+Set up your domain so that links generated and shared are branded with your identity.
+
+&lt;ImproveOpenRatesCallout />
+
+There are two places where branded links are important:
+
+* Promotion Links: These are the links you create to promote your program through outbound promotions via email, social media, and other marketing channels (e.g., `refer.mycompany.com/newsletter`).
+* Share Links: These are the links your advocates share with their friends (e.g., `refer.mycompany.com/s/lbarnett`).
+
+The most common option is to use subdomains of your main brand domain. For example, If your company website is at `mycompany.com` then the most common branded domains are:
+
+* Promotion Links: `share.mycompany.com`
+* Share Links: `share.mycompany.com/s/`
+
+<Warning>
+**Important Note**
+
+
+Your branded domain must be a domain that points to the Extole servers directly, such as `share.mycompany.com`. It cannot be a path like `www.mycompany.com/share`.
+</Warning>
+
+[//]: ___
+
+## Create CNAMEs for Your Domains
+
+[//]: # "How do I create CNAMEs for my domains?"
+
+Setting up a branded domain will require your IT organization to create CNAMEs for your domains and generate certificates.
+
+To set up your CNAME, complete the following steps:
+
+1. Get your current Extole Program Domain. You can find this in the [My Extole Tech Center](https://my.extole.com/tech-center). It will be listed in the Program Domains section. Typically your unbranded domain will look like "mycompany.extole.io". If you cannot locate your domain, contact your CSM.
+2. Log into your domain registrar's control panel and create a CNAME record from your Branded Program URL to the Extole Program Domain. The UI and terminology may vary depending on your registrar. You will point `refer.mycompany.com` to `mycompany.extole.io`.
+3. Once you have created your branded domains, go back into Tech Center and create a New Domain. 
+
+**Example DNS update**:
+
+`refer.mycompany.com/newsletter`
+
+<Info>
+**Corporate DNS versus Public DNS**
+
+
+Many companies have a separate DNS server that runs inside the company to help support things like a corporate intranet. If this is the case, the CNAME needs to be applied to both the public DNS and the corporate DNS.
+
+If you find your program works correctly on your phone and over public WiFi, but does not work when you are at the office, then this is probably the case.
+</Info>
+
+[//]: ___
+
+## Certificates for Your Branded Domain
+
+[//]: # "How do I set up certificates for my branded domains?"
+
+Once your CNAME is set up, Extole will automatically generate a certificate for your domain from Let's Encrypt.  These certificates expire every three months so Extole will the automatically renew the certificate each quarter and keep it active for your campaign.
+
+### Setting Up Your Own SSL Certificate (Optional)
+
+If you'd like to create your own certificate, you may do this by fully creating and uploading your own.
+
+After purchasing an SSL certificate from a Certificate Authority, in most cases they'll send you an email or direct you to a location where you can download your certificate. The email or download location may contain a single SSL certificate or multiple SSL certificates.
+
+The following information must be provided to Extole:
+
+* Private Key (as PKCS#8)
+* Public Certificate
+* Intermediary Chain
+
+To upload your information, go to the My Extole [Tech Center](https://my.extole.com/tech-center) and click on Program Domains. Here you will be able to paste in the files required for your certificate. Tap Save to publish the files.
+
+If your private key is provided in a different format, you may use OpenSSL to convert your private key into PKCS#8.  Please refer to the [OpenSSL Documentation].([https://www.openssl.org/docs/apps/pkcs8.html](https://www.openssl.org/docs/apps/pkcs8.html)) 
+
+It is your responsibility to maintain and renew your certificate. If your certificate in Extole is ever allowed to expire, Extole will automatically generate a new certificate using Let's Encrypt Certificate Authority.
+
+<Info>
+**Certificate Signing Request (CSR)**
+
+
+If you would like to use a Certificate Signing Request please email our Support Team at [support@extole.com](mailto:support@extole.com) and ask us to provide a CSR for your branded domain.
+</Info>
+
+[//]: ___
+
+## Adding Extole to your SPF Records
+
+[//]: # "How do I add Extole to my SPF records?"
+
+A referral program sends two types of emails:
+
+* Referral Emails: Messages sent from the advocate's email address to the friend's email address.
+* Program Emails: Welcome email, reward email, stats emails, etc. are sent from your program to the advocate.  These will typically be sent from `do-not-reply@mycompany.com` using your branded URL.
+
+In the My Extole [Tech Center](https://my.extole.com/tech-center) you will see an **Email Domains** section where you can add your email domain. Here, we display if emails will send from that domain or if there is an SPF/DMARC error to be corrected:
+
+<img src="https://files.readme.io/0a591212a706e069bd7910a5ddfbc1f565289c880be72463c09ab2be408b7c98-fea9847-Screen_Shot_2022-05-24_at_9.48.39_PM.png" alt="Screen Shot 2022-05-24 at 9.48.39 PM.png" />
+  Example of Passing Email DNS
+&lt;/Image>
+
+To ensure your emails are delivered, you can add the Extole mail server IP address to your SPF records. You can add `spf.extole.io`.
+
+**Example SPF record update**:
+
+`refer.mycompany.com/s/lbarnett`
+
+### Adding DKIM Keys
+
+In order to set up DMARC/DKIM, you will need to request DKIM keys from Extole and the following will be provided to you to put into your DNS. Once added, Extole will validate and approve the keys.
+
+**Example DNS update**:
+
+`mycompany.com`
+
+<Warning>
+**Program Sending Domain**
+
+
+If you do not add the records and your SPF or DMARC is set to reject mails from unknown providers, your program emails will be sent from `email.referral-mail.com`.
+</Warning>
+
+[//]: ___

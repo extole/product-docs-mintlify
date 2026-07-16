@@ -1,0 +1,67 @@
+---
+title: "Upgrading to Flow Builder (V10): What Changes & Common Gotchas"
+description: "---"
+---
+
+---
+
+**Description:** What to check when a program is upgraded to Extole's upgraded Flow Builder (V10), and the most common post-upgrade issues — including employee/in-branch audiences and legacy targeting rules.
+
+## Who this is for
+
+This guide is for customers and CSMs upgrading an existing program to Extole's upgraded **Flow Builder (V10)**. It explains what changes during the upgrade and the issues that most often come up immediately afterward, so you can resolve them yourself.
+
+## What changes during the upgrade
+
+- Targeting moves into the **Flow Builder** model (per-flow targeting scenarios and rules).
+- **Legacy label-targeting rules** that were previously only visible in labs are now surfaced in the UI (see [How to Target a Program](https://docs.extole.com/docs/how-to-target-a-program)).
+- Audience and eligibility components that were implicit before may now appear as explicit, editable components in the flow.
+
+## Common gotchas after upgrading
+
+### 1. Employees can no longer complete the in-branch form
+
+**Symptom:** After the upgrade, employees report they can't submit the form.
+
+**Cause:** The in-branch (Branch Employee) journey has a targeting scenario such as **"In-Branch Employee Audience."** If your account does **not** have an employee audience defined, every employee fails that targeting check and is blocked from completing the form.
+
+**Fix:**
+
+1. Open the campaign's **Flow Builder** and select the **Branch Employee → In Branch** journey.
+2. **Disable the "In-Branch Employee Audience" component** if you do not have an audience defined for the employees who enter data into the form.
+3. Publish and test the in-branch form with an employee email.
+
+> If you *do* want to restrict the in-branch flow, create and populate an employee audience first, then keep the component enabled and pointed at that audience.
+
+### 2. Don't confuse the employee audience with the Advocate Audience Id
+
+The **Advocate Audience Id** setting in the creative controls whether the **referring advocate/member** is eligible — it is **separate** from whether an employee can submit the in-branch form.
+
+- Removing the **In-Branch Employee Audience** targeting unblocks **employee submission**.
+- The **Advocate Audience Id** governs **advocate eligibility**. Leave it in place if members still need to be eligible.
+
+When troubleshooting "employees can't submit," check the **employee/in-branch targeting** first; check the **Advocate Audience Id** only if advocate eligibility is also failing.
+
+### 3. A label-targeting rule appears that nobody created
+
+**Symptom:** A targeting scenario shows an **"Event Data Contains Program Label"** (label-targeting) rule you don't remember adding — for example on an "Unverified Employees" scenario.
+
+**Cause:** This is **expected**, not a bug. Legacy label-targeting rules were added to **all journeys by default**. They were previously only visible in internal/labs pages and have **recently been surfaced in the UI**, so they can look new.
+
+**What to do:**
+
+- On **V3 targeting**, the legacy label-targeting rule is still active and may matter for routing.
+- On **V4 targeting**, these legacy rules are **removed as part of the V3→V4 migration**.
+- No action is required unless routing behavior is unexpected — see [How to Target a Program](https://docs.extole.com/docs/how-to-target-a-program).
+
+## Post-upgrade checklist
+
+- [ ] In-Branch Employee Audience component disabled (or a real employee audience defined).
+- [ ] Advocate Audience Id verified in the creative.
+- [ ] Targeting scenarios reviewed; any unexpected label-targeting rules understood (legacy vs. intentional).
+- [ ] Form tested end-to-end with a representative employee and a valid advocate.
+
+## Related articles
+
+- [How to Target a Program](https://docs.extole.com/docs/how-to-target-a-program)
+- [Common Trigger Rules](https://docs.extole.com/docs/common-trigger-rules)

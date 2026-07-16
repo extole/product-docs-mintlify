@@ -1,0 +1,3269 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Integration API - Consumer to Extole",
+    "version": "1.0",
+    "description": "Consumer-to-Extole integration endpoints: consumer event submission, zone rendering, profile management, and SDK-backing operations for browser and native app environments."
+  },
+  "servers": [
+    {
+      "url": "https://{brand}.extole.io",
+      "description": "Production",
+      "variables": {
+        "brand": {
+          "default": "yourcompany",
+          "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)"
+        }
+      }
+    }
+  ],
+  "paths": {
+    "/events": {
+      "post": {
+        "tags": ["Events"],
+        "summary": "Submit a consumer event",
+        "description": "Fires the consumer event described in the JSON request body. Event data may be supplied as top-level JSON fields or as a `jwt` claim. Always returns HTTP 200 regardless of outcome — check for an `X-Extole-Error-Message` response header to detect processing errors. A new `access_token` cookie may be set on the response when the event establishes or upgrades a consumer identity.",
+        "operationId": "submitConsumerEvent",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SubmitEventRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Always return 200. Strongly typed response body, see SubmitEventResponse. ",
+            "headers": {
+              "X-Extole-Token": {
+                "style": "simple",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Extole-Cookie-Consent": {
+                "style": "simple",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubmitEventResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "method_unauthorized": {
+                    "$ref": "#/components/examples/method_unauthorized"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "method_unauthorized": {
+                    "$ref": "#/components/examples/method_unauthorized"
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "unsupported_media_type": {
+                    "$ref": "#/components/examples/unsupported_media_type"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "missing_request_body": {
+                    "$ref": "#/components/examples/missing_request_body"
+                  },
+                  "invalid_parameter": {
+                    "$ref": "#/components/examples/invalid_parameter"
+                  },
+                  "invalid_json": {
+                    "$ref": "#/components/examples/invalid_json"
+                  },
+                  "binding_error": {
+                    "$ref": "#/components/examples/binding_error"
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "too_many_requests": {
+                    "$ref": "#/components/examples/too_many_requests"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-extole-bundle": "integration-consumer-to-extole",
+        "x-extole-visibility": "visible",
+        "x-codeSamples": [
+          {
+            "lang": "shell",
+            "label": "cURL",
+            "source": "curl -X POST \"https://api.extole.io/events\" \\\n  -H \"Authorization: Bearer YOUR_ACCESS_TOKEN\" \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Accept: application/json\" \\\n  -d '{\"event_name\": \"advocate_share\", \"email\": \"friend@example.com\"}'"
+          },
+          {
+            "lang": "javascript",
+            "label": "JavaScript (fetch)",
+            "source": "const response = await fetch(\"https://api.extole.io/events\", {\n  method: \"POST\",\n  headers: {\n    \"Authorization\": \"Bearer YOUR_ACCESS_TOKEN\",\n    \"Content-Type\": \"application/json\",\n    \"Accept\": \"application/json\"\n  },\n  body: JSON.stringify({ event_name: \"advocate_share\", email: \"friend@example.com\" })\n});\nconst result = await response.json();\nconsole.log(result.id);"
+          },
+          {
+            "lang": "python",
+            "label": "Python (requests)",
+            "source": "import requests\nresponse = requests.post(\n    \"https://api.extole.io/events\",\n    headers={\n        \"Authorization\": \"Bearer YOUR_ACCESS_TOKEN\",\n        \"Content-Type\": \"application/json\",\n        \"Accept\": \"application/json\",\n    },\n    json={\"event_name\": \"advocate_share\", \"email\": \"friend@example.com\"},\n)\nresponse.raise_for_status()\nprint(response.json()[\"id\"])"
+          }
+        ]
+      }
+    },
+    "/events/{event_name}": {
+      "get": {
+        "tags": ["Events"],
+        "summary": "Submit a consumer event by URL",
+        "description": "Fires the named consumer event using data from the query string and optional JWT claim. Always returns HTTP 200 regardless of outcome — check for an `X-Extole-Error-Message` response header to detect processing errors. A new `access_token` cookie may be set on the response when the event establishes or upgrades a consumer identity.",
+        "operationId": "fetchConsumerEventByName",
+        "parameters": [
+          {
+            "name": "event_name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Always return 200. Strongly typed response body, see SubmitEventResponse. ",
+            "headers": {
+              "X-Extole-Token": {
+                "style": "simple",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Extole-Cookie-Consent": {
+                "style": "simple",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubmitEventResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "method_unauthorized": {
+                    "$ref": "#/components/examples/method_unauthorized"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "method_unauthorized": {
+                    "$ref": "#/components/examples/method_unauthorized"
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "unsupported_media_type": {
+                    "$ref": "#/components/examples/unsupported_media_type"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "missing_request_body": {
+                    "$ref": "#/components/examples/missing_request_body"
+                  },
+                  "invalid_parameter": {
+                    "$ref": "#/components/examples/invalid_parameter"
+                  },
+                  "invalid_json": {
+                    "$ref": "#/components/examples/invalid_json"
+                  },
+                  "binding_error": {
+                    "$ref": "#/components/examples/binding_error"
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "too_many_requests": {
+                    "$ref": "#/components/examples/too_many_requests"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-extole-bundle": "integration-consumer-to-extole",
+        "x-extole-visibility": "visible",
+        "x-codeSamples": [
+          {
+            "lang": "shell",
+            "label": "cURL",
+            "source": "curl \"https://api.extole.io/events/advocate_share?access_token=YOUR_ACCESS_TOKEN&email=friend@example.com\" \\\n  -H \"Accept: application/json\""
+          },
+          {
+            "lang": "javascript",
+            "label": "JavaScript (fetch)",
+            "source": "const params = new URLSearchParams({ access_token: \"YOUR_ACCESS_TOKEN\", email: \"friend@example.com\" });\nconst response = await fetch(`https://api.extole.io/events/advocate_share?${params}`, {\n  headers: { \"Accept\": \"application/json\" }\n});\nconst result = await response.json();\nconsole.log(result.id);"
+          },
+          {
+            "lang": "python",
+            "label": "Python (requests)",
+            "source": "import requests\nresponse = requests.get(\n    \"https://api.extole.io/events/advocate_share\",\n    params={\"access_token\": \"YOUR_ACCESS_TOKEN\", \"email\": \"friend@example.com\"},\n    headers={\"Accept\": \"application/json\"},\n)\nresponse.raise_for_status()\nprint(response.json()[\"id\"])"
+          }
+        ]
+      }
+    },
+    "/v4/me": {
+      "get": {
+        "tags": ["Profiles"],
+        "summary": "Get the authenticated consumer profile",
+        "description": "Returns the profile of the consumer identified by the supplied access token. The response includes the consumer's identity attributes (email, partner user id, name), custom data fields stored in `parameters`, and consent state.",
+        "operationId": "getMyProfile",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MyProfileResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "missing_access_token": {
+                    "$ref": "#/components/examples/missing_access_token"
+                  },
+                  "jwt_authentication_error": {
+                    "$ref": "#/components/examples/jwt_authentication_error"
+                  },
+                  "invalid_access_token": {
+                    "$ref": "#/components/examples/invalid_access_token"
+                  },
+                  "expired_access_token": {
+                    "$ref": "#/components/examples/expired_access_token"
+                  },
+                  "access_denied": {
+                    "$ref": "#/components/examples/access_denied"
+                  },
+                  "method_unauthorized": {
+                    "$ref": "#/components/examples/method_unauthorized"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "method_unauthorized": {
+                    "$ref": "#/components/examples/method_unauthorized"
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "unsupported_media_type": {
+                    "$ref": "#/components/examples/unsupported_media_type"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "missing_request_body": {
+                    "$ref": "#/components/examples/missing_request_body"
+                  },
+                  "invalid_parameter": {
+                    "$ref": "#/components/examples/invalid_parameter"
+                  },
+                  "invalid_json": {
+                    "$ref": "#/components/examples/invalid_json"
+                  },
+                  "binding_error": {
+                    "$ref": "#/components/examples/binding_error"
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "too_many_requests": {
+                    "$ref": "#/components/examples/too_many_requests"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-extole-bundle": "integration-consumer-to-extole",
+        "x-extole-visibility": "visible",
+        "x-codeSamples": [
+          {
+            "lang": "shell",
+            "label": "cURL",
+            "source": "curl \"https://api.extole.io/v4/me\" \\\n  -H \"Authorization: Bearer YOUR_ACCESS_TOKEN\" \\\n  -H \"Accept: application/json\""
+          },
+          {
+            "lang": "javascript",
+            "label": "JavaScript (fetch)",
+            "source": "const response = await fetch(\"https://api.extole.io/v4/me\", {\n  headers: { \"Authorization\": \"Bearer YOUR_ACCESS_TOKEN\", \"Accept\": \"application/json\" }\n});\nconst profile = await response.json();\nconsole.log(profile.email);"
+          },
+          {
+            "lang": "python",
+            "label": "Python (requests)",
+            "source": "import requests\nresponse = requests.get(\n    \"https://api.extole.io/v4/me\",\n    headers={\"Authorization\": \"Bearer YOUR_ACCESS_TOKEN\", \"Accept\": \"application/json\"},\n)\nresponse.raise_for_status()\nprint(response.json()[\"email\"])"
+          }
+        ]
+      }
+    },
+    "/v4/me/rewards/status": {
+      "get": {
+        "tags": ["Profiles"],
+        "summary": "Get reward redemption status",
+        "description": "Returns the current state of a pending or completed reward redemption for the authenticated consumer. Supply exactly one of `polling_id` (returned by a prior reward claim call), `reward_name` (the configured reward name), or `partner_event_id` (the originating partner event identifier). Poll this endpoint until the reward reaches a terminal state.",
+        "operationId": "getMyRewardStatus",
+        "parameters": [
+          {
+            "name": "polling_id",
+            "in": "query",
+            "description": "Polling identifier returned by the reward claim call.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "reward_name",
+            "in": "query",
+            "description": "The configured name of the reward to look up.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "partner_event_id",
+            "in": "query",
+            "description": "The partner-supplied event identifier that originated the reward.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Reward redemption status.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PollingRewardResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The reward query is invalid: `invalid_reward_id` if the supplied `polling_id` does not resolve to a reward, or `invalid_reward_filter` if none of `polling_id`, `reward_name`, or `partner_event_id` was supplied.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "invalid_reward_id": {
+                    "$ref": "#/components/examples/invalid_reward_id"
+                  },
+                  "invalid_reward_filter": {
+                    "$ref": "#/components/examples/invalid_reward_filter"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "missing_access_token": {
+                    "$ref": "#/components/examples/missing_access_token"
+                  },
+                  "jwt_authentication_error": {
+                    "$ref": "#/components/examples/jwt_authentication_error"
+                  },
+                  "invalid_access_token": {
+                    "$ref": "#/components/examples/invalid_access_token"
+                  },
+                  "expired_access_token": {
+                    "$ref": "#/components/examples/expired_access_token"
+                  },
+                  "access_denied": {
+                    "$ref": "#/components/examples/access_denied"
+                  },
+                  "method_unauthorized": {
+                    "$ref": "#/components/examples/method_unauthorized"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "method_unauthorized": {
+                    "$ref": "#/components/examples/method_unauthorized"
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "unsupported_media_type": {
+                    "$ref": "#/components/examples/unsupported_media_type"
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "too_many_requests": {
+                    "$ref": "#/components/examples/too_many_requests"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-extole-bundle": "integration-consumer-to-extole",
+        "x-extole-visibility": "visible",
+        "x-codeSamples": [
+          {
+            "lang": "shell",
+            "label": "cURL",
+            "source": "curl \"https://api.extole.io/v4/me/rewards/status?polling_id=POLLING_ID\" \\\n  -H \"Authorization: Bearer YOUR_ACCESS_TOKEN\" \\\n  -H \"Accept: application/json\""
+          },
+          {
+            "lang": "javascript",
+            "label": "JavaScript (fetch)",
+            "source": "const response = await fetch(`https://api.extole.io/v4/me/rewards/status?polling_id=POLLING_ID`, {\n  headers: { \"Authorization\": \"Bearer YOUR_ACCESS_TOKEN\", \"Accept\": \"application/json\" }\n});\nconst reward = await response.json();\nconsole.log(reward.status);"
+          },
+          {
+            "lang": "python",
+            "label": "Python (requests)",
+            "source": "import requests\nresponse = requests.get(\n    \"https://api.extole.io/v4/me/rewards/status\",\n    params={\"polling_id\": \"POLLING_ID\"},\n    headers={\"Authorization\": \"Bearer YOUR_ACCESS_TOKEN\", \"Accept\": \"application/json\"},\n)\nresponse.raise_for_status()\nprint(response.json()[\"status\"])"
+          }
+        ]
+      }
+    },
+    "/v4/persons/{personId}/assets": {
+      "get": {
+        "tags": ["Profiles"],
+        "summary": "List assets for a person",
+        "description": "Returns all assets attached to the person profile identified by `personId`. Assets are binary or text files associated with a program participant — for example, wallet passes, QR codes, or uploaded images. Use `getPersonAsset` to fetch a single asset's metadata, or `downloadPersonAsset` to retrieve its content.",
+        "operationId": "listPersonAssets",
+        "parameters": [
+          {
+            "name": "personId",
+            "in": "path",
+            "description": "The Extole unique profile identifier of this user at Extole.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Assets attached to the person.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PersonAssetResponse"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Person lookup failed: `invalid_person_id` if the supplied `personId` is not a valid Extole identifier, or `person_not_found` if no person with that id exists.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "invalid_person_id": {
+                    "$ref": "#/components/examples/invalid_person_id"
+                  },
+                  "person_not_found": {
+                    "$ref": "#/components/examples/person_not_found"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "missing_access_token": {
+                    "$ref": "#/components/examples/missing_access_token"
+                  },
+                  "jwt_authentication_error": {
+                    "$ref": "#/components/examples/jwt_authentication_error"
+                  },
+                  "invalid_access_token": {
+                    "$ref": "#/components/examples/invalid_access_token"
+                  },
+                  "expired_access_token": {
+                    "$ref": "#/components/examples/expired_access_token"
+                  },
+                  "access_denied": {
+                    "$ref": "#/components/examples/access_denied"
+                  },
+                  "method_unauthorized": {
+                    "$ref": "#/components/examples/method_unauthorized"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "method_unauthorized": {
+                    "$ref": "#/components/examples/method_unauthorized"
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "unsupported_media_type": {
+                    "$ref": "#/components/examples/unsupported_media_type"
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "too_many_requests": {
+                    "$ref": "#/components/examples/too_many_requests"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-extole-bundle": "integration-consumer-to-extole",
+        "x-extole-visibility": "visible",
+        "x-codeSamples": [
+          {
+            "lang": "shell",
+            "label": "cURL",
+            "source": "curl \"https://api.extole.io/v4/persons/PERSON_ID/assets/\" \\\n  -H \"Authorization: Bearer YOUR_ACCESS_TOKEN\" \\\n  -H \"Accept: application/json\""
+          },
+          {
+            "lang": "javascript",
+            "label": "JavaScript (fetch)",
+            "source": "const response = await fetch(\"https://api.extole.io/v4/persons/PERSON_ID/assets/\", {\n  headers: { \"Authorization\": \"Bearer YOUR_ACCESS_TOKEN\", \"Accept\": \"application/json\" }\n});\nconst assets = await response.json();\nconsole.log(assets.length);"
+          },
+          {
+            "lang": "python",
+            "label": "Python (requests)",
+            "source": "import requests\nresponse = requests.get(\n    \"https://api.extole.io/v4/persons/PERSON_ID/assets/\",\n    headers={\"Authorization\": \"Bearer YOUR_ACCESS_TOKEN\", \"Accept\": \"application/json\"},\n)\nresponse.raise_for_status()\nprint(len(response.json()))"
+          }
+        ]
+      }
+    },
+    "/v4/persons/{personId}/assets/download": {
+      "get": {
+        "tags": ["Profiles"],
+        "summary": "Download a person asset by name",
+        "description": "Streams the binary or text content of the asset matching the `name` query parameter for the person identified by `personId`. Returns HTTP 302 if the content is hosted at a remote URL; returns HTTP 200 with the raw content otherwise. Use the id variant (`downloadPersonAsset`) when you have the asset id.",
+        "operationId": "downloadPersonAssetByName",
+        "parameters": [
+          {
+            "name": "personId",
+            "in": "path",
+            "description": "The Extole unique profile identifier of this user at Extole.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "description": "Name of the asset to download.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Binary asset content stream with the asset's stored content type.",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "302": {
+            "description": "Redirect to remote asset content."
+          },
+          "400": {
+            "description": "Asset lookup or download failed: `asset_not_found` if no matching asset is attached to the person; `asset_content_not_downloadable` if the asset's content cannot be streamed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "asset_not_found": {
+                    "$ref": "#/components/examples/asset_not_found"
+                  },
+                  "asset_content_not_downloadable": {
+                    "$ref": "#/components/examples/asset_content_not_downloadable"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "missing_access_token": {
+                    "$ref": "#/components/examples/missing_access_token"
+                  },
+                  "jwt_authentication_error": {
+                    "$ref": "#/components/examples/jwt_authentication_error"
+                  },
+                  "invalid_access_token": {
+                    "$ref": "#/components/examples/invalid_access_token"
+                  },
+                  "expired_access_token": {
+                    "$ref": "#/components/examples/expired_access_token"
+                  },
+                  "access_denied": {
+                    "$ref": "#/components/examples/access_denied"
+                  },
+                  "method_unauthorized": {
+                    "$ref": "#/components/examples/method_unauthorized"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "method_unauthorized": {
+                    "$ref": "#/components/examples/method_unauthorized"
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "unsupported_media_type": {
+                    "$ref": "#/components/examples/unsupported_media_type"
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "too_many_requests": {
+                    "$ref": "#/components/examples/too_many_requests"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-extole-bundle": "integration-consumer-to-extole",
+        "x-extole-visibility": "visible",
+        "x-codeSamples": [
+          {
+            "lang": "shell",
+            "label": "cURL",
+            "source": "curl -L \"https://api.extole.io/v4/persons/PERSON_ID/assets/download?name=ASSET_NAME\" \\\n  -H \"Authorization: Bearer YOUR_ACCESS_TOKEN\" \\\n  -o asset_content"
+          },
+          {
+            "lang": "javascript",
+            "label": "JavaScript (fetch)",
+            "source": "const response = await fetch(\"https://api.extole.io/v4/persons/PERSON_ID/assets/download?name=ASSET_NAME\", {\n  headers: { \"Authorization\": \"Bearer YOUR_ACCESS_TOKEN\" }\n});\nconst blob = await response.blob();\nconsole.log(blob.size);"
+          },
+          {
+            "lang": "python",
+            "label": "Python (requests)",
+            "source": "import requests\nresponse = requests.get(\n    \"https://api.extole.io/v4/persons/PERSON_ID/assets/download\",\n    params={\"name\": \"ASSET_NAME\"},\n    headers={\"Authorization\": \"Bearer YOUR_ACCESS_TOKEN\"},\n    allow_redirects=True,\n)\nresponse.raise_for_status()\nwith open(\"asset_content\", \"wb\") as f:\n    f.write(response.content)"
+          }
+        ]
+      }
+    },
+    "/v4/persons/{personId}/assets/{assetId}": {
+      "get": {
+        "tags": ["Profiles"],
+        "summary": "Get a person asset by ID",
+        "description": "Returns full metadata for the asset identified by `assetId` and owned by the person identified by `personId`. Metadata includes the asset type, name, content URL, MIME type, and creation timestamp. Use `downloadPersonAsset` to stream the asset content.",
+        "operationId": "getPersonAsset",
+        "parameters": [
+          {
+            "name": "personId",
+            "in": "path",
+            "description": "The Extole unique profile identifier of this user at Extole.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "assetId",
+            "in": "path",
+            "description": "The Extole-assigned unique identifier of the asset.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Asset metadata.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PersonAssetResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Person or asset lookup failed: `invalid_person_id` if the supplied `personId` is not a valid Extole identifier; `person_not_found` if no person with that id exists; `asset_not_found` if no asset with the given `assetId` is attached to the person.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "invalid_person_id": {
+                    "$ref": "#/components/examples/invalid_person_id"
+                  },
+                  "person_not_found": {
+                    "$ref": "#/components/examples/person_not_found"
+                  },
+                  "asset_not_found": {
+                    "$ref": "#/components/examples/asset_not_found"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "missing_access_token": {
+                    "$ref": "#/components/examples/missing_access_token"
+                  },
+                  "jwt_authentication_error": {
+                    "$ref": "#/components/examples/jwt_authentication_error"
+                  },
+                  "invalid_access_token": {
+                    "$ref": "#/components/examples/invalid_access_token"
+                  },
+                  "expired_access_token": {
+                    "$ref": "#/components/examples/expired_access_token"
+                  },
+                  "access_denied": {
+                    "$ref": "#/components/examples/access_denied"
+                  },
+                  "method_unauthorized": {
+                    "$ref": "#/components/examples/method_unauthorized"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "method_unauthorized": {
+                    "$ref": "#/components/examples/method_unauthorized"
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "unsupported_media_type": {
+                    "$ref": "#/components/examples/unsupported_media_type"
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "too_many_requests": {
+                    "$ref": "#/components/examples/too_many_requests"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-extole-bundle": "integration-consumer-to-extole",
+        "x-extole-visibility": "visible",
+        "x-codeSamples": [
+          {
+            "lang": "shell",
+            "label": "cURL",
+            "source": "curl \"https://api.extole.io/v4/persons/PERSON_ID/assets/ASSET_ID\" \\\n  -H \"Authorization: Bearer YOUR_ACCESS_TOKEN\" \\\n  -H \"Accept: application/json\""
+          },
+          {
+            "lang": "javascript",
+            "label": "JavaScript (fetch)",
+            "source": "const response = await fetch(\"https://api.extole.io/v4/persons/PERSON_ID/assets/ASSET_ID\", {\n  headers: { \"Authorization\": \"Bearer YOUR_ACCESS_TOKEN\", \"Accept\": \"application/json\" }\n});\nconst asset = await response.json();\nconsole.log(asset.name);"
+          },
+          {
+            "lang": "python",
+            "label": "Python (requests)",
+            "source": "import requests\nresponse = requests.get(\n    \"https://api.extole.io/v4/persons/PERSON_ID/assets/ASSET_ID\",\n    headers={\"Authorization\": \"Bearer YOUR_ACCESS_TOKEN\", \"Accept\": \"application/json\"},\n)\nresponse.raise_for_status()\nprint(response.json()[\"name\"])"
+          }
+        ]
+      }
+    },
+    "/v4/persons/{personId}/assets/{assetId}/download": {
+      "get": {
+        "tags": ["Profiles"],
+        "summary": "Download a person asset by asset ID",
+        "description": "Streams the binary or text content of the asset identified by `assetId`. Returns HTTP 302 if the content is hosted at a remote URL; returns HTTP 200 with the raw content otherwise. Use the `name` variant (`downloadPersonAssetByName`) when you have the asset name but not the id.",
+        "operationId": "downloadPersonAsset",
+        "parameters": [
+          {
+            "name": "personId",
+            "in": "path",
+            "description": "The Extole unique profile identifier of this user at Extole.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "assetId",
+            "in": "path",
+            "description": "The Extole-assigned unique identifier of the asset.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Binary asset content stream with the asset's stored content type.",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "302": {
+            "description": "Redirect to remote asset content."
+          },
+          "400": {
+            "description": "Asset lookup or download failed: `asset_not_found` if no matching asset is attached to the person; `asset_content_not_downloadable` if the asset's content cannot be streamed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "asset_not_found": {
+                    "$ref": "#/components/examples/asset_not_found"
+                  },
+                  "asset_content_not_downloadable": {
+                    "$ref": "#/components/examples/asset_content_not_downloadable"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "missing_access_token": {
+                    "$ref": "#/components/examples/missing_access_token"
+                  },
+                  "jwt_authentication_error": {
+                    "$ref": "#/components/examples/jwt_authentication_error"
+                  },
+                  "invalid_access_token": {
+                    "$ref": "#/components/examples/invalid_access_token"
+                  },
+                  "expired_access_token": {
+                    "$ref": "#/components/examples/expired_access_token"
+                  },
+                  "access_denied": {
+                    "$ref": "#/components/examples/access_denied"
+                  },
+                  "method_unauthorized": {
+                    "$ref": "#/components/examples/method_unauthorized"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "method_unauthorized": {
+                    "$ref": "#/components/examples/method_unauthorized"
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "unsupported_media_type": {
+                    "$ref": "#/components/examples/unsupported_media_type"
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "too_many_requests": {
+                    "$ref": "#/components/examples/too_many_requests"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-extole-bundle": "integration-consumer-to-extole",
+        "x-extole-visibility": "visible",
+        "x-codeSamples": [
+          {
+            "lang": "shell",
+            "label": "cURL",
+            "source": "curl -L \"https://api.extole.io/v4/persons/PERSON_ID/assets/ASSET_ID/download\" \\\n  -H \"Authorization: Bearer YOUR_ACCESS_TOKEN\" \\\n  -o asset_content"
+          },
+          {
+            "lang": "javascript",
+            "label": "JavaScript (fetch)",
+            "source": "const response = await fetch(\"https://api.extole.io/v4/persons/PERSON_ID/assets/ASSET_ID/download\", {\n  headers: { \"Authorization\": \"Bearer YOUR_ACCESS_TOKEN\" }\n});\nconst blob = await response.blob();\nconsole.log(blob.size);"
+          },
+          {
+            "lang": "python",
+            "label": "Python (requests)",
+            "source": "import requests\nresponse = requests.get(\n    \"https://api.extole.io/v4/persons/PERSON_ID/assets/ASSET_ID/download\",\n    headers={\"Authorization\": \"Bearer YOUR_ACCESS_TOKEN\"},\n    allow_redirects=True,\n)\nresponse.raise_for_status()\nwith open(\"asset_content\", \"wb\") as f:\n    f.write(response.content)"
+          }
+        ]
+      }
+    },
+    "/v5/token": {
+      "get": {
+        "tags": ["Authentication"],
+        "summary": "Get consumer token details",
+        "description": "Returns the metadata for the access token supplied in the `access_token` query parameter or bearer header. If no token is supplied, the server attempts to resolve a token from the HTTP authorization header. Returns the token's expiry, scopes, and the identity it represents.",
+        "operationId": "getConsumerToken",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokenResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "missing_access_token": {
+                    "$ref": "#/components/examples/missing_access_token"
+                  },
+                  "jwt_authentication_error": {
+                    "$ref": "#/components/examples/jwt_authentication_error"
+                  },
+                  "invalid_access_token": {
+                    "$ref": "#/components/examples/invalid_access_token"
+                  },
+                  "expired_access_token": {
+                    "$ref": "#/components/examples/expired_access_token"
+                  },
+                  "access_denied": {
+                    "$ref": "#/components/examples/access_denied"
+                  },
+                  "method_unauthorized": {
+                    "$ref": "#/components/examples/method_unauthorized"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "method_unauthorized": {
+                    "$ref": "#/components/examples/method_unauthorized"
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "unsupported_media_type": {
+                    "$ref": "#/components/examples/unsupported_media_type"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "missing_request_body": {
+                    "$ref": "#/components/examples/missing_request_body"
+                  },
+                  "invalid_parameter": {
+                    "$ref": "#/components/examples/invalid_parameter"
+                  },
+                  "invalid_json": {
+                    "$ref": "#/components/examples/invalid_json"
+                  },
+                  "binding_error": {
+                    "$ref": "#/components/examples/binding_error"
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "too_many_requests": {
+                    "$ref": "#/components/examples/too_many_requests"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-extole-bundle": "integration-consumer-to-extole",
+        "x-extole-visibility": "visible",
+        "x-codeSamples": [
+          {
+            "lang": "shell",
+            "label": "cURL",
+            "source": "curl \"https://api.extole.io/v5/token\" \\\n  -H \"Authorization: Bearer YOUR_ACCESS_TOKEN\" \\\n  -H \"Accept: application/json\""
+          },
+          {
+            "lang": "javascript",
+            "label": "JavaScript (fetch)",
+            "source": "const response = await fetch(\"https://api.extole.io/v5/token\", {\n  headers: { \"Authorization\": \"Bearer YOUR_ACCESS_TOKEN\", \"Accept\": \"application/json\" }\n});\nconst token = await response.json();\nconsole.log(token.access_token);"
+          },
+          {
+            "lang": "python",
+            "label": "Python (requests)",
+            "source": "import requests\nresponse = requests.get(\n    \"https://api.extole.io/v5/token\",\n    headers={\"Authorization\": \"Bearer YOUR_ACCESS_TOKEN\", \"Accept\": \"application/json\"},\n)\nresponse.raise_for_status()\nprint(response.json()[\"access_token\"])"
+          }
+        ]
+      },
+      "post": {
+        "tags": ["Authentication"],
+        "summary": "Create a consumer access token",
+        "description": "Issues a new access token for the identity supplied in the request. Pass an `email` to identify a consumer when the client identity key is `email`. Pass a `jwt` to assert a trusted identity via JWT verification. Omit both to issue an anonymous token. The optional `duration_seconds` field caps the token lifetime.",
+        "operationId": "createConsumerToken",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTokenRequest"
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTokenRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Created consumer access token.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokenResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The token-creation request is invalid: `email` is not applicable for the client's identity key (`email_not_applicable`), or the requested token duration is outside the permitted range (`invalid_access_token_duration`).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "email_not_applicable": {
+                    "$ref": "#/components/examples/email_not_applicable"
+                  },
+                  "invalid_access_token_duration": {
+                    "$ref": "#/components/examples/invalid_access_token_duration"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "jwt_error": {
+                    "$ref": "#/components/examples/jwt_error"
+                  },
+                  "invalid_email": {
+                    "$ref": "#/components/examples/invalid_email"
+                  },
+                  "email_mismatch": {
+                    "$ref": "#/components/examples/email_mismatch"
+                  },
+                  "method_unauthorized": {
+                    "$ref": "#/components/examples/method_unauthorized"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "method_unauthorized": {
+                    "$ref": "#/components/examples/method_unauthorized"
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "unsupported_media_type": {
+                    "$ref": "#/components/examples/unsupported_media_type"
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "too_many_requests": {
+                    "$ref": "#/components/examples/too_many_requests"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-extole-bundle": "integration-consumer-to-extole",
+        "x-extole-visibility": "visible",
+        "x-codeSamples": [
+          {
+            "lang": "shell",
+            "label": "cURL",
+            "source": "curl -X POST \"https://api.extole.io/v5/token\" \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Accept: application/json\" \\\n  -d '{\"email\": \"user@example.com\"}'"
+          },
+          {
+            "lang": "javascript",
+            "label": "JavaScript (fetch)",
+            "source": "const response = await fetch(\"https://api.extole.io/v5/token\", {\n  method: \"POST\",\n  headers: { \"Content-Type\": \"application/json\", \"Accept\": \"application/json\" },\n  body: JSON.stringify({ email: \"user@example.com\" })\n});\nconst token = await response.json();\nconsole.log(token.access_token);"
+          },
+          {
+            "lang": "python",
+            "label": "Python (requests)",
+            "source": "import requests\nresponse = requests.post(\n    \"https://api.extole.io/v5/token\",\n    headers={\"Content-Type\": \"application/json\", \"Accept\": \"application/json\"},\n    json={\"email\": \"user@example.com\"},\n)\nresponse.raise_for_status()\nprint(response.json()[\"access_token\"])"
+          }
+        ]
+      },
+      "delete": {
+        "tags": ["Authentication"],
+        "summary": "Delete a consumer access token",
+        "description": "Revokes the access token supplied in the `access_token` query parameter or bearer header. If no token is supplied, the server attempts to resolve a token from the HTTP authorization header and revokes that one. After revocation the token is immediately invalidated.",
+        "operationId": "deleteConsumerToken",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuccessResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "missing_access_token": {
+                    "$ref": "#/components/examples/missing_access_token"
+                  },
+                  "jwt_authentication_error": {
+                    "$ref": "#/components/examples/jwt_authentication_error"
+                  },
+                  "invalid_access_token": {
+                    "$ref": "#/components/examples/invalid_access_token"
+                  },
+                  "expired_access_token": {
+                    "$ref": "#/components/examples/expired_access_token"
+                  },
+                  "access_denied": {
+                    "$ref": "#/components/examples/access_denied"
+                  },
+                  "method_unauthorized": {
+                    "$ref": "#/components/examples/method_unauthorized"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "method_unauthorized": {
+                    "$ref": "#/components/examples/method_unauthorized"
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "unsupported_media_type": {
+                    "$ref": "#/components/examples/unsupported_media_type"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "missing_request_body": {
+                    "$ref": "#/components/examples/missing_request_body"
+                  },
+                  "invalid_parameter": {
+                    "$ref": "#/components/examples/invalid_parameter"
+                  },
+                  "invalid_json": {
+                    "$ref": "#/components/examples/invalid_json"
+                  },
+                  "binding_error": {
+                    "$ref": "#/components/examples/binding_error"
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "too_many_requests": {
+                    "$ref": "#/components/examples/too_many_requests"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-extole-bundle": "integration-consumer-to-extole",
+        "x-extole-visibility": "visible",
+        "x-codeSamples": [
+          {
+            "lang": "shell",
+            "label": "cURL",
+            "source": "curl -X DELETE \"https://api.extole.io/v5/token\" \\\n  -H \"Authorization: Bearer YOUR_ACCESS_TOKEN\" \\\n  -H \"Accept: application/json\""
+          },
+          {
+            "lang": "javascript",
+            "label": "JavaScript (fetch)",
+            "source": "const response = await fetch(\"https://api.extole.io/v5/token\", {\n  method: \"DELETE\",\n  headers: { \"Authorization\": \"Bearer YOUR_ACCESS_TOKEN\", \"Accept\": \"application/json\" }\n});\nconst result = await response.json();\nconsole.log(result.status);"
+          },
+          {
+            "lang": "python",
+            "label": "Python (requests)",
+            "source": "import requests\nresponse = requests.delete(\n    \"https://api.extole.io/v5/token\",\n    headers={\"Authorization\": \"Bearer YOUR_ACCESS_TOKEN\", \"Accept\": \"application/json\"},\n)\nresponse.raise_for_status()\nprint(response.json()[\"status\"])"
+          }
+        ]
+      }
+    },
+    "/v6/zones": {
+      "post": {
+        "tags": ["Content"],
+        "summary": "Render a zone",
+        "description": "Renders the zone identified by `event_name` in the JSON request body and returns the structured zone content as JSON. Intended for backend rendering where the caller manages token identity directly. For browser or in-app rendering use `POST /zones` instead.",
+        "operationId": "renderZone",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RenderZoneRequest"
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/RenderZoneRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Zone content.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ZoneResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Zone rendering failed: `missing_zone_name` if no zone name was supplied in the request body, `invalid_zone_name` if the name is not recognised by the client's campaign configuration, or `invalid_creative_result` if the configured creative did not return valid JSON.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "missing_zone_name": {
+                    "$ref": "#/components/examples/missing_zone_name"
+                  },
+                  "invalid_zone_name": {
+                    "$ref": "#/components/examples/invalid_zone_name"
+                  },
+                  "invalid_creative_result": {
+                    "$ref": "#/components/examples/invalid_creative_result"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "missing_access_token": {
+                    "$ref": "#/components/examples/missing_access_token"
+                  },
+                  "jwt_authentication_error": {
+                    "$ref": "#/components/examples/jwt_authentication_error"
+                  },
+                  "invalid_access_token": {
+                    "$ref": "#/components/examples/invalid_access_token"
+                  },
+                  "expired_access_token": {
+                    "$ref": "#/components/examples/expired_access_token"
+                  },
+                  "access_denied": {
+                    "$ref": "#/components/examples/access_denied"
+                  },
+                  "method_unauthorized": {
+                    "$ref": "#/components/examples/method_unauthorized"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "method_unauthorized": {
+                    "$ref": "#/components/examples/method_unauthorized"
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "unsupported_media_type": {
+                    "$ref": "#/components/examples/unsupported_media_type"
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "too_many_requests": {
+                    "$ref": "#/components/examples/too_many_requests"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-extole-bundle": "integration-consumer-to-extole",
+        "x-extole-visibility": "visible",
+        "x-codeSamples": [
+          {
+            "lang": "shell",
+            "label": "cURL",
+            "source": "curl -X POST \"https://api.extole.io/v6/zones\" \\\n  -H \"Authorization: Bearer YOUR_ACCESS_TOKEN\" \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Accept: application/json\" \\\n  -d '{\"event_name\": \"microsite_hero\"}'"
+          },
+          {
+            "lang": "javascript",
+            "label": "JavaScript (fetch)",
+            "source": "const response = await fetch(\"https://api.extole.io/v6/zones\", {\n  method: \"POST\",\n  headers: {\n    \"Authorization\": \"Bearer YOUR_ACCESS_TOKEN\",\n    \"Content-Type\": \"application/json\",\n    \"Accept\": \"application/json\"\n  },\n  body: JSON.stringify({ event_name: \"microsite_hero\" })\n});\nconst zone = await response.json();\nconsole.log(zone.event_id);"
+          },
+          {
+            "lang": "python",
+            "label": "Python (requests)",
+            "source": "import requests\nresponse = requests.post(\n    \"https://api.extole.io/v6/zones\",\n    headers={\n        \"Authorization\": \"Bearer YOUR_ACCESS_TOKEN\",\n        \"Content-Type\": \"application/json\",\n        \"Accept\": \"application/json\",\n    },\n    json={\"event_name\": \"microsite_hero\"},\n)\nresponse.raise_for_status()\nprint(response.json()[\"event_id\"])"
+          }
+        ]
+      }
+    },
+    "/v6/zones/{event_name}": {
+      "post": {
+        "tags": ["Content"],
+        "summary": "Render a named zone",
+        "description": "Renders the zone identified by the `event_name` path parameter and returns the structured zone content as JSON. Pass zone input data in the request body. Intended for backend rendering where the caller manages token identity directly. For browser or in-app rendering use `POST /zones/{zone_name}` instead.",
+        "operationId": "renderZoneByEventName",
+        "parameters": [
+          {
+            "name": "event_name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "object"
+                }
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Zone content.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ZoneResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Zone rendering failed: `invalid_zone_name` if the zone name from the URL path is not recognised by the client's campaign configuration, or `invalid_creative_result` if the configured creative did not return valid JSON.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "invalid_zone_name": {
+                    "$ref": "#/components/examples/invalid_zone_name"
+                  },
+                  "invalid_creative_result": {
+                    "$ref": "#/components/examples/invalid_creative_result"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "missing_access_token": {
+                    "$ref": "#/components/examples/missing_access_token"
+                  },
+                  "jwt_authentication_error": {
+                    "$ref": "#/components/examples/jwt_authentication_error"
+                  },
+                  "invalid_access_token": {
+                    "$ref": "#/components/examples/invalid_access_token"
+                  },
+                  "expired_access_token": {
+                    "$ref": "#/components/examples/expired_access_token"
+                  },
+                  "access_denied": {
+                    "$ref": "#/components/examples/access_denied"
+                  },
+                  "method_unauthorized": {
+                    "$ref": "#/components/examples/method_unauthorized"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "method_unauthorized": {
+                    "$ref": "#/components/examples/method_unauthorized"
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "unsupported_media_type": {
+                    "$ref": "#/components/examples/unsupported_media_type"
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "too_many_requests": {
+                    "$ref": "#/components/examples/too_many_requests"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-extole-bundle": "integration-consumer-to-extole",
+        "x-extole-visibility": "visible",
+        "x-codeSamples": [
+          {
+            "lang": "shell",
+            "label": "cURL",
+            "source": "curl -X POST \"https://api.extole.io/v6/zones/microsite_hero\" \\\n  -H \"Authorization: Bearer YOUR_ACCESS_TOKEN\" \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Accept: application/json\" \\\n  -d '{}'"
+          },
+          {
+            "lang": "javascript",
+            "label": "JavaScript (fetch)",
+            "source": "const response = await fetch(\"https://api.extole.io/v6/zones/microsite_hero\", {\n  method: \"POST\",\n  headers: {\n    \"Authorization\": \"Bearer YOUR_ACCESS_TOKEN\",\n    \"Content-Type\": \"application/json\",\n    \"Accept\": \"application/json\"\n  },\n  body: JSON.stringify({})\n});\nconst zone = await response.json();\nconsole.log(zone.event_id);"
+          },
+          {
+            "lang": "python",
+            "label": "Python (requests)",
+            "source": "import requests\nresponse = requests.post(\n    \"https://api.extole.io/v6/zones/microsite_hero\",\n    headers={\n        \"Authorization\": \"Bearer YOUR_ACCESS_TOKEN\",\n        \"Content-Type\": \"application/json\",\n        \"Accept\": \"application/json\",\n    },\n    json={},\n)\nresponse.raise_for_status()\nprint(response.json()[\"event_id\"])"
+          }
+        ]
+      }
+    },
+    "/zones": {
+      "get": {
+        "tags": ["Content"],
+        "summary": "Allocate a token via an empty zone request",
+        "description": "Returns an empty 200 response with `Extole-Log: target zone=unknown`. Because no zone name can be supplied on this path-less GET form, no zone is rendered — the operation's effect is access-token allocation: if no token is present in the request, one is generated and written back as both an `access_token` cookie and an `Extole-Token` response header. Use this to bootstrap a browser session before issuing a named zone request. To render an actual zone, use `GET /zones/{zone_name}`, `POST /zones`, or `POST /zones/{zone_name}`.",
+        "operationId": "fetchZoneWeb",
+        "responses": {
+          "200": {
+            "description": "Empty body. `Extole-Token` header carries the allocated or existing access token; `Extole-Log` reports `target zone=unknown`.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "missing_access_token": {
+                    "$ref": "#/components/examples/missing_access_token"
+                  },
+                  "jwt_authentication_error": {
+                    "$ref": "#/components/examples/jwt_authentication_error"
+                  },
+                  "invalid_access_token": {
+                    "$ref": "#/components/examples/invalid_access_token"
+                  },
+                  "expired_access_token": {
+                    "$ref": "#/components/examples/expired_access_token"
+                  },
+                  "access_denied": {
+                    "$ref": "#/components/examples/access_denied"
+                  },
+                  "method_unauthorized": {
+                    "$ref": "#/components/examples/method_unauthorized"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "method_unauthorized": {
+                    "$ref": "#/components/examples/method_unauthorized"
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "unsupported_media_type": {
+                    "$ref": "#/components/examples/unsupported_media_type"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "missing_request_body": {
+                    "$ref": "#/components/examples/missing_request_body"
+                  },
+                  "invalid_parameter": {
+                    "$ref": "#/components/examples/invalid_parameter"
+                  },
+                  "invalid_json": {
+                    "$ref": "#/components/examples/invalid_json"
+                  },
+                  "binding_error": {
+                    "$ref": "#/components/examples/binding_error"
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "too_many_requests": {
+                    "$ref": "#/components/examples/too_many_requests"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-extole-bundle": "integration-consumer-to-extole",
+        "x-extole-visibility": "visible"
+      },
+      "post": {
+        "tags": ["Content"],
+        "summary": "Render a zone with the name in the body",
+        "description": "Renders the zone identified by `event_name` in the request body, applies any other body fields as targeting data passed to the creative, and returns the rendered creative content (HTML, JavaScript, JSON, or plain text). Designed for direct use from a browser page or web SDK embed — accepts form-encoded, plain-text, and multipart bodies in addition to JSON, and handles cookie-based identity automatically. If `event_name` is omitted, returns an empty 200 with `Extole-Log: target zone=unknown`; the access token is still allocated and written as a cookie. For backend zone rendering use `POST /v6/zones` instead.",
+        "operationId": "renderZoneWeb",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RenderZoneRequest"
+              }
+            },
+            "text/plain": {
+              "schema": {
+                "$ref": "#/components/schemas/RenderZoneRequest"
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/RenderZoneRequest"
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/RenderZoneRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Rendered zone content. The response body shape varies by the zone's creative configuration: HTML, JavaScript, JSON, or plain text.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "missing_access_token": {
+                    "$ref": "#/components/examples/missing_access_token"
+                  },
+                  "jwt_authentication_error": {
+                    "$ref": "#/components/examples/jwt_authentication_error"
+                  },
+                  "invalid_access_token": {
+                    "$ref": "#/components/examples/invalid_access_token"
+                  },
+                  "expired_access_token": {
+                    "$ref": "#/components/examples/expired_access_token"
+                  },
+                  "access_denied": {
+                    "$ref": "#/components/examples/access_denied"
+                  },
+                  "method_unauthorized": {
+                    "$ref": "#/components/examples/method_unauthorized"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "method_unauthorized": {
+                    "$ref": "#/components/examples/method_unauthorized"
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "unsupported_media_type": {
+                    "$ref": "#/components/examples/unsupported_media_type"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "missing_request_body": {
+                    "$ref": "#/components/examples/missing_request_body"
+                  },
+                  "invalid_parameter": {
+                    "$ref": "#/components/examples/invalid_parameter"
+                  },
+                  "invalid_json": {
+                    "$ref": "#/components/examples/invalid_json"
+                  },
+                  "binding_error": {
+                    "$ref": "#/components/examples/binding_error"
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "too_many_requests": {
+                    "$ref": "#/components/examples/too_many_requests"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-extole-bundle": "integration-consumer-to-extole",
+        "x-extole-visibility": "visible",
+        "x-codeSamples": [
+          {
+            "lang": "shell",
+            "label": "cURL",
+            "source": "curl -X POST \"https://api.extole.io/zones\" \\\n  -H \"Authorization: Bearer YOUR_ACCESS_TOKEN\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"event_name\": \"microsite_hero\"}'"
+          },
+          {
+            "lang": "javascript",
+            "label": "JavaScript (fetch)",
+            "source": "const response = await fetch(\"https://api.extole.io/zones\", {\n  method: \"POST\",\n  headers: {\n    \"Authorization\": \"Bearer YOUR_ACCESS_TOKEN\",\n    \"Content-Type\": \"application/json\"\n  },\n  body: JSON.stringify({ event_name: \"microsite_hero\" })\n});\nconst content = await response.text();\nconsole.log(content);"
+          },
+          {
+            "lang": "python",
+            "label": "Python (requests)",
+            "source": "import requests\nresponse = requests.post(\n    \"https://api.extole.io/zones\",\n    headers={\n        \"Authorization\": \"Bearer YOUR_ACCESS_TOKEN\",\n        \"Content-Type\": \"application/json\",\n    },\n    json={\"event_name\": \"microsite_hero\"},\n)\nresponse.raise_for_status()\nprint(response.text)"
+          }
+        ]
+      }
+    },
+    "/zones/{zone_name}": {
+      "get": {
+        "tags": ["Content"],
+        "summary": "Fetch a named zone for web-page embedding",
+        "description": "Fetches the zone identified by `zone_name` and returns its content. Designed for direct browser or web SDK use — automatically allocates a new access token if none is present and writes it back as a cookie so subsequent requests in the same session are correlated. The response body varies by the zone's creative configuration: HTML, JavaScript, JSON, or plain text. Because this is a GET request, no targeting data can be sent in the body — use `POST /zones/{zone_name}` to pass identity or other targeting fields.",
+        "operationId": "fetchZoneByNameWeb",
+        "parameters": [
+          {
+            "name": "zone_name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Rendered zone content. The response body shape varies by the zone's creative configuration: HTML, JavaScript, JSON, or plain text.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "missing_access_token": {
+                    "$ref": "#/components/examples/missing_access_token"
+                  },
+                  "jwt_authentication_error": {
+                    "$ref": "#/components/examples/jwt_authentication_error"
+                  },
+                  "invalid_access_token": {
+                    "$ref": "#/components/examples/invalid_access_token"
+                  },
+                  "expired_access_token": {
+                    "$ref": "#/components/examples/expired_access_token"
+                  },
+                  "access_denied": {
+                    "$ref": "#/components/examples/access_denied"
+                  },
+                  "method_unauthorized": {
+                    "$ref": "#/components/examples/method_unauthorized"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "method_unauthorized": {
+                    "$ref": "#/components/examples/method_unauthorized"
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "unsupported_media_type": {
+                    "$ref": "#/components/examples/unsupported_media_type"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "missing_request_body": {
+                    "$ref": "#/components/examples/missing_request_body"
+                  },
+                  "invalid_parameter": {
+                    "$ref": "#/components/examples/invalid_parameter"
+                  },
+                  "invalid_json": {
+                    "$ref": "#/components/examples/invalid_json"
+                  },
+                  "binding_error": {
+                    "$ref": "#/components/examples/binding_error"
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "too_many_requests": {
+                    "$ref": "#/components/examples/too_many_requests"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-extole-bundle": "integration-consumer-to-extole",
+        "x-extole-visibility": "visible"
+      },
+      "post": {
+        "tags": ["Content"],
+        "summary": "Render a named zone for web-page embedding",
+        "description": "Renders the zone identified by `zone_name` and returns its content. Designed for direct use from a browser page or web SDK embed — accepts form-encoded and multipart bodies in addition to JSON, and handles cookie-based identity automatically. For backend zone rendering use `POST /v6/zones/{event_name}` instead.",
+        "operationId": "renderZoneByNameWeb",
+        "parameters": [
+          {
+            "name": "zone_name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "object"
+                }
+              }
+            },
+            "text/plain": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "object"
+                }
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "object"
+                }
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Rendered zone content. The response body shape varies by the zone's creative configuration: HTML, JavaScript, JSON, or plain text.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "missing_access_token": {
+                    "$ref": "#/components/examples/missing_access_token"
+                  },
+                  "jwt_authentication_error": {
+                    "$ref": "#/components/examples/jwt_authentication_error"
+                  },
+                  "invalid_access_token": {
+                    "$ref": "#/components/examples/invalid_access_token"
+                  },
+                  "expired_access_token": {
+                    "$ref": "#/components/examples/expired_access_token"
+                  },
+                  "access_denied": {
+                    "$ref": "#/components/examples/access_denied"
+                  },
+                  "method_unauthorized": {
+                    "$ref": "#/components/examples/method_unauthorized"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "method_unauthorized": {
+                    "$ref": "#/components/examples/method_unauthorized"
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "unsupported_media_type": {
+                    "$ref": "#/components/examples/unsupported_media_type"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "missing_request_body": {
+                    "$ref": "#/components/examples/missing_request_body"
+                  },
+                  "invalid_parameter": {
+                    "$ref": "#/components/examples/invalid_parameter"
+                  },
+                  "invalid_json": {
+                    "$ref": "#/components/examples/invalid_json"
+                  },
+                  "binding_error": {
+                    "$ref": "#/components/examples/binding_error"
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestExceptionResponse"
+                },
+                "examples": {
+                  "too_many_requests": {
+                    "$ref": "#/components/examples/too_many_requests"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-extole-bundle": "integration-consumer-to-extole",
+        "x-extole-visibility": "visible",
+        "x-codeSamples": [
+          {
+            "lang": "shell",
+            "label": "cURL",
+            "source": "curl -X POST \"https://api.extole.io/zones/microsite_hero\" \\\n  -H \"Authorization: Bearer YOUR_ACCESS_TOKEN\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'"
+          },
+          {
+            "lang": "javascript",
+            "label": "JavaScript (fetch)",
+            "source": "const response = await fetch(\"https://api.extole.io/zones/microsite_hero\", {\n  method: \"POST\",\n  headers: {\n    \"Authorization\": \"Bearer YOUR_ACCESS_TOKEN\",\n    \"Content-Type\": \"application/json\"\n  },\n  body: JSON.stringify({})\n});\nconst content = await response.text();\nconsole.log(content);"
+          },
+          {
+            "lang": "python",
+            "label": "Python (requests)",
+            "source": "import requests\nresponse = requests.post(\n    \"https://api.extole.io/zones/microsite_hero\",\n    headers={\n        \"Authorization\": \"Bearer YOUR_ACCESS_TOKEN\",\n        \"Content-Type\": \"application/json\",\n    },\n    json={},\n)\nresponse.raise_for_status()\nprint(response.text)"
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "SuccessResponse": {
+        "required": ["status"],
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string"
+          }
+        }
+      },
+      "PersonAssetResponse": {
+        "required": [
+          "data_type",
+          "filename",
+          "id",
+          "mime_type",
+          "name",
+          "status",
+          "tags"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "readOnly": true
+          },
+          "name": {
+            "type": "string"
+          },
+          "filename": {
+            "type": "string"
+          },
+          "mime_type": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["APPROVED", "DENIED", "PENDING_REVIEW"]
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "data_type": {
+            "type": "string",
+            "enum": ["PRIVATE", "PUBLIC"]
+          }
+        }
+      },
+      "RestExceptionResponse": {
+        "required": [
+          "code",
+          "http_status_code",
+          "message",
+          "parameters",
+          "unique_id"
+        ],
+        "type": "object",
+        "properties": {
+          "unique_id": {
+            "type": "string",
+            "description": "Unique id associated with this error, useful for discussions with Extole"
+          },
+          "http_status_code": {
+            "type": "integer",
+            "description": "HTTP status code that was returned with this error, useful if client get response code",
+            "format": "int32"
+          },
+          "code": {
+            "type": "string",
+            "description": "Specific error code for this error type, documented per endpoint"
+          },
+          "message": {
+            "type": "string",
+            "description": "User readable English description of the error"
+          },
+          "parameters": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object",
+              "description": "Attributes related to the error, varies be error code, documented per endpoint"
+            },
+            "description": "Attributes related to the error, varies be error code, documented per endpoint"
+          }
+        },
+        "description": "Represents the API error response"
+      },
+      "TokenResponse": {
+        "type": "object",
+        "properties": {
+          "access_token": {
+            "type": "string",
+            "description": "Opaque access token for the consumer session. Pass as a Bearer token or `access_token` query parameter on subsequent requests."
+          },
+          "expires_in": {
+            "type": "integer",
+            "description": "Seconds until the token expires.",
+            "format": "int64"
+          },
+          "scopes": {
+            "uniqueItems": true,
+            "type": "array",
+            "description": "Set of permission scopes granted to this token.",
+            "items": {
+              "type": "string",
+              "description": "Set of permission scopes granted to this token.",
+              "enum": ["UPDATE_PROFILE", "VERIFIED_CONSUMER"]
+            }
+          }
+        }
+      },
+      "CreateTokenRequest": {
+        "type": "object",
+        "properties": {
+          "duration_seconds": {
+            "type": "integer",
+            "description": "Requested token lifetime in seconds. Defaults to the client configuration value when omitted.",
+            "format": "int64"
+          },
+          "jwt": {
+            "type": "string",
+            "description": "Signed JWT carrying consumer identity claims. When supplied, identity is derived from the token claims rather than from `email`."
+          },
+          "email": {
+            "type": "string",
+            "description": "Email address used to identify or create the consumer. Ignored when `jwt` is present."
+          }
+        }
+      },
+      "MyProfileResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Extole-assigned unique identifier for this consumer."
+          },
+          "email": {
+            "type": "string",
+            "description": "Email address on file for the consumer."
+          },
+          "first_name": {
+            "type": "string",
+            "description": "First name of the consumer."
+          },
+          "last_name": {
+            "type": "string",
+            "description": "Last name of the consumer."
+          },
+          "profile_picture_url": {
+            "type": "string",
+            "description": "URL of the consumer's profile picture."
+          },
+          "partner_user_id": {
+            "type": "string",
+            "description": "Partner-assigned unique identifier for the consumer in the partner's system."
+          },
+          "cookie_consent": {
+            "type": "string",
+            "description": "Cookie consent string currently stored on the consumer's profile."
+          },
+          "cookie_consent_type": {
+            "type": "string",
+            "description": "Source that set the current cookie consent value.",
+            "enum": ["CLIENT", "EXTOLE", "UNSET"]
+          },
+          "processing_consent": {
+            "type": "string",
+            "description": "Data processing consent string currently stored on the consumer's profile."
+          },
+          "processing_consent_type": {
+            "type": "string",
+            "description": "Source that set the current data processing consent value.",
+            "enum": ["CLIENT", "EXTOLE", "UNSET"]
+          },
+          "parameters": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object",
+              "description": "Open key-value map of custom attributes stored on the consumer's profile."
+            },
+            "description": "Open key-value map of custom attributes stored on the consumer's profile."
+          },
+          "locale": {
+            "type": "string",
+            "description": "BCP 47 locale tag for the consumer. Null when not set."
+          }
+        }
+      },
+      "PollingRewardResponse": {
+        "type": "object",
+        "properties": {
+          "reward": {
+            "$ref": "#/components/schemas/RewardResponse"
+          },
+          "status": {
+            "type": "string",
+            "description": "Current processing status of the reward redemption (`PENDING`, `SUCCEEDED`, or `FAILED`).",
+            "enum": ["FAILED", "PENDING", "SUCCEEDED"]
+          },
+          "quality_results": {
+            "type": "array",
+            "description": "Quality evaluation results associated with this reward redemption.",
+            "items": {
+              "$ref": "#/components/schemas/QualityResults"
+            }
+          }
+        }
+      },
+      "SubmitEventResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Extole-assigned event identifier for the fired event."
+          },
+          "token": {
+            "type": "string",
+            "description": "Current access token for the consumer. Allows client code to read the token without relying on cookies."
+          },
+          "cookie_consent": {
+            "type": "string",
+            "description": "Cookie consent string set by the platform during event processing. Null when no consent update occurred."
+          }
+        }
+      },
+      "SubmitEventRequest": {
+        "type": "object",
+        "properties": {
+          "event_name": {
+            "type": "string",
+            "description": "Name of the event to fire. Lowercase letters, digits, and underscores; other characters are normalised during processing."
+          },
+          "jwt": {
+            "type": "string",
+            "description": "Signed JWT carrying consumer identity claims. Verified server-side; takes precedence over query-string identity fields when present."
+          },
+          "id_token": {
+            "type": "string",
+            "description": "OIDC id_token used for identity verification. Alternative to `jwt`."
+          },
+          "data": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object",
+              "description": "Open key-value map of event data. Common identity keys: `email`, `partner_user_id`. Additional keys are passed through to campaign logic."
+            },
+            "description": "Open key-value map of event data. Common identity keys: `email`, `partner_user_id`. Additional keys are passed through to campaign logic."
+          }
+        }
+      },
+      "RenderZoneRequest": {
+        "type": "object",
+        "properties": {
+          "event_name": {
+            "type": "string"
+          },
+          "jwt": {
+            "type": "string"
+          },
+          "id_token": {
+            "type": "string"
+          },
+          "data": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object"
+            }
+          }
+        }
+      },
+      "ZoneResponse": {
+        "type": "object",
+        "properties": {
+          "event_id": {
+            "type": "string",
+            "description": "Extole event id generated for this zone render request."
+          },
+          "data": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object",
+              "description": "Creative output for this zone. Structure varies by campaign configuration."
+            },
+            "description": "Creative output for this zone. Structure varies by campaign configuration."
+          },
+          "campaign_id": {
+            "type": "string",
+            "description": "Extole campaign id that served this zone. Absent if not determinable."
+          }
+        }
+      },
+      "RewardResponse": {
+        "required": [
+          "action_id",
+          "campaign_id",
+          "cause_event_id",
+          "container",
+          "created_at",
+          "data",
+          "email",
+          "face_value",
+          "face_value_type",
+          "journey_key",
+          "journey_name",
+          "partner_reward_id",
+          "partner_reward_key_type",
+          "partner_reward_supplier_id",
+          "partner_user_id",
+          "person_id",
+          "reward_id",
+          "reward_supplier_id",
+          "root_event_id",
+          "sandbox",
+          "state"
+        ],
+        "type": "object",
+        "properties": {
+          "reward_id": {
+            "type": "string",
+            "description": "Extole-assigned unique identifier for this reward."
+          },
+          "cause_event_id": {
+            "type": "string",
+            "description": "Id of the direct cause event that triggered this reward."
+          },
+          "root_event_id": {
+            "type": "string",
+            "description": "Id of the root event that initiated the chain leading to this reward."
+          },
+          "action_id": {
+            "type": "string",
+            "description": "Extole action id associated with this reward."
+          },
+          "reward_supplier_id": {
+            "type": "string",
+            "description": "Extole reward supplier id that issued this reward."
+          },
+          "partner_reward_supplier_id": {
+            "type": "string",
+            "description": "Partner-assigned identifier for the reward supplier. Null if not provided."
+          },
+          "partner_reward_key_type": {
+            "type": "string",
+            "description": "Type of key used to identify the reward at the partner's system.",
+            "enum": ["COUPON", "ID", "LINK"]
+          },
+          "campaign_id": {
+            "type": "string",
+            "description": "Extole campaign id associated with this reward."
+          },
+          "person_id": {
+            "type": "string",
+            "description": "Extole person id of the reward recipient."
+          },
+          "partner_user_id": {
+            "type": "string",
+            "description": "Partner's identifier for the person. Null if not provided."
+          },
+          "email": {
+            "type": "string",
+            "description": "Email address of the reward recipient. Null if not available."
+          },
+          "state": {
+            "type": "string",
+            "description": "Current lifecycle state of the reward.",
+            "enum": [
+              "CANCELED",
+              "EARNED",
+              "FAILED",
+              "FULFILLED",
+              "REDEEMED",
+              "REVOKED",
+              "SENT"
+            ]
+          },
+          "face_value": {
+            "type": "number",
+            "description": "Monetary or point face value of the reward."
+          },
+          "face_value_type": {
+            "type": "string",
+            "description": "Unit type of the face value (e.g. `CASH`, `POINTS`, `PERCENT`).",
+            "enum": [
+              "AUD",
+              "BRL",
+              "CAD",
+              "CNY",
+              "EUR",
+              "GBP",
+              "HKD",
+              "INR",
+              "JPY",
+              "KRW",
+              "MONTH",
+              "MXN",
+              "NZD",
+              "PERCENT_OFF",
+              "POINTS",
+              "TRY",
+              "TWD",
+              "USD"
+            ]
+          },
+          "partner_reward_id": {
+            "type": "string",
+            "description": "Partner-assigned identifier for this reward. Null if not yet assigned."
+          },
+          "created_at": {
+            "type": "string",
+            "description": "Timestamp when this reward was created.",
+            "format": "date-time"
+          },
+          "data": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string",
+              "description": "Named data parameters attached to this reward."
+            },
+            "description": "Named data parameters attached to this reward."
+          },
+          "journey_name": {
+            "type": "string",
+            "description": "Name of the journey associated with this reward."
+          },
+          "journey_key": {
+            "$ref": "#/components/schemas/JourneyKey"
+          },
+          "sandbox": {
+            "type": "string",
+            "description": "Sandbox identifier for this reward."
+          },
+          "container": {
+            "type": "string",
+            "description": "Campaign container the reward belongs to."
+          }
+        }
+      },
+      "QualityResults": {
+        "type": "object",
+        "properties": {
+          "score": {
+            "type": "string",
+            "enum": ["ERROR", "HIGH", "LOW"]
+          },
+          "quality_rule_results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/QualityRuleResult"
+            }
+          }
+        }
+      },
+      "JourneyKey": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
+        }
+      },
+      "QualityRuleResult": {
+        "type": "object",
+        "properties": {
+          "rule_name": {
+            "type": "string"
+          },
+          "score": {
+            "type": "string",
+            "enum": ["ERROR", "HIGH", "LOW"]
+          }
+        }
+      }
+    },
+    "examples": {
+      "missing_access_token": {
+        "summary": "missing_access_token",
+        "value": {
+          "code": "missing_access_token",
+          "message": "No access_token was provided with this request."
+        }
+      },
+      "access_denied": {
+        "summary": "access_denied",
+        "value": {
+          "code": "access_denied",
+          "message": "The access_token provided is not permitted to access the specified resource."
+        }
+      },
+      "method_unauthorized": {
+        "summary": "method_unauthorized",
+        "value": {
+          "code": "method_unauthorized",
+          "message": "Access forbidden to this endpoint"
+        }
+      },
+      "missing_request_body": {
+        "summary": "missing_request_body",
+        "value": {
+          "code": "missing_request_body",
+          "message": "Missing request body"
+        }
+      },
+      "invalid_parameter": {
+        "summary": "invalid_parameter",
+        "value": {
+          "code": "invalid_parameter",
+          "message": "Parameter is invalid."
+        }
+      },
+      "invalid_json": {
+        "summary": "invalid_json",
+        "value": {
+          "code": "invalid_json",
+          "message": "JSON is invalid"
+        }
+      },
+      "binding_error": {
+        "summary": "binding_error",
+        "value": {
+          "code": "binding_error",
+          "message": "Argument is not of the expected type"
+        }
+      },
+      "unsupported_media_type": {
+        "summary": "unsupported_media_type",
+        "value": {
+          "code": "unsupported_media_type",
+          "message": "Request had an unsupported or no media type"
+        }
+      },
+      "too_many_requests": {
+        "summary": "too_many_requests",
+        "value": {
+          "code": "too_many_requests",
+          "message": "The server is unable to process your request at the moment, please retry later."
+        }
+      },
+      "person_not_found": {
+        "summary": "person_not_found",
+        "value": {
+          "code": "person_not_found",
+          "message": "Person not found"
+        }
+      },
+      "missing_zone_name": {
+        "summary": "missing_zone_name",
+        "value": {
+          "code": "missing_zone_name",
+          "message": "Zone name must be present"
+        }
+      },
+      "asset_not_found": {
+        "summary": "asset_not_found",
+        "value": {
+          "code": "asset_not_found",
+          "message": "Asset not found"
+        }
+      },
+      "jwt_error": {
+        "summary": "jwt_error",
+        "value": {
+          "code": "jwt_error",
+          "message": "The jwt authentication verification failed."
+        }
+      },
+      "invalid_email": {
+        "summary": "invalid_email",
+        "value": {
+          "code": "invalid_email",
+          "message": "Invalid email"
+        }
+      },
+      "email_mismatch": {
+        "summary": "email_mismatch",
+        "value": {
+          "code": "email_mismatch",
+          "message": "Mismatch in specified emails"
+        }
+      },
+      "email_not_applicable": {
+        "summary": "email_not_applicable",
+        "value": {
+          "code": "email_not_applicable",
+          "message": "Email attribute is not applicable for current identity key"
+        }
+      },
+      "invalid_access_token_duration": {
+        "summary": "invalid_access_token_duration",
+        "value": {
+          "code": "invalid_access_token_duration",
+          "message": "The duration provided with this request is invalid."
+        }
+      },
+      "jwt_authentication_error": {
+        "summary": "jwt_authentication_error",
+        "value": {
+          "code": "jwt_authentication_error",
+          "message": "The jwt authentication failed."
+        }
+      },
+      "invalid_access_token": {
+        "summary": "invalid_access_token",
+        "value": {
+          "code": "invalid_access_token",
+          "message": "The access_token provided with this request is invalid."
+        }
+      },
+      "expired_access_token": {
+        "summary": "expired_access_token",
+        "value": {
+          "code": "expired_access_token",
+          "message": "The access_token provided with this request has expired."
+        }
+      },
+      "invalid_person_id": {
+        "summary": "invalid_person_id",
+        "value": {
+          "code": "invalid_person_id",
+          "message": "Invalid person_id"
+        }
+      },
+      "asset_content_not_downloadable": {
+        "summary": "asset_content_not_downloadable",
+        "value": {
+          "code": "asset_content_not_downloadable",
+          "message": "Asset content could not be downloaded"
+        }
+      },
+      "invalid_zone_name": {
+        "summary": "invalid_zone_name",
+        "value": {
+          "code": "invalid_zone_name",
+          "message": "Invalid zone name (not an EMAIL zone)"
+        }
+      },
+      "invalid_reward_id": {
+        "summary": "invalid_reward_id",
+        "value": {
+          "code": "invalid_reward_id",
+          "message": "Invalid reward id. Reward not found."
+        }
+      },
+      "invalid_reward_filter": {
+        "summary": "invalid_reward_filter",
+        "value": {
+          "code": "invalid_reward_filter",
+          "message": "Invalid reward filter, one of: polling_id, reward_name or partner_event_id are required"
+        }
+      },
+      "invalid_creative_result": {
+        "summary": "invalid_creative_result",
+        "value": {
+          "code": "invalid_creative_result",
+          "message": "Configured creative did not return json."
+        }
+      }
+    },
+    "securitySchemes": {
+      "HEADER": {
+        "type": "apiKey",
+        "name": "Authorization",
+        "in": "header",
+        "x-bearer-format": "bearer"
+      },
+      "QUERY": {
+        "type": "apiKey",
+        "name": "access_token",
+        "in": "query"
+      },
+      "COOKIE": {
+        "type": "apiKey",
+        "name": "extole_token",
+        "in": "cookie"
+      }
+    }
+  },
+  "security": [
+    {
+      "HEADER": []
+    },
+    {
+      "QUERY": []
+    },
+    {
+      "COOKIE": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Authentication",
+      "description": "Authorization"
+    },
+    {
+      "name": "Content",
+      "description": "Zone"
+    },
+    {
+      "name": "Events",
+      "description": "Event"
+    },
+    {
+      "name": "Profiles",
+      "description": "Check the status of reward redemptions for the authenticated consumer."
+    }
+  ],
+  "x-tagGroups": [
+    {
+      "name": "Authentication",
+      "tags": ["Authentication"]
+    },
+    {
+      "name": "Content",
+      "tags": ["Content"]
+    },
+    {
+      "name": "Events",
+      "tags": ["Events"]
+    },
+    {
+      "name": "Profiles",
+      "tags": ["Profiles"]
+    }
+  ]
+}

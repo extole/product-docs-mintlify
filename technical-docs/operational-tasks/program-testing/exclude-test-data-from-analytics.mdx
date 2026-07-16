@@ -1,0 +1,98 @@
+---
+title: "Exclude Test Data from Analytics"
+description: "We support various methods for preventing test data from displaying in your My Extole dashboard analytics."
+---
+
+## Overview
+
+[//]: # "How do I exclude test data from my analytics?"
+
+For most clients who have high volumes of live data and low volumes of test data, there is not enough test data to have a significant impact on program performance. However, it is possible to flag interactions with Extole as "test" events, which causes Extole to not summarize the data in your program summary analytics. 
+
+Test events will still display in [Event Live View](https://my.extole.com/events/live) of My Extole's User Support center. These events will also be fully processed for rewards so you can ensure that events are still coming in while testing your program and that rewards are being properly distributed.
+
+[//]: ___
+
+## Using Test Containers
+
+[//]: # "How do I use test containers to exclude test data from my analytics?"
+
+To route information to a "test" container, one of the following methods must be used.
+
+### Put Testing Sites in a Test Container
+
+When you set up a program domain, you are setting up a way to manage information about your website and program that is independent of any individual campaign you might be running. If you use a development or staging environment, you will want to ensure that Extole content can be served on the site but that events from the site will not be counted in your analytics.
+
+To flag a development or staging environment as a test site, navigate to the [Tech Center](https://my.extole.com/tech-center) in My Extole. If you are editing an existing program domain, click the edit icon next to it in the table. If you are creating a program domain for the first time, click the “+ New Domain” button.
+
+You will want to add in any sites that you would like to be identified as test sites in the “Test Sites to Enable Javascript” field. After you save your changes, any events occurring on those sites will not appear in your My Extole dashboard analytics.
+
+### Visit a Specific URL
+
+The simplest method is to visit the URL `<your program domain>/api/v4/debug/mode/test` at the start of every test sequence. 
+
+For example, let's use the program domain `https://refer.ricardosf.com/api/v4/debug/mode/test`. Visiting this URL will set a cookie, and as long as your testing framework supports setting and then passing cookies, all subsequent requests will properly be classified as a test.
+
+### Use a Request Header in Your Browser
+
+You can also opt to pass in a container name of "test" as part of the headers.
+
+`<your program domain>/api/v4/debug/mode/test`
+
+A tool you can use that is able to add this to Chrome browser requests is [Header Hacker](https://chrome.google.com/webstore/detail/header-hacker/phnffahgegfkcobeaapbenpmdnkifigc?hl=en), which can intercept requests made by your browser and add the appropriate header.
+
+### Include a Test Container in the Parameters of Your API Call
+
+When creating events through API calls (such as registrations or conversions), you will need to specify the container in the parameters of your API call to Extole. Follow the example below.
+
+`https://refer.ricardosf.com/api/v4/debug/mode/test`
+
+### Pass A Cookie
+
+You can also choose to pass in a cookie with the following details:
+
+* Name: container
+* Value: test
+
+### Pass A Query Parameter
+
+You can pass in a query parameter of container=test
+
+### Include A Test Container in your Event Tags
+
+For the register and conversion event tags, it's possible to add the testing container flag directly into the tag.
+
+```javascript
+<script type="text/javascript">
+  /* Start Extole */
+  (function(c,e,k,l,a){c[e]=c[e]||{};for(c[e].q=c[e].q||[];a<l.length;)k(l[a++],c[e])})(window,"extole",function(c,e){e[c]=e[c]||function(){e.q.push([c,arguments])}},["createZone"],0);
+  /* End Extole */
+
+   extole.createZone({
+     name: 'conversion',
+     data: {
+       "first_name":"Julio",
+       "last_name":"Friend",
+       "email":"julio@friend.com",
+       "partner_user_id":"00O40000004SQbO",
+       "partner_conversion_id":"00O415320037eWy",
+       "cart_value":"20.00",
+       "coupon_code":"QA754AZ",
+       "container":"test"
+     }
+  });
+</script>
+```
+
+<Info>
+**Marketing Tags Not Supported**
+
+
+You cannot add the "container" data element into your marketing tags. The initial impression and advocate click will be tracked as test, but shares and friend clicks will go back to the production container.
+</Info>
+
+### Include A Test Container in Your Batch Files
+
+When uploading batch event files, you can add a column with a header of "container" and value of "test". Read more in our article about [Uploading Batch Jobs](https://developer.extole.com/docs/file-based-events).
+
+[//]: ___

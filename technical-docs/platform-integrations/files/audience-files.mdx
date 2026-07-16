@@ -1,0 +1,45 @@
+---
+title: "Audience Files"
+description: "Extole offers the ability to modify audiences via file uploads automatically."
+---
+
+# Overview
+
+Audiences within Extole are very useful to segment your customers or limit access to verified users. Extole is able to process updates to audiences in an automated fashion via our SFTP servers.
+
+# Directory Structure
+
+Within Extole's SFTP servers, we use a file structure to convey information about the file being uploaded and what action should be taken with it. This is as follows
+
+* `audiences`
+  * `{audience_id}`
+    * `replace`
+    * `add`
+    * `remove`
+
+The `audiences` directory lives within the top level directory of the SFTP. It contains subfolders for each audience that will be modified via SFTP, identified by the audience's unique ID. Within each audience's folder are 3 folders which allow for different actions.
+
+<Info>
+**If you're not sure what your Audience ID is, it's in the URL of the audience within My.Extole when you have it selected in the "My Audiences" page.**
+</Info>
+
+## Audience Actions
+
+A file can be used to perform one of 3 different actions on an audience:
+
+* Replace: This action will remove any members of the audience who are not present in the file, and will add any members who are in the file but not in the audience currently
+* Add: This action will add the users in the file to the audience specified.
+* Remove: This action will remove the users in the file from the audience specified.
+
+# File Structure
+
+Files uploaded to the audiences directory should follow the following standards:
+
+* Uploaded in .csv or .psv file format
+  * Delimited with commas or pipes, using the appropriate file extension
+* Containing a header row
+* The only required column is the person identity key. Typically this is `email`
+  * Additional columns may be added, and the data will be saved onto the user's profile as Public scope when processed.
+* Filenames must be unique. This is typically handled by using a datestamp in the filename (ex: `audience_20250901.csv`)
+* All files are encoded as UTF-8.
+* Files may contain Unix (\\n) or DOS (\\r\\n) newlines.

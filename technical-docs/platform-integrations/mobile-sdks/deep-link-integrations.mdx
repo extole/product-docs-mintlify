@@ -1,0 +1,35 @@
+---
+title: "Deep Link Integrations"
+description: "Extole can integrate with your deeplink provider to power your experiences on all devices."
+---
+
+## Deep Links to Trigger Advocate Experiences
+
+Your team can set up deeplinks to open your app on an advocate's device and automatically display the share experience.
+
+### With an Extole Mobile SDK
+
+When using Extole’s SDK, you can use the `extole.sendEvent()` method every time the app is triggered to be opened by a deep link. Simply pass in the data parameters to the `sendEvent()` call and Extole will only show when there are Extole-related keys within the parameters.
+
+<img src="https://files.readme.io/f618d8a0692ec9904bd7f71bf25671418d39aa2afcd133edb24d7c6922cd5f2b-a2de3db-Group_1355.png" alt="iPhone screen displaying the advocate share experience for the company Steady" width="30%" />
+
+### Without a Mobile SDK
+
+Your team can configure actions so that they occur when a deep link is opened in app. For the deep links you’ll use to trigger the share experience, ensure that they open the app and then trigger the microsite or advocate share experience for the user.
+
+Alternatively, your team can configure your app to listen to promote links for your program. This option will cause the app to open when a user taps on any link that is a part of your branded program domain (e.g., `share.companyname.com`).
+
+## Deep Links in the Friend Flow
+
+A typical experience for app-first clients on the friend funnel is as follows:
+
+1. The friend taps on a share link.
+2. The friend is directed to the Extole microsite, which provides information about your app and the offer they’re receiving.
+3. The friend taps the button on the microsite to download the app. This is your deep link to send the user to the app store. Extole passes advocate data into this link using query parameters to make it available in the deep link context when the user opens the app after it is installed.
+4. When the friend opens the app, the advocate data will be available through your deeplink provider. Be sure to include the advocate data when you send your initial event from the app to Extole so that we can properly attribute the referral.
+
+<img src="https://files.readme.io/fe7a024379b997d2dc96c17a07695f11efb569f83f5429352e1c7c1d6453ad56-0a00b24-Group_1354_1.png" alt="iPhone screens displaying the Friend Landing Experience for the company Steady" width="60%" />
+
+## Extole Attribution via Deep Links
+
+Typically, Extole generates share links in your branded domain like `https://share.yourcompany.com/sharelink"`. These links will redirect to a standard link of your deep link provider (e.g., AppsFlyer) with Extole's attribution information tacked on as parameters. Your SDK integration then passes these parameters back to Extole via events.

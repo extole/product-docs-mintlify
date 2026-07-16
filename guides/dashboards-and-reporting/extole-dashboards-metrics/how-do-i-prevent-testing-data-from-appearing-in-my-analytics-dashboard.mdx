@@ -1,0 +1,83 @@
+---
+title: "How Do I Prevent Testing Data from Appearing in my Analytics Dashboard?"
+description: "When interacting with the consumer experience of Extole, the default assumption is that any interaction is a part of the live campaign and data should be tracked as live data in the dashboards. To make sure that your test events such as sha…"
+---
+
+When interacting with the consumer experience of Extole, the default assumption is that any interaction is a part of the live campaign and data should be tracked as live data in the dashboards. To make sure that your test events such as shares, purchases, revenue, etc. don't get counted in the My.Extole analytics dashboards, we recommend you set up the appropriate sites and users to create test events. Functionally, nothing will change when a site or a user is flagged to create test events; the only difference is that those events won't be counted in the dashboard analytics.
+
+# Flagging a Program Domain Site as a Test Site
+
+When you set up a program domain, you are setting up a way to manage information about your website and program that is independent of any individual campaign you might be running. If you use a development or staging environment, you will want to ensure that Extole content can be served on the site but that events from the site will not be counted in your analytics.
+
+To flag a site as a test site, navigate to your [Tech Center](https://my.extole.com/tech-center?) in My.Extole. If you are editing an existing program domain, click the edit icon next to it in the table. If you are creating a program domain for the first time, click the “+ New Domain” button.
+
+ ![Screen_Shot_2020-06-02_at_8.16.29_PM.png](https://extole-5ef307a0e5b1.intercom-attachments-1.com/i/o/syy27wia/1421734309/55fa41dded5929ce82656aa03a5f/Screen_Shot_2020-06-02_at_8_16_29_PM.png?expires=1778306400&signature=302cb94d38cd653697478c2b5f66ff7e8dcb8c7c6f0b3165cd1f322c8dc600b0&req=dSQlF859mYJfUPMW3nq%2BgaQiUOJoaehH38B6hfBGTInIvKK78cgU6R31rwrV%0AqhhFO7EDnb32%2BrAtrFvj717WpnU%3D%0A)
+
+You will want to add in any sites you would like to be identified as test sites in the “Test Sites to Enable Javascript” field. After you save your changes, any events occurring on those sites will not appear in your My.Extole dashboard analytics. For more on how to set up a program domain for the first time, [please see this article](/guides/getting-help/implementing-your-referral-program/technical-items/program-domain-setup).
+
+# Flagging a Site as a Test Site via My.Extole
+
+To flag all events from a specific site as test events, navigate to your [Tech Center,](https://my.extole.com/tech-center?) scroll to the section titled "Test Data Rules", and click on the "New Rule" button.
+
+![Screen_Shot_2020-07-14_at_2.17.37_PM.png](https://extole-5ef307a0e5b1.intercom-attachments-1.com/i/o/syy27wia/1421734311/450068c6f019bf7dc99c140bd936/Screen_Shot_2020-07-14_at_2_17_37_PM.png?expires=1778306400&signature=e07d806ee51a72078d48c7885a3aa2267966587d16052e1a20b10ce579e188ed&req=dSQlF859mYJeWPMW3nq%2BgVCTn61J3NjE6Tri2D%2Bo982dMgW%2FmqxDTeRqUg2e%0A0f2XbD4Yn8lG7O%2BkF9JhOy5jXno%3D%0A)
+
+Under "Rule Value", enter the site URL of the program domain whose events you wish to exclude from your dashboard analytics (e.g. [www.example.com](http://www.example.com)). Under "Rule Type", select "Site", and under "Container", indicate which container you'd like the events to be counted in. If you want the metrics counted in a test container, name this "production-test" and press Save.
+
+ ![unnamed.png](https://extole-5ef307a0e5b1.intercom-attachments-1.com/i/o/syy27wia/1421734310/3b418f8dcfa9efbd2cf1051c43ac/unnamed.png?expires=1778306400&signature=2ae7a35be352e8ee955de3cb3a6490bff6543aaf3162177f372719a6bbc70a4b&req=dSQlF859mYJeWfMW3nq%2BgZcITnhEOjNwLAkbMZLYE6ky4XMC7AisKJniuA8k%0AUNBoN%2BU9MQ5PHKK1O8onlGq6aMc%3D%0A)
+
+# Flagging an Extole User as a Tester via My.Extole
+
+To flag an Extole user's events as test events, navigate to your [Settings](https://my.extole.com/settings?) page in My.Extole. In the Team section, find the team member whose events you wish to put in a test container and click on the edit icon. Scroll down to the Test Container section and toggle on the switch.
+
+![Screen_Shot_2020-06-02_at_8.18.48_PM.png](https://extole-5ef307a0e5b1.intercom-attachments-1.com/i/o/syy27wia/1421734308/eb6b6d5def71c53adfd3b24d024b/Screen_Shot_2020-06-02_at_8_18_48_PM.png?expires=1778306400&signature=03039cdd77a4578c21e9b79dd7f379b77eedb5af92254865d03161bab89d70ec&req=dSQlF859mYJfUfMW3nq%2BgRLk6ySqLIIbMTMF6gRjN8S0IgZxJR5%2FS7aPQT6H%0AE5qhXdKSI5fdn6XqNoiBJ%2FYDWN0%3D%0A)
+
+All subsequent events associated with this email address will not show in your dashboard analytics.
+
+# Flagging a Non-Extole User as a Tester via My.Extole
+
+To flag a non-Extole user's events as test events, navigate to your [Tech Center,](https://my.extole.com/tech-center?) scroll to the section titled "Test Data Rules", and click on the "New Rule" button.
+
+Under "Rule Value", enter the email address of the non-Extole user whose events you wish to exclude from your dashboard analytics (e.g. [user@example.com](mailto:user@example.com)). Under "Rule Type", select "User", and under "Container", indicate which container you'd like the events to be counted in. If you want the metrics counted in a test container, name this "production-test" and press Save.  
+​
+
+![Screen_Shot_2020-07-14_at_2.27.36_PM.png](https://extole-5ef307a0e5b1.intercom-attachments-1.com/i/o/syy27wia/1421734325/0462bd31a91a21e2c44404fae6d6/Screen_Shot_2020-07-14_at_2_27_36_PM.png?expires=1778306400&signature=027510d2e53f939aab527a2db1d4dadb5daab05d4d43d9be0b5ab8234ee98ce6&req=dSQlF859mYJdXPMW3nq%2BgaV%2FYV883o3ejz4qC3JCCjCGm%2F9yEwg22au5uzo9%0AMh4XckwtqPLhyxd6RvXr1c4Y2e8%3D%0A)
+
+# Flagging all Events from a Specific Email Domain as Test Events via My.Extole
+
+To flag all events from users using a specific email domain as test events, navigate to your [Tech Center,](https://my.extole.com/tech-center?) scroll to the section titled "Test Data Rules", and click on the "New Rule" button. Under "Rule Value", enter the email domain you wish to exclude from your dashboard analytics (e.g. [example.com](mailto:user@example.com)). Under "Rule Type", select "Email Domain", and under "Container", indicate which container you'd like the events to be counted in. If you want the metrics counted in a test container, name this "production-test" and press Save.
+
+ ![unnamed__2_.png](https://extole-5ef307a0e5b1.intercom-attachments-1.com/i/o/syy27wia/1421734324/5bc33f6c051aa957411e64525292/unnamed__2_.png?expires=1778306400&signature=948f758d14128a1b5c5b315d5bc9d05cdf482583f20c324c5e1127364a380501&req=dSQlF859mYJdXfMW3nq%2BgavCAOGvVSqhzr3B5ziw2S619RjRKRrFsL4X9hkc%0AcJGNa%2BMVqZ2UGb9PhSR7S5ToqNQ%3D%0A)
+
+# Flagging a User as a Tester Using an Extension
+
+There is another way to make your test events invisible in the dashboard analytics, though it is more difficult. The way to do so is by adding an extension to your browser. If you're using Chrome, we recommend [an extension called ModHeader available here.](https://chrome.google.com/webstore/detail/modheader/idgpnmonknjnojddfkpgkljpfnnfcklj?hl=en) The screenshots below are for the ModHeader extension. For Firefox, [the Modify Headers extension works well](https://addons.mozilla.org/en-US/firefox/addon/modify-headers/).
+
+After installing the extension, you will want to configure it to be enabled in incognito/private browsing mode. This is because you often use an incognito window to test receiving friend click coupons to avoid being flagged as a self-referral. For Chrome, you do this by:
+
+1. In your URL bar, typing: chrome://extensions
+2. Clicking "DETAILS" for the ModHeader extension
+3. Turning on "Allow in Incognito"
+
+![Screen_Shot_2018-04-29_at_2.25.01_PM.png](https://extole-5ef307a0e5b1.intercom-attachments-1.com/i/o/syy27wia/1421734323/56a4d90ecbaf2f5f1172454d9256/Screen_Shot_2018-04-29_at_2_25_01_PM.png?expires=1778306400&signature=ed2dc6f78f179c1ea14e74a96915e0486838bcee714e945e885e5e8027335339&req=dSQlF859mYJdWvMW3nq%2Bgaqr5HXlk20VPUWuSIhEVA%2Fm6Lo2AQccifYRT2g%2F%0AaVxESXdDbUnADSCDk05rqF3L6GY%3D%0A)
+
+Next, add a custom header of "X-Extole-Container" with a value of "test". You do this by clicking the blue icon for the extension next to the URL bar and adding a new header by clicking the "+" button. Make sure you add as a "Request Header":
+
+ ![extole-container-test.png](https://extole-5ef307a0e5b1.intercom-attachments-1.com/i/o/syy27wia/1421734329/ca7da93a467ae24d88f3dd79cb1c/extole-container-test.png?expires=1778306400&signature=dc8bfcb6092b4020121752bad7ef2c3a4423411b1bb38d0975d2641cc4c286c1&req=dSQlF859mYJdUPMW3nq%2BgYwMc%2F0bwyHIEXKP0UgBdHrWboH0dOrmh0ijHjbf%0AwRMkLxnI7mM7%2Bu9cIlJge512pb4%3D%0A)
+
+*If you ever want to make a real referral and have your activity show up in the analytics dashboard, then you can disable the request header by simply unchecking the pink checkbox in the ModHeader plugin.
+
+You should be all set. To verify, you can go to your referral program and make a share. Then go to the Event Live View section in My.Extole and inspect your share event. In the Other Data section, you should see it say "extole_container: test" (vs. a value of production).
+
+![extole_container_test.png](https://extole-5ef307a0e5b1.intercom-attachments-1.com/i/o/syy27wia/1421734336/45e06dbc1bcef2c795c590184449/extole_container_test.png?expires=1778306400&signature=a1d093cb246b2f5ee99896604289f79364ac1005822cfbca20817aa4e0881b5d&req=dSQlF859mYJcX%2FMW3nq%2Bge8i03MzFLyjYDvvIp5SqiwPzg3XS8pAz7Df%2FJnG%0ARuP%2BUsCRUdgcVNkLc38F7f45sVc%3D%0A)
+
+If you are setting up automated continuous testing, there are [other ways you can flag test events detailed here.](https://developer.extole.com/docs/preventing-test-data-from-displaying-in-analytics)
+
+# Viewing Test Data
+
+To view test data on your Program or Campaign Dashboard, click on your initial in the bottom left and select "View Test Data":
+
+![Screen_Shot_2020-08-18_at_3.20.44_PM.png](https://extole-5ef307a0e5b1.intercom-attachments-1.com/i/o/syy27wia/1421734338/935788cf8306c38e4bf5ea58c029/Screen_Shot_2020-08-18_at_3_20_44_PM.png?expires=1778306400&signature=4653e8f1e8817a3fd3d9304c4f863334019db72d7155acf60ee01d4537cef4ed&req=dSQlF859mYJcUfMW3nq%2BgSNlsphOXFWfXeFoMl8S2vEkPTtnbx1w5eg%2Fa53Z%0A7Y3jCDcqlX74gR2OMwR7paIu7UI%3D%0A)
+
+To exit test data mode, click "Exit" on the yellow outlined box, or click on your initial again and select "View Production Data".
+
+ ![Screen_Shot_2020-08-18_at_3.23.16_PM.png](https://extole-5ef307a0e5b1.intercom-attachments-1.com/i/o/syy27wia/1421734344/f10d333895b7052e5dfdd5ee12f9/Screen_Shot_2020-08-18_at_3_23_16_PM.png?expires=1778306400&signature=cb6c8006cd81f294f4ddae0f2b46c4b1ebc901b7b062f78a1a37b92b6cd40f2c&req=dSQlF859mYJbXfMW3nq%2BgeR6L%2FVkNwVgQJJy0AG7pH9JtZ%2B2mAGm%2F9mO7XUu%0AAufmwZpN0fxxnI%2B5TolU5cnrxwo%3D%0A)![Screen_Shot_2020-08-18_at_3.24.58_PM.png](https://extole-5ef307a0e5b1.intercom-attachments-1.com/i/o/syy27wia/1421734340/c27f54bf94bf26ba8e924034777e/Screen_Shot_2020-08-18_at_3_24_58_PM.png?expires=1778306400&signature=7b28f4fe46352cf0e5eaa2fd72a027196402efa45a207c84b4ce3968c8dd38b1&req=dSQlF859mYJbWfMW3nq%2BgbDxVBMO3xKlYq%2BZhqDelAqIvzD6IeZ%2B5Di37b1k%0ACBa5wCAOeo7Vurv1xzkZY00fp%2FQ%3D%0A)

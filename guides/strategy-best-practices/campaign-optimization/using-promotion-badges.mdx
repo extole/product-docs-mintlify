@@ -1,0 +1,40 @@
+---
+title: "Using Promotion Badges"
+description: "While we work tirelessly to direct your program emails to your customers' primary inboxes, we cannot guarantee where an email will land. Email services like Gmail have not released the criteria they consider when developing the algorithms t…"
+---
+
+# Overview
+
+While we work tirelessly to direct your program emails to your customers' primary inboxes, we cannot guarantee where an email will land. Email services like Gmail have not released the criteria they consider when developing the algorithms that dictate where an email should go. So, despite our best efforts, sometimes your emails may land in a promotions tab.
+
+However, this isn't all bad! You can now highlight key information for your reward emails that will send them to the top of Gmail's promotion tab when your customer is using the Gmail app on a mobile device! Highlighting key information and showing a preview of the email can incentivize action on behalf of your customers and lead to higher redemption rates.
+
+# Creative Customizations
+
+Let's take a look at everything we can customize:
+
+![promo_tab.png](https://extole-5ef307a0e5b1.intercom-attachments-1.com/i/o/syy27wia/1421732931/af8c79bf15a701c40f0ef57ae3b5/promo_tab.png?expires=1778306400&signature=64bd46ce49263cbdc87afdb241480c2ca3ee507d29d28cb2a4d65eb982aacfc4&req=dSQlF859n4hcWPMW3nq%2BgU92Qpi0ho%2B9Wmm4CZJYL4kxrQB5bknidchnGy%2BV%0Af%2BdAyvv3iyQCK8fzh2i8ygUAYCQ%3D%0A)
+
+The first step to utilizing these annotations is to navigate to the Advocate or Friend Reward Email creative in your campaign and enable the switch "Should Use Promotions Tab Badges".
+
+**Company Icon:** This icon can be set either in the Overview tab or in the creatives for advocate or friend reward emails. The icon measures 16x16 px. If you'd like, you can use the same icon you use for your Favicon.
+
+**Email Preview Image:** This image measures 538x138 px. In our example, we've cropped the Email Banner Image for use as the preview image, but you can use any image you'd like. In fact, Gmail does not recommend reusing images—[see best practices here](https://developers.google.com/gmail/promotab/best-practices#single_image_preview).
+
+**Alternate Email Subject Text for Email Preview:** You may want to use an alternate subject line if your default subject line duplicates information that is conveyed through the reward badge. For example, if your normal subject line says "You've earned 20% off Your Company", but your reward badge says "20% OFF", you may want to change the subject line to something that doesn't duplicate that information. The alternate subject line is only shown if the reward badge or the coupon code is also shown.
+
+**[Advocate/Friend] Reward For Email Preview:** The reward badge's value defaults to "###\{\{advocateReward\}\} OFF" in the Advocate Reward Email and "###\{\{friendReward\}\} OFF" in the Friend Reward Email. If your advocate reward is 20%, for example, the reward badge would say "20% OFF" in the preview of the Advocate Reward Email. Gmail recommends using four or fewer words—[see best practices here](https://developers.google.com/gmail/promotab/best-practices#deal_badge).
+
+**Coupon code:** If you are sending a coupon code in your reward email, it will be displayed in the preview with the word "Code" in front of it.
+
+Note that all of these variables are visible by default, but are disabled until "Should Use Promotions Tab Badges" is enabled. Aside from coupon code, any of these variables can be suppressed when using the promotion badges feature by removing the images or leaving the text fields blank.
+
+You can read more about [Gmail's Promotions tab here.](https://developers.google.com/gmail/promotab/overview)
+
+| **Extole Variable Name** | **Gmail Property Name** | **Gmail Type Name** | **Also Called** |
+| --- | --- | --- | --- |
+| Company Icon | logo | Organization | Logo URL |
+| Email Preview Image | image | PromotionCard | Single image preview |
+| Alternate Email Subject Text for Email Preview | subjectLine | EmailMessage | Subject Line |
+| [Advocate/Friend] Reward For Email Preview | description | DiscountOffer | Deal Badge |
+| Coupon Code | discountCode | DiscountOffer | Discount Code |

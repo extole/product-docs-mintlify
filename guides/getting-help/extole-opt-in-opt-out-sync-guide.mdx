@@ -1,0 +1,92 @@
+---
+title: "Extole Opt-In/Opt-Out Sync Guide"
+description: "A non technical explanation on how to integrate your opt-ins and opt-outs"
+---
+
+# Overview
+
+When running a program with Extole, it's important to understand how we collect and manage **email opt-ins and opt-outs**. Depending on how your brand manages your marketing lists, there are several ways we can share or sync this data with your systems.
+
+This guide walks through the different integration options available, what each setup means for your marketing team, and how you’ll receive user consent data.
+
+## What We Collect
+
+Extole captures:
+
+- **Opt-ins**: When users agree to receive marketing emails through your program.
+- **Opt-outs**: When users unsubscribe from program-related emails.  
+​
+
+We can either share this data with you or manage it separately as referral opt-ins within the Extole system depending on how you want your lists handled.
+
+# **Integration Options**
+
+# 1. No Integration
+
+**Best for:** Most commonly used method. Brands that prefer to manage referral marketing lists independently from other marketing lists.
+
+- Extole collects and honors all opt-outs within our system.
+- You don’t need to send or receive any opt-in/out data automatically.
+- Reports can be downloaded at any time to review opt-out activity.
+
+**Benefits:**
+
+- No dev work or integration required
+- Full control over how and when you use opt-in data
+- Extole still protects you by managing unsubscribes for program emails
+
+# 2. Two-Way Sync
+
+**Best for:** Brands that treat their general marketing list and program email list as the *same list*.
+
+- Extole sends you all opt-ins **and** opt-outs captured through the program.
+- You also send Extole your general marketing opt-outs, so we can honor them and suppress anyone who unsubscribed from your broader marketing emails.
+- This setup ensures both systems stay in sync and respect user preferences.
+- Requires a two-way data connection (via **API** or **SFTP**).
+
+**Benefits:**
+
+- Seamless, centralized consent management
+- Ensures compliance across both your marketing emails and program emails
+
+# 3. One-Way Sync
+
+**Best for:** Brands that keep program email lists **separate** from their main marketing list, but still want to grow their marketing list through the program.
+
+- Extole sends you all new opt-ins from the program.  
+You can optionally receive opt-out data as well, but it’s not required.
+- No need for you to send us your general opt-outs—we only manage unsubscribes for program-related messages.
+- Works via **API** or **SFTP** connection.
+
+**Benefits:**
+
+- Easier setup with fewer touchpoints
+- Still allows your main list to grow via program activity
+- Program list managed separately to reduce risk of crossover unsubscribes
+
+# 4. Direct Connection to Your ESP
+
+**Best for:** Brands who want opt-in and opt-out data delivered directly to their email service provider (ESP).
+
+- Extole sends opt-ins (and optionally opt-outs) directly to your ESP.
+- Can be set up via **webhook** for real-time syncing or via **automated file drop** on a daily schedule.
+- Flexible setup—we’ll work with your team to deliver data to the right destination in the right format.
+
+**Benefits:**
+
+- Streamlined delivery to your existing ESP
+- Real-time or batch updates based on your preference
+- Minimal internal resource lift required
+
+# Need Help Choosing the Right Setup?
+
+Your Implementation Manager can walk you through the best option based on:
+
+- How you manage your email lists
+- What systems you're using
+- How involved you'd like your development team to be  
+​
+
+## **In Summary**
+
+Extole gives you full flexibility in how you handle consent and communication preferences. Whether you're fully integrated, lightly connected, or keeping things separate, we make sure your customers' preferences are honored—and your marketing team stays informed. Here is a [list of our partners](https://partners.extole.com/), several ESPs are included! More information about Extole's opt-out lists available [here.](https://docs.extole.com/docs/opt-out-list-management)

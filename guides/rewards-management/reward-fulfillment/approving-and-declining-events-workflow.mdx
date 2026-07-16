@@ -1,0 +1,43 @@
+---
+title: "Approving and Declining Events Workflow"
+description: "As advocates and friends interact with your referral program, their actions generate events such as shares, clicks, registrations, account openings, quote submissions, purchases, and more. All events are scored for suspicious quality and ar…"
+---
+
+# Overview
+
+As advocates and friends interact with your referral program, their actions generate events such as shares, clicks, registrations, account openings, quote submissions, purchases, and more. All events are scored for suspicious quality and are then either approved or declined based on suspicious event rules, automated workflows, file transfers, API calls, and manual intervention.
+
+This article describes the most common options for managing your events, as well as the most common workflows.
+
+# Manual Approval
+
+In this setup, you will go into the Extole platform and review all transactions that are either passing or suspicious and mark them as approved (rewarding the advocate if applicable) or declined (not rewarding the advocate if a reward is configured on the step). Manual approval follows this event workflow:
+
+1. A new event enters the system.
+2. Extole's quality engine reviews the event and marks it as passing or suspicious.
+
+  1. Friend clicks marked as passing are automatically approved. Friend clicks marked as suspicious are automatically declined.
+
+3. All transactions and transitions require an authorized user to approve or decline them.
+
+In order to quickly approve and decline events, navigate to User Support --> Approvals from the sidebar.
+
+![Screen_Shot_2020-09-01_at_9.53.47_AM.png](https://extole-5ef307a0e5b1.intercom-attachments-7.com/i/o/syy27wia/1421734581/1168b24f5035d4f11f212f3d2480/360088581293?expires=1778306400&signature=10bb3d7e7f0e5f200fd11823b4aae8ba79dab1daedcb9e8531ae3ce0dafa5ee2&req=dSQlF859mYRXWPMW3nq%2BgTPD6cGql%2BZL9qOpk%2FZglQSS0pVZh1qWt5jNr1UV%0Ale1DELmfH%2Fqlm4CT%2Fi95tMBq9Jo%3D%0A)
+
+In this view, quickly scan events to manually approve or decline in bulk. You can see the Person, who they were Referred By, the Campaign they participated in, the Date of the event in question, the Rule Results if it's a suspicious event, the Event Type, and the option to Approve or Decline.
+
+# Automated Approval
+
+To configure an automatic transition, navigate to the campaign you want to apply the automatic transition to and go to the Rules tab in the Campaign Editor. Under each event, click Advanced and configure your automatic transition settings.
+
+Every event created in Extole appears in Event Live View in the User Support section of your My Extole account. Use the filters at the top of the table on the Event Live View page to only view the passing or suspicious events so you know which items require your attention.
+
+![Screen_Shot_2020-09-01_at_10.07.03_AM.png](https://extole-5ef307a0e5b1.intercom-attachments-7.com/i/o/syy27wia/1421734580/82b2a056c43e54f2d209af5ecb6d/360087438494?expires=1778306400&signature=6b98c6726eadb85da20f8a4857ffae47fa00a2b3404caf934314b61f51e6819f&req=dSQlF859mYRXWfMW3nq%2BgeagF49EppJyz0YWlp68ptumg7FujJ5gye5iF08d%0AT0k%2FH5tGRLWwcvQZc4lvWdTKDcY%3D%0A)
+
+After determining whether or not an event is valid, select it and either Approve or Decline the event. Approval triggers any relevant rewarding rules and sends out the appropriate rewards.
+
+# Frequently Asked Questions
+
+## Are there other ways to configure workflows?
+
+Yes. Extole has an extremely robust workflow system that can combine manual processes, RESTful APIs, batch files, etc. We recommend starting simple and determining if you want to reconfigure later on in your campaign.

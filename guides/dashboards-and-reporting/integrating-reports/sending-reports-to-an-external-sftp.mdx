@@ -1,0 +1,72 @@
+---
+title: "Sending Reports to an External SFTP"
+description: "Get data delivered straight to your own SFTP server. Connecting your Extole programs with your own external systems makes it that much easier to get important information about your programs and participating customers into CRMs and ESPs."
+---
+
+Get data delivered straight to your own SFTP server. Connecting your Extole programs with your own external systems makes it that much easier to get important information about your programs and participating customers into CRMs and ESPs.
+
+# Setting up your SFTP Server
+
+The first step in getting a report delivered to your SFTP server is to set up the server in the Extole Admin Tool. Navigate to your [Tech Center](https://my.extole.com/tech-center) and and complete the following steps.
+
+## Add a Server
+
+When you click the "+ New Server" button and select "External Server," you will see a number of fields to fill out that describe your SFTP server:
+
+![Screen_Shot_2022-05-17_at_10.44.06_AM.png](https://extole-5ef307a0e5b1.intercom-attachments-1.com/i/o/syy27wia/1421733969/990602e0a6b96e708b57f1d21d8c/Screen_Shot_2022-05-17_at_10_44_06_AM.png?expires=1778306400&signature=0fb66de8ade8efa45cca0e5576ab7e8ed626144f7b8abb012f0d73f80d8ac557&req=dSQlF859nohZUPMW3nq%2BgRbYNahAHepThvvF%2B5pe2N7WQo51xdippz2DkTaA%0AYMK%2FHQiO0qTLvdVHLWVG21C65DE%3D%0A)
+
+- **Name**: How you'd like to reference the server in the Extole Admin Tool.
+- **Host**: The domain of the server where you want Extole to send files and reports (e.g. example.com).
+- **Username**: The username used to access the SFTP server (e.g. janedoe).
+- **Port**: The port of the server where you want Extole to send files and reports (e.g. for most SFTP servers this is port 22).
+- **Root Path**: Where Extole should be delivering files and reports (e.g. /extole/reports).
+- **Login Key**: The key used to access the SFTP server. Click on the "Create Login Key" button to create a new SSH key or password and fill out the required fields (see below).
+
+ ![Screen_Shot_2022-05-17_at_2.41.54_PM.png](https://extole-5ef307a0e5b1.intercom-attachments-1.com/i/o/syy27wia/1421733970/a038cace71d8c830c72c9beae1c5/Screen_Shot_2022-05-17_at_2_41_54_PM.png?expires=1778306400&signature=c630b61f4e7599db99d4d88b0f6918eb94f1fb0084a337bc61ee81e56af82c7e&req=dSQlF859nohYWfMW3nq%2BgQQwPFhc%2BksWGilsSyP4UH6jjctA6SfcM8Pa1z3k%0AwDNc1vyg0ohob8Gob5coLzfJNv8%3D%0A)
+
+- SSH Key
+
+  - Key Name: How we'll refer to the key in the Extole Admin Tool.
+  - Partner Key Id: Your unique identifier for the key.
+  - Key: The key itself. [View more information on SSH key formatting](https://git-scm.com/book/en/v2/Git-on-the-Server-Generating-Your-SSH-Public-Key).
+  - Description: An optional description for the key.
+
+- Password
+
+  - Key Name: How we'll refer to the key in the Extole Admin Tool.
+  - Password: The password itself.
+  - Description: An optional description for the password.
+
+## Use PGP Encryption with Extole (Optional)
+
+### Upload Your PGP Key
+
+From the Create New Server page, click the "Create PGP Encryption Key" button and fill out all required fields.
+
+- Key Name: How we'll refer to the key in the Extole Admin Tool.
+- Email: Your email address.
+- Key: The key itself. [View more information on PGP key formatting](https://datatracker.ietf.org/doc/html/rfc4880#section-6.2).
+- Description: An optional description for the key.
+
+![Screen_Shot_2022-05-17_at_3.29.32_PM.png](https://extole-5ef307a0e5b1.intercom-attachments-1.com/i/o/syy27wia/1421733972/6b42e57af99d03beeab9ba7815be/Screen_Shot_2022-05-17_at_3_29_32_PM.png?expires=1778306400&signature=01bc09126fa6bf09d364545cd81d7ca4100bf9b9fa49a3572fe3b6185b889e71&req=dSQlF859nohYW%2FMW3nq%2Bgbn47xsspQvuLk%2BTq6Xy3grQUeXc7jYy3gD9OPAf%0AiKUwVf32W1g0c5vwhtHAsU%2BFmnw%3D%0A)
+
+### Download Extole's PGP Key
+
+You must also download Extole's public PGP encryption key, which you can do from the Create New Server page in the Tech Center.
+
+![download-extole-key.png](https://extole-5ef307a0e5b1.intercom-attachments-1.com/i/o/syy27wia/1421733965/d79e5cdee118b5b2e556bcc7aa73/download-extole-key.png?expires=1778306400&signature=a92217e57ebfd97bbbdcbd97cbda36827fa929781bd2f4d185d5e8e280f2d125&req=dSQlF859nohZXPMW3nq%2BgW2pi1k7nTxysY8xEMpLB1uiVAsuObkIZs7Ae4nF%0AEQ4YnL%2FoGhc65Cwv49%2FdpJoifns%3D%0A)
+
+# Delivering Reports to your SFTP Server
+
+With your server set up, you are ready to get reports delivered to your SFTP server.
+
+1. Navigate to the [Reports](https://my.extole.com/reports) page in the Extole Admin Tool.
+2. Create a new report by selecting the report type you'd like to run.
+3. Configure all of the necessary report parameters.
+4. Click on the "Advanced" section at the bottom of the report configuration page. Here, you can choose which server you would like the report delivered to and can also specify the file name:
+
+![Screen_Shot_2022-05-17_at_11.00.11_AM.png](https://extole-5ef307a0e5b1.intercom-attachments-1.com/i/o/syy27wia/1421733987/64f02c046bd68557d2acb144a031/Screen_Shot_2022-05-17_at_11_00_11_AM.png?expires=1778306400&signature=570c280e029bfb6551c39a6ec1c58140b122e8a508f17926344ceca16be07006&req=dSQlF859nohXXvMW3nq%2BgWkExlcnb7SguPbdcfUwbySpQPwDHWtH8v6FMZHd%0AUYBIYIzYOJs8TDC4KAMEAvwkw94%3D%0A)
+
+# Additional Resources
+
+To learn more about [accessing and using *Extole's* SFTP server, please see this article](/guides/dashboards-and-reporting/integrating-reports/using-extole-s-sftp-server).

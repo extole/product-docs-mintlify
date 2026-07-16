@@ -1,0 +1,54 @@
+---
+title: "Set Up Dynamic Eligible Audience Files"
+description: "Set up a daily feed of your eligible customers who can participate in your program"
+---
+
+# Overview
+
+You can limit program sharing to a specific list of eligible advocates by creating and managing an audience in Extole. This is commonly used when you don’t want to gate a program behind login, but still want to restrict participation to a defined customer or member subset. Follow this guide to set up a dynamic eligible audience and connect it to your campaign.
+
+# Default File Format
+
+Your audience file must be a .csv with the following column headers:
+
+| first_name | last_name | email | member_id |
+| --- | --- | --- | --- |
+| John | Jones | jjones@example.com | 200728 |
+
+>
+
+> The **member_id** parameter is the default column header for Extole Refer a Member and Credit Union Welcome Offer campaigns, but may be different for your program.
+
+# Implementation Steps
+
+1. **[Create a new Audience](/guides/audiences-segmentation/my-audiences/upload-and-email-an-audience#h_01HE3PXQ6VEXMFEEY8218RX2RB)** named Eligible Advocates in the My Audiences section of the platform
+2. Click into that new audience and find the Audience ID in the URL after the #/  
+​![](https://downloads.intercomcdn.com/i/o/syy27wia/1890960235/4d5366deb0e3647406d52a48cdcc/image.png?expires=1778306400&signature=39e13d8479ab412cff2af206a62e8e80642e566d42e0fc187e954158dc58d879&req=dSguFsB4nYNcXPMW3nq%2BgfSyWVFf626zd7l7PClnxCQdDH9n%2B71vsItK7Y%2Bv%0AzT7WnSy4ZTfWLVB2SybBxVELy%2BI%3D%0A)
+3. Prepare a file with **test data** using the format above
+4. Connect to the **[Extole SFTP](/guides/dashboards-and-reporting/integrating-reports/using-extole-s-sftp-server)** server
+5. Upload the test file to [clientname@sftp.extole.com](mailto:clientname@sftp.extole.com):/audiences/\{audience_id\}/replace
+
+  1. This upload will replace the entire list. We recommend replacing it daily to maintain accuracy.
+
+6. Connect the Eligible Advocates audience to your campaign
+
+  1. For clients using Flow Builder, see **[How to Target a Program](/how-to-target-a-program)** under the *Audience Targeting* section
+  2. For clients using legacy campaigns, reach out to your CSM to finish setting up your campaign
+
+# Frequently Asked Questions
+
+> **Do we have to replace the audience each day?**
+
+> The best practice is to update the audience every day to ensure accuracy, but can be updated as frequently as you’d like. Extole also supports /add and /remove which would add or remove that list of users from the audience.
+
+>
+
+> **Can audiences be updated manually?**
+
+> Audiences can be **[uploaded manually](/guides/audiences-segmentation/my-audiences/upload-and-email-an-audience)** in the My Audiences section, but for advocate eligibility, it’s recommended to set up a daily file feed.
+
+>
+
+> **If the person is removed from the audience, are they no longer eligible to earn rewards?**
+
+> By default, we do not use the advocate eligibility as a rule / requirement for reward (although it can be easily added with the Is Part of Audience reward rule). In the case of a bank or credit union, if they do not have an eligible account they cannot earn the account credit reward.

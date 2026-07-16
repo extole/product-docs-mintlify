@@ -1,0 +1,294 @@
+---
+title: "Iterable"
+description: "[Iterable](https://iterable.com/) is the AI-powered cross-channel communication platform helping to orchestrate individualized, harmonized, and dynamic customer experiences by closing the activation gap."
+---
+
+## Overview
+
+[//]: # "Does Extole integrate with Iterable?"
+
+An integration between Extole and [Iterable](https://iterable.com/) offers you seamless data transfer between your referral and engagement programs and cross-channel marketing campaigns. By leveraging Extole program data, you can create targeted and personalized messaging that resonates with customers, understand the impact of your referral and engagement promotions in Iterable, and grow your marketing list, resulting in deeper insights and optimization of your cross-channel marketing campaigns.
+
+[//]: ___
+
+## Prerequisites
+
+[//]: # "What are the requirements for the Extole integration with Iterable?"
+
+<table>
+  <thead>
+    <tr>
+      <th>
+        Requirement
+      </th>
+
+      <th>
+        Description
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        Iterable Account
+      </td>
+
+      <td>
+        An Iterable account is required in order to take advantage of this integration.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Iterable API Key
+      </td>
+
+      <td>
+        A server-side API key for making requests to Iterable. You can generate your [API key](https://support.iterable.com/hc/en-us/articles/360043464871-API-Keys-#creating-api-keys) in your Iterable Account.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        User Identity
+      </td>
+
+      <td>
+        The unique identifier for a user in Iterable and Extole.
+
+        For Email and Hybrid Iterable projects, the identifier will be `email` — the email address of the user.
+
+        For User ID Iterable projects, the identifier will be `user_id` — your unique identifier of the user.
+
+        [Learn more about Iterable project types](https://support.iterable.com/hc/en-us/articles/9216719179796-Project-Types-and-Unique-Identifiers-#available-project-types).
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+[//]: ___
+
+## Use Cases
+
+[//]: # "How can I leverage the Extole integration with Iterable?"
+
+1. Create and update users in Iterable for future marketing. [Learn more >](https://docs.extole.com/docs/iterable#use-case-1-create-and-update-users-in-iterable-for-future-marketing)
+2. Use Custom Events from your Extole programs in your Iterable Journeys and Campaigns. [Learn more >](https://docs.extole.com/docs/iterable#use-case-2-use-custom-events-from-your-extole-programs-in-your-iterable-journeys-and-campaigns)
+3. Include a customers share link or share code in your Iterable campaigns. [Learn more >](https://docs.extole.com/docs/iterable#use-case-3-include-a-customers-share-link-or-code-in-your-iterable-messages)
+
+[//]: ___
+
+## Integration
+
+[//]: # "How do I set up the Extole integration with Iterable?"
+
+### Generating an Iterable API Key
+
+1. Log in to your Iterable account and follow [Iterable’s support documentation to create a new API Key](https://support.iterable.com/hc/en-us/articles/360043464871-API-Keys-#creating-api-keys).
+2. Save your API key in a safe place. You will need to paste it into your My Extole account.
+
+### Setting Up an Extole Integration
+
+Extole supports sending webhooks on any event in a customer Journey to connect with third-party products. To do so, you will first need to generate an JavaScript API key within Iterable:
+
+1. Log in to your Extole account and navigate to [Tech Center > Outbound Webhooks](https://my.extole.com/tech-center/outbound-webhooks).
+2. Hit the + New Integration button.
+3. Enter a name for the Key (this is how the key will be referenced within Extole).
+4. Select Webhook as the Key Type.
+5. Set the Algorithm to Password.
+6. Paste your Iterable REST API key into the key field
+7. Click Create Key.
+
+<img src="https://files.readme.io/1275c40d36c36b8a7e4cd4f679c4d1be2f136937719e559e4495e1bb1ce7475a-d7420c0-Screen_Shot_2022-02-23_at_9.55.59_AM.png" alt="Screen Shot 2022-02-23 at 9.55.59 AM.png" width="60%" />
+
+[//]: ___
+
+### Use Case 1: Subscribe Users to Receive Marketing Communications
+
+[//]: # "How do I create and update users in Iterable for future marketing?"
+
+Whenever new or existing customers interact with your Extole-powered programs, they have the option to opt-in to receive further email marketing communications from you. Any time a customer checks this box and submits the form, Extole will track their opt-in status and can forward that status to an Iterable list.  Alternatively, if customers decide not to opt-in to marketing emails in your Extole-powered campaigns, Extole can still create profiles for them in Iterable for future push or in-app messaging communication.
+
+<img src="https://files.readme.io/7c956d24faa31c36cc2037731b626bc57549d123dab579c8f7a80e1d6aa3ef4b-4bb4652-small-unnamed.png" alt="" width="60%" />
+
+**Complete the following steps to send users from Extole to an Iterable list**:
+
+1. [Create your static lists](https://api.iterable.com/api/docs#lists_subscribe) in Iterable. **Extole strongly recommends creating separate lists by audience (advocate/friend) and marketing opt-in status (opted-in to email vs. not opted-in to email)**.
+2. Copy the list ID from your newly created list (you’ll need to paste it into your My Extole account).
+3. Log in to your My Extole account and navigate to the Tech Center > Outbound Webhooks.
+4. Click + New Webhook and fill out the necessary fields.
+5. Leave the Type as Generic.
+6. Open the Client Key dropdown and select the key you created in the **Setting Up an Extole Integration in Extole** section of this guide.
+7. Paste in the API URL for Iterable’s [List Subscribe API](https://api.iterable.com/api/docs#lists_subscribe): `https://api.iterable.com/api/lists/subscribe`.  If you are using Iterable's EU Data Center, please use [https://api.eu.iterable.com/api/docs#lists_subscribe](https://api.eu.iterable.com/api/docs#lists_subscribe).
+
+<img src="https://files.readme.io/ca5823a147f13c76efacdb2afc12c2738a189d5870109288472d8224ee163951-798acd6-small-Screen_Shot_2023-05-01_at_1.47.12_PM.png" alt="The outbound webhook creation screen in My Extole" width="60%" />
+
+8. Work with your Extole CSM to create the request body. Here is where you will need to supply the list ID for the Iterable list you would like to send opt-ins to.
+9. Repeat Steps 4–8 for each list.
+10. Done! You can now set up Journeys in Iterable to subscribe opted-in participants to marketing communications or to trigger transactional messages.
+
+A typical request body will look something like the following:
+
+`email`
+
+[//]: ___
+
+### Use Case 2: Trigger Iterable Journeys Using Custom Events 
+
+<Warning>
+**Important Note**
+
+
+Program-related emails will be sent from Extole by default and only participants who have previously opted in to SMS/push notifications will receive Iterable journey messages.
+</Warning>
+
+[//]: # "How do I use custom events from my Extole programs in my Iterable Journeys and Campaigns?"
+
+Extole events can provide valuable data for powering your Iterable journeys. For example, you could create a referral reward notification Journey to send an in-app, push, or SMS message when participant  earns a reward in your Extole-powered programs.
+
+Additionally, when marketing your referral and engagement programs to customers in Iterable, you can use Extole Events as [campaign conversion metrics](https://support.iterable.com/hc/en-us/articles/204780559-Tracking-Custom-Conversions-) to understand the number of shares and referrals an Iterable campaign drove.
+
+**Complete the following steps to send Extole event data into your Iterable account**:
+
+1. Make sure you have [event handling](https://support.iterable.com/hc/en-us/articles/115002065083-Managing-Custom-Events-#adding-events-to-the-custom-events-list) enabled in your Iterable account.
+2. Work with your Extole team to decide which custom events you’d like to send into Iterable, or choose from our standard table below. Your Extole team will then set up a webhook that points to Iterable’s [Events API](https://api.iterable.com/api/docs#events_track) and events will automatically start flowing into Iterable.  
+   Note that if you are using Iterable's EU Data Center, use [https://api.eu.iterable.com/api/docs#events_track](https://api.eu.iterable.com/api/docs#events_track).
+
+<table>
+  <thead>
+    <tr>
+      <th>
+        Event
+      </th>
+
+      <th>
+        Example Properties
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        Extole Shared
+      </td>
+
+      <td>
+        `email` (**required**)  
+        `user_id` (**required for[User ID project types](https://support.iterable.com/hc/en-us/articles/9216719179796-Project-Types-and-Unique-Identifiers-#available-project-types)**)  
+        `id` (optional)  
+        `first_name` (optional)  
+        `last_name` (optional)  
+        `share_link` (optional)
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Extole Signed Up
+      </td>
+
+      <td>
+        `email` (**required**)  
+        `user_id` (**required for[User ID project types](https://support.iterable.com/hc/en-us/articles/9216719179796-Project-Types-and-Unique-Identifiers-#available-project-types)**)  
+        `id` (optional)  
+        `first_name` (optional)  
+        `last_name` (optional)
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Extole Converted
+      </td>
+
+      <td>
+        `email` (**required**)  
+        `user_id` (**required for[User ID project types](https://support.iterable.com/hc/en-us/articles/9216719179796-Project-Types-and-Unique-Identifiers-#available-project-types)**)  
+        `id` (optional)  
+        `first_name` (optional)  
+        `last_name` (optional)
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Extole Advocate Reward Earned
+      </td>
+
+      <td>
+        `email` (**required**)  
+        `user_id` (**required for[User ID project types](https://support.iterable.com/hc/en-us/articles/9216719179796-Project-Types-and-Unique-Identifiers-#available-project-types)**)  
+        `id` (optional)  
+        `first_name` (optional)  
+        `last_name` (optional)  
+        `coupon_code` (optional)  
+        `reward_face_value` (optional)  
+        `reward_face_value_type` (optional)
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Extole Reward Earned
+      </td>
+
+      <td>
+        `email` (**required**)  
+        `user_id` (**required for[User ID project types](https://support.iterable.com/hc/en-us/articles/9216719179796-Project-Types-and-Unique-Identifiers-#available-project-types)**)  
+        `id` (optional)  
+        `first_name` (optional)  
+        `last_name` (optional)  
+        `coupon_code` (optional)  
+        `reward_face_value` (optional)  
+        `reward_face_value_type` (optional)
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+A typical request body will look something like the following:
+
+`user_id`
+
+[//]: ___
+
+### Use Case 3: Include a Customer's Share Link or Code in Your Iterable Messages
+
+[//]: # "How do I include a customer's share link or share code in Iterable messages?"
+
+Promoting your program has never been easier. With Extole and Iterable you can turn every customer into an advocate by including their personal share link in all of your Iterable communications.  Extole will create the share link for the user and add it as an attribute to their Iterable profile.
+
+#### Share Links for Existing Users
+
+Complete the following steps to generate and pass Extole share links to **existing** Iterable users:
+
+1. To ensure that all current customers in Iterable have a share link, you can export a list of of customers from Iterable and securely upload them to Extole’s Batch Jobs center. Learn more about [Extole's file formatting standards](https://docs.extole.com/docs/file-based-events) and [uploading files to Extole](https://docs.extole.com/docs/general-file-uploads).
+2. Your Extole CSM will then help you generate share links for each of the customers in the uploaded file.
+3. Once the share links have been generated, your CSM can either help you run a report in the Extole platform and export the data to then be uploaded into Iterable or they can help you set up a webhook to update Iterable user profiles automatically.
+
+#### Share Links for New Users
+
+Complete the following steps to generate and pass Extole share links to **new** Iterable users:
+
+1. For all new customers, Extole can generate share links for every new customer and send them to Iterable to automatically update or create user profiles. To set this up, work with your Extole team to set up a webhook using Iterable’s [Update User API](https://api.iterable.com/api/docs#users_updateUser).  Note, if you are using Iterable's EU Data Center, use [https://api.eu.iterable.com/api/docs#users_updateUser](https://api.eu.iterable.com/api/docs#users_updateUser).
+   1. **Note**: This connection identifies users in Extole and Iterable based on their email addresses.
+   2. **Note**: If you are using Iterable's EU Data Center, use [https://api.eu.iterable.com/api/docs#users_updateUser](https://api.eu.iterable.com/api/docs#users_updateUser).
+2. Once the webhook is configured, you will be able to start including share links in your Iterable messages using [User Profile Fields](https://support.iterable.com/hc/en-us/articles/206430145-User-Profile-Fields-#inserting-user-profile-fields-in-messages)!
+
+A typical request body will look something like the following:
+
+`https://api.iterable.com/api/lists/subscribe`
+
+[//]: ___
+
+## Customizations
+
+### Send Iterable Events to Extole
+
+Leverage any Iterable custom event to personalize the customer experience in your Extole-powered programs. Generate your [Extole API key](https://my.extole.com/security-center) for [Extole's Events API ](https://docs.extole.com/reference/create-event)and work with your Iterable CSM to set up your [webhooks in Iterable](https://support.iterable.com/hc/en-us/articles/205480275-Journey-Webhooks-).
+
+## Using this Integration
+
+Work with your Iterable CSM to start using Extole data in your Iterable campaigns. To debug this integration, you can use Extole’s Webhook Live View to view a live stream of triggered events and API responses.

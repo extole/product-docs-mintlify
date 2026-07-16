@@ -1,0 +1,58 @@
+---
+title: "Quick Troubleshooting Guide"
+description: "This document is meant to be a quick reference guide to troubleshooting common issues. All steps should be followed sequentially in order to ensure the settings have been properly configured."
+---
+
+# Overview
+
+This document is meant to be a quick reference guide to troubleshooting common issues. All steps should be followed sequentially in order to ensure the settings have been properly configured.
+
+# Core Tag
+
+| Problem | Cause | Solution |
+| --- | --- | --- |
+| No CTAs load and errors mentioning CORS are visible in the console. | Check the spelling of the core tag on the client's site matches spelling in the branded domain section of Tech Center page. | Provide the client the core tag directly from the Tech Center page.[](https://my.extole.com/tech-center) |
+| Seeing the error net: **ERR_CONNECTION_TIMED_OUT**   when trying to load the core tag.![Screen_Shot_2020-05-10_at_3.08.08_PM.png](https://extole-5ef307a0e5b1.intercom-attachments-7.com/i/o/syy27wia/1421734145/4e0e6315e20c72307bcc67c74125/360069502134?expires=1778306400&signature=da6949cc6739c856c02d3340b395a679a53aa21374638fc5fc3c4414a92682fc&req=dSQlF859mYBbXPMW3nq%2Bgcm0fyaS%2Brc5fvniRnV5MBNm91KW9Z9RB1RuJE4g%0A76gh6696aXDltHyX0J85pB8Eqxo%3D%0A) | The program domain has not yet been created in Extole | Create the program domain you are trying to use in Extole's Tech Center page.[](https://my.extole.com/tech-center) |
+| Seeing the error net: **ERR_CERT_COMMON_NAME_INVALID**   when trying to load the CTA tag.Running multiple DIG commands consecutively return different answers.![Screen_Shot_2020-06-17_at_2.17.01_PM.png](https://extole-5ef307a0e5b1.intercom-attachments-7.com/i/o/syy27wia/1421734143/fe4ec18fce2d4dfeac375dc953c2/360075059454?expires=1778306400&signature=d4908896aad5eede26c0b22a0727b370d433a377e48924bf778940cb85bd5f3a&req=dSQlF859mYBbWvMW3nq%2BgUjkHp1j2IpSLXF%2B9N%2FBuUA8Yef6gzB5FHTT1zyy%0AhhHTnrS1l8SafBoBjocSFMl5Anw%3D%0A) | The CNAME was not properly created. (Most likely created as an A record and not a CNAME) | The client will have to create the record as a CNAME. |
+
+# Advocate Share Links
+
+| Problem | Cause | Solution |
+| --- | --- | --- |
+| Advocate share links are directing friends to a blank page. | Campaign status affects redirection. There should be at least one campaign in either **PAUSED** or **LIVE** status in the program where the share link was generated | In the target program, make sure there is at least one **LIVE** campaign or change the status of an **ENDED** or **STOPPED** campaign to **PAUSED**. |
+| The share destination variable in Campaign Edit is empty | Go to the **Friend > Share Destination** creative and add the page where friends should be directed under **Redirect URL.**![Redirect URL or Zone Variable](https://extole-5ef307a0e5b1.intercom-attachments-7.com/i/o/syy27wia/1421734141/6489d3b100bc43b131181f8987d4/360051581833?expires=1778306400&signature=a92dafe9ad0aa0317c202b21d0f96477615182c29cc6197559ae34ac918bc48e&req=dSQlF859mYBbWPMW3nq%2BgdW%2BgHROYhEHsZAyONkXM8BFGDnfz9Gb6y2LbWz%2F%0ANh71lhC1LQMjR0mBc%2BBm5FT%2B8Ew%3D%0A) |
+| The target URL has not been added to **Sites to Enable Javascript** | Login to my.extole and go to the Tech Center[](https://my.extole.com/tech-center) page. If the domain for the **Redirect URL** is not listed in the **Sites to Enable JavaScript,** add it to the list.![Screen_Shot_2019-11-19_at_4.21.12_PM.png](https://extole-5ef307a0e5b1.intercom-attachments-7.com/i/o/syy27wia/1421734144/dd75cf6d62eed5d695b52a9e4103/360050768174?expires=1778306400&signature=fddc748515214d55b15d90b2f89de08ee1b6f5c0e6b1ca279ea90a8256531339&req=dSQlF859mYBbXfMW3nq%2BgaCiURws7IhHS8XZp8erHkyrr6HQRCXaCvaEJE2E%0ANoeC%2FhGzcTb7DhBcM20aRBH2KE0%3D%0A)Only include the second level domain and the top-level domain (see image above). ***Do Not** *include the protocol when whitelisting, i.e.* www, http, https, etc. *|
+
+# Promotion Links
+
+| Problem | Cause | Solution |
+| --- | --- | --- |
+| Promo links are directing friends to a blank page. | No organic redirect setup for that program | Create an organic redirect using runbook here.[](https://extole.atlassian.net/wiki/spaces/ops/pages/2330030/RUNBOOK+Create+or+change+redirect+links+including+organic+link#RUNBOOKCreateorchangeredirectlinks,includingorganiclink-OrganicLink-ForOnboardingclientspostCNAME) |
+| The branded domain has no domains listed under **Production Sites Extole Should Support Requests From** | In the Tech Center, edit your branded domain and make sure there is at least one domain listed under "Production Sites Extole Should Support Requests From." |
+
+# Tags / Tagging
+
+| Problem | Cause | Solution |
+| --- | --- | --- |
+| No CTAs displaying on the client's site | No core.js or CTA is present. | Add both the core.js and the zone tags to your web page. If new ones need to be generated, go to the tag generator[](https://my.extole.com/tech-center/tag-generator) and download them. |
+| The zone is disabled in Campaign Edit. | Go to    ​ **Campaign Edit > Marketing > Zone**   and open the creative's kebab menu to make sure it is **Enabled.** Publish the campaign to see the changes reflected on the client's site. |
+| The **Serve Creative** toggle is disabled in Campaign Edit. | The **Serve Creative** toggle should be enabled to display the CTA (if hosted by Extole). |
+| The campaign contains no zone with that name. | This is usually the case when a campaign is upgraded from scratch. On the new campaign's dashboard, create a new Onsite CTA and publish it. |
+| The campaign is missing the default, optional child label and not targeting a campaign. | Reach out to your Extole CSM if you suspect a targeting issue with your campaign. |
+
+# Share Experience
+
+| Problem | Cause | Solution |
+| --- | --- | --- |
+| Share experience does not send share message | There is a link in the share message to a site not listed under **Production Sites Extole Should Support Requests From** | 1. Make sure to remove the link from the share message. Example, if you are referencing an Amazon gift card as ***Amazon.com*** gift card, you can remove the top-level domain (the .com part).2. If the link in the share message is to a domain you control, make sure to add it to the **Production Sites Extole Should Support Requests From** (Tech Center > Edit Domain). |
+| Share Experience/Referral Page does not load | Either core.js tag, zone tag or both tags are missing from the page. | If new ones need to be generated, go to the tag generator[](https://my.extole.com/tech-center/tag-generator) and download. You will need to add these tags to your web pages. |
+| The zone is disabled in Campaign Edit. | Go to    ​ **Campaign Edit > Advocate > Zone**   (share experience or referral page, typically) and open the creative's kebab menu to make sure it is **Enabled.** Publish the campaign to see the changes reflected on the client's site. |
+
+# Other Special Cases
+
+- 
+-
+
+| Problem | Cause | Solution |
+| --- | --- | --- |
+| Tags are on the page but no content is loading in **GTM Preview Mode** | This could be due to a browser configuration issue when viewing in a site in preview mode. | The solution is to enable 3rd party cookies for the browser you are using. See resources below.GTM Preview Mode Not Working[](https://www.analyticsmania.com/post/google-tag-manager-preview-mode-not-working/)Enable preview mode in Safari[](https://www.simoahava.com/gtm-tips/enable-preview-mode-safari-browser/) |

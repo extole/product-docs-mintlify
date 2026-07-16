@@ -1,0 +1,68 @@
+---
+title: "Amplitude"
+description: "Send data from Amplitude to Extole to take action on your customer data to drive growth and deliver better customer experiences."
+---
+
+## Prerequisites
+
+[//]: # "What do I need to set up an integration between Extole and Amplitude?"
+
+| Requirement                        | Description                                                                                                                                                         |
+| :--------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| An Extole Account                  | You must have an Extole account to leverage this integration.                                                                                                       |
+| An Amplitude Account               | You must have an Amplitude account to leverage this integration. You’ll also need to enable this integration in each Amplitude project in which you want to use it. |
+| Extole Admin REST API Access Token | In your My Extole account, generate your Rest API Access Token by navigating to Security Center > New Access Token.                                                 |
+
+[//]: ___
+
+## About this Integration
+
+Automatically send events from Amplitude Event Stream to Extole. Events enable referral tracking and attribution and can trigger various actions in the Extole platform—such as sending rewards, emails, and more.
+
+[//]: ___
+
+## Integration
+
+### Generate an Access Token in Extole
+
+* Log in to your [My Extole](https://my.extole.com/) account.
+* Navigate to the [Security Center](https://my.extole.com/security-center).
+* Click the + New Access Token button and verify your identity.
+* Name your Access Token and click Create. Extole will temporarily display the newly created random key for you.
+* Copy your token and save it in a safe place before navigating away from the page.
+
+### Configure a Data Destination in Amplitude
+
+* Log in to your Amplitude account.
+* Navigate to Data Destinations, then find Extole - Event Stream.
+* Enter a sync name, then click Create Sync.
+* Toggle Status from Disabled to Enabled.
+* Paste your REST API Key (Access Token from the Extole platform).
+* Toggle the Send Events filter to select the events to send. We recommend choosing the events that are most important to your Extole program.
+* Use the Event Properties filter to select which Event Properties you would like to send.
+* When finished, enable the destination and Save.
+* Select the Mappings tab to choose your user identifier to map to other properties from Amplitude to Extole.
+
+### Enable Event Live View in Extole
+
+Once your Extole Event Stream is set up in your Amplitude account. Reach out to Extole Support at [support@extole.com](mailto:support@extole.com) to enable the Event Live View. The Event Live View will allow you to see events arriving from Amplitude in Extole in real time.
+
+[//]: ___
+
+## Customization (optional)
+
+### Set up a Test Connection
+
+[//]: # "Can I test the integration between Extole and Amplitude?"
+
+If you only provide one Extole REST API key to Amplitude, only production events will be sent from Amplitude to Extole. If you also want to send staging or testing events to an Extole test client, you can create another Extole REST API key and configure an additional Data Destination in Amplitude. If you don’t want to make a separate connection with an additional API key, you could instead insert a label into the data so that it is sent to a test container.
+
+[//]: ___
+
+## Using this integration
+
+[//]: # "How does the integration between Extole and Amplitude work?"
+
+This integration allows Amplitude events to automatically flow into your Extole campaigns. Once you’ve configured your Extole campaigns and the Amplitude integration, a live stream of events can be viewed in real-time using Extole’s Event Live View. Amplitude events can then be used to trigger emails, fulfill rewards, create audiences, and track user activity within the Extole platform. Please work with your Extole Client Services or Implementation manager for assistance in setting up your Extole campaigns.
+
+[//]: ___

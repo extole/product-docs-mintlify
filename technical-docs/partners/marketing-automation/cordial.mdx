@@ -1,0 +1,133 @@
+---
+title: "Cordial"
+description: "Set up a connection between your Extole programs and Cordial's automated marketing platform."
+---
+
+## Overview
+
+Cordial is an Automated Marketing Platform designed to drive conversions and build loyalty. The Extole integration with Cordial allows you to seamlessly opt users in to email communications as well as send your Extole program emails through Cordial.
+
+## Prerequisites
+
+The table below lists the prerequisites you need to complete this integration.
+
+| Requirement                                     | Description                                                                                                                                                                                                                                                                                                              |
+| :---------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Cordial Account                                 | A Cordial account is required in order to take advantage of this integration.                                                                                                                                                                                                                                            |
+| Cordial API Key                                 | A Cordial API Key can be created within the Settings of your Cordial account. Follow Cordial's guide to [generate an API Key](https://support.cordial.com/hc/en-us/articles/115005365087-API-keys).                                                                                                                      |
+| Cordial Automation Template Keys for each email | This integration leverages [Cordial’s Automation Template APIs](https://support.cordial.com/hc/en-us/articles/203886108-Automation-templates-API#postAutomationKeySend) to trigger emails to users. Template keys are the unique names of your individual template instances (e.g., `sports_newsletter_Jan_2018_week1`). |
+
+## Integration
+
+### Generate Cordial API Key
+
+Follow Cordial's guide to [generate an API Key](https://support.cordial.com/hc/en-us/articles/115005365087-API-keys). Save the key in a safe place so you can use it to create an Extole outbound webhook.
+
+### Create An Extole Outbound Webhook
+
+Work with your Extole team to create an outbound webhook in the [Tech Center](https://my.extole.com/tech-center/outbound-webhooks) of your Extole account.
+
+### Select Email Variables
+
+Through [Cordial’s Automation Template APIs](https://support.cordial.com/hc/en-us/articles/203886108-Automation-templates-API#postAutomationKeySend), Extole uses `extVars` to pass dynamic data into your email templates such as share links, promotion links, or reward amounts. 
+
+The following table displays the Extole emails available to you as well as each email's dynamic variables. Make sure you update the listed variables in Extole since they will be pulled in by Cordial. 
+
+Please note that all of the design and copy elements of these emails must be set up in Cordial.
+
+<table>
+  <thead>
+    <tr>
+      <th>
+        Email Name
+      </th>
+
+      <th>
+        Available Variables
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        Advocate Welcome Email
+      </td>
+
+      <td>
+        `subject`\
+        `message`\
+        `advocateReward`\
+        `friendReward`\
+        `shareableLink`\
+        `promoteUrl`
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Advocate Stats Email
+      </td>
+
+      <td>
+        `subject`\
+        `message`\
+        `advocateReward`\
+        `friendReward`\
+        `shareableLink`\
+        `promoteUrl`\
+        `numRewards`\
+        `friends`
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Friend Share Email
+      </td>
+
+      <td>
+        `subject`\
+        `message`\
+        `advocateReward`\
+        `friendReward`\
+        `promoteUrl`\
+        `shareableLink`
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Pending Reward Email
+      </td>
+
+      <td>
+        `subject`\
+        `message`\
+        `advocateReward`\
+        `friendReward`\
+        `promoteUrl`
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Earned Reward Email
+      </td>
+
+      <td>
+        `subject`\
+        `message`\
+        `advocateReward`\
+        `friendReward`\
+        `shareableLink`\
+        `promoteUrl`\
+        `couponCode`
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+#### Example Request Sent to Cordial
+
+`sports_newsletter_Jan_2018_week1`

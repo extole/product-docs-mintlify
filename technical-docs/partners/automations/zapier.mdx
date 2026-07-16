@@ -1,0 +1,40 @@
+---
+title: "Zapier"
+description: "Zapier is an automation platform that connects thousands of apps, enabling users to automate workflows without writing code."
+---
+
+## Prerequisites
+
+| Requirement           | Description                                                                                  |
+| :-------------------- | :------------------------------------------------------------------------------------------- |
+| **Extole Account**    | An Extole account is required to use this integration.                                       |
+| **Zapier Account**    | A paid Zapier account is required to set up workflow automations.                            |
+| **Extole API Key**    | Create an Extole API key in the Security Center of your Extole Dashboard > New Access Token. |
+| **Extole Events API** | The endpoint Extole uses to receive events from Zapier: `https://api.extole.io/v5/events`    |
+
+## Use Cases
+
+This integration allows you to send events from any applications you have connected to Zapier (eCommerce, billing, CRM, etc.) to Extole's Events API. These events can be used to trigger actions within the Extole platform, such as rewarding customers for completing certain actions, sending promotional or triggered email notifications, or tracking specific customer actions for analytics. 
+
+## Integration Steps
+
+### Connect to Your Extole Account
+
+Extole’s Events API requires authentication via a token for any requests you send via Zapier. You can generate your token in the Security Center of your Extole account by clicking + New Access Token and following the prompts. Make sure to save your Access Token in a safe place, as you won't be able to access it beyond this point.
+
+### Set up your Zapier Actions
+
+To set up your Zap action, complete the following steps.
+
+1. Create a new Zap with “Catch Hook in Webhooks by Zapier” as the trigger.
+2. Copy the webhook URL from the "Test Trigger" section and add it to the application connected to Zapier from which you want to send events to Extole.
+3. Create a new “Webhooks by Zapier” action in your Zap and select POST as the type of API call you’d like to make.
+4. Under “Choose app & event,” paste in the Extole Events API URL `https://api.extole.io/v5/events` in the URL field and insert the topic data item from the available fields.
+5. Choose the payload type JSON.\
+   Select **No** for the option to Wrap Request.\
+   Select **Yes** for the option to Unflatten.
+6. Leave the fields for Data, File, and Basic Auth blank.
+7. Under Headers, type **Authorization** in the first field and **Bearer** in the second field followed by the access token you generated in your My Extole account.
+8. Make sure to save your new action. 
+
+![](https://files.readme.io/d033cf147ed203771978f0c9b2e98f1cbc93d023964ee2560cf74ab5f43a6a95-9b7429a274632b370cb456cf99b90d01510a9158709b32555f2fc21dd6782231-image.png)

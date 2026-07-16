@@ -1,0 +1,128 @@
+---
+title: "What to do When you Get a Notification"
+description: "For any given notification, we recommend you view it at https://my.extole.com/notifications. There, you can view more details about the notification and optionally snooze it for up to 30 days in the future."
+---
+
+# Overview
+
+For any given notification, we recommend you view it at [https://my.extole.com/notifications](https://my.extole.com/notifications). There, you can view more details about the notification and optionally snooze it for up to 30 days in the future.
+
+Jump ahead to the following sections:
+
+- [Events Notifications](#h_01FFT29K7RTFXTBTMMDPJKX2QM)
+- [Batch File Notifications](#h_01FFT2A0GVQW9R4ZEDFNZ87NV7)
+- [Rewards Notifications](#h_01FFT2B036NF5E6J587NFBASFH)
+- [Admin Notifications](#h_01FFT2B6QYYF2G2AHG69P2HAFH)
+- [Reports Notifications](#h_01FFT2BBTPC5RFNY1T2370P0K0)
+- [Webhook Notifications](#h_01FFT2BJ9CMA5EE9XDAS9JBEKQ)
+- [Email Notifications](#h_01FGQ5211E60J1CSVCAVMY2VB2)
+- [User Activity Notifications](#h_01GRVBYNCP5HTFPDFB91RYWEVQ)
+
+Not subscribed yet? Learn [how to subscribe to My Extole notifications](/guides/notifications-troubleshooting/platform-admin/subscribing-to-my-extole-notifications).
+
+# Events Notifications
+
+- 
+- 
+- 
+- 
+- 
+- 
+-
+
+| Example | Context | What You Can Do | What We Can Do |
+| --- | --- | --- | --- |
+| We couldn’t understand **event name** event from **app name**. Please check the **event name** event you’re sending has the required data attributes. | Extole will sometimes manipulate the event you're sending before processing it. This is most commonly used if we need to translate something you're sending into something our system needs to understand (e.g. you're sending a data attribute called coupon code and we need to map that to an attribute called advocate code). You will receive this notification if there's something broken in the manipulation/translation step between reading the event you're sending and having our system actually process it. | Check to make sure that nothing about the events you're sending Extole has changed (e.g. the events aren't missing any data attributes). | If everything looks okay from your side, Extole may need to check:Are we assuming data attributes are being sent on events that aren't actually being sent?Are we attempting to do an invalid operation? |
+| We couldn’t determine the value of the **event name** event in campaign **campaign name**. Please check the value (e.g. cart value, funding amount) of the **event name** event you’re sending. | Many transactional events that you're sending to Extole will have a monetary value. For a conversion or purchase event, this may be a cart value. For an account funding event, this may be a funding amount. You will receive this notification if we're unable to assign a value to a specific event. | Check to make sure that nothing about the events you're sending Extole has changed (e.g. the events aren't missing any "value" data attributes such as cart value or funding amount). | If everything looks okay from your side, Extole may need to check:Are we assuming "value" data attributes are being sent on events that aren't actually being sent? |
+| We couldn’t read a data attribute on the **event name** event in campaign **campaign name**. Please check the **event name** event you’re sending has the required data attributes. | Your events have various data attributes, such as first name, last name, user ID, or order ID. You will receive this notification if we're unable to understand one of the data attributes being sent on one of your events. | Check to make sure that nothing about the events you're sending Extole has changed (e.g. the events aren't missing any data attributes). | If everything looks okay from your side, Extole may need to check:Did we write custom code to extract a data attribute from an event, and are there any bugs in that custom code? |
+| We couldn’t execute the **action name** action for the event name event in campaign **campaign name**. Please check the event name event you’re sending has the required data attributes. | **The events you send into Extole commonly result in actions (e.g. give out a reward on this event, send an email on this event, webhook this event to an external system). You will receive this notification if we're unable to do the action, such as give out the reward, send the email, or fire the webhook.** | Check to make sure that nothing about the events you're sending Extole has changed (e.g. the events aren't missing any data attributes). | If everything looks okay from your side, Extole may need to check:Are we assuming data attributes are being sent on events that aren't actually being sent? |
+| We couldn’t execute the expression action for the **event name** event in campaign **campaign name**. Please check the **event name** event you’re sending has the required data attributes. | **Extole can set up custom actions to be taken off of an event. You will receive this notification if we're unable to do something as the result of receiving one of your events.** | Check to make sure that nothing about the events you're sending Extole has changed (e.g. the events aren't missing any data attributes). | If everything looks okay from your side, Extole may need to check:Are there any bugs in the custom code we wrote in order to execute the action? |
+| We couldn’t execute the **condition name** condition for the **event name** event in campaign **campaign name**. Please check the **event name** event you’re sending has the required data attributes. | **The events you send into Extole commonly have conditional checks (e.g. only count a conversion in the program if that person also has a signup in the program). You will receive this notification if we're unable to evaluate that conditional check.** | Check to make sure that nothing about the events you're sending Extole has changed (e.g. the events aren't missing any data attributes). | If everything looks okay from your side, Extole may need to check:Are there any bugs in the custom code we wrote in order to perform the conditional check? |
+
+# File Upload Notifications
+
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+-
+
+| Example | Context | What You Can Do | What We Can Do |
+| --- | --- | --- | --- |
+| Your **file type** file, **file name**, is/has **status**. | You can upload files of events or approvals in the My Extole Tech Center[](https://my.extole.com/tech-center/batch-jobs). You will receive this notification if your file is in process, completed, or failed. | If completed, see the results of the file in Batch Jobs[](https://my.extole.com/tech-center/batch-jobs). You can also track pending or in process jobs from this page. I f your job failed, you may need to:Check your file formatRemove a headerRemove a row or columnAdjust the name of the file | If Extole controls the file, we may need to adjust the file on our end. |
+| The file **file name** from SFTP server **server name** was uploaded to a folder we no longer support. Please upload files to the events, conversions, optouts, or approvals directories for processing. Files that do not need processing can be uploaded to the dropbox directory. If you have further questions, please contact support@extole.com[](mailto:support@extole.com). | You can send Extole files via SFTP by setting up servers in the My Extole Tech Center[](https://my.extole.com/tech-center/batch-jobs). You will receive this notification if your file was uploaded to a folder we no longer process. | Double-check that the directory you are transferring your file to is one of the following:EventsConversionsOptoutsApprovalsReview our documentation on how to set up Extole SFTP servers[](https://docs.extole.com/docs/extoles-sftp-server) and external SFTP servers[](https://docs.extole.com/docs/external-sftp-servers). | If your file cannot be transferred to one of the supported directories or you continue to receive this notification, please reach out to your Extole team for further assistance. |
+
+# Rewards Notifications
+
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+-
+
+| Example | Context | What You Can Do | What We Can Do |
+| --- | --- | --- | --- |
+| You have **x** valid coupons left in **campaign name**! This excludes coupons that are expired or expiring soon. Please add additional coupons immediately: https://my.extole.com/account-rewards/coupons[](https://my.extole.com/account-rewards/coupons). | If you use coupon codes for rewarding in your program, you will receive this notification if the coupon codes drop below the threshold you've established. This threshold can be edited in the Rewards > Coupon Codes[](https://my.extole.com/account-rewards/coupons) page by editing each specific coupon code set. | Upload more coupons to your coupon set. | NA |
+| You have a low gift card balance with only $ **x** left! Please refill your gift card fund immediately. | If you use gift cards for rewarding in your program, you will receive this notification if the gift card balance drops below the threshold you've established. This threshold can be edited in the Rewards > Gift Cards[](https://my.extole.com/account-rewards/gift-cards) page by clicking “Edit Spending Limits”. | Complete the invoice to replenish your gift card fund. | If everything looks okay from your side, Extole may need to check:Have we sent the invoice? |
+| **Due to expiring coupons, in the next 14 days you will fall below the warn threshold of X for reward supplier: name.** | If you use coupon codes for rewarding in your program, you will receive this notification if the coupon codes will soon drop below the threshold you've established after taking the expiration date for your coupons. This threshold can be edited in the Rewards > Coupon Codes[](https://my.extole.com/account-rewards/coupons) page by editing each specific coupon code set. | Upload more coupons to your coupon set. | NA |
+| **An earned reward has not been fulfilled after X** days. Please check the fulfillment process for errors. | If you're using points or account credits as part of your programs and you're doing the fulfillment on your side, this notification indicates that Extole found a customer who has earned a reward, but we haven't yet heard back from you that it's been fulfilled. Depending on your program configuration, this may mean that the email telling the customer they've received a reward hasn't been sent. This threshold can be edited in the Rewards > Custom Rewards[](https://my.extole.com/account-rewards/custom-rewards) page by editing each specific custom reward. | Check to make sure that nothing has changed about the process you use to mark a reward as fulfilled. This process may occur via file, API, or webhook. | If you don't tell Extole when the reward has been fulfilled and instead we auto-transition it, we may need to check that the auto-transition is working. |
+| **We couldn’t execute a reward rule for an event in campaign campaign name**. Please check the event you’re sending has the required data attributes here: https://my.extole.com/events/view/xxx.[](https://my.extole.com/events/view/xxx) | Your program is set up to score events and determine whether or not a reward should be issued. You will receive this notification if we were unable to run a reward rule on a specific event. | Check to make sure that nothing about the events you're sending Extole has changed (e.g. the events aren't missing any data attributes).Check to make sure the person isn't blocked, and nor are the actions leading to the event.Understand if a make-good needs to be created in order to issue the person their reward. | If everything looks okay from your side, Extole may need to check:Did we create a custom reward rule, and has the custom code changed at all?Is the person or are the actions leading to the event blocked?Do we need to do a make-good in order to issue the person their reward? |
+| **We couldn't send a reward for the event name** event in campaign **campaign name**. Please ensure that there is a reward supplier associated with the **event name** event. | Your program is set up with a reward supplier that issues rewards for a given event. You will receive this notification if we were unable to issue a reward for a specific event. | Check to make sure that there is a reward supplier associated with all of your rewardable events.Understand if a make-good needs to be created in order to issue the person their reward. | If everything looks okay from your side, Extole may need to check:Do we need to do a make-good in order to issue the person their reward? |
+| The **daily/hourly** reward limit configured for **reward name** has been hit. Please reach out to your CSM or Extole Support to review your reward and campaign configuration.   **​** | The reward supplier listed in the notification has a maximum number set for the total value of rewards that can be distributed in either one hour or one day. These limits are optional configurations available for all reward types. | Reach out to your CSM or file a ticket through Extole Support to investigate why the limit was hit and if any adjustments are necessary. | Your Extole team will check the following:Is the reward limit set too conservative for the campaign?Is this an instance of fraud that needs to be addressed? |
+
+# Admin Notifications
+
+| Example | Context | What You Can Do | What We Can Do |
+| --- | --- | --- | --- |
+| **User** has logged in. | You will receive this notification if one of the users in your account logs into the My.Extole platform. | NA | NA |
+
+# Reports Notifications
+
+- 
+-
+
+| Example | Context | What You Can Do | What We Can Do |
+| --- | --- | --- | --- |
+| Your report, **report name**, has completed. Check out the results here: https://my.extole.com/reports[](https://my.extole.com/reports). | You can run reports from https://my.extole.com/reports[](https://my.extole.com/reports). You will receive this notification if a report you've created has finished running. | See the results of the report in Reports[](https://my.extole.com/reports). | NA |
+| Your report, **report name**, has failed. Please duplicate the report, adjust the configuration, and rerun it here: https://my.extole.com/reports[](https://my.extole.com/reports). | You can run reports from https://my.extole.com/reports[](https://my.extole.com/reports). You will receive this notification if a report you've created failed to run. | Duplicate the report, adjust the configuration, and rerun it from Reports[](https://my.extole.com). | If it is a custom report that Extole created for you, we may need to adjust the configuration on our side. |
+| We couldn’t process the custom action **action name** for your report **report name**. Please ensure the report configuration matches the action’s requirements. | Extole can set up custom actions to be taken off of a report. For instance, a performance report may track your program's funnel metrics, and if we detected a change in a metric by more than 80%, we can webhook out to notify you. | Check to make sure that nothing about the report has changed. | If everything looks okay from your side, Extole may need to check:Did we change the code of the custom action?Did the report configuration change at all? |
+
+# Webhook Notifications
+
+- 
+- 
+- 
+- 
+-
+
+| Example | Context | What You Can Do | What We Can Do |
+| --- | --- | --- | --- |
+| We couldn’t send an event for the **webhook name** webhook. Please see here for more information: https://my.extole.com/tech-center/outbound-webhooks/[](https://my.extole.com/tech-center/outbound-webhooks/). | Your program may make use of webhooks so that you can be notified when a program event occurs. You will receive this notification if the webhook request could not be built, if we were unable to connect to the destination, or if the destination responded with a negative status code. | Check to make sure that nothing about the events you're sending Extole has changed (e.g. the events aren't missing any data attributes).Check to make sure the URL of the webhook is correct.Confirm what you're expecting the webhook request to look like. | If everything looks okay from your side, Extole may need to check:Is the webhook assuming something exists in the triggered event that doesn’t?Is the URL of the webhook correct? |
+
+# Email Notifications
+
+- 
+- 
+- 
+- 
+-
+
+| Example | Context | What You Can Do | What We Can Do |
+| --- | --- | --- | --- |
+| We couldn’t render the **email name** in campaign **campaign**. Please check the campaign configuration for **email name**. | Extole sends emails as part of your program. You will receive this notification if we were unable to render a specific email creative. | Check if the email creative is enabled in Campaign Edit. | If everything looks okay from your side, Extole may need to check:Does the email creative exist in the campaign and is it enabled?Is there a bug in the email creative?Does the person receiving the email have a journey?Do we need to adjust something in the email action?Do we need to make any changes before we attempt to retry? |
+
+# User Activity Notifications
+
+| Example | Context | What You Can Do | What We Can Do |
+| --- | --- | --- | --- |
+| We identified an advocate, **link**, who has exceeded the max share limit for **program**. Please review this advocate’s activity as it may be spam or may indicate that the share limit is set too low. | Your program is set up to score events for quality and determine whether or not a reward should be issued. You will receive this notification if an individual exceeds the share limit quality rule. | Review the individual's profile in User Support and determine whether your should block the individual or raise the share limit. | NA |

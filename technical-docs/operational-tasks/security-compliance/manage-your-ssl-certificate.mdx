@@ -1,0 +1,138 @@
+---
+title: "Manage Your SSL Certificate"
+---
+
+## Overview
+
+[//]: # "How do I generate SSL certificates for my Extole programs and domains?"
+
+Your referral domains are integral to your program's success. Every time your advocates interact with your program your brand is reinforced by the exposure it receives via the advocate share links generated for your advocates. That is why it is important to ensure your advocate's cybersecurity. 
+
+Extole will automatically generate a SSL certificates for your program and manage all security aspects of your program by default; however, if your company's policy does not allow others to generate SSL certificates on behalf of your domains, Extole has two options to generate certificates on your end. 
+
+[//]: ___
+
+## Option 1: Use an Extole-generated CSR
+
+The general process for this is:
+
+1. Extole generates the CSR and provides it to your team.
+2. You sign the CSR with your Certificate Authority.
+3. You provide the Certificate Chain and Public Key back to Extole.
+4. Extole installs the certificates.
+
+## Option 2: Generate and sign a CSR then upload into Extole
+
+Alternatively, you can manage the entire process on your end. This looks as follows:
+
+### Generate a CSR Locally Using OpenSSL
+
+[//]: # "How do I generate a CSR locally using Open SSL?"
+
+<Info>
+**Please Note**
+
+
+If you don't already have OpenSSL installed, you will need install [Homebrew](https://brew.sh/) before installing OpenSSL.
+</Info>
+
+We first need to generate a private key with which to authenticate our CSR. On the command line enter the following sequence of commands:
+
+`refer.mycompany.com.`
+
+The command above generates an RSA key named yourdomain that is 2048 bits long. Now that we have generated our key we will use it to generate the CSR. 
+
+`google.com`
+
+As part of the CSR generation process, you will be asked to provide information regarding your organization. Use the table below as a guide to provide the necessary information.
+
+| Field                                    | Description                                                                                                                                                                                                           |
+| :--------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Country Name (2 letter code)             | The two-letter country code where your company is legally located.                                                                                                                                                    |
+| State or Province Name (full name)       | The state/province where your company is legally located.                                                                                                                                                             |
+| Locality Name (e.g., city)               | The state/province where your company is legally located.                                                                                                                                                             |
+| Organization Name (e.g., company)        | Your company's legally registered name (e.g., YourCompany, Inc.).                                                                                                                                                     |
+| Organizational Unit Name (e.g., section) | The name of your department within the organization (press Enter to leave this field blank).                                                                                                                          |
+| Common Name (e.g., server FQDN)          | Here, you will provide your branded, Extole referral domain which is usually in the form of `refer.mycompany.com.` You can find your branded referral domain in the Program Domains section of your Tech Center page. |
+| Email Address                            | Your email address (press Enter to leave this field blank).                                                                                                                                                           |
+| A challenge password                     | Leave this option blank (press Enter).                                                                                                                                                                                |
+| An optional company name                 | Leave this option blank (press Enter).                                                                                                                                                                                |
+
+#### Example
+
+To get the information listed in the table above, you can go to your company's website and click the lock icon in your browser's address bar. The following example uses `google.com`.
+
+<img src="https://files.readme.io/2a31a4855282df438e554c3e45e2b31cd2048e5b0719a7fa771e01215414e282-8a47b72-Screen_Shot_2020-02-06_at_3.55.23_PM.png" alt="" />
+
+Then click the certificate icon to get the company information.
+
+<img src="https://files.readme.io/fe0b39f2b77eafc316be0d011e382e8c88f24422774731bea0e0617a16c427f4-9b886bf-Screen_Shot_2020-02-06_at_4.01.15_PM.png" alt="" />
+
+[//]: ___
+
+### Submit the CSR to a Certificate Authority
+
+[//]: # "How do I submit my CSR to a certificate authority?"
+
+Once you have completed the step above, you are ready to submit your CSR (the file named yourdomain.csr) to a Certificate Authority (i.e., Digicert, Thawte, Verisign, Comodo, etc). The CA will return to you a public certificate along with the certificate chain.
+
+While you wait for the CA to return the signed certificate, make sure to save the RSA key we created in the previous step in a secure place (the file named `yourdomain.key`) as you will need this key in the next step.
+
+[//]: ___
+
+### Convert the Private Key to PCKS#8 Format
+
+[//]: # "How do I convert a private key to PCKS#8 format?"
+
+Once we have received the signed certificate, we are ready to convert our RSA key to PCKS#8 format. To do so, enter the command below:
+
+`yourdomain.key`
+
+This command will generate a new file called yourdomain.pkcs8, which is the key to be used to authenticate the certificate. 
+
+Next, we will open the file, copy the content and paste it into our My.Extole dashboard.
+
+`PRIVATE KEY VALUE`
+
+Alternatively, you can choose to open the file with a text editor and copy the contents that way. The beginning and end of the file must be delimited by the following lines:
+
+`-----BEGIN PRIVATE KEY-----`
+
+Make sure to copy all the contents, including the lines above, then head to your [Tech Center](https://my.extole.com/tech-center) and click the edit icon next to your active domain to access the SSL portion. An overlay window will pop up.
+
+![](https://files.readme.io/b903895929207fa121b32f7188831a798e1b7583a68d3d9d3e9dcd9417de90e9-d9664b1-Program_Domain_SSL.png)
+
+In the pop-up window, look for the Private Key section and paste the contents of your PKCS8. Then, click the blue Save button at the top of the window to save the key.
+
+<img src="https://files.readme.io/07d94fba71dc8a54fe61012bc9f63d0c2d6e171a9bc4b082b7bfcf4e333500f7-5e428e5-Screen_Shot_2020-02-07_at_10.46.25_AM.png" alt="" width="60%" />
+
+<Info>
+**Important Note**
+
+
+As a security mechanism, the contents of the newly pasted key will not be shown after saving. Instead, the contents of the key will be replaced by the string `PRIVATE KEY VALUE`.
+
+`-----BEGIN PRIVATE KEY-----`\
+`PRIVATE KEY VALUE`\
+`-----END PRIVATE KEY-----`
+</Info>
+
+[//]: ___
+
+### Upload the Chain Certificate to Your My Extole Account
+
+[//]: # "How do I upload the chain certificate to my account in My Extole?"
+
+The CA should have sent you a public key certificate as well as the certificate chain. The certificate chain contains the SSL Certificate and Certificate Authority (CA) Certificates, that enable the receiver to verify that the sender and all CA's are trustworthy. Paste those in the corresponding sections and click Save.
+
+![](https://files.readme.io/20321d3e7f0b019557815a8b357126a71548e2b3a4579b8515cf1b2824b9d23d-746f96c-Public_Cert__Certificate_Chain.png)
+
+[//]: ___
+
+### Verify the Changes By Testing Your Program Flow
+
+[//]: # "How do I make sure the changes to my SSL certificates aren't impacting my program?"
+
+You should ensure all Extole content is being displayed correctly on your site by following your program flow. You will know everything is working correctly if your CTAs, Share Experience or Microsite, Friend Lading Experience, and so on are all displaying without any issues.
+
+[//]: ___

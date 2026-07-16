@@ -1,0 +1,120 @@
+---
+title: "SessionM"
+description: "This guide will walk you through the technical steps for setting up a successful Extole referral program that integrates with your loyalty program powered by [SessionM](https://www.mastercardservices.com/en/solutions/consumer-engagement/sessionm)."
+---
+
+## Before You Start
+
+### Synchronize Extole and SessionM User Profiles
+
+When advocates and referred friends earn rewards within your referral program, Extole will promptly notify SessionM to deliver points or an offer to their loyalty accounts. To establish this connection, you’ll need to have an up-to-date list of all loyalty program users within the Extole platform. This can be facilitated by your Extole and SessionM delivery teams.
+
+#### Upload Existing Loyalty Users in Extole
+
+Work with your SessionM delivery team to pull a one-time file of all existing users. You can then upload the CSV file in [Extole's Batch Jobs](https://docs.extole.com/docs/general-file-uploads) center with the data fields: `sessionm_id`, `external_id`, and `email`.
+
+#### Send New Loyalty Users to Extole
+
+In the Extole Security Center, generate an [Extole Access Token](https://docs.extole.com/reference/client-api-overview#key-management) and provide it to your SessionM delivery team. Your SessionM delivery team can then configure a webhook that notifies [Extole's Events API](https://docs.extole.com/reference/create-event) every time a new user signs up for your loyalty program. The webhook should contain the users `sessionm_id`, `external_id`, and `email`.
+
+### Update Your DNS & SPF Records
+
+Complete a DNS update to ensure all links in your referral program are in your domain: `share.yourcompany.com/jsmith`. Additionally, if you are planning on sending emails from the Extole platform, you'll need to update your SPF Records as well. Refer to [Extole DNS Requirements](https://docs.extole.com/docs/extole-dns-requirements) for additional information.
+
+## Technical Setup
+
+### Step 1: Deliver Calls-To-Action using Extole's SDKs
+
+Marketing your Extole programs involves a combination of onsite and in-app placements that can be implemented on your front-end using Extole's Javascript and Mobile SDKs. These SDKs allow you to display CTA’s like “Refer and Get $20” and also enable referral tracking and attribution.
+
+#### Javascript SDK for Website Marketing
+
+For instructions on how to add the Javascript SDK to your website, consult with your Extole team or refer to [Extole's Javascript SDK](https://docs.extole.com/docs/javascript-sdk#add-event-tags). All Extole marketing tags must include a parameter for the users' email to ensure this information is being passed into Extole user profiles.
+
+#### Mobile SDKs for In-App Marketing
+
+For instructions on how to add Extole’s Mobile App SDK to your app, consult with your Extole team or refer to [Extole's Mobile SDKs](https://docs.extole.com/docs/mobile-sdks).
+
+<img src="https://files.readme.io/00c2dd045b46607548f0c8894f9bb7624cfa781e44e79291545e43f82102afa9-7f78dff-Screen_Shot_2023-09-29_at_11.56.24_AM.png" alt="In-app marketing placements" width="60%" />
+  Marketing placement examples
+&lt;/Image>
+
+### Step 2: Configure Your Event Data
+
+Events are actions that your customers take throughout the customer journey. Extole uses events to trigger actions, such as attributing referrals, sending emails, and triggering rewards.
+
+#### Send Online Events via SDK
+
+Use the event tags in [Extole's Javascript SDK](https://docs.extole.com/docs/javascript-sdk#add-event-tags) and Events tracking in [Extole’s Mobile SDKs](https://docs.extole.com/docs/android-sdk#events) to send Extole a `loyalty_signed_up` event every time a user signs up for your loyalty program on your website or mobile app. You can also send online purchase events using this method.
+
+<table>
+  <thead>
+    <tr>
+      <th>
+        Event Tag Name
+      </th>
+
+      <th>
+        Properties
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        `loyalty_signed_up`
+      </td>
+
+      <td>
+        `email` (**required**)
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `purchased`
+      </td>
+
+      <td>
+        `email` (**required**)\
+        `partner_conversion_id`(**required**) — a unique ID for the order, such as an order ID\
+        `cart_value`— to apply Extole reward rules and provide revenue reporting\
+        `coupon_code` — for reporting and attribution
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+#### Send Offline Events via SFTP or API
+
+Offline events, such as in-store purchases, can be sent to Extole from any system via [SFTP](https://docs.extole.com/docs/files) or using Extole's [Events API](https://docs.extole.com/reference/create-event). You can also use the same SFTP or API connection to send **online** purchase events if desired.
+
+### Step 3: Connect Extole and SessionM to Reward Customers
+
+You can choose to reward your program participants with SessionM points or offers. Alternatively, you can reward with [coupon codes](https://docs.extole.com/docs/how-to-reward-with-coupons).
+
+#### Reward with SessionM Points or Offers
+
+To reward customers with SessionM points or offers, follow these steps:
+
+1. **Set up Promotional Campaign in SessionM**
+   * Work with your SessionM delivery team to set up a promotional campaign with an offer or points outcome in SessionM. You can also configure a messaging campaign for any earned reward communications.
+2. **Set Up The Extole and SessionM integration within your Extole account**
+
+   * Navigate to the Partners page within the Extole platform. Select SessionM and install the integration.
+
+     ![](https://files.readme.io/cd626d4490cb34fabd3d138a1e228e9e532b6d24378d1eb9c85b5e6fd6ae66c4-76aafe3a415bc7263dc59d3745a008c7b911c5fa2445e2b38b4376989c800b26-Screenshot_2024-10-04_at_10.31.00_AM.png)
+   * Enter the the API Key, API URL (provided by your SessionM delivery team), and Erasure Client Key ID (provided by your Extole team.)
+     * SessionM Events API Key: This key acts as a secure authentication token granted by SessionM to authorize requests from Extole to SessionM's Events API.
+     * SessionM Events API URL: The URL endpoint where SessionM's Events API is hosted. This allows Extole to communicate with SessionM's platform.This will be provided by SessionM.
+     * Extole Erasure Client Key ID: An identifier used to securely process customer data erasure requests from SessionM. For assistance in generating this key, please reach out to your Extole team.
+   * Upon successful installation, a SessionM Reward Supplier is created and can be added to any Extole campaign. Through the SessionM Reward Supplier, Extole will fire a real-time webhook to the SessionM Events API everytime a user earns a reward through the referral program (example request below.) From there, the SessionM campaign will trigger the points or the offer to the user.
+
+     ![](https://files.readme.io/2f80f917f4251d260aee90d045b787c3d58add0efe2e328b95787c2a3a92e685-2a53bdbbc3c44ab599ca96040b718b8e6a0e0801e7a14a0d119a9faf0000e1d6-Screenshot_2024-10-04_at_10.32.22_AM.png)
+
+     <br />
+
+     `sessionm_id`
+
+     <br />

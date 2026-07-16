@@ -1,0 +1,267 @@
+---
+title: "Develop Behind Your Firewall"
+---
+
+## Overview
+
+[//]: # "How do I set up my Extole program if I need to work behind a firewall or web proxy rules?"
+
+Extole is a consumer-facing application with all of its services available on the public internet. In general, there is no firewall work that is required to develop and run Extole. In some instances, customers may have stringent corporate firewall or web proxy rules that need to have hosts or IPs opened up to allow proper access while on a corporate network, in a QA test lab, and so on.
+
+<Warning>
+**All IPs Subject to Change**
+
+
+Extole is fully hosted on dynamic servers that are frequently torn down and rebuilt. There are no IPs at Extole that can be considered permanently safe for whitelisting as all of them may change over time. Security is managed through SSL certificates bound to hostnames and not IPs.
+
+Any firewall rules should use hostnames and secure ports (443/22) tied to DNS names.
+</Warning>
+
+Extole uses three primary types of server endpoints:
+
+* Akamai Content Delivery Network (CDN): This content delivery network serves the static content from Extole. Akamai is a large distribution of servers located throughout the world. When users attempt to access content on Akamai, it is typically returned from the geographically closest server to improve delivery speed. There are approximately 4,000 different possible IPs in North America that are chosen based on location, availability, and throughput.
+* Elastic Load Balancing (ELB): Elastic load balancing provides multiple IP addresses for a single host and distributes load across them. These IP addresses remain relatively stable, but may change over time.
+* Static: Static IPs are typically stable for long periods of time and rarely change.
+
+[//]: ___
+
+## Branded URLs for Public and Private DNS
+
+[//]: # "How do I brand my URLs for public and private DNS?"
+
+As part of setting up your program, you will generate a DNS CNAME record that points your branded domain to your Extole instance.  Similar to `share.brand.com` -> `brand.extole.io`.
+
+If your company uses a separate DNS server inside your corporate network/VPN for responding to subdomains, the CNAME needs to be setup on both the public DNS as well as the internal DNS.
+
+[//]: ___
+
+## Calls to Action / Share Experiences
+
+[//]: # "What hosts are used to display Extole calls to action (CTAs) and experiences?"
+
+The following are the hosts that are used to display the Extole calls-to-action (CTAs), sharing experiences, and landing pages. These are used to trigger conversion tracking.
+
+<table>
+  <thead>
+    <tr>
+      <th>
+        Host
+      </th>
+
+      <th>
+        IPs
+      </th>
+
+      <th>
+        Description
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        origin.extole.io
+        origin.xtlo.net
+      </td>
+
+      <td>
+        Extole's CDN
+      </td>
+
+      <td>
+        This hosts all of the CTA content, images, etc. This is a dynamic list of IPs on the edge network.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        ncr.extole.io
+      </td>
+
+      <td>
+        Subject to change
+      </td>
+
+      <td>
+        This is used specifically for customers that are integrated with NCR Digital Banking platform.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        refer.[yourcompany].com\
+        or\
+        share.[yourcompany].com
+      </td>
+
+      <td>
+        Dynamic
+      </td>
+
+      <td>
+        To brand the program URL of your referral program, your IT will set up a subdomain at your company like refer.[yourcompany].com or share.[yourcompany].com. This CNAME points to Extole's [yourcompany].extole.io, which handles all of the consumer-facing API calls.  
+
+        Any IPs assigned to your Branded Referral Domain may change over time.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+[//]: ___
+
+## APIs and File Transfers
+
+[//]: # "What hosts are used for API calls if I am using the Extole REST APIs or transferring files?"
+
+The following are hosts that may be used for API calls if you are directly using the Extole REST APIs. They may also be used for file transfers if you are using Extole file-based processing.
+
+| Host           | IPs               | Description                                                                                                                                                      |
+| :------------- | :---------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| api.extole.io  | Subject to change | (ELB) This is used for server-to-server API calls from your application servers to Extole. This is only used if you are using the Extole Authenticated REST API. |
+| sftp.extole.io | 18.209.81.195     | (ELB) This is used to transfer files to and from Extole. It is often used for opt-out lists, file-based conversions, and for Extole to deliver custom reporting. |
+
+### Outbound File Transfers and Webhooks
+
+| Host | IP            | Description                                                                          |
+| :--- | :------------ | :----------------------------------------------------------------------------------- |
+| N/A  | 52.54.118.220 | This is the IP that Extole outbound SFTP pushes and webhook requests will come from. |
+
+### Internal management tools
+
+| Host          | IPs               | Description                                                                                                                   |
+| :------------ | :---------------- | :---------------------------------------------------------------------------------------------------------------------------- |
+| my.extole.com | Subject to change | (ELB) This is used as your management and reporting web app so that you can manage your campaigns and see how they are doing. |
+
+### Extole's corporate network and testing
+
+<table>
+  <thead>
+    <tr>
+      <th>
+        Host
+      </th>
+
+      <th>
+        IPs
+      </th>
+
+      <th>
+        Description
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        N/A
+      </td>
+
+      <td>
+        34.239.253.19/32 (VPN)\
+        52.91.195.221/32 (VPN)\
+        54.86.141.200/32 (VPN)\
+        35.169.145.221/32 (Socks Proxy)
+      </td>
+
+      <td>
+        (Static) When members of the Extole team are making requests from our corporate office or corporate VPN they will come from this address. If you have a development or QA environment that is not internet accessible, it can be helpful to allow incoming requests from Extole so that we can help troubleshoot issues.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+[//]: ___
+
+## Outbound Email Services
+
+[//]: # "What addresses are used to send email from Extole?"
+
+These are the addresses used to send emails from Extole. This can be useful to add to your SPF whitelist for Extole to successfully send mails.
+
+It would appear like this:
+
+`share.brand.com`
+
+<table>
+  <thead>
+    <tr>
+      <th>
+        Host
+      </th>
+
+      <th>
+        IPs
+      </th>
+
+      <th>
+        Description
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        N/A
+      </td>
+
+      <td>
+        192.254.121.106/32\
+        192.254.121.110/32\
+        192.254.120.212
+      </td>
+
+      <td>
+        (Static) This is the source for Extole emails - referral mails, welcome mails, dashboard emails, coupon reward emails.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        N/A
+      </td>
+
+      <td>
+        50.31.32.95/32
+      </td>
+
+      <td>
+        (Static) This is where Gift Card reward emails are sent from.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        N/A
+      </td>
+
+      <td>
+        168.245.98.139/32\
+        50.31.62.65/32
+      </td>
+
+      <td>
+        (Static) This is where notification emails are sent from. You may be notified for things like low reward balances or reports that have finished running.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+[//]: ___
+
+## Social Media Sites
+
+[//]: # "What social media APIs does Extole use?"
+
+Extole uses social media APIs to promote advocacy through services like Facebook and Twitter. The Extole advocate experience may trigger calls to the following hosts:
+
+* connect.facebook.net
+* static.ak.facebook.com
+* s-static.ak.facebook.com
+* [www.facebook.com](http://www.facebook.com)
+* graph.facebook.com
+* api.twitter.com
+
+[//]: ___

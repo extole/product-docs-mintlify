@@ -1,0 +1,117 @@
+---
+title: "Configuring the Rules of Your Program"
+description: "Quality and reward rules are applied to all key events that occur within your Extole programs. These rules can be configured in the My Extole Campaign Editor under the Rules tab."
+---
+
+# Overview
+
+Quality and reward rules are applied to all key events that occur within your Extole programs. These rules can be configured in the My Extole Campaign Editor under the Rules tab.
+
+Each event has three components: Quality Rules, Approval Workflow, and Rewards. To best understand how Extole works, it’s helpful to consider these concepts in the following order:
+
+1. **Quality Rules** - When an event occurs, Extole applies event-specific quality rules to determine if the event meets all of the terms of the program. Extole marks an event as suspicious if any rule fails and marks an event passing if all rules succeed.
+2. **Approval Workflow** - Events (other than the advocate share) trigger rewards but only when the events are approved. Approvals happen through a workflow, which approves or declines passing events. After a specified period of time, the workflow settings move events to approved or declined. Event approval can also occur through API, through file upload, and manually in the Extole customer support screens.
+3. **Rewards** - Once an event is approved, Extole applies reward rules to see if the event meets reward criteria and to determine whether the friend or the advocate earns the reward for that event.
+
+To learn how to find event statuses for specific events and to understand more about passing & suspicious and approved & declined, please read this help center article: [Look Up and Understanding Your Program Event Statuses](/guides/rewards-management/reward-fulfillment/look-up-and-understand-your-program-event-statuses).
+
+# Every Event Quality Rules
+
+The following quality rules are applied to all events. Please note, if you have an older campaign, this section may not appear. If you have any questions, please contact your CSM.
+
+| Quality Rule | Description | Best Practices |
+| --- | --- | --- |
+| Blocked Countries List | Events originating from the IP address by countries specified here are marked as suspicious. | Extole recommends blocking OFAC countries as well as countries that originate spam. Extole includes LB, BY, LR, AF, IR, YE, SD, ID, UA, CN, MM, SY, CI, BZ, RU, ML, VE, ZW, KP, SO, CF, LY, PH, IQ, CU by default. |
+| Permitted Countries List | Events originating from the IP address by countries specified here will be approved. | NA |
+| Blocked Email Domains | Participants with email domains that appear on the block list cannot share or receive shares. | Extole has a comprehensive email domain block list built-in, which includes disposable email domains. |
+| Blacklisted Site Domains | Events originating from blacklisted site domains are invalid. | Extole has a comprehensive site domain block list built-in, which you may add to if desired. |
+| Blocked | Block events if the actions or participants(s) leading to the event are blocked. | NA |
+| Extole Global Block | Block events if Extole has identified the participant as fraudulent across the platform. | NA |
+| Block Person by IP | Block any specified IP addresses from being able to participate in the program. | NA |
+
+# Advocate Share Quality Rules
+
+For the advocate share event, you may configure the following rules. When a share fails a quality rule, Extole will not send a share email. Social posts, however, will still be permitted. Please note, if you have an older campaign, some of these rules may look different. If you have any questions, please contact your CSM.
+
+| Quality Rule | Description | Best Practices |
+| --- | --- | --- |
+| Rate Limit Emails | A friend can only receive a certain rate of emails over a period of time. | NA |
+| Prevent Mass Shares | A share count of over the specified limit during a time period is invalid. | NA |
+| Minimum / Maximum Shares | A share count under or over the specified minimum and maximum limits are invalid. This rule can be set to count all shares as unique, even if sent to the same person. | NA |
+| Spam Messages | Block advocate email shares when the Extole system suspects they are spam by checking the content of the personalized message for spam triggers. | By default, this rule is enabled. |
+| Valid Emails Only | Block events associated with invalid emails. | NA |
+| Specified Participant | The participant can only share if their Extole profile has a specified property with a specified value. For example, if you only want to reward a particular segment of your customer base, you could add a specific parameter to those customers' profiles and only reward those whose parameter matches a certain value (i.e., "parameter called `employee` with a value of `true`"). | NA |
+
+# Clicked & Signed Up Quality Rules
+
+The following rules can be configured for both click events and sign up events. Please note, if you have an older campaign, these rules may be referred to as "friend visit" and "friend registration." If you have any questions, please contact your CSM.
+
+| Quality Rule | Description | Best Practice |
+| --- | --- | --- |
+| Bot Multi-Click Prevention | Events from bots are invalid. | Internally configured. |
+| Is First Friend Click |  | Internally configured. |
+| New Customer Rule | Events with an email that appears on the existing person list are invalid. Most friends visit anonymously and this rule cannot be applied. | Internally configured. |
+| Clicked Too Quickly | Events that occur quickly after a share may be suspicious. | By default, events that occur within 5 seconds after the share event are invalid. |
+| Recognition Lookback Window | Only treat friend events as high quality if the most recent referral happened within a specified time period. | By default, the time period is set to one year. |
+| Block Self Referral by IP | Events with a friend IP address the same as the advocate IP address are invalid. | NA |
+| Block Self Referral | Guard against self referral based on email address. You can also guard against self referral based on browser ID. | By default, guarding against self referral based on browser ID is enabled. |
+| Similar Email Address | Events with a similar advocate or friend email address are invalid. For example if there is already a friend at "julio.friend@gmail.com[](mailto:julio.friend@gmail.com)" then "julio.friend+1@gmail.com[](mailto:julio.friend+1@gmail.com)" would be considered a similar friend. | NA |
+| Valid Emails Only | Block events associated with invalid emails. | NA |
+| Specified Participant | The participant can only share if their Extole profile has a specified property with a specified value. For example, if you only want to reward a particular segment of your customer base, you could add a specific parameter to those customers' profiles and only reward those whose parameter matches a certain value (i.e., "parameter called `employee` with a value of `true`"). | NA |
+
+# Friend Conversion Quality Rules
+
+For the friend conversion event, you may configure the following rules.
+
+| Quality Rule | Description | Best Practice |
+| --- | --- | --- |
+| Clicked Too Quickly | Events that occur quickly after a share may be suspicious. | By default, events that occur within 5 seconds after the share event are invalid. |
+| Advocate Conversion Limits | An advocate can only drive a certain number of events in a certain number of days. | By default, this rule is set to one event per day. |
+| New Customers Only | Events with an advocate or friend email that appears on the existing customer list are invalid. | NA |
+| Recognition Lookback Window | Only treat friend events as high quality if the most recent referral happened within a specified time period. | By default, the time period is set to one year. |
+| Block Self Referral by IP | Events with a friend IP address the same as the advocate IP address are invalid. | NA |
+| Block Self Referral | Guard against self referral based on email address. You can also guard against self referral based on browser ID. | By default, this rule is enabled and guarding against self referral based on browser ID is enabled. |
+| Similar Email Address | Events with a similar advocate or friend email address are invalid. For example if there is already a friend at "julio.friend@gmail.com[](mailto:julio.friend@gmail.com)" then "julio.friend+1@gmail.com[](mailto:julio.friend+1@gmail.com)" would be considered a similar friend. | By default, this rule is enabled. |
+| Valid Emails Only | Block events associated with invalid emails. | By default, this rule is enabled. |
+| Specified Participant | The participant can only share if their Extole profile has a specified property with a specified value. For example, if you only want to reward a particular segment of your customer base, you could add a specific parameter to those customers' profiles and only reward those whose parameter matches a certain value (i.e., "parameter called `employee` with a value of `true`"). | NA |
+
+# Approval Workflow Configuration
+
+The Approval Workflow moves events to the approved or declined state after a specified period of time. Event approval can also occur via API, through file upload, or manually in Extole’s customer support screens.
+
+Most of the programs automatically approve and decline passing and suspicious events quickly. Shares, visits, and registrations should generally be automatically approved or declined within 0 days (instantly).
+
+For conversions or transactions, you might want to include a delay to prevent a high volume of rewards. On average, settings are between 7-14 days to approve or decline all conversions. Keep in mind that the more moments of quick delight you can give to your customers, the more likely they are to continue to refer and the less likely they are to call customer support. Therefore, we suggest you keep this delay to a minimum.
+
+**Conversion or transaction event workflow best practices by vertical**:
+
+- Retail referral programs will typically auto-approve conversions within 3-7 days. You may use this pending time to send Extole a cancellation by API/file if the purchase is canceled.
+- Subscription referral programs will typically auto-approve conversions after the free trial period of 14-30 days and send Extole any trial cancellations by API/file.
+- LeadGen and Consumer Financial programs will typically auto-approve conversions after 1-day.
+
+# Reward Settings & Rules
+
+To configure a reward, you must specify:
+
+1. Who gets the reward (e.g., the advocate or the friend)
+2. What reward they receive
+3. Which rules must be met in order to receive the reward
+
+The rules page gives you control over the following reward rules:
+
+| Rule | Description | Best Practice |
+| --- | --- | --- |
+| Their cart value is at least $(0). | Set the minimum cart value required in order to issue a reward. The cart value of a conversion is passed to Extole in the conversion tag, conversion API, or conversion file. | Your company’s AOV. For example, the friend’s purchase must be at least $75 for the advocate to be rewarded. If you enable this rule on an event that doesn’t pass cart value, no rewards will be issued. |
+| The rewardee has an email address. | This rule ensures reward are only attempted to be sent to people with email addresses. | Because in most cases email is how we deliver a reward, this is enabled by default. |
+| The rewardee should be rewarded every “(N)th” qualifying transaction. | You can create a second bonus reward on every nth transaction. For example, you could give an advocate a bonus reward for every five unique friends they drive to purchase. | NA |
+| The rewardee identified by their email has earned fewer than (0) rewards.... since the last month of (0) (1-12 map to Jan-Dec)... and in the past (0) day(s). | Use this rule to restrict the number of rewards an advocate or friend may earn and to restrict the time period under which the rule applies. Both of these date filters will run and people will only be rewarded when both filters pass. Most commonly this can be used to limit the number of rewards earned in a month or year. | Because we allow for an approval buffer period to catch fraudulent events, we recommend not restricting the number of rewards an advocate can obtain. Instead, use Extole to track these people and create a separate super-advocate or influencer campaign for these users. |
+| The rewardee identified by their email has received less than $(0).... since the last month of (0) (1-12 map to Jan-Dec)... and in the past (0) day(s). | Use this rule to restrict the total value of rewards an advocate or friend may earn and to restrict the time period under which the rule applies. Both of these date filters will run and people will only be rewarded when both filters pass. Most commonly this can be used to limit the dollar/currency amount of rewards earned in a month or year. | This rule is usually enabled for cash rewards to keep earned rewards under the tax-reporting amount.Please note that max reward limits apply to all rewards that are configured. If you run a burst campaign, test, or new program, these limits will still apply and not reset. |
+| The rewardee has not been awarded for the same relationship before. | Use this rule to ensure that rewards are only being sent to people who have not yet been rewarded for this relationship. | By default, this rule is enabled to prevent advocates from being rewarded for the same friend twice. |
+| Allow other person in relationship to refer rewardee. | Enable this rule to allow advocates and friends to refer each other and receive rewards. | By default, this rule is disabled so that friends cannot refer the advocates that referred them. |
+| If the parameter named ____ has the value ____ OR matches the regex ____. | This rule allows you to reward based on attributes that are passed Extole on the event. For example, if you only wanted to reward for certain product types, you could pass "product_type" in the conversion tag and if the value is "car" then reward $1000. That means that if the "product_type" passed is not "car" Extole will not trigger a reward. In more sophisticated cases, you can do a regex to support a variety of product IDs, versus just one value. For example: "reward if product_id matches the regex (. *,)?123(,.*)" will support the product IDs that support that pattern. | NA |
+
+# Advanced Reward Rule Configurations
+
+In addition to standard Reward Rules, Extole Support can help you write custom reward rules as JavaScript or SpEL expressions or reward groups.
+
+For example, rather than a reward rule that dictates "Advocates can only earn $500," an advanced reward rule could say "Advocates whose profile identifies them as based in the US can only earn $500."

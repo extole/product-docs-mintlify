@@ -1,0 +1,262 @@
+---
+title: "Ensighten"
+description: "Set up Extole functionalities on your site using Ensighten tag management workflows."
+---
+
+## Overview
+
+[//]: # "Does Extole integrate with Ensighten?"
+
+Extole and Ensighten have partnered together to ensure implementing Extole on your site is as easy as possible and follows standard Ensighten workflows you are already familiar with. Simply access the Extole app directly from Ensighten.
+
+[//]: ___
+
+## Prerequisites
+
+[//]: # "What are the requirements for an Extole integration with Ensighten?"
+
+| Requirement       | Description                                            |
+| :---------------- | :----------------------------------------------------- |
+| Ensighten Account | Access to and familiarity with the Ensighten platform. |
+
+[//]: ___
+
+## Integration
+
+[//]: # "How do I set up the Extole integration with Ensighten?"
+
+### Launch the Extole App
+
+From the Manage area in Ensighten, navigate to Apps, locate and launch the Extole app. You'll be able to find the Extole app inside of the Voice of Consumer app category.
+
+<img src="https://files.readme.io/d45592979f64164b2cc2de05ed8b4697b1a0d2d99acd0272766d670607783d5b-b5f0847-EnsightenApp.png" alt="EnsightenApp.png" />
+  Ensighten App Directory
+&lt;/Image>
+
+### Add Extole Tags in Ensighten
+
+The Extole app provides you with three configuration options:
+
+1. Core Tag: This is Extole's main library and enables Extole to manage content zones, capture conversions, and serve the friend landing experience.
+2. Marketing Tag: This is Extole's zone tag and allows you to establish locations where you can serve a promotional call-to-action for your referral program.
+3. Event Tag: The registration and conversion tag notifies Extole that events have occurred
+
+<img src="https://files.readme.io/d980f8f238754e2b5021eeb99d9bce9ecbc7b062108fe6597d0b98744c284ea3-741ded2-EnsightenTags.png" alt="EnsightenTags.png" />
+  Ensighten Tags
+&lt;/Image>
+
+### Add the Extole Core JavaScript Library
+
+The Main Library should be placed onto all of your pages. This library is used to activate the Extole system so that any other Extole tags on your page will work properly. It also detects when someone has come to your page through a referral and initiates the friend landing experience.
+
+To include Extole's main library on your site:
+
+1. From Configure, select Core Tag.
+2. Provide a tag name like "Extole Core" and labels such as "Extole."
+3. To configure your client name, choose `Text Value` for the attribute type and enter your `Client name` as a text value. Your client name is your company name in lower case using dashes.  So `CLIENT NAME` would be `client-name`.
+4. Tap `Continue`.
+5. Select the Space for your implementation. The space you select should fit into your normal tag development process. You'll want to choose the environment best for testing. For example, development or staging. You can later merge and publish this tag to your production space after testing is complete.
+6. Leave `All Pages` as the default condition.  This ensures that the core tag will be placed on every page of your site.
+7. Tap Save & Commit.
+
+### Set Up Variables
+
+Extole tags require dynamic information that provide context on your site’s user and conversion details. Ensighten offers an easy way to define and manage the necessary JavaScript variables, HTML elements, URL parameters and other sources that are required to define Extole tags and filter triggers. The specific configuration of your variables will depend on how your site provides data to Extole.
+
+The table below lists the Extole variables you will need to create in Ensighten.
+
+| Variable       | Description                                                                                                                                                                            |
+| :------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `first_name`   | The first name of the person making the zone request. This would typically be the advocate on a CTA zone, or the friend on a registration or conversion zone.                          |
+| `last_name`    | The last name of the person making the zone request. This would typically be the advocate on a CTA zone, or the friend on a registration or conversion zone.                           |
+| `email`        | The email of the person making the zone request. This would typically be the advocate on a CTA zone, or the friend on a registration or conversion zone.                               |
+| `user_id`      | This is the unique ID passed to Extole as the `partner_user_id`.                                                                                                                       |
+| `order_number` | This is the unique order number passed to Extole as the `partner_conversion_id`.                                                                                                       |
+| `cart_value`   | Used on a conversion (purchase) event to track the value of the purchase for revenue reporting.                                                                                        |
+| `coupon_code`  | This is the coupon code, which is most commonly used on a registration or conversion tracking call. It will also be used as a method to tie the register/purchase back to an advocate. |
+
+<Info>
+**Variable names may be different**
+
+
+You may decide to name your Ensighten variables slightly differently, but the above list provides the basic variables you will need to define.
+</Info>
+
+### Add Marketing Tags
+
+Marketing tags tell Extole where to display promotions or content that encourages participation. Promotion tags also enable attribution tracking, so that you can know which promotions are driving participation in the program.
+
+An Extole campaign comes with a standard marketing names:
+
+* `global_header`
+* `global_footer`
+* `confirmation`
+* `overlay`
+
+It's easy to create additional marketing tags if you want to add calls to action to additional pages like your blog, help pages, etc. As you're getting started, contact your Customer Success Manager to help learn how.
+
+#### Global Header
+
+This is placed in the header on all pages of your site, both desktop web and mobile web.
+
+<img src="https://files.readme.io/e48106d95b283f9d8a08dea2fdd82422887e8bb70f68007c3b4e0ea69b9ae75e-a69b7a3-ConfigureMarketingTag.png" alt="ConfigureMarketingTag.png" />
+  Extole Global Header Marketing Tag
+&lt;/Image>
+
+1. From `Configure`, select `Marketing Tag`.
+2. For the `Tag Type` set it as `Text Value` and enter the name of the placement, in this example `global_header`. The name must be an exact match for the name created and stored in Extole.
+3. For the `Element ID` set it as `Text Value` and enter the name of the ID for the HTML location you are targeting.
+4. You have the option of passing in additional context for the advocate from your data layer.  If your Marketing Tag is not behind a login in you will likely not have these fields available.  Ensighten will ignore any field where there is no data available.
+5. Tap `Continue`.
+6. Select the Space for your implementation. The space you select should fit into your normal tag development process. You'll want to choose the environment best for testing. For example, development or staging. You can later merge and publish this tag to your production space after testing is complete.
+7. Leave `All Pages` as the default condition.  This ensures that the marketing tag will be placed on every page of your site.  If the tag does not find an element id, nothing will render.
+8. Tap `Save & Commit`.
+
+#### HTML Placement
+
+The above tag lets Ensighten place the `global_header` call to action into HTML on your page which is identified by `extole_global_header`.  In order to make the content appear it will require you placing HTML on the page in the location you would like this tag to appear.
+
+`Text Value`
+
+<Info>
+**Additional Marketing Tags**
+
+
+Repeat the process above for each marketing tag you would like to include (e.g., header, footer, hero, etc.).
+</Info>
+
+### Add Event Tags
+
+#### Include a Conversion Tag at Checkout
+
+In order to reward advocates when a friend makes a purchase, you need to communicate to Extole a purchase has happened by adding the Conversion Tag to your order confirmation page.
+
+The conversion tag passes information about the purchase to allow Extole to attribute the conversion to a referral when possible, run quality rules, and run reward rules.
+
+Extole ignores the conversions that are not attributed to a referral after processing rules.
+
+To include a conversion tag on your site:
+
+<img src="https://files.readme.io/2d5229e707da67e032092db2f5671f7f03648826cfc63f78b3920bd7ca53bbb9-e654eb4-conversion_mail.png" alt="conversion_mail.png" />
+  Conversion Parameters
+&lt;/Image>
+
+1. From `Configure`, select `Event Tag`.
+2. For the `Event Tag Type` select `Conversion`
+3. You will need to pass in additional context for the advocate from your data layer.
+4. Make sure to include:
+
+<table>
+  <thead>
+    <tr>
+      <th>
+        Field
+      </th>
+
+      <th>
+        Value
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        `first_name`
+        *recommended*
+      </td>
+
+      <td>
+        Indicates the first name of the person making the purchase.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `last_name`\
+        *recommended*
+      </td>
+
+      <td>
+        Indicates the last name of the person making the purchase.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        email\
+        **required**
+      </td>
+
+      <td>
+        Indicates the email address of the person making the purchase.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `partner_user_id`\
+        *recommended*
+      </td>
+
+      <td>
+        Your unique identifier for this person making the purchase such as an account ID or member id.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `partner_conversion_id`\
+        **required**
+      </td>
+
+      <td>
+        Your order number that uniquely identifies this transaction.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `cart_value`\
+        **required**
+      </td>
+
+      <td>
+        This is the value of the purchase. Ideally this is the gross cart value before coupons have been applied.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `coupon_code`\
+        *recommended*
+      </td>
+
+      <td>
+        The coupon code that may have been used to make the purchase.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+5. Tap `Continue`.
+6. Select the Space for your implementation. The space you select should fit into your normal tag development process. You'll want to choose the environment best for testing. For example, development or staging. You can later merge and publish this tag to your production space after testing is complete.
+7. Change the condition to limit the tag to your purchase confirmation page.
+8. Tap `Save & Commit`.
+
+### Deploy Extole Tags for Testing
+
+1. Exit the Extole app.
+2. Navigate to `Tags`.
+3. Select the tags you just created.
+4. Tap publish at the top of the tag list
+
+![](https://files.readme.io/c9fbb5811708c1521558b202d400e3f2a95de864ac6419d77ed6b352b3541c39-4f21407-PublishTags.png "PublishTags.png")
+
+5. Choose your appropriate space.
+
+### Launch
+
+When you are ready to launch, merge your tags into your production space and deploy.
+
+[//]: ___

@@ -1,0 +1,93 @@
+---
+title: "Candescent (NCR Digital Insight)"
+description: "Work with Candescent to set up secure in-portal access to your Extole programs"
+---
+
+## Overview
+
+The [Candescent Digital Banking platform](https://www.ncr.com/banking/digital-banking) is designed to help banks and credit unions offer their users the digital banking experiences they demand and compete with industry leaders in every way. With the Extole and Candescent Digital Banking SAML integration, you can quickly launch a frictionless and secure referral program for your members in Digital Banking. 
+
+With this integration, you can place calls-to-action (CTA) for your referral program throughout your online and mobile banking experiences to encourage current members to refer their friends. When a member taps on a CTA, Candescent will send an IdP-initiated SSO request (via SAML) to Extole to ensure that only current, logged in members can access your referral program with ease. 
+
+Candescent will utilize the SAML 2.0 Web Browser SSO Profile to federate the members Candescent Digital Banking Identity securely to Extole. Upon validation of the SAML assertion, Extole will establish an appropriate security session for the member so that they can access the referral content.
+
+[//]: ___
+
+## Prerequisites
+
+[//]: # "What are the requirements for the Extole integration with NCR?"
+
+| Requirement                              | Description                                                                                                                                       |
+| :--------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Candescent (NCR Digital Insight) Account | An Candescent account is required in order to take advantage of this integration.                                                                 |
+| Extole Account                           | An Extole account is required in order to take advantage of this integration.                                                                     |
+| Candescent SAML Connection               | Candescent will need to set up a SAML connection in order to use this integration. Contact your Relationship Manager at Candescent to learn more. |
+
+[//]: ___
+
+## User Flow
+
+[//]: # "How does the Extole integration with Candescent work?"
+
+Extole’s integration with Candescent is designed to give your members a smooth and secure referral experience. To get a better sense of how members will interact with your program, let’s take a look at a standard user flow.
+
+![A program flow diagram that shows key business events represented by icons](https://files.readme.io/67107f23398733c3151eaec545587956a7de4dbef6c9e8e94b8514da3e889ae4-82a31e6-small-Financial_-_Bank_Account_1.png)
+
+The referral experience begins when an existing member opens an email promoting your referral program or sees a promotion in your online or mobile banking encouraging them to refer a friend. When they tap on a CTA, their login credentials will automatically be verified through Candescent's SAML SSO authentication. Once authenticated, members are then taken to a sharing experience, which is hosted by Extole but branded for your credit union where they can share the program with their friends via email, native share, or a variety of other channels.
+
+![Four iPhones that each show a step in the sharing process for a referral program](https://files.readme.io/a7ebf392875de2bd43794cb12cf72e6d8a1b6b450df9f20d91d028c72e023b23-d71fdfb-small-Group_5.png)
+
+Friends then receive an email or a direct message with the advocates (referring member) share link or they may see the share message on social media. When the referred friend clicks on a share link, they will be directed to your website and encouraged to apply to open an account. 
+
+Once referred friends have opened their account and taken any other actions (such as setting up direct deposit) you’d like for them to take in order to receive their reward, Extole will release rewards for the advocate and the referred friend. If you are rewarding in statement credits, Extole can use the user ID that gets passed to Extole through the Candescent integration in order to  post statement credits to your core banking system for fulfillment, making a seamless and real-time rewarding experience that your credit union and members will love. Extole also has a robust pre-paid and gift-card catalog for turn-key reward fulfillment.
+
+Remember that Extole programs are completely customizable and your team at Extole is dedicated to helping you find the best solution for your goals.
+
+[//]: ___
+
+## Integration
+
+[//]: # "How do I set up the Extole integration with Candescent?"
+
+### Initiate the Connection with your Candescent Relationship Manager
+
+The Extole and Candscent integration is handled entirely by your Extole and Candescent teams. In order to start the integration process, talk to your Candescent Relationship Manager about Extole to discuss set-up and pricing.
+
+### Create Trackable Promotion Links in My Extole
+
+If you haven’t already, you will want to add CTA’s for your referral program in the places where your members are the most engaged, such as in the Settings Menu, the Accounts Dashboard, and the Primary Dashboard in both your online and mobile banking applications. To ensure that members are taken to your share experience when they tap on a referral program CTA, you will need to include an Extole promotion link for each CTA placement. 
+
+To create a promotion link, follow Extole’s [Help Center documentation](https://docs.extole.com/docs/how-to-create-a-promo-link) or submit a request to your Extole implementation or client success manager.
+
+### Candescent Digital Banking sets up the SAML Connection
+
+Your team at Candescent will conduct all of the setup necessary for your IdP-initiated SSO request flow (via SAML). This flow will be implemented in online and mobile banking to ensure that all members attempting to participate in your referral program are authenticated members.
+
+### Extole Configures Program to use SAML Integration
+
+On the Extole side, your team will work directly with Candescent to configure your referral program accordingly. This step will include deciding what data needs to be passed from Candescent to Extole. Typically, the data includes the following pieces of information.
+
+| Data             | Description                                                                                                 |
+| :--------------- | :---------------------------------------------------------------------------------------------------------- |
+| `USER_ID`        | The unique ID you use to identify the member. This will map to Extole’s `partner_user_id`.                  |
+| `FI_ID`          | The unique Financial Institution ID. Extole will redirect to your site based on the proper ID being passed. |
+| `EMAIL`          | The member’s email address.                                                                                 |
+| `KEEP_ALIVE_URL` | The URL Extole must ping to keep the online banking session alive.                                          |
+
+The SAML integration will be completely unnoticeable to current members who are already logged in. If a member is not logged in to their account when they click on a referral program CTA, they will simply be prompted to enter their credentials before being automatically redirected to the share experience. During this process, the information detailed in the table above will be passed into your Extole program.
+
+[//]: ___
+
+## Using this Integration
+
+[//]: # "How do I use the Extole integration with Candescent?"
+
+The Candescent integration with Extole allows you to bring security to your referral program without compromising your members’ user experience. Not only does the integration seamlessly handle authentication, but it also passes vital information about your members and their activities into Extole. This information includes a user ID that Extole can use to post statement credit rewards back to your core banking system, or to your business intelligence or analytics for your own internal reporting outside of the Extole dashboard.
+
+[//]: ___
+
+## Notes
+
+[//]: # "What share channels are available in-app?"
+
+Extole supports Native Share, (Extole Powered) Email, and QR code on iOS devices. Due to limitations on Android, we currently only support QR code and Email on Android devices.

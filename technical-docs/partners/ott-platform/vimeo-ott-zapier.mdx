@@ -1,0 +1,72 @@
+---
+title: "Vimeo OTT + Zapier"
+description: "Set up a connection between your Extole programs and Vimeo's over-the-top streaming service platform in tandem with Zapier."
+---
+
+## Overview
+
+[//]: # "Does Extole integrate with Vimeo OTT and Zapier?"
+
+Vimeo OTT is a best-in-class streaming service platform. With Vimeo OTT’s services and tools you can easily launch a video subscription channel, grow your audience, and leverage support for you and your subscribers. Extending the power and value of your channel can be as easy as automating your workflow in Zapier to send key subscriber events to Extole. Integrating your Vimeo OTT and Zapier accounts means you can focus on your content and user experience, while connecting with Extole allows you to harness the power of referral to continue expanding your subscriber base.
+
+You’ll use a Zapier connection with Vimeo OTT to send your events to Extole.
+
+[//]: ___
+
+## Prerequisites
+
+[//]: # "What are the requirements for an Extole integration with Vimeo OTT and Zapier?"
+
+| Requirement       | Description                                                                                              |
+| :---------------- | :------------------------------------------------------------------------------------------------------- |
+| Extole Account    | An Extole account is required to take advantage of this integration.                                     |
+| Vimeo OTT Account | A Vimeo OTT account is required to take advantage of this integration.                                   |
+| Zapier Account    | A Zapier OTT account is required to take advantage of this integration.                                  |
+| Extole API Key    | An Extole API key. This can be created within the Extole Dashboard Security Center > New Access Token.   |
+| Extole Events API | The endpoint Extole uses for events. [https://api.extole.io/v5/events ](https://api.extole.io/v5/events) |
+
+[//]: ___
+
+## Use Cases
+
+[//]: # "How can I leverage the Extole integration with Vimeo OTT and Zapier?"
+
+* Reward customers for taking high-value actions, such as a first time subscription, free trial conversion, or renewal.
+* Trigger promotional emails when subscribers take high-value actions, such as a first time subscription, free trial conversion, or renewal.
+
+[//]: ___
+
+## Integration
+
+[//]: # "How do I set up the Extole integration with Vimeo OTT and Zapier?"
+
+### Connect to your Extole account
+
+Extole’s Events API requires authentication in the form of a Token passed along in the request. Generate your token in the Security Center of your My Extole account by clicking on the + New Access Token button and following the prompts.
+
+<img src="https://files.readme.io/380281fbe4fc609327b85ebbfbadb860be08c22b38944f195be75ab3bc076e98-5925c38-unnamed__51_.png" alt="" />
+
+### Send events to Extole through Zapier actions
+
+Sending events to Extole through Zapier requires you to set up a Zap action. All events will be sent to Extole automatically, so there’s no need to choose a specific subset. 
+
+To set up your Zap action, complete the following steps.
+
+1. Create a new Zap with “Catch Hook in Webhooks by Zapier” as the trigger.
+2. Copy the URL from the “test trigger” section and add it to Vimeo OTT.
+3. Create a new “Webhooks by Zapier” action in your Zap and select POST as the type of API call you’d like to make.
+4. Under “Choose app & event,” paste in the Extole Events API URL ([https://api.extole.io/v5/events/](https://api.extole.io/v5/events/)) in the URL field and insert the topic data item from the available fields.
+5. Choose the payload type JSON.
+6. Select No for the option to Wrap Request.
+7. Select Yes for the option to Unflatten.
+8. Leave the fields for Data, File, and Basic Auth blank.
+9. Under Headers, type Authorization in the first field and Bearer in the second field followed by the token you generated in your My Extole account.
+10. Make sure to save your new action. The screenshots below will guide you through the process.
+
+[//]: ___
+
+<img src="https://files.readme.io/c8402f41da05d68d0007b102db7931215ef2e4f2c348b8e3bef568770edfd833-635549c-unnamed_53.png" alt="" />
+
+<img src="https://files.readme.io/bc7f358fd1cda9307e39aeedc575900e8147b5a9710505f65425adce6957c596-f3b9031-unnamed_54.png" alt="" />
+
+<img src="https://files.readme.io/a2c335b9cd2d5061392c422ead6faa9b97827eba55b7f05b4395061d3db79ae1-972f076-unnamed_52.png" alt="" />

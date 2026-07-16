@@ -1,0 +1,45 @@
+---
+title: "Extole Cookie Handling"
+description: "Extole drops a minimum number of cookies as part of the handling of the referral program. Cookies are designed to be specific to your program and your site and are not used in any cross-site capacity."
+---
+
+Extole drops a minimum number of cookies as part of the handling of the referral program. Cookies are designed to be specific to your program and your site and are not used in any cross-site capacity.
+
+# Make Sure Your Cookies Are Yours
+
+Your Extole program should be run from your program domain to ensure any cookie created by the Extole program is specific to YOUR domain. This means you "core.js" file, used to operate your referral program, should be under your branded domain and look similar to:
+
+`SameSite=None`
+
+If your core script is loading from "tags.extole.com" or "origin.extole.io" it should be updated to be under your branded domain. This will prevent any cookies generated from the Extole Corporate website to include in your referral program.
+
+# List of Consumer Referral Cookies
+
+The following cookies are used by the referral program when a consumer interacts
+
+| Website Name(s) | Cookie Name | Cookie Purpose | Cookie Duration | Category |
+| --- | --- | --- | --- | --- |
+| refer. *brand*.com | access_token | Remember an Advocate/Friend | 1 year | Essential |
+| www *.brand*.com | extole_access_token | Remember an Advocate/Friend | 1 year | Essential |
+| refer. *brand.* com | xtl_bid | Browser Identifier used for Fraud Prevention | 1 year | Fraud |
+
+# List of My Extole (Admin) Cookies
+
+The following cookies are used by the My Extole as part of the Admin Tool
+
+| Website Name(s) | Cookie Name | Cookie Purpose | Cookie Duration | Category |
+| --- | --- | --- | --- | --- |
+| my.extole.com | access_token | Session token for the My Extole User | 4 hours | Essential |
+| my.extole.com | feature_toggle | Preference cookie for feature toggles | 1 year | Preference |
+
+# Chrome Cookie Handling
+
+You may have seen announcements about Google Chrome’s changes to handling cookies in February 2020. Google Chrome’s changes will not affect Extole-powered programs, and there is no action required on your behalf.  
+​  
+Google Chrome’s changes are targeted towards 3rd-party, cross-domain tracking cookies and insecure cookies. An Extole program for Brand. Inc. at “[brand.com](http://brand.com/)” that is run inside a branded domain using a CNAME would run under “[refer.brand.com](http://refer.brand.com/)”. All cookies associated with that program are 1st-party cookies, are not affected by this change, and cannot be used for cross-site tracking. By using Extole's best practice, privacy is protected since these cookies do not follow a user to different domains are cannot be used for cross domain tracking.  
+​  
+An Extole program for Brand. Inc. at “[brand.com](http://brand.com/)” that is **not** run inside a branded domain using a CNAME would run under “[brand.extole.io](http://brand.extole.io/)” or “ [share.brand-referrals.com](http://share.brand-referrals.com/)”. All cookies associated with that program are 3rd-party, cross-domain cookies. We have updated these cookies to use the setting `SameSite=None`, and the attribute `Secure`, so these cookies are not affected by this change either.
+
+# Safari Intelligent Tracking Prevention (ITP)
+
+Safari on macOS, iOS, and iPad OS continues to offer industry leading privacy protection from cross domain ad tracking. Tracking prevention is targeted towards 3rd-party, cross-domain tracking cookies. An Extole program for Brand. Inc. at “[brand.com](http://brand.com/)” that is run inside a branded domain using a CNAME would run under “[refer.brand.com](http://refer.brand.com/)”. All cookies associated with that program are 1st-party cookies, are not affected by this change, and cannot be used for cross-site tracking. By using Extole's best practice, privacy is protected since these cookies do not follow a user to different domains are cannot be used for cross domain tracking.

@@ -1,0 +1,484 @@
+---
+title: "Tealium"
+description: "Set up Extole functionalities on your site using Tealium."
+---
+
+## Overview
+
+[//]: # "Does Extole integrate with Tealium?"
+
+Extole and Tealium have partnered together to ensure that implementing Extole on your site is as easy as possible and follows standard Tealium workflows you are already familiar with. Simply access the Extole app directly from Tealium.
+
+[//]: ___
+
+[//]: # "How does ad blocking impact the Extole integration with Tealium?"
+
+<Warning>
+**Tealium and Ad Blocking**
+
+
+It is worth being aware that as the internet has grown more privacy conscious some of the more aggressive privacy blockers include Tealium in the list of tools that are blocked.
+
+For example the [Lowe Block List](https://pgl.yoyo.org/adservers/serverlist.php) includes Tealium in the default block list, and this list is included in the defaults of uBlock Origin.
+
+As an alternative it's possible to use the direct tagging guide to place tags directly onto your website.
+</Warning>
+
+[//]: ___
+
+## Prerequisites
+
+[//]: # "What are the requirements for the Extole integration with Tealium?"
+
+| Requirement     | Description                                                 |
+| :-------------- | :---------------------------------------------------------- |
+| Tealium Account | Access to and familiarity with the Tealium platform.        |
+| Extole Account  | An Extole account is required to leverage this integration. |
+
+[//]: ___
+
+## Integration
+
+[//]: # "How do I set up the Extole integration with Tealium?"
+
+### Launch the Extole App
+
+Log in to your Tealium account and complete the following steps.
+
+1. In the main left-hand menu under iQ Tag Management, click on Tags. 
+2. From the Tags page, find the option to + Add Tag in the upper-right corner. 
+3. Press this button to open the Tag Marketplace.
+
+<img src="https://files.readme.io/f1d5b5257edeffde0cf0ee183ce2107320c96d97bf4a4950f9d3464629196965-817366e-Group_17.png" alt="Tealium Tags page" />
+  Tealium Tags page
+&lt;/Image>
+
+4. Type Extole into the search bar and hit the + Add button.
+
+<img src="https://files.readme.io/c07f9f09dd181c6ed36beab66fb5156f0f384d61a1ec425476b69e655c3b0605-f46c671-Screen_Shot_2023-04-13_at_10.11.29_AM.png" alt="Tag Marketplace in Tealium" />
+  Tag Marketplace in Tealium
+&lt;/Image>
+
+### Configure Extole Tags in Tealium
+
+Once you've added Extole from the Tag Marketplace, you'll see the main configuration screen (pictured below). This page will allow you to provide your Extole client name, which configures the Tealium App to connect to your account at Extole.
+
+<img src="https://files.readme.io/6ba14f06337101b90c5bb9539ec77d6123baec90f376116333164af797a565e9-63e7a22-Screen_Shot_2023-04-13_at_10.18.22_AM.png" alt="Tag Configuration page in Tealium" />
+  Tag Configuration page in Tealium
+&lt;/Image>
+
+<Info>
+**What's my client name?**
+
+
+Your Extole client name is your branded or unbranded program domain, without the https\://. Ex: tealium-tags.extole.io
+</Info>
+
+<img src="https://files.readme.io/3a9c771207d0569f11fb5667eb9fb417010811cc45fa96765750048b8eaa26c6-e6c440c-image.png" alt="Extole program domain on the Tech Center page" />
+  Extole program domain on the Tech Center page
+&lt;/Image>
+
+### Add the Extole Core JavaScript Library
+
+Once you've added the Extole Tag, make sure that Extole's core tag is placed onto all of your pages. This tag is used to activate the Extole system and ensures that any other Extole tags on your pages work properly. It also detects when someone has come to your page through a referral, and automatically serves the friend landing experience.
+
+### Add In-line Marketing Tags
+
+Marketing tags tell Extole where to display promotions or content that encourages participation. Marketing tags also enable attribution tracking, so that you can know which promotions are driving participation in the program.
+
+An Extole campaign comes with standard marketing tag names:
+
+* `global_header`
+* `global_footer`
+* `product`
+* `overlay`
+* `mobile_menu`
+
+It's easy to create additional marketing tags if you want to add calls to action to additional pages like your blog, help pages, etc. As you're getting started, contact your Customer Success Manager to help learn how.
+
+#### Global Header
+
+This is placed in the header on all pages of your site, both for desktop web and mobile web.
+
+#### HTML Placement
+
+In order to make the content display in a specification place on your page, you'll need to place HTML on the page in the location where you would like the CTA to appear.
+
+Let's take the `global_header` CTA as an example. This CTA is You'll need to place HTML on your page which is identified by `extole_zone_global_header` you would place the following snippet of HTML in the required location on the page.
+
+`global_header`
+
+### Configure your Extole Tag Data Mappings in Tealium
+
+Tealium tags are used to target content into the locations you specified in your HTML placement. The tags will read information from the data, so you will need to create a Mapped Variable that holds the value of `extole_zone_global_header`.
+
+In your Tealium account, navigate back to your Tags page and expand the Extole Tag. 
+
+1. Find the **Mapped Variables** section and hit the Edit button. 
+2. Open the **Variables drop down** and click on the **+ Add Variable** button. Make sure the Type is UDO Variable and type in `extole_zone_global_header` for the Source. Hit **Apply**.
+
+<img src="https://files.readme.io/ae7ee7f3b1503b873e96d98764a84654fddb1e25ba525e82c69e2422bb90171c-6dcad0b-Screen_Shot_2023-04-13_at_2.24.15_PM.png" alt="Adding a Global Header Zone to Mapped Variables in Tealium" />
+  Adding a Global Header Zone to Mapped Variables in Tealium
+&lt;/Image>
+
+3. Next, go to the **Extensions** tab in the left-hand main menu (below Tags). Click the **+ New Extension** button.
+4. Find the extension type **Set Data Values** and hit **+ Add**. Name it **Extole Element Targets**.
+5. Under the Configuration section of the extension, set the value of  `extole_zone_global_header` to the **Text** value of `extole_zone_global_header`.
+
+<img src="https://files.readme.io/7f1917b4e46de251841cadce38fed4760a0e81ac36a40729cd59bae478e23d74-43ad234-Screen_Shot_2023-04-13_at_2.06.20_PM.png" alt="Setting up an Extension for the Global Header Zone in Tealium" />
+  Setting up an Extension for the Global Header Zone in Tealium
+&lt;/Image>
+
+6. Go back to the **Tags** tab and open the Extole Tag. Go to your **Mapped Variables** and select the variable `extole_zone_global_header` you created earlier.
+7. Click the **+ Select Destination** button and choose the Category for **Calls-To-Action**.
+8. Check the option for **Global Header** and hit **Done**.
+
+<img src="https://files.readme.io/04d06cb6df0e69fa0f8366a8ca4aa45fe8f83c27625a8d0c5c5af7cf4d522bf5-52b1b1e-Screen_Shot_2023-04-13_at_12.44.16_PM.png" alt="Confirming the Destination of the Global Header Zone in Tealium" />
+  Confirming the Destination of the Global Header Zone in Tealium
+&lt;/Image>
+
+### Create Additional In-line Marketing Tags
+
+Repeat the process above for each marketing tag you would like to include (e.g., header, footer, overlay, etc.).
+
+[//]: ___
+
+### Add Triggered Marketing Tags
+
+[//]: # "How do I add triggered marketing tags using the Extole integration with Tealium?"
+
+Triggered marketing tags do not have in-line content on the page, instead they automatically overlay the sharing experience when the appropriate trigger occurs.  These are setup the same as the in-line marketing tags except that the value of the ID will be `n/a`.
+
+An Extole campaign comes with a standard triggered marketing tag name: `confirmation`.
+
+#### Adding the Confirmation Zone
+
+The Confirmation Zone is placed on the purchase confirmation page. You can also place this as a custom tag.  It differs from the Everywhere zone in that it's targeted to a specific page.  This is achieved by passing the trigger through the data layer on the desired page either by putting the trigger in the page javascript or by using a conditional Data Value extension.
+
+1. Just like for the global header, create a new Variable named `extole_zone_confirmation`
+
+<img src="https://files.readme.io/7d9ad99069930eed93a42da8ce5877151ae2134a75dc9f162c577bd2472aa6c9-18dd63c-Screen_Shot_2023-04-13_at_2.31.49_PM.png" alt="Adding a Confirmation Zone to Mapped Variables in Tealium" />
+  Adding a Confirmation Zone to Mapped Variables in Tealium
+&lt;/Image>
+
+2. On your purchase confirmation page, you will need to pass the value `n/a` into this data layer variable.  This can be done in the `utag_data` on the page, but can also be done through a `Set Data Values` extension with a condition.
+3. In the **Extensions** tab, create another `Set Data Values` extension and name it `Extole Confirmation Target`.
+4. In the Configuration section, set the value of `extole_zone_confirmation` to the **Text** value of `n/a`.
+5. Set the condition to be a when your purchase confirmation page is present. This can be through the use of URL path conditions or other variables.
+
+<img src="https://files.readme.io/ebac5c6fc887adda0afb29a4375da8fff98ebf612c53322f408b2e60a69cad16-e3d4f2a-Screen_Shot_2023-04-13_at_2.34.17_PM.png" alt="Setting up an Extension for the Confirmation Zone in Tealium" />
+  Setting up an Extension for the Confirmation Zone in Tealium
+&lt;/Image>
+
+6. Go back to the **Tags** tab and Edit the Extole Tag and switch to data mapping.
+7. Select the variable `extole_zone_confirmation` and tap `Select Destination`
+8. Choose `Calls-to-Action` from the left menu and select `Confirmation (cta.confirmation.id)`
+
+<img src="https://files.readme.io/1b2df60c055de575877dbd0bc2ce884c7afa637bae56d28e285056127ce66c65-134e3b1-Screen_Shot_2023-04-13_at_2.38.51_PM.png" alt="Confirming the Destination for the Confirmation Zone in Tealium" />
+  Confirming the Destination for the Confirmation Zone in Tealium
+&lt;/Image>
+
+[//]: ___
+
+### Add Event Tags
+
+[//]: # "How do I add event tags using the Extole integration with Tealium?"
+
+#### Include a Conversion Tag at Checkout
+
+In order to reward advocates when a friend makes a purchase, you need to communicate to Extole that a purchase has happened by adding the Conversion Tag to your order confirmation page.
+
+The conversion tag passes information about the purchase to allow Extole to attribute the conversion to a referral when possible, run quality rules, and run reward rules. Extole ignores the conversions that are not attributed to a referral after processing the rules.
+
+The Extole Tealium tag works with the Tealium E-commerce extension to map a value to Order ID. When this value is populated with a value, the conversion tag will fire automatically (ex: on the order confirmation page, a value is pushed into `order_number` which is mapped to Order ID in the E-commerce extension). 
+
+<img src="https://files.readme.io/296699856714174b3dcdf88f3405387f30fe3acb37a1f85190d443407b85b295-1df8544-image.png" alt="The E-Commerce Extension configuration menu" />
+  The E-Commerce Extension configuration menu
+&lt;/Image>
+
+[//]: ___
+
+### Set Up Additional Mapped Variables
+
+[//]: # "How do I set up additional mapped variables using the Extole integration with Tealium?"
+
+Extole tags require dynamic information that provide context on your site’s user and conversion details. Tealium offers an easy way to define and manage the necessary JavaScript variables, HTML elements, URL parameters and other sources that are required to define Extole tags and filter triggers. The specific configuration of your variables will depend on how your site provides data to Extole.
+
+The table below lists the Extole data you will need to create in Tealium as Mapped Variables.
+
+<table>
+  <thead>
+    <tr>
+      <th>
+        Variable
+      </th>
+
+      <th>
+        Description
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        `first_name`
+      </td>
+
+      <td>
+        The first name of the person making the zone request. This would typically be the advocate on a CTA zone, or the friend on a registration or conversion zone.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `last_name`
+      </td>
+
+      <td>
+        The last name of the person making the zone request. This would typically be the advocate on a CTA zone, or the friend on a registration or conversion zone.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `email`
+      </td>
+
+      <td>
+        The email of the person making the zone request. This would typically be the advocate on a CTA zone, or the friend on a registration or conversion zone.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `user_id`\
+        `\_ccustid`
+      </td>
+
+      <td>
+        This is the unique ID passed to Extole as the `partner_user_id`.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `order_number`\
+        `\_corder`
+      </td>
+
+      <td>
+        This is the unique order number passed to Extole as the `partner_conversion_id`.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `cart_value`\
+        `\_ctotal`
+      </td>
+
+      <td>
+        Used on a conversion (purchase) event to track the value of the purchase for revenue reporting.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `coupon_code`\
+        `\_cpromo`
+      </td>
+
+      <td>
+        This is the coupon code, which is most commonly used on a registration or conversion tracking call. It will also be used as a method to tie the register/purchase back to an advocate.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+You will need to map each of the data items in the table above into your Tealium Extole Tag.
+
+#### Example
+
+1. In your Tealium account, go to the **Tags** tab and open the Extole Tag.
+2. Find the **Mapped Variables** section and hit the **Edit** button.
+3. Add your first variable. Let's start with `first_name` as an example.
+
+<img src="https://files.readme.io/7aae926defebac45106cc6e6601f7663a405db48db2f0218cda62dda7ca888a8-b803d6e-Screen_Shot_2023-04-14_at_9.51.36_AM.png" alt="Adding `first_name` to Mapped Variables in Tealium" />
+  Adding `first_name` to Mapped Variables in Tealium
+&lt;/Image>
+
+1. Hit the **+ Select Destination button** and, in the **Calls-To-Action** category, check the option to **Add CTA Custom Data**.
+
+<img src="https://files.readme.io/0732ad01c899b6321c66fd1dfa00eced310999aaca2d53fbe11c769e5c6db7c3-ce74363-Screen_Shot_2023-04-14_at_9.52.27_AM.png" alt="Setting Custom Destinations for `first_name` in Tealium" />
+  Setting Custom Destinations for `first_name` in Tealium
+&lt;/Image>
+
+1. A placeholder destination, `cta.CTAname.data.custom`, will appear. Click on change it to change the custom destination to `cta.global_header.data.first_name`.
+2. Hit the **+ Add Customer Destination** to add `cta.global_footer.data.first_name`, `cta.product.data.first_name`, `cta.confirmation.data.first_name`.
+
+<img src="https://files.readme.io/48499126d8a33777be7875c5fc0d482c3e2ead4913352024f7d649c2fa775ca2-ad32d37-Screen_Shot_2023-04-14_at_9.27.11_AM.png" alt="" />
+
+7. Next, on the same screen, map the Conversion tag by selecting the category **Standard** and checking the box for **Conversion Custom Data**.
+8. A custom destination, `conversion.custom`, will appear. Update the destination value to `conversion.first_name`.
+
+<img src="https://files.readme.io/8634ee85768d3752946b0966482ee2cc8785bfe4a91f642e27732dfeec11d017-dcc67b0-Screen_Shot_2023-04-14_at_9.31.12_AM.png" alt="Setting a Conversion Destination for `first_name` in Tealium" />
+  Setting a Conversion Destination for `first_name` in Tealium
+&lt;/Image>
+
+9. Next, on the same screen, map the Registration tag by selecting the category **Standard** and checking the box for **Registration Custom Data**.
+10. A custom destination, `registration.custom`, will appear. Update the destination value to `registration.first_name`.
+11. Now your `first_name` variable is fully mapped. Repeat the above process for all remaining data variables. The full list of data mappings for each variable are listed in the table below.
+
+<img src="https://files.readme.io/8d476d81481b44977a700280747a8c1745182d7a6e5d0b8ae5920c4e8b5f3488-bc610dd-Screen_Shot_2023-04-14_at_9.33.08_AM.png" alt="Example of Mapped Variables and their Destinations in Tealium" width="60%" />
+  Example of Mapped Variables and their Destinations in Tealium
+&lt;/Image>
+
+<table>
+  <thead>
+    <tr>
+      <th>
+        Variable
+      </th>
+
+      <th>
+        Mappings
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        `extole_zone_global_header`
+      </td>
+
+      <td>
+        `cta.global_header_id`
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `extole_zone_global_footer`
+      </td>
+
+      <td>
+        `cta.global_footer.id`
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `extole_zone_product`
+      </td>
+
+      <td>
+        `cta.product.id`
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `extole_zone_confirmation`
+      </td>
+
+      <td>
+        `cta.confirmation.id`
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `email`
+      </td>
+
+      <td>
+        `cta.global_header.data.email`\
+        `cta.global_footer.data.email`\
+        `cta.product.data.email`\
+        `cta.confirmation.data.email`\
+        `registration.email`\
+        `conversion.email`
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `first_name`
+      </td>
+
+      <td>
+        `cta.global_header.data.first_name`\
+        `cta.global_footer.data.first_name`\
+        `cta.product.data.first_name`\
+        `cta.confirmation.data.first_name`\
+        `registration.first_name`\
+        `conversion.first_name`
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `last_name`
+      </td>
+
+      <td>
+        `cta.global_header.data.last_name`\
+        `cta.global_footer.data.last_name`\
+        `cta.product.data.last_name`\
+        `cta.confirmation.data.last_name`\
+        `registration.last_name`\
+        `conversion.last_name`
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `\_ccustid`
+      </td>
+
+      <td>
+        `cta.global_header.data.partner_user_id`\
+        `cta.global_footer.data.partner_user_id`\
+        `cta.product.data.partner_user_id`\
+        `cta.confirmation.data.partner_user_id`\
+        `registration.partner_user_id`\
+        `conversion.partner_user_id`
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `\_corder`
+      </td>
+
+      <td>
+        `conversion.partner_conversion_id`
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `\_ctotal`
+      </td>
+
+      <td>
+        `conversion.cart_value`
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `\_cpromo`
+      </td>
+
+      <td>
+        `registration.coupon_code`\
+        `conversion.coupon_code`
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+[//]: ___

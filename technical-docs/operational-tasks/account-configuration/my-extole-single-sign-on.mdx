@@ -1,0 +1,35 @@
+---
+title: "My Extole Single Sign On"
+description: "Read about the methods we support for SSO and SAML."
+---
+
+## Overview
+
+[//]: # "Does Extole support single sign-on (SSO)?"
+
+Extole supports multiple methods of using Single Sign-On from your corporate account in your My Extole account such as Google Workspace, Microsoft 365, etc.  Additionally, Extole supports the configuration of SAML or OpenID Connect (OIDC) for custom connections.
+
+## OIDC
+
+OIDC is Extole's recommended SSO connection type. If possible, set up an OIDC connection with your IdP. Your team will need the following information:
+
+* Client ID
+* Client Secret
+* Issuer URL (e.g., `https\://{{baseURL}}/.well-known/openid-configuration`)
+* Email domains to use (e.g., @extole.com)
+
+The reply URL should be configured as: `https://extole.auth0.com/login/callback`
+
+If redirect URIs need to be configured, they should also be set to `https://extole.auth0.com/login/callback` with type "Web" (not "Single Page Applications")
+
+## SAML 2.0
+
+In order to get configured, you will need to work with your Solutions Engineer or Customer Success Manager to configure the Extole authentication for your client account.  Extole requires you to provide:
+
+IdP Configuration File containing:
+
+* Sign In URL: The location to which Extole should direct a user attempting to access My Extole so they can sign in.
+* Sign Out URL: The location to which Extole should direct a user who logs out of My Extole.
+* X509 Signing Certificate: The certificate used to sign the request.
+
+[//]: ___

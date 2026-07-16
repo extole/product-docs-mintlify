@@ -1,0 +1,236 @@
+---
+title: "Listrak"
+description: "Set up a connection between your Extole programs and Listrak's cross-channel marketing platform."
+---
+
+## About
+
+With the Extole and Listrak integration, drive list growth and capture first-party data by automatically subscribing anyone who opts-in to marketing communications in your Extole-powered programs to a bespoke email series in Listrak. Additionally, prevent unwanted emails by keeping your opt-out lists in your referral program and Listrak in sync. When someone unsubscribes from marketing communications in your Extole-powered programs, Extole will also automatically unsubscribe them from your marketing list in Listrak.
+
+[//]: ___
+
+## Prerequisites
+
+[//]: # "What are the requirements for the Extole integration with Listrak?"
+
+<table>
+  <thead>
+    <tr>
+      <th>
+        Requirement
+      </th>
+
+      <th>
+        Description
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        Listrak Account
+      </td>
+
+      <td>
+        A Listrak account is required in order to take advantage of this partnership.   
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Listrak Client ID and Client Secret
+      </td>
+
+      <td>
+        A Listrak Client ID and Client secret can be created within the Listrak > Manage > Integrations > New Integration.  
+
+        Make sure to securely store a copy of your Client ID and Client Secret. These values will be needed to authenticate with the Listrak Email API. For your security, the Client Secret cannot be retrieved if it is lost.  
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        List ID(s)
+      </td>
+
+      <td>
+        The List ID(s) users will be subscribed to for opting in.  
+
+        To find your IDs within Listrak, go to Contacts > List Manager > Select the desired List > Select Help and Support in the Left Navigation > Select API ID Information.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Access to Listrak's Contact API
+      </td>
+
+      <td>
+        Make sure your Listrak account is enabled to use the Contact API. [https://api.listrak.com/email#operation/Contact\_PostContactResource](https://api.listrak.com/email#operation/Contact_PostContactResource) 
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+[//]: ___
+
+## Use Cases
+
+* Automatically subscribe users who opt-in to marketing communications in your Extole-powered programs to a marketing email list in Listrak
+* Automatically unsubscribe users who-opt out of marketing communications in your Extole-powered programs from your marketing list in Listrak
+
+[//]: ___
+
+## Integration
+
+Complete the following steps to set up your integration with Listrak.
+
+### Enable API Access in Listrak
+
+To enable API access, you must create an Integration on the Integrations page. In the Listrak application on the navigation bar, go to **Manage > Integrations Manager**.
+
+Please specify integration type **Email** for your integration. You must also specify which areas of the API should be made accessible. Available areas include:
+
+* Contact
+* Event
+* List
+* Message
+* Reporting
+* Segmentation
+
+Make sure to securely store a copy of your **Client ID** and **Client Secret**. These values will be needed to authenticate with the API. For your security, the Client Secret cannot be retrieved if it is lost.
+
+### Connect to Your Listrak Account
+
+To start sending data from your Extole programs into your Listrak account, you will need to configure your Listrak API key in Extole's [Tech Center](https://my.extole.com/tech-center). 
+
+In My Extole, start by navigating to the Tech Center > Outbound Webhooks > + New Integration. Enter the following information:
+
+1. Key Name: How you’d like to refer to the key in Extole
+2. Partner Key ID: A unique identifier defined by you
+3. Key Type: Webhook
+4. Algorithm: `OAUTH_LISTRAK`
+5. Key: Your Listrak Client Secret
+6. Client ID: Your Listrak Client ID
+7. Authorization URL: [https://auth.listrak.com/OAuth2/Token](https://auth.listrak.com/OAuth2/Token)
+8. Scope: You can leave this field blank
+
+Click the Create Key button to finish.
+
+<img src="https://files.readme.io/c363ce9b079614051227ece565d397f9e908ee968393a8ba536d46cb92d601bd-ce6948e-unnamed_39.png" alt="" />
+
+### Configure the Listrak Integration
+
+Navigate to the [Partners](https://my.extole.com/partners) page in the Extole platform and select "New Partner"
+
+Select Listrak from the Partners Directory
+
+![](https://files.readme.io/dce430c819a7718733d3731dc368316177514063471f5ecd0dec7f69ec5f543e-237928d-Screenshot_2024-07-16_at_2.21.27_PM.png)
+
+Install the Listrak integration
+
+![](https://files.readme.io/17cd9d4917b421bd09cb25744270f373c5118ff763128ffcd2c1e4235d603010-182d627-Screenshot_2024-07-16_at_2.53.22_PM.png)
+
+Configure the required fields: Subscription List ID (located in the Listrak platform), Enable Send Opt-Ins & Opt-Outs, and select the API Client Key you created in the [Tech Center](https://my.extole.com/tech-center). 
+
+Select **Apply Changes** and you're all set! Extole will now automatically send the `emailAddress` and `SubscriptionState`for any users who opt-in and opt-out of marketing communications in your Extole program(s.) If you'd like to send additional profile attributes or event data into Listrak, refer to the Customization section below.
+
+![](https://files.readme.io/364bd44d3724a2db28ef42c9d2382f9bdf033809824a2d444ba42baf80927947-507bfc4-Screenshot_2024-07-16_at_2.53.13_PM.png)
+
+## Customization
+
+### Configure a Staging API Key for Testing
+
+If you only provide one Listrak REST API key to Extole, only production events will be sent. If you also want to send staging or testing events, create another Listrak REST API key and configure secondary integration in the Extole [Tech Center](https://my.extole.com/tech-center) and [Partners](https://my.extole.com/partners) Center.
+
+### Send Additional Segmentation Fields and Values
+
+When sending email opt-ins from Extole to Listrak, you have the option to send additional profile attributes, such as `name`, `share link`, `phone number`, etc.). These attributes are mapped to segmentation field IDs and segmentation field values in Listrak, which allow them to be used for segmentation in the Listrak platform.  To add this customization:
+
+* Work with your Extole team to determine which of the profile attributes from the below table you'd like to include in any opt-in requests to Listrak
+* Work with your Listrak team to add the attributes as segmentation fields in the Listrak platform
+* Provide the corresponding segmentation field IDs and values from the Listrak platform to your Extole team so that they can be added to your Listrak integration. 
+
+<table>
+  <thead>
+    <tr>
+      <th>
+        Extole Profile Attribute
+      </th>
+
+      <th>
+        Description
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        `phone_number `
+      </td>
+
+      <td>
+        The customer's phone number, including country code. Only available if you have SMS capture enabled in your Extole campaign.\
+        E.g.,`+15555555555`
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `share_link `
+      </td>
+
+      <td>
+        The customer’s personal share link\
+        E.g., `refer.yourcompany.com/jsmith`
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `first_name  `
+      </td>
+
+      <td>
+        The customer's first name\
+        E.g., `John`
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `last_name  `
+      </td>
+
+      <td>
+        The customer's last name\
+        E.g., `Smith`
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `funnel  `
+      </td>
+
+      <td>
+        The correct funnel for the customer\
+        E.g. `friend` and/or `advocate`
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+## Using this Integration
+
+[//]: # "How do I use the Extole integration with Listrak?"
+
+Once you have created the integration key and your webhook has been configured by your team, Extole Support will test and finalize your connection. At this point, you will be able to see events flowing to Listrak in the Webhook Live View on the Outbound Webhooks page of My Extole.
+
+<img src="https://files.readme.io/4e0fbea2955a0e08c9f7026a6d8daead320d42e47a4cc150e03c179cbec5e1ce-f41a038-unnamed_41.png" alt="" />
+
+Once the events and attributes are flowing into Listrak, you can use them to generate Listrak audiences and segments.
+
+[//]: ___

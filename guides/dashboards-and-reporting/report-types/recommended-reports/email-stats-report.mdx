@@ -1,0 +1,84 @@
+---
+title: "Email Stats Report"
+description: "The Email Stats report gives you the ability to report on email triggers, deliveries, opens, and clicks."
+---
+
+# Overview
+
+The Email Stats report gives you the ability to report on email triggers, deliveries, opens, and clicks.
+
+- An email being **triggered** means that an event originating from a campaign has prompted an email to be sent
+- An email being **delivered** means that the recipient's server has indicated that it has received the email
+- An email being **opened** means the recipient has opened the email
+- An email being **clicked** means a user has landed on a promote destination or a share destination (most commonly, an Extole-hosted Microsite or an external URL with an automatically triggered Share Experience or Friend Landing Experience)
+
+![Screen_Shot_2020-02-20_at_3.13.27_PM.png](https://extole-5ef307a0e5b1.intercom-attachments-7.com/i/o/syy27wia/1421734232/dceb86dd39921103c6d7e041a507/360058334834?expires=1778306400&signature=826ecb0d1fd3195d7baa3762ee90060fc76cc309dfa4e86900f8983327bedd86&req=dSQlF859mYNcW%2FMW3nq%2BgXIXozTGA7vCM2w99T5ANC9aazCfhnhzdk1a58br%0A9oqy9TaRx6LBQNk%2BRm9%2BaIIk2qY%3D%0A)
+
+# Configuring the Report
+
+This report has smart defaults, which means you don't have to configure anything to run it! You can filter your data in the following ways:
+
+- **Date Range:** the range of data that will be in the report. Note that these are trailing date and time ranges, so "last week", for example, is the last 7 days. **We have data on email events starting in January 2020.**
+- **Period:** how the data in your report is grouped. We suggest a period of "none" for a more concise report. You can also group by day, week, month, or year.
+- **Program Label:** by default, this report pulls data from all steps in all programs. You can also choose to analyze one program at a time.
+- **Campaign Id:** by default, this report pulls data from all steps in all campaigns. You can also choose to analyze one campaign at a time.
+- **Email Names:** this report pulls data for the following emails by default:
+
+  - Mail After Purchase Email
+  - Advocate Welcome Email
+  - Advocate Stats Email
+  - Share Email
+  - Friend Reward Email
+  - Friend Pending Reward Email
+  - Advocate Reward Email
+  - Advocate Pending Reward Email
+  - Advocate Invite Email
+  - Share Email Reminder
+
+Please note that all of these emails may not be present in your program. If you don't have a given email in your program or simply don't want stats for it, just click the X next to the name of the email.
+
+If you have any additional emails that are not in this list but that you want stats for, type the name of the email in the Email Names field. If you're running a Friends and Family program and want stats on the Advocate Earned Reward Email Reminder, for example, type "Advocate Earned Reward Email Reminder". If you are not sure about the name of an email, please contact your CSM.
+
+"Advanced" is where you can specify your dimensions. Our default dimensions are to group by Program Label and by Campaign Id, but you can also choose to group by things like Language or Country.
+
+In "Advanced", you also have the option to include non-unique open rate.
+
+Finally, in "Advanced", you can choose to filter by container (e.g. just test emails, just production emails, or all emails).
+
+# Report Output
+
+For each email, you'll get a count of triggers, delivers, non-unique opens, unique opens, and non-unique clicks. You'll also get their deliverability rates, non-unique open rates (if toggled on in "Advanced"), unique open rates, and click-to-open rates.
+
+Rates are calculated in the following manner:
+
+- **Deliverability Rate:** (emails delivered ÷ emails triggered)
+- **Open Rate:** (non-unique email opens ÷ emails delivered)
+
+  - This rate only appears if "include non-unique opens" is toggled on in "Advanced"
+
+- **Unique Open Rate:** (people who opened an email ÷ people who an email was delivered to)
+- **Click To Open Rate:** (non-unique email clicks ÷ non-unique email opens)
+
+  - Email opens here are non-unique; this rate appears whether or not "include non-unique open rate" is toggled on in "Advanced"
+
+# Frequently Asked Questions
+
+- **How can I have an email with 0s in triggers and delivers, but with data in non-unique opens, unique opens, and non-unique clicks?**
+
+  - The report reflects data in the specified time period. This means that no emails were triggered or delivered in that time period, but someone opened or clicked an email that was sent outside your time period. Let's say your report has data for January. You had no emails delivered in January, but you did have emails delivered in December. In January, Izzy opened and clicked on an email that was delivered in December. You'll see data for opens and clicks in January, but no data for triggers or delivers.
+
+- **How can my unique open rate be over 100%?**
+
+  - We calculate unique opens as (people who open an email ÷ people who an email was delivered to). This means that someone opened an email that was delivered outside your configured time period. Let's say your report has data for Monday. You had one email delivered on Sunday to April, and another email delivered on Monday to Julio. On Monday, April opened the email that was delivered on Sunday and Julio opened the email that was delivered on Monday. You'll see 2 opens, but only 1 delivery for Monday, meaning your unique open rate would be 200%.
+
+- **Why don't all of my emails show non-unique clicks?**
+
+  - Not all emails lead to URLs where clicks are tracked. Currently, we use specific criteria to estimate email clicks. An email click is counted when a user lands on a URL containing `promote_destination?source=email_name_here` or `share_destination?channel=email`. In other words, if an advocate reaches a promote destination (such as a microsite or an external URL with an auto-popped Share Experience) or if a friend lands on a share destination (like a microsite or an external URL with an auto-popped landing experience) from the email, we count it as an email click. If any of your emails are missing click data and you'd like them to direct consumers to a promote or share destination, please reach out to your Customer Success Manager (CSM) for assistance.
+
+- **Does Extole track unique clicks?**
+
+  - No; we use the specific criteria described above to estimate total email clicks for emails that lead to promote or share destinations.
+
+- **Why do some emails show 0s for every event (triggers, delivers, opens, unique opens, non-unique clicks)?**
+
+  - You will not get any statistics for emails that do not have any data *unless* you toggle "Include totals" on (in "Advanced").

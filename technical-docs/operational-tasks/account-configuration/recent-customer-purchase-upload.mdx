@@ -1,0 +1,339 @@
+---
+title: "Recent Customer Purchase Upload"
+description: "Upload a list of recent customers who have made purchases from your business for targeting purposes."
+---
+
+## Overview
+
+[//]: # "Can I share recent customer purchases to Extole?"
+
+Extole referral and engagement programs are efficient avenues for acquiring new customers. To ensure you are incentivizing—and rewarding—new customer activity, you can send recent customer activities to Extole. Doing so ensures that existing customers' referred signups, purchases, account openings, or bookings do not reward an advocate.
+
+<Info>
+**Note**
+
+
+Once you have launched your program using conversion tags or the conversion API, Extole will automatically store recent purchase information. Uploading recent purchases is only needs to be done once during launch if you wish to exclude historical customers.
+</Info>
+
+Acquisition campaigns normally include both brand new customers and win-back customers who haven't engaged with your brand in the prior 12 months. You do not need to load your entire customer history, but only the previous 12 months and only the most recent actions performed by those customers.
+
+You can either use the Extole API to send in events or you can upload an event file to My Extole or via SFTP.
+
+[//]: ___
+
+## API Call
+
+[//]: # "How do I make an API call to send recent customer purchases to Extole?"
+
+### Generate API Keys
+
+Make sure you have generated API keys through the My Extole [Security Center](https://my.extole.com/security-center).
+
+After creating an API Key in My Extole, you can use the Create Event API call to send in the list of recent registrations, account openings, subscriptions, purchases, etc. via API call. Each account opening or purchase event uses a single call to Extole:
+
+`data.partner_conversion_id`
+
+### Input Parameters
+
+<table>
+  <thead>
+    <tr>
+      <th>
+        Input Parameter
+      </th>
+
+      <th>
+        Description
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        `data.partner_conversion_id`
+        *required*
+      </td>
+
+      <td>
+        The unique identifier of the event, this might be something like an order number. This is required to ensure there are no duplicate events sent to Extole and for report reconciliation.  
+
+        Maximum of 38 characters.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `data.partner_user_id`\
+        *sometimes required*
+      </td>
+
+      <td>
+        Your unique identifier of the customer.  This is not required, but is recommended so that if this identifier is passed in again during a future purchase, this person can be recognized as an existing customer.  
+
+        * Either the `partner_user_id` OR the email is required\_.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `data.email`\
+        *sometimes required*
+      </td>
+
+      <td>
+        The email address of the customer. This is not required, but is recommended so that if this email is passed in again in the future, this person can be recognized as an existing customer.  
+
+        * Either the `partner_user_id` OR the email is required\_.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `data.first_name`
+      </td>
+
+      <td>
+        The first name of the customer.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `data.last_name`
+      </td>
+
+      <td>
+        The last name of the customer.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `data.cart_value`\
+        *recommended*
+      </td>
+
+      <td>
+        The revenue value of the transaction (if applicable) used for reporting.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `data.event_time`
+      </td>
+
+      <td>
+        The date when the event was created
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+[//]: ___
+
+## File Upload
+
+[//]: # "How do I upload a file of recent customer purchases to Extole?"
+
+You can also upload an existing customer file to your SFTP account at My Extole or through your Account inside of My Extole.
+
+### Event File Records
+
+<table>
+  <thead>
+    <tr>
+      <th>
+        Column Name
+      </th>
+
+      <th>
+        Required
+      </th>
+
+      <th>
+        Validation
+      </th>
+
+      <th>
+        Description
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        `event_name`
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        `eventname`
+      </td>
+
+      <td>
+        The type of event to create from the list (e.g., conversion, sign\_up, account\_opening).
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `required_labels`
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        `existing_customer`
+      </td>
+
+      <td>
+        The required labels field ensures that the events are properly mapped as existing customer upload (not a new referral conversion).
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `email`
+      </td>
+
+      <td>
+        Maybe
+      </td>
+
+      <td>
+        256 characters
+      </td>
+
+      <td>
+        The email address of the customer. This is not required, but is recommended so that if this email is passed in again in the future, this person can be recognized as an existing customer.  
+
+        * Either the partner*user\_id OR the email is required*.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `partner_user_id`
+      </td>
+
+      <td>
+        No
+      </td>
+
+      <td>
+        38 characters
+      </td>
+
+      <td>
+        Your unique identifier of the customer. This is not required, but is recommended so that if this identifier is passed in again during a future purchase, this person can be recognized as an existing customer.  
+
+        * Either the `partner_user_id `OR the email is required\_.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `first_name`
+      </td>
+
+      <td>
+        No
+      </td>
+
+      <td>
+        38 characters
+      </td>
+
+      <td>
+        The first name of the customer.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `last_name`
+      </td>
+
+      <td>
+        No
+      </td>
+
+      <td>
+        38 characters
+      </td>
+
+      <td>
+        The last name of the customer.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `event_time`
+      </td>
+
+      <td>
+        No
+      </td>
+
+      <td>
+        ISO\_8601 DateTime
+      </td>
+
+      <td>
+        The date and time of the event as ISO\_8601 format. Generally this is YYYY-MM-DDThh:mm:ssZ (e.g. "2013-08-11T14:33:18-0700"). If not provided, Extole will use the processing time of the event file as the event time.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `partner_conversion_id`
+      </td>
+
+      <td>
+        No
+      </td>
+
+      <td>
+        38 characters
+      </td>
+
+      <td>
+        The unique identifier of the event, this could be something like an order number. This is required to ensure there are no duplicate events sent to Extole and for report reconciliation.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `cart_value`
+      </td>
+
+      <td>
+        No
+      </td>
+
+      <td>
+        Number with two decimal places
+      </td>
+
+      <td>
+        The revenue value of the transaction (if applicable) used for reporting.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+Filename: /events/2147483647\_conversion\_20130619000000.csv
+
+`data.partner_user_id`
+
+[//]: ___

@@ -1,0 +1,110 @@
+---
+title: "Salesforce Marketing Cloud"
+description: "Connect your Extole account to Salesforce Marketing Cloud to push data, typically a marketing email opt-in list. Extole can either push this through the Salesforce MC API or through Salesforce MC File Drop Automation."
+---
+
+## Overview
+
+[//]: # "Does Extole integrate with Salesforce Marketing Cloud Opt-ins?"
+
+In order to send data from your Extole program to your Salesforce Marketing Cloud (SFMC) account, you must use the SFMC Data Extensions API.
+
+[//]: ___
+
+## Prerequisites
+
+[//]: # "What are the requirements for the Extole integration with Salesforce Marketing Cloud Opt-ins?"
+
+### API
+
+| Requirement                        | Description                                                                                        |
+| :--------------------------------- | :------------------------------------------------------------------------------------------------- |
+| Salesforce Marketing Cloud Account | A Salesforce Marketing Cloud account is required in order to take advantage of this integration.   |
+| SFMC Client ID and Client Secret   | An SFMC Client ID and Client Secret can be generated in your SFMC account                          |
+| Extole Webhook Key                 | An Extole key. This can be generated in your My Extole account in the Security Center > + New Key. |
+
+### File Drop
+
+| Requirement                        | Description                                                                                      |
+| :--------------------------------- | :----------------------------------------------------------------------------------------------- |
+| Salesforce Marketing Cloud Account | A Salesforce Marketing Cloud account is required in order to take advantage of this integration. |
+| Marketing Cloud SFTP Account       | A Marketing Cloud SFTP account can be created in your SFMC account.                              |
+
+[//]: ___
+
+## API Integration
+
+[//]: # "How do I set up an API integration between Extole and Salesforce Marketing Cloud Opt-ins?"
+
+### Generate an SFMC Client ID & Secret
+
+To establishing this connection, log in to your SFMC account and generate a new Client ID and Client Secret for Extole. After generating this information, save it somewhere that is easily accessible for the Extole key creation process.
+
+### Create a New Key in Extole
+
+Navigate to your My Extole account and find the Security Center. Here, you can click on the + New Key button to begin the next step.
+
+<img src="https://files.readme.io/025e8bd22b8a5b27c85daf7d9dfad5c3d8b3561508a1f4217b22dd1871b32fc6-d94bce4-Screen_Shot_2022-02-10_at_9.47.21_AM.png" alt="Screen Shot 2022-02-10 at 9.47.21 AM.png" />
+
+On the key creation page, fill in the following information:
+
+* Key Name: How you'd like to refer to the key in Extole
+* Key Type: Webhook
+* Partner Key ID: A value that you will recognize for this credential (e.g., your account ID, email address, or user ID)
+* Key Algorithm: OAUTH\_SALESFORCE
+* Key: The Client Secret copied from SFMC
+* Authorization URL: `https://[SFMC instance].auth.marketingcloudapis.com/v2/token`
+* OAUTH Client ID: The Client ID copied from SFMC
+
+<img src="https://files.readme.io/438bde537e47a99300c6bce0af68021fa96f5476ae0e6f94e24c2e2c60887c66-1086f5d-Screen_Shot_2022-09-12_at_1.58.15_PM.png" alt="" width="60%" />
+
+### Configure an Extole Webhook
+
+Next, work with your Customer Success or Implementation Manager to configure a webhook in the Tech Center > Outbound Webhooks section. Start by clicking on the + New Webhook button.
+
+On the webhook creation page, fill in the following information:
+
+* Name: How you'd like to refer to the webhook in Extole
+* Enabled: Toggle on (green)
+* Type: Generic
+* URL: `https://[SFMC instance].rest.marketingcloudapis.com/hub/v1/dataevents/key:marketing/rowset`
+
+<img src="https://files.readme.io/a0a69d35d75edb5c0c7c28d3b55b682b09ffb89cbf6588592db708366c497983-2862134-Screen_Shot_2022-09-12_at_2.03.26_PM.png" alt="" width="60%" />
+
+Extole Support will then configure the opt-in event to send into the SFMC Webhook. The default JSON looks like the following, but can be updated by Extole Support:
+
+`https://[SFMC instance].auth.marketingcloudapis.com/v2/token`
+
+[//]: ___
+
+## File Drop Integration
+
+[//]: # "How do I set up an File Drop integration between Extole and Salesforce Marketing Cloud Opt-ins?"
+
+If connection via API is unavailable to you, you will need to create a new Marketing Cloud SFTP account in SFMC that can be used to access the Marketing Cloud SFTP for File Drop Automations.
+
+### Create an External SFTP in Extole
+
+Once you've created your new SFTP account in SFMC, navigate to the My Extole [Tech Center](https://my.extole.com/tech-center). Here, select External SFTP Server and click on the + New Server button.
+
+<img src="https://files.readme.io/87ed74279cb8f81b1b343716ede53ac3d0b775823ca869e36a7861b27a939fd7-a16907f-Screen_Shot_2022-09-12_at_12.10.42_PM.png" alt="" />
+
+Once you're on the server creation page, fill in the following information:
+
+* Name: How you'd like to refer to the server in My Extole
+* Username: The username used to access the SFTP server
+* Host: `mc-0000.ftp.marketingcloudapps.com`
+* Port: 22
+* Root Path: /Import
+
+Click on the Create Login Key button and select the Password option. Name the key whatever you would like and enter in the password you created in Marketing Cloud. Save the key and then save your new server.
+
+<img src="https://files.readme.io/50056bcfa8fe70e6fc47bc739a8849d84d5e66789b0db056ff40b93378f7351c-18ff9dd-Screen_Shot_2022-09-12_at_12.15.29_PM.png" alt="" />
+
+### Send Reports to SFMC via SFTP
+
+Once configured, any report generated in your Extole account can be scheduled to automatically push to the Salesforce Marketing Cloud SFTP.
+
+<img src="https://files.readme.io/b40d5ada0559f1576ce299c6041808b5152220f7a55707c3c5671a396ec7239f-e556ed4-Screen_Shot_2022-02-16_at_7.39.30_PM.png" alt="Screen Shot 2022-02-16 at 7.39.30 PM.png" />
+
+[//]: ___

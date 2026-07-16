@@ -1,0 +1,47 @@
+---
+title: "Sending Data to Extole"
+---
+
+## Overview
+
+[//]: # "How do I send data to Extole?"
+
+When running a referral or engagement program, you can send an unlimited number of events to Extole to trigger emails, rewards, or just track these events in your program dashboard. We support a variety of methods for sending us your events and data to accommodate your existing workflows. Across your Extole programs, you can can mix and match the channels for events depending on your specific business considerations. The data you send to Extole varies based on your company’s needs and requirements, while your integration method determines the frequency and speed of data exchange.
+
+<Info>
+**Required Events**
+
+
+We **strongly recommend** sending all rewardable events—conversions, account openings, subscriptions, and so on—to Extole. Our objective is to maximize the number of participants in your program and their activity levels. Selectively passing these events to Extole has been demonstrated to lead to significant underrecognition of participation and requires more work on your part to set up.
+</Info>
+
+## Integration Methods
+
+### Web
+
+Web integration is our simplest and most common integration. The process involves adding the Extole Core JavaScript (JS) Library in the header of your website. Our lightweight JS tags enable all Extole functionality, such as CTA delivery, Share Experience display, and event tracking. The JS library is in your program’s branded domain (share.companyname.com) and can be added to your pages with a simple script tag. 
+
+We offer a variety of additional tags that are optional but commonly used. These tags can be implemented to pass a variety of data that can be used by your programs and also support passing verified or signed data in the form of JSON web tokens (JWTs). To learn more about tagging your site, visit our Developer Docs. 
+
+### API
+
+In addition to web integration, it’s common to send certain events to Extole via API. You can send events using the Admin API for secure server-to-server communication. This method is often used to send secure or offline events to Extole, such as order shipments or financial account openings.
+
+From a mobile perspective, integrating via API allows you to pull program content from Extole to dynamically show CTAs and launch sharing experiences in your app. If desired, this integration can be fully native, while still being lightweight and allowing for changes to your program without additional dev work.
+
+### iOS & Android
+
+The Extole mobile SDKs for iOS and Android are are a lightweight wrapper for our APIs with the added benefit of user authentication, content prefetching, and "no code" program access for things like native sharing and webviews. Once you’ve configured and launched your first program, our SDKs enable you to launch additional new programs without needing to make any code changes.
+
+### Files
+
+If your business operates online, as well as over the phone or in person, then it may make sense for you to send event files to Extole. You can send bulk event files manually or automatically by either uploading them directly to My Extole or through our Secure File Transfer Protocol (SFTP) server. 
+
+Common events that are sent to us in bulk files include:
+
+* Qualified account openings
+* Account fundings
+* Quote submissions
+* Order shipments
+
+[//]: ___

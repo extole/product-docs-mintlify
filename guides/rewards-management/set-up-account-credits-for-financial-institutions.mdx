@@ -1,0 +1,64 @@
+---
+title: "Set Up Account Credits for Financial Institutions"
+description: "Follow these steps to enable account credits as your referral reward for banks and credit unions"
+---
+
+# Overview
+
+Account credits are a common reward type for banks and credit unions, allowing participants to receive rewards directly in their accounts rather than as digital gift cards. While Extole does not directly issue these credits, it can generate a report (or send data via API) listing all earned rewards that your internal systems can use to process the credits.
+
+# Requirements
+
+- **Eligible audience list**: Your program must use an audience file that includes any necessary identifiers (e.g., member ID) for applying account credits or be authenticated behind login.
+- **Internal fulfillment system**: You must have an internal system capable of ingesting Extole’s earned rewards report and applying credits to participant accounts.
+
+>
+
+> Extole also supports sending earned reward data via API. See **[Reward Webhooks](https://docs.extole.com/docs/reward-webhooks)** for more details.
+
+# Implementation Steps
+
+1. **Ensure your program has advocate eligibility enabled**:
+
+  1. If not already configured, follow the steps to set up an **[Eligible Advocate Audience File](/guides/getting-help/set-up-dynamic-eligible-audience-files)**
+
+2. **[Create an Account Credit reward](/guides/rewards-management/setting-up-your-rewards/how-to-reward-with-account-credits)in Extole**
+
+  1. Under the fulfillment section, make sure to enable “I’ll be the one to tell Extole when the reward has been fulfilled (via API, file, etc.)”
+
+3. **Add the reward to your campaign**
+
+  1. If you are using Flow Builder, **[follow these steps](/how-to-set-up-a-reward)** to add a reward 
+  2. If you are using legacy programs, reach out to your CSM for assistance
+
+4. **Configure the Rewards Report**
+
+  1. Set the appropriate time range, program, and reward supplier(s)
+  2. Select reward_EARNED as the Reward State
+  3. Keep the **Only Show Rewards Currently In This State** toggled ON 
+  4. Toggle “Deliver via SFTP” to send them to the **[Extole SFTP](/guides/dashboards-and-reporting/integrating-reports/using-extole-s-sftp-server)** or an **[external SFTP](/guides/dashboards-and-reporting/integrating-reports/sending-reports-to-an-external-sftp)**
+  5. (Optional) Adjust Mappings
+
+    1. If you need a custom file format, configure it in the Advanced tab.
+
+  6. **[Default Earned Rewards report here](https://drive.google.com/file/d/15KKfQFyi51gFXxuQ3qKsnOsCp5AHD3Mg/view?usp=sharing)**
+
+5. **Set up account crediting automation in your system**
+
+  1. Connect to the **[Extole SFTP](/guides/dashboards-and-reporting/integrating-reports/using-extole-s-sftp-server)** or an **[external SFTP](/guides/dashboards-and-reporting/integrating-reports/sending-reports-to-an-external-sftp)**
+  2. Set up automation within your system that will pull the rewards file daily and add the associated credit to the participant accounts.
+
+6. **Recommended: Set up Fulfilled Rewards File**
+
+  1. Once the credits are posted to the account, upload a CSV file back into **[Extole’s SFTP /events folder](/guides/dashboards-and-reporting/integrating-reports/using-extole-s-sftp-server)** to indicate the rewards were fulfilled. This is used for tracking within the Extole platform
+  2. File name example: fulfilled-rewards-YYYY-MM-DDTHHMMSS.csv
+
+| > event_name | > reward_id | > email | > member_id | > message |
+| --- | --- | --- | --- | --- |
+| > reward_fulfilled | > abc123 | > user@example.com[](mailto:user@example.com) | > 12345 | > “Fulfilled successfully” |
+
+# Frequently Asked Questions
+
+> **If I'm switching from gift cards, will those excess gift card funds be returned?**
+
+> Yes, reach out to your CSM to start the refund process of these funds. Remember, you may want to keep funds in there for a little while as some referrals may be in a "pending period" awaiting reward.

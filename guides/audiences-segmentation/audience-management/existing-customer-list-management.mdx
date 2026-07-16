@@ -1,0 +1,49 @@
+---
+title: "Existing Customer List Management"
+description: "Usually you want to run campaigns that are targeted to acquire new customers. By having an existing customer list at Extole, you can disqualify any conversions which come through for you existing customers."
+---
+
+Usually you want to run campaigns that are targeted to acquire new customers. By having an existing customer list at Extole, you can disqualify any conversions which come through for you existing customers.
+
+Extole cannot prevent a friend from receiving the coupon/promo when a friend follows a share link. Since friends often see Share Links in Facebook, Twitter, web sites, etc, there is no way to identify at that time that friend is an existing customer. It is up to your coupon/promo system to be able to create codes that may only be used by new customers.
+
+For this feature, you'll need to upload your existing customer list into Extole as described below, and then enable custom quality rules on your campaign. Extole uses your customer's email address as their unique identifier. You should upload the list using hashes to avoid any security concerns.
+
+# Updating Your Extole Customer List
+
+Extole will automatically process existing customer list files from the SFTP server. The emails in the existing customer list file will be added to Extole's existing customer list for you.
+
+## Technical Specifications
+
+1. The existing customer file to be uploaded must be placed in the /existing directory of the SFTP server.
+2. The file name must be: ***clientid** *_existing_ ***YYYYMMDDHHMMSS***.csv
+3. The file format is a list of emails that has all whitespace removed from the start/end and are all lowercase.
+
+  - This is the format used by Unsub Central and recommended by the Email Sender & Provider Coalition (ESPC).
+
+4. The list of emails may be plaintext, or they can be hashed using SHA-1, SHA-256, or MD5 format.
+5. The format must be the same as your opt-out list format.
+
+If the list is hashed, your Extole Client Services Manager must configure the service to accept the hash format.
+
+## Example Plaintext Existing Customer List
+
+| bavottukyw-947@yopmail.com[](mailto:bavottukyw-947@yopmail.com)   ​ogappaxok-513@yopmail.com[](mailto:ogappaxok-513@yopmail.com)   ​Saink1952@teleworm.us[](mailto:Saink1952@teleworm.us)   ​Grathe6167@dayrep.com[](mailto:Grathe6167@dayrep.com)   ​NThismity1982@armyspy.com[](mailto:NThismity1982@armyspy.com) |
+| --- |
+
+## Example MD5 Existing Customer List
+
+| 5258277a4a594874c3ac26d4df66a015   68c00cdc19f221e2137d71596e29450f   0a26ae263ea829375870ca32e71a9fda   d43c917940592ace1095e369ee3c33c9   56dc55e0eaed38db7c30956cfbdc3b1f |
+| --- |
+
+# Frequently Asked Questions
+
+## Why do I need to remove whitespace and make opt-out lists lower case?
+
+This is the recommended format for storing and transmitting opt-out lists to make sure you have the highest rate of successful matches. People are often inconsistent about typing "[saink1952@teleworm.us](mailto:saink1952@teleworm.us)" vs. "[Saink1952@teleworm.us](mailto:Saink1952@teleworm.us)" or leaving a space at the end, and those addresses must match against each other. When an email is hashed, the encoded value also includes the case.
+
+"[saink1952@teleworm.us](mailto:saink1952@teleworm.us)" > 20c628ac26de39b5b8d7fe45d68447b9  
+"[Saink1952@teleworm.us](mailto:Saink1952@teleworm.us)" > 0a26ae263ea829375870ca32e71a9fda  
+"[saink1952@teleworm.us](mailto:saink1952@teleworm.us) " > 455d94ab6fba67f7f850bc9f2a5ddb87
+
+To avoid incorrectly allowing mail to be sent to an opted-out user, you must always make sure there are no "blank" characters at the start and end of the addresses by trimming them off, and then you must convert the entire email to lower case.

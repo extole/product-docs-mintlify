@@ -1,0 +1,144 @@
+---
+title: "Q2"
+description: "Q2 offers digital banking solutions to grow with your business, your account holders, and the communities you serve."
+---
+
+## Overview
+
+With Extole's integration with Q2, you can turn your digital banking channel into a powerful source of new members through personalized referral and engagement programs. 
+
+This integration is easy to install with your Q2 team, requires no custom coding, and includes the following key features:
+
+**Fully Integrated In-App Sharing** 
+
+* Upon authentication, Members can immediately access their pre-generated share link (`share.yourcreditunion.com/jsmith`) and start referring their friends directly from the sharing experience, all without having to leave digital banking. 
+* Members can share with friends via variety of channels, including email, SMS, social media, native sharing (iOS devices only), and even QR codes. Learn more about [Extole's experiences](https://docs.extole.com/docs/experiences#examples).
+
+**Secure Authentication with SSO** 
+
+* When a member taps on a CTA for the referral program in digital banking, the Extole and Q2 integration will automatically verify the members identity through JWT (JSON web tokens, a method of Single-Sign-On.) 
+* Members won't have to provide additional information or leave digital banking to begin referring.
+
+## Prerequisites
+
+| Requirement    | Description                                                                                  |
+| :------------- | :------------------------------------------------------------------------------------------- |
+| Q2 Account     | A Q2 Digital Banking account with permissions to request new apps in the Q2 Developer Portal |
+| Extole Account | An Extole account is required for this integration                                           |
+
+## Integration Set Up
+
+### Step 1: Add your Extole team to your Q2 Production Environment
+
+First, add your Extole team to your Q2 environments so that they can assist with testing and troubleshooting.
+
+### Step 2: Request the Extole app from the Q2 App Marketplace
+
+Then, request the Extole app from the [Q2 Marketplace](https://www.q2developer.com/marketplace/apps/extole/marketing). In your request, specify the experience type(s) (`SSO + Content Block`, `SSO`, or `widget`) you'd like to enable. See more information below on experience types.
+
+#### Content Block + SSO
+
+If you are on Q2's Composable Dashboard, you can embed a sharing widget on your main dashboard page using Extole's content block.  Users can natively refer using their favorite apps directly from the content block without leaving the page. For additional information, users can click on  "see details" to be taken to the the referral microsite (hosted by Extole, embedded via SSO.) 
+
+In your request to Q2, make sure sure to specify where you'd like your content block to appear. Extole recommends the following places:
+
+* Home Dashboard
+* Accounts Page
+* Payments & Transfers
+* Benefits / Rewards page (if applicable)
+
+<img src="https://files.readme.io/5060473e05120b9d23e5f000598673b915a811beca9fd49ea2ff87f7848dc5cc-3ed50438817b38ccab23054907dd207f014c156fe3761c4c9c1441745d769668-Screenshot_2025-10-02_at_1.43.37_PM.png" alt="The content block icnludes several native sharing options. Clicking on &#x22;See details&#x22; takes the user to a referral microsite thats embedded into online banking via SSO (see below.)" />
+  The content block includes several native sharing options. Clicking on "See details" takes the user to a referral microsite that's embedded into digital banking via SSO (see below.)
+&lt;/Image>
+
+#### SSO Standalone
+
+You can use the SSO integration on its own if you want to add CTA for your referral program to your navigation menu. You'll need to work with the Q2 team to create the CTA, so that when a user taps on it, they'll be taken to a referral microsite (hosted by Extole) within digital banking. 
+
+<img src="https://files.readme.io/e4d8483802285dbbe799c765df837e6df70ce7a0b244ad8cd2006a8d69ea1eb5-743f47747df20fe40d6d0fbb290eaf21bc68c136e771bd921bdd76d33d8b5c36-Screenshot_2025-10-29_at_9.30.54AM.png" alt="" />
+
+<img src="https://files.readme.io/7bd58476ab660a0be077b0eca7dcd0593b7494ce5a6b24d7759a79b3b87104bc-67a6abd0fe3ec94ebbd631179dc3d9ee9f1005eff724e5d6126c1e5fbf7caeb5-Screenshot_2025-10-02_at_1.55.22_PM.png" alt="Referral microsite (hosted by Extole) embedded via SSO" />
+  Referral microsite (hosted by Extole) embedded via SSO
+&lt;/Image>
+
+<Info>
+**If you are using the SSO experience standalone, make sure to provide copy and placement for the CTA to the Q2 team in your request. The CTA copy will be used for link/button that members will click on in digital banking to view the SSO experience.**
+
+
+For example:
+
+\-Add menu tile to 'Services' 
+
+\-Name: Refer a Friend
+
+\-Description: Earn rewards for referring friends to join \{\{companyName\}\}
+
+\-Icon: hand-with-coins
+</Info>
+
+#### Widget
+
+ If you are on Q2's legacy dashboard, you can embed a sharing widget to the right hand panel in digital banking.
+
+<img src="https://files.readme.io/0a5361b71d188f192b18c4a54cd0e826fe82d553b58a56641e5f473ba183d1a4-998dec4099fa108405977fd0eb5b0dc5f9d4d53b9ae44f6149697da3b731f7d2-Screenshot_2024-09-19_at_4.44.18_PM.png" alt="The desktop view of the embedded sharing experience." />
+  The desktop view of the widget
+&lt;/Image>
+
+<img src="https://files.readme.io/184d52b6c7b1da71e4e66abbea04e201d9a8e69a738f6b4cc0ab892988669d07-10c207a3aa6190de734904b51cdd2cac56372cfa1049e0a43f82a803ed9774a4-widget.png" alt="The mobile view of the embedded sharing experience." />
+  The mobile view of the widget.
+&lt;/Image>
+
+### Step 3:  Extole provides inputs for Q2 to deploy extension to production
+
+Once you've requested the Extole app, the Q2 team will create a production deploy ticket in the Q2 Developer Center with all parties subscribed (Extole, Q2, and your team.)  All collaboration will happen in Q2s Developer Center under the production ticket. 
+
+**Extole will provide Q2 with your Branded Program Domain** 
+
+Once the production deploy ticket has been opened by Q2, your Extole team will provide Q2 with your branded program domain. This can be found in your Extole account under the Program Domains section of the [Tech Center](https://my.extole.com/tech-center).
+
+<img src="https://files.readme.io/8d45db6d7e357e2a81d3cce1a340ac03cc04bc50d1202ac7d5ea4c1e23d232be-326502d-Screenshot_2024-08-19_at_10.37.17_AM.png" alt="" />
+
+**Extole will provide Q2 with JWT Key Credentials**
+
+Your Extole team will also set up a JWT key in your Extole account and provide Q2 with the necessary details to ensure a secure connection between the two platforms. When you log in to your account and navigate to the [Security Center](https://my.extole.com/security-center), you'll be able to see your JWT  under the Keys section. 
+
+![](https://files.readme.io/b66c548882568ff86d8adcb62379e5bc2d1726bd64715148dc8349e2addd7a42-0c31afd3ceea5755ef9a84139ea681978c08c1000cb4c428cf4d0184fe614b57-Screenshot_2024-09-13_at_4.15.06_PM.png)
+
+**Timeline**
+
+Once Extole has provided Q2 with all of the above information, your Q2 team will then install the integration for you within a 10 day SLA.
+
+### Step 4: Configure your Extole campaign creatives
+
+Your Extole team will configure the creative "zones" in your Extole campaign that map to the Q2 experiences (content block, widget, SSO, etc.) The zone names are what will show up in the Extole campaign editor under the `Advocate Share / Participation Rules` section and performance reporting. See the mappings below.
+
+* The `content block`experience maps to the `q2_content_block` creative zone in your campaign. See example below.
+
+  <img src="https://files.readme.io/55e7324fa863499373d2d5cc0514c630c32aae3bf2e22bfc1e964ad8bd00bd89-d244b8c3985503512aa1afb09ce5714139662d9e64f62d941a5c0813ff790758-Screenshot_2025-10-02_at_2.18.34_PM.png" alt="" />
+* The `SSO` experience maps to the` microsite_embedded` zone in your campaign. 
+* The `widget` experiences maps to the `embedded_vertical_banner` creative zone in your campaign.
+
+### Step 5: QA and go live
+
+Once the Q2 team has deployed the extension in production and you've finalized your creatives in your Extole campaign, you'll want to test to make sure extension performs flawlessly for your members. After successful QA, both you and your Extole team will approve for go live in the Q2 deployment ticket. 
+
+## Data exchanged between Extole and Q2
+
+Member data will be securely transmitted from Q2 to Extole via JWT (SSO method.) By default, Extole will collect the following data parameters in the JWT request, however If you'd like to remove any of the default data parameters, you can submit a request with to your Q2 team.
+
+| Key                            | Description                       | Example Value         |
+| :----------------------------- | :-------------------------------- | :-------------------- |
+| `user_id` required             | Unique ID for the user            | 246810                |
+| `customer_id`required          | Unique ID for the customer        | 210864                |
+| `customer_primary_cif`required | Primary CIF of the customer       | 07212010              |
+| `email`required                | User's email address              | `janedoe@example.com` |
+| `phone`                        | User's phone number               | 5125551234            |
+| `first_name`                   | User's first name                 | Jane                  |
+| `last_name`                    | User's last name                  | Doe                   |
+| `customer_name`                | Customer's name                   |                       |
+| `address_line1`                | First line of the user's address  | 1234 Example Rd       |
+| `address_line2`                | Second line of the user's address | Apt 150               |
+| `address_country`              | User's country                    | US                    |
+| `address_city`                 | User's city                       | Austin                |
+| `address_postal_code`          | User's postal code                | 94730                 |
+| `address_region`               | User's region/state               | TX                    |
