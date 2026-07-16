@@ -1,19 +1,143 @@
 ---
-title: "Extole Documentation"
-description: "Guides, product documentation, and API reference for the Extole platform."
+title: "Extole Developer Hub"
+description: "Everything your team needs to implement, customize, and scale referral and reward experiences across web, mobile, and backend systems."
+mode: "custom"
 ---
 
-<CardGroup cols={2}>
-  <Card title="Guides" icon="book-open" href="/guides">
-    How-to guides for programs, audiences, rewards, and reporting.
-  </Card>
-  <Card title="Product Docs" icon="rectangle-list" href="/product-docs">
-    Feature and product documentation.
-  </Card>
+<div className="mx-auto max-w-6xl px-4 py-10">
+
+<div className="not-prose overflow-hidden rounded-2xl bg-gradient-to-b from-[#0b0b14] to-[#1a1330] p-8 sm:p-12 ring-1 ring-white/10">
+  <div className="grid items-center gap-10 lg:grid-cols-2">
+    <div>
+      <p className="text-sm font-semibold uppercase tracking-widest text-[#A78BFA]">Developer Hub</p>
+      <h1 className="mt-3 text-4xl font-bold leading-tight text-white sm:text-5xl">Build custom reward programs using Extole.</h1>
+      <p className="mt-5 max-w-xl text-lg text-slate-300">
+        Everything your team needs to implement, customize, and scale referral and reward experiences across web, mobile, and backend systems.
+      </p>
+      <div className="mt-8 flex flex-wrap gap-3">
+        <a href="https://github.com/extole" className="inline-flex items-center gap-2 rounded-lg bg-[#7C3AED] px-5 py-3 font-semibold text-white no-underline transition hover:bg-[#6D28D9]">View GitHub Repos</a>
+        <a href="/api-reference" className="inline-flex items-center gap-2 rounded-lg border border-white/20 px-5 py-3 font-semibold text-white no-underline transition hover:bg-white/10">View API Reference</a>
+      </div>
+      <p className="mt-6 text-sm text-slate-400">
+        Want to see the platform in action? <a href="mailto:demo@extole.com" className="text-[#A78BFA] no-underline hover:underline">Request a sandbox</a>
+      </p>
+    </div>
+    <div className="lg:pl-4">
+      <CodeGroup>
+      ```html JavaScript SDK
+      <script type="text/javascript" src="https://share.brand.com/core.js" fetchpriority="high" async></script>
+
+      <span id="extole_zone_global_header"></span>
+      <script type="text/javascript">
+        extole.createZone({
+          name: "global_header",
+          element_id: "extole_zone_global_header"
+        });
+      </script>
+      ```
+
+      ```tsx React Native
+      import { Extole } from "@extole/react-native-sdk";
+
+      const extole = new Extole("share.brand.com", "your-app-name");
+
+      function ExtoleScreen({ navigation }) {
+        const [extoleView, setExtoleView] = useState(null);
+        useEffect(() => {
+          extole.configure(extoleView, setExtoleView, () => {
+            navigation.navigate("Promo");
+          });
+        }, []);
+        return <View style={{ flex: 1 }}>{extoleView}</View>;
+      }
+      ```
+
+      ```swift iOS
+      import ExtoleMobileSDK
+
+      @main
+      struct ExtoleApp: App {
+        @StateObject var extole = ExtoleImpl(programDomain: "share.brand.com")
+
+        var body: some Scene {
+          WindowGroup { NavigationView { extole.getView() } }
+        }
+      }
+
+      extole.identify("email", ["partner_user_id": "123"], { _, _ in })
+      extole.sendEvent("purchase", ["order_id": "A1001"])
+      ```
+
+      ```kotlin Android
+      implementation 'com.extole.mobile:android-sdk:1.0.+'
+
+      // Initialize once at app startup
+      Extole.init(context = context, appName = "your-app-name")
+
+      // Exchange identity + event data
+      extole.identify(email, mapOf("member_id" to "123"))
+      extole.sendEvent("purchase", mapOf("order_id" to "A1001"))
+      ```
+      </CodeGroup>
+    </div>
+  </div>
+</div>
+
+<div className="mt-16 text-center">
+  <p className="text-sm font-semibold uppercase tracking-widest text-[#7C3AED]">Choose Your Docs</p>
+  <h2 className="mt-2 text-3xl font-bold text-gray-900 dark:text-white">Find the right docs fast</h2>
+</div>
+
+<Columns cols={4}>
   <Card title="Technical Docs" icon="code" href="/technical-docs">
-    Integration, data, and technical reference.
+    Integration, SDKs, events, and platform reference.
   </Card>
   <Card title="API Reference" icon="terminal" href="/api-reference">
     Consumer, Server, and Management REST APIs.
   </Card>
-</CardGroup>
+  <Card title="Help Center" icon="circle-question" href="https://success.extole.com/en/">
+    FAQs, troubleshooting, and operational guidance.
+  </Card>
+  <Card title="Product Docs" icon="book-open" href="/product-docs">
+    Features, programs, and product documentation.
+  </Card>
+</Columns>
+
+<div className="mt-16 text-center">
+  <p className="text-sm font-semibold uppercase tracking-widest text-[#7C3AED]">Build Patterns</p>
+  <h2 className="mt-2 text-3xl font-bold text-gray-900 dark:text-white">Everything you can build with Extole</h2>
+</div>
+
+<Columns cols={2}>
+  <Card title="Stream events in and out" icon="arrow-right-arrow-left" href="/technical-docs/platform-integrations">
+    Ingest consumer and server events, then route them downstream.
+  </Card>
+  <Card title="Orchestrate journeys" icon="route" href="/guides">
+    Trigger downstream actions and fulfill rewards automatically.
+  </Card>
+  <Card title="Manage Identity and Consent" icon="shield-check" href="/technical-docs">
+    Handle privacy operations, identity, and opt-out management.
+  </Card>
+  <Card title="Build Internal Tooling" icon="wrench" href="/api-reference">
+    Power CRM, analytics, and reporting workflows via the APIs.
+  </Card>
+</Columns>
+
+<div className="mt-16 text-center">
+  <p className="text-sm font-semibold uppercase tracking-widest text-[#7C3AED]">Support</p>
+  <h2 className="mt-2 text-3xl font-bold text-gray-900 dark:text-white">Get help and track system health</h2>
+</div>
+
+<Columns cols={3}>
+  <Card title="Help Center" icon="life-ring" href="https://success.extole.com/en/">
+    FAQs, troubleshooting workflows, and operational guidance.
+  </Card>
+  <Card title="Submit a ticket" icon="ticket" href="https://dev.extole.com/docs/contact-extole-help">
+    Open a support request directly with the Extole team.
+  </Card>
+  <Card title="Status page" icon="signal" href="https://status.extole.com/">
+    Review uptime and incidents for Extole services.
+  </Card>
+</Columns>
+
+</div>

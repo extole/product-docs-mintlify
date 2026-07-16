@@ -534,6 +534,12 @@ def build_docs_json(tabs):
 
 
 def write_home(out: Path):
+    # The landing (index.mdx) is a bespoke, hand-authored page that mirrors the
+    # docs.extole.com home; it is committed and not derived from source, so
+    # preserve it across regenerations. Only write the fallback when absent.
+    dest = out / "index.mdx"
+    if dest.exists():
+        return
     home = """---
 title: "Extole Documentation"
 description: "Guides, product documentation, and API reference for the Extole platform."
@@ -554,7 +560,7 @@ description: "Guides, product documentation, and API reference for the Extole pl
   </Card>
 </CardGroup>
 """
-    (out / "index.mdx").write_text(home, encoding="utf-8")
+    dest.write_text(home, encoding="utf-8")
 
 
 if __name__ == "__main__":
