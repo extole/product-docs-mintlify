@@ -17,7 +17,6 @@ from __future__ import annotations
 import argparse
 import json
 import re
-import shutil
 from pathlib import Path
 
 try:
@@ -48,6 +47,43 @@ def slugify(name: str) -> str:
     s = name.strip().lower()
     s = re.sub(r"[^a-z0-9]+", "-", s)
     return s.strip("-") or "page"
+
+
+def add_union_titles(spec: dict) -> int:
+    """Lift discriminator mapping keys onto oneOf branches as titles.
+
+    Mintlify renders a discriminated union as a tab strip and labels each tab
+    from the branch's `title`; with none it falls back to "Option N". ReadMe
+    instead labels variants from `discriminator.mapping` keys. This copies those
+    keys onto the branches (wrapped in allOf so the title survives the OpenAPI
+    3.0 $ref-sibling rule) so Mintlify shows ADMIN_ICON / HS256 / ... instead.
+    A dropdown control for large unions is still a Mintlify feature request
+    (github.com/orgs/mintlify/discussions/1723); this is the best available.
+    """
+    schemas = (spec.get("components") or {}).get("schemas") or {}
+    titled = 0
+    for schema in schemas.values():
+        if not isinstance(schema, dict):
+            continue
+        mapping = (schema.get("discriminator") or {}).get("mapping") or {}
+        one_of = schema.get("oneOf")
+        if not mapping or not isinstance(one_of, list):
+            continue
+        key_by_ref = {ref: key for key, ref in mapping.items()}
+        rebuilt = []
+        for branch in one_of:
+            ref = branch.get("$ref") if isinstance(branch, dict) else None
+            key = key_by_ref.get(ref)
+            if not key:
+                rebuilt.append(branch)
+                continue
+            target = schemas.get(ref.rsplit("/", 1)[-1])
+            if isinstance(target, dict) and not target.get("title"):
+                target["title"] = key
+            rebuilt.append({"title": key, "allOf": [{"$ref": ref}]})
+            titled += 1
+        schema["oneOf"] = rebuilt
+    return titled
 
 
 def split_frontmatter(text: str):
@@ -473,7 +509,9 @@ def main():
         src = args.specification / "openapi" / fname
         if not src.exists():
             continue
-        shutil.copy(src, spec_out / fname)
+        spec = json.loads(src.read_text(encoding="utf-8"))
+        add_union_titles(spec)
+        (spec_out / fname).write_text(json.dumps(spec, indent=2), encoding="utf-8")
         api_groups.append({"group": label, "openapi": f"api-reference/{fname}"})
     tabs.append({"tab": "API Reference", "groups": api_groups})
 
