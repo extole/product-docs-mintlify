@@ -511,7 +511,7 @@ def main():
             continue
         spec = json.loads(src.read_text(encoding="utf-8"))
         add_union_titles(spec)
-        (spec_out / fname).write_text(json.dumps(spec), encoding="utf-8")
+        (spec_out / fname).write_text(json.dumps(spec, indent=2), encoding="utf-8")
         api_groups.append({"group": label, "openapi": f"api-reference/{fname}"})
     tabs.append({"tab": "API Reference", "groups": api_groups})
 
